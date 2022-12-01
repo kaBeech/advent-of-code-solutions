@@ -1,5 +1,7 @@
 Start Day 1
 
+====
+
 Pseudocode:
 
 - wrap inventory string into an array of strings of numbers
@@ -9,3 +11,8 @@ Pseudocode:
 - add up all numbers in each inner array and push the sums into a new array (of sums)
 
 - find the largest number in this array
+
+====
+
+
+Have to go to work - will come back
