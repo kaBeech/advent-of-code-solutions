@@ -1,4 +1,4 @@
-15560
+const CaloriesInventory = `15560
 3906
 7076
 11980
@@ -2248,4 +2248,6 @@
 3935
 3430
 5920
-3460
+3460`
+
+export default CaloriesInventory
