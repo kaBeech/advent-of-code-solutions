@@ -2,7 +2,7 @@ Start Day 1
 
 Pseudocode:
 
-- wrap inventory string into array of strings of numbers
+- wrap inventory string into an array of strings of numbers
 
 - wrap each array of strings of numbers into an array of numbers (so that now we have an array of arrays of numbers)
 
