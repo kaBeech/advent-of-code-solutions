@@ -8,7 +8,7 @@ const totalCaloriesArray = [] as Array<number>;
 
 const arrayWrapper = (rawString: string) => {
   const singleElfStringInventory = rawString.split(/\n/);
-  const singleElfIntegerInventory = [] as Array<number>
+  const singleElfIntegerInventory = [] as Array<number>;
   const convertStringToNumber = (inputString: string) => {
     singleElfIntegerInventory.push(+inputString);
   };
@@ -33,4 +33,7 @@ totalCaloriesArray.sort(function (a, b) {
   return b - a;
 });
 
-console.log(totalCaloriesArray[0]);
+const top3ElvesTotalCaloriesSum = totalCaloriesArray[0] +
+  totalCaloriesArray[1] + totalCaloriesArray[2];
+
+console.log(top3ElvesTotalCaloriesSum);
