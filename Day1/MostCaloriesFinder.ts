@@ -1,6 +1,6 @@
-const CaloriesInventory = await Deno.readTextFile("CaloriesInventory.txt");
+const caloriesInventory = await Deno.readTextFile("caloriesInventory.txt");
 
-const caloriesRawArray = CaloriesInventory.split(/\n\n/);
+const caloriesRawArray = caloriesInventory.split(/\n\n/);
 
 const caloriesArray = [] as Array<Array<number>>;
 
