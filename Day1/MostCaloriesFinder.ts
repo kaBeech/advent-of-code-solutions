@@ -1,17 +1,30 @@
+const CaloriesInventory = await Deno.readTextFile("CaloriesInventory.txt");
 
-const CaloriesInventory = await Deno.readTextFile('CaloriesInventory.txt')
+const caloriesRawArray = CaloriesInventory.split(/\n\n/);
 
-const caloriesRawArray = CaloriesInventory.split(/\n\n/)
+const caloriesArray = [] as Array<any>;
 
-const caloriesArray = [] as Array<any>
+const totalCaloriesArray = [] as Array<number>;
 
-const arrayWrapper = (rawString: String) => {
-    const singleNumber = rawString.split(/\n/);
-    caloriesArray.push(singleNumber)
-}
+
+const arrayWrapper = (rawString: string) => {
+  const singleNumber = rawString.split(/\n/);
+  caloriesArray.push(singleNumber);
+};
 
 caloriesRawArray.forEach(arrayWrapper);
 
-caloriesArray.sort(function (a, b) {return a - b})
+const getSum = (values: Array<number>) => {
+  let sum = 0;
+  const addToSum = (integer: number) => {
+    sum += integer;
+  };
+  values.forEach(addToSum);
+  totalCaloriesArray.push(sum);
+};
 
-console.log(caloriesArray)
+caloriesArray.forEach(getSum);
+
+// caloriesArray.sort(function (a, b) {return a - b})
+
+console.log(totalCaloriesArray);
