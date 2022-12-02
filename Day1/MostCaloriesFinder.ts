@@ -27,4 +27,4 @@ caloriesArray.forEach(getSum);
 
 totalCaloriesArray.sort(function (a, b) {return b - a})
 
-console.log(totalCaloriesArray);
+console.log(totalCaloriesArray[0]);
