@@ -2,14 +2,18 @@ const CaloriesInventory = await Deno.readTextFile("CaloriesInventory.txt");
 
 const caloriesRawArray = CaloriesInventory.split(/\n\n/);
 
-const caloriesArray = [] as Array<any>;
+const caloriesArray = [] as Array<Array<number>>;
 
 const totalCaloriesArray = [] as Array<number>;
 
-
 const arrayWrapper = (rawString: string) => {
-  const singleNumber = rawString.split(/\n/);
-  caloriesArray.push(singleNumber);
+  const singleElfStringInventory = rawString.split(/\n/);
+  const singleElfIntegerInventory = [] as Array<number>
+  const convertStringToNumber = (inputString: string) => {
+    singleElfIntegerInventory.push(+inputString);
+  };
+  singleElfStringInventory.forEach(convertStringToNumber);
+  caloriesArray.push(singleElfIntegerInventory);
 };
 
 caloriesRawArray.forEach(arrayWrapper);
@@ -25,6 +29,8 @@ const getSum = (values: Array<number>) => {
 
 caloriesArray.forEach(getSum);
 
-totalCaloriesArray.sort(function (a, b) {return b - a})
+totalCaloriesArray.sort(function (a, b) {
+  return b - a;
+});
 
 console.log(totalCaloriesArray[0]);
