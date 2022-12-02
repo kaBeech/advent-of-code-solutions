@@ -1,4 +1,4 @@
-const CaloriesInventory = `15560
+15560
 3906
 7076
 11980
@@ -2248,6 +2248,4 @@ const CaloriesInventory = `15560
 3935
 3430
 5920
-3460`
-
-export default CaloriesInventory
+3460
