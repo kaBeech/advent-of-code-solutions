@@ -36,4 +36,6 @@ totalCaloriesArray.sort(function (a, b) {
 const top3ElvesTotalCaloriesSum = totalCaloriesArray[0] +
   totalCaloriesArray[1] + totalCaloriesArray[2];
 
-console.log(top3ElvesTotalCaloriesSum);
+console.log("Part 1 Solution: " + totalCaloriesArray[0]);
+
+console.log("Part 2 Solution: " + top3ElvesTotalCaloriesSum);
