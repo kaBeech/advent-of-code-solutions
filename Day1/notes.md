@@ -13,6 +13,3 @@ Pseudocode:
 - find the largest number in this array
 
 ====
-
-
-Have to go to work - will come back
