@@ -25,6 +25,6 @@ const getSum = (values: Array<number>) => {
 
 caloriesArray.forEach(getSum);
 
-// caloriesArray.sort(function (a, b) {return a - b})
+totalCaloriesArray.sort(function (a, b) {return b - a})
 
 console.log(totalCaloriesArray);
