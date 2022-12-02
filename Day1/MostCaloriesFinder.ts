@@ -4,8 +4,6 @@ const caloriesRawArray = caloriesInventory.split(/\n\n/);
 
 const caloriesArray = [] as Array<Array<number>>;
 
-const totalCaloriesArray = [] as Array<number>;
-
 const arrayWrapper = (rawString: string) => {
   const singleElfStringInventory = rawString.split(/\n/);
   const singleElfIntegerInventory = [] as Array<number>;
@@ -17,6 +15,8 @@ const arrayWrapper = (rawString: string) => {
 };
 
 caloriesRawArray.forEach(arrayWrapper);
+
+const totalCaloriesArray = [] as Array<number>;
 
 const getSum = (values: Array<number>) => {
   let sum = 0;
