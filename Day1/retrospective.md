@@ -20,8 +20,8 @@ about that!
 
 ### Takeaways
 
-*Learn from each other!
-*Have fun!
+* Learn from each other!
+* Have fun!
 
 ## What I learn from difficult points?
 
@@ -45,9 +45,9 @@ to continue using Deno for the remainder of this project
 
 ### Takeaways
 
-*Keep it simple
-*Stay in the flow
-*Use Deno!
+* Keep it simple
+* Stay in the flow
+* Use Deno!
 
 ## Ideas for possible future implementaion
 
