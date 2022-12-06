@@ -38,10 +38,10 @@ I made the questionable decision of doing this project on a fresh
 computer, and let me tell ya - Deno is so much quicker and 
 simpler to set up from scratch than Node.JS! I started out using
 Node.JS because I have more experience with it and figured it would
-be easier to remember how to do anything unusual in Node.JS than
-it would be to try to figure out something I've never tried in
-Deno before. The opposite proved to be the case and I plan to 
-continue using Deno for the remainder of this project
+be quicker and easier to remember how to do anything unusual in 
+Node.JS than it would be to try to figure out something I've never 
+tried in Deno before. The opposite proved to be the case and I plan 
+to continue using Deno for the remainder of this project
 
 ### Takeaways
 
