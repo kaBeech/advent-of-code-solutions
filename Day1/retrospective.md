@@ -52,5 +52,5 @@ to continue using Deno for the remainder of this project
 ## Ideas for possible future implementaion
 
 ### Add testing
-    Decide whether or not to implement based on availability of 
-    time and complexity of tasks
+Decide whether or not to implement based on availability of 
+time and complexity of tasks
