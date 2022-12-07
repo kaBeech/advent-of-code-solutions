@@ -1,4 +1,5 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { checkForDuplicateAssignment } from "./checkForDuplicateAssignment.ts";
 import { assignmentCouple } from "./types.ts";
 
 let total = 0;
