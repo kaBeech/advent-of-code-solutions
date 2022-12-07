@@ -10,4 +10,6 @@ type integer =
   | "8"
   | "9";
 
-export type { integer };
+type twoDigitInteger = `${integer}${integer}`;
+
+export type { integer, twoDigitInteger };
