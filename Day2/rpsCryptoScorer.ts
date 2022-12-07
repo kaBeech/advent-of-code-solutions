@@ -1,4 +1,5 @@
 import { Round } from "./types.ts";
+import { scoreRPS } from "./scoreRPS.ts"
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
@@ -41,15 +42,12 @@ const subtotalScorer = (round: Round) => {
     }
 }
 
-const convertMultiLineStringToArray = async (input: string) => {
-    const inputString = await Deno.readTextFile(input);
-    return inputString.split(/\n/);
-}
-
-const scoreRPS = async (rounds: string | Round[]) => {
-    if (typeof(rounds) === "string") {
-        rounds = await convertMultiLineStringToArray(rounds) as Round[];
+const scoreCryptoRPS = async (input: string) => {
+    if (input.length < 1) {
+        input = "strategyGuide.txt"
     }
+    const inputString = await Deno.readTextFile(input);
+    const rounds = inputString.split(/\n/) as Round[];
     shapeSubtotal = 0;
     outcomeSubtotal = 0;
     total = 0;
@@ -64,4 +62,4 @@ const scoreRPS = async (rounds: string | Round[]) => {
     return total
 }
 
-export { scoreRPS }
+export { scoreCryptoRPS }
