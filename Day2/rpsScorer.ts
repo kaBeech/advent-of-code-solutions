@@ -47,6 +47,9 @@ const rpsScorer = async (input: string) => {
     }
     const inputString = await Deno.readTextFile(input);
     const rounds = inputString.split(/\n/) as Round[];
+    shapeSubtotal = 0;
+    outcomeSubtotal = 0;
+    total = 0;
     
     rounds.forEach(subtotalScorer)
     total = shapeSubtotal + outcomeSubtotal
