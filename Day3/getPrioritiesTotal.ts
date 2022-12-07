@@ -14,6 +14,10 @@ const sumPriorities = (inventory: string | string[]) => {
     targetItem = getDuplicateItem(inventory);
   } else targetItem = getBadge(inventory);
 
+  if (!prioritiesLegend.includes(targetItem)) {
+    throw `Item does not have a listed priority: ${targetItem}`;
+  }
+
   prioritiesTotal += prioritiesLegend.indexOf(targetItem);
 };
 
