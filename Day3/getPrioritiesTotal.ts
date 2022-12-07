@@ -1,5 +1,6 @@
 import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
 
+const prioritiesLegend = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let total = 0;
 
 
