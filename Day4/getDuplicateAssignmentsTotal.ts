@@ -10,8 +10,8 @@ const populateassignmentsCouples = (assignmentsString: string) => {
   return assignmentsCouples.push(assignmentsString.split(",") as assignmentCouple[]);
 };
 
-const sumDuplicateAssignments = (assignmentsCouple) => {
-  total += checkForDuplicateAssignment();
+const sumDuplicateAssignments = (assignmentsCouple: assignmentCouple) => {
+  total += checkForDuplicateAssignment(assignmentsCouple);
 };
 
 const getDuplicateAssignmentsTotal = async (assignmentsFile: string) => {
