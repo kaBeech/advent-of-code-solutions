@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { getDuplicateItem } from "./getDuplicateItem.ts";
+import { getBadge } from "./getBadge.ts";
 
 const testInput = `vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -9,20 +9,20 @@ ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw`;
 
 Deno.test("testInput returns a one-character string", () => {
-    const result = getDuplicateItem(testInput);
+    const result = getBadge(testInput);
 
     assertEquals("string", typeof(result))
     assertEquals(1, result.length)
 });
 
-Deno.test("testInput returns p", () => {
-    const result = getDuplicateItem(testInput);
+Deno.test("testInput returns r", () => {
+    const result = getBadge(testInput);
 
-    assertEquals("p", result)
+    assertEquals("r", result)
 });
 
-Deno.test("testInput2 returns L", () => {
-    const result = getDuplicateItem(testInput2);
+Deno.test("testInput2 returns Z", () => {
+    const result = getBadge(testInput2);
 
-    assertEquals("L", result)
+    assertEquals("Z", result)
 });
