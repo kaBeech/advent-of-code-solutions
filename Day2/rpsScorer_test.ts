@@ -8,7 +8,7 @@ const testInput2 = "testInput2.txt";
 Deno.test("testInput returns a number", async () => {
     const result = await rpsScorer(testInput);
 
-    assertInstanceOf(result, Number)
+    assertEquals("number", typeof(result))
 });
 
 Deno.test("testInput returns 15", async () => {
