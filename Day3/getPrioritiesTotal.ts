@@ -1,20 +1,34 @@
 import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts";
+import { convertMultiParagraphStringToArray } from "../tools/convertMultiParagraphStringToArray.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
 const prioritiesLegend =
   "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let itemMethod = "duplicate";
 let prioritiesTotal = 0;
 
 const sumPriorities = (rucksack: string) => {
-  const duplicateItem = getDuplicateItem(rucksack);
-  prioritiesTotal += prioritiesLegend.indexOf(duplicateItem);
+  let targetItem;
+  if (itemMethod === "badge") {targetItem = getBadge(rucksack);}
+  else {targetItem = getDuplicateItem(rucksack);}
+
+  prioritiesTotal += prioritiesLegend.indexOf(targetItem);
 };
 
 const getPrioritiesTotal = async (rucksacks: string | string[]) => {
-  if (typeof (rucksacks) === "string") {
-    rucksacks = await convertMultiLineStringToArray(rucksacks) as string[];
-  }
+  itemMethod = "duplicate";
   prioritiesTotal = 0;
+
+  if (typeof (rucksacks) === "string") {
+    if (rucksacks.includes("\n\n")) {
+      itemMethod = "badge";
+      rucksacks = await convertMultiLineStringToArray(rucksacks);
+      rucksacks.forEach(convertMultiParagraphStringToArray);
+    } else {
+      rucksacks = await convertMultiLineStringToArray(rucksacks);
+    }
+  }
+
 
   rucksacks.forEach(sumPriorities);
 
