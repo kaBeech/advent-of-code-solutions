@@ -2,22 +2,22 @@ import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 
 let total = 0;
 
-const assignmentsCoupleArray = [] as string[][]
+const assignmentsCouples = [] as string[][]
 
-const populateAssignmentsCoupleArray = (assignmentsString: string) => {
+const populateassignmentsCouples = (assignmentsString: string) => {
   if (assignmentsString.length < 1) return
-  return assignmentsCoupleArray.push(assignmentsString.split(","));
+  return assignmentsCouples.push(assignmentsString.split(","));
 }
 
 const getDuplicateAssignmentsTotal = async (assignmentsFile: string) => {
   total = 0;
-  assignmentsCoupleArray.splice(0, assignmentsCoupleArray.length)
+  assignmentsCouples.splice(0, assignmentsCouples.length)
 
-  const assigmentsStringArray = await convertMultiLineFileToArray(
+  const assignmentsStrings = await convertMultiLineFileToArray(
     assignmentsFile,
   ) as string[];
 
-  assigmentsStringArray.forEach(populateAssignmentsCoupleArray);
+  assignmentsStrings.forEach(populateassignmentsCouples);
 
   return total;
 };
