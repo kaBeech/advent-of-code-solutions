@@ -1,4 +1,4 @@
-## What went well during the sprint?
+# What went well during the sprint?
 
 ### People are interested and having fun!
 
@@ -18,12 +18,12 @@ a way that seems on par with my companions, even those who have been
 coding professionally for a decade longer than me. So I feel good 
 about that!
 
-### Takeaways
+## Takeaways
 
 * Learn from each other!
 * Have fun!
 
-## What I learn from difficult points?
+# What I learn from difficult points?
 
 ### Keep it simple (at the start)
 
@@ -43,13 +43,13 @@ Node.JS than it would be to try to figure out something I've never
 tried in Deno before. The opposite proved to be the case and I plan 
 to continue using Deno for the remainder of this project
 
-### Takeaways
+## Takeaways
 
 * Keep it simple
 * Stay in the flow
 * Use Deno!
 
-## Ideas for possible future implementaion
+# Ideas for possible future implementaion
 
 ### Add testing
 Decide whether or not to implement based on availability of 
