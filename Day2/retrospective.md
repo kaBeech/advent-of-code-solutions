@@ -2,7 +2,7 @@
 
 ### Writing good code
 
-In defiance of the takeapays from my last retrospective I took the 
+In defiance of the takeaways from my last retrospective I took the 
 time to do things 'the right way' this time, and I feel good about 
 that! It took more time, but I had the time today and it feels 
 better writing code closer to how I'd do it in 'the real world' 
@@ -21,8 +21,8 @@ exorbitant amount of time and energy to do so. This was made easier
 by adding proper typing as most issues would throw a Type Error
 and get caught by TypeScript automatically
 
-Having testing written helped keep nme focused while coding as I 
-had a clearer map to guide my progres. It also made debugging easier
+Having testing written helped keep me focused while coding as I 
+had a clearer map to guide my progress. It also made debugging easier
 
 ### Using Modules
 
@@ -46,20 +46,19 @@ excpect may come in handy later
 
 ### Be careful with Git
 
-Somehow I when merging my branches after completing Part 2 I 
+Somehow when merging my branches after completing Part 2 I 
 reverted my repo on GitHub to the point before starting Part 2. 
-Thankfully Iwas able to easily recover the data from my local Git. 
+Thankfully I was able to easily recover the data from my local Git. 
 But it's a good reminder to be careful with Git and do most Git 
 operations locally. I wonder if it would be a good idea to 
 submit PR's, merge, and delete branches locally instead of on GitHub?
 
 ### Think about streamlining retrospectives
 
-I too a while to write up this retrospective. I'm glad I did because 
+I took a while to write up this retrospective. I'm glad I did because 
 I had some good thoughts and it's still early on (i.e. I'm still 
-laying foundations for this project). For future retrospectives 
-I may make it a goal to streamline them for better time and energy 
-usage
+laying foundations for this project). I may make it a goal to 
+streamline future retrospectives for improved time and energy usage
 
 ## Takeaways
 
