@@ -7,7 +7,7 @@ jump in and do this with me, but we actually have a fun little group
 going through this together and comparing notes! I feel silly 
 because I helped get so many people excited about it and I'm so far 
 behind now. I want to catch up so I can comare with everyone's 
-answers! hopfully the rest of the month will be more conducive to 
+answers! Hopfully the rest of the month will be more conducive to 
 coding for me =)
 
 ### Most things!
