@@ -42,7 +42,6 @@ const scoreRound = (round: Round) => {
                 score[1] = 3;
             }
     }
-    console.log(score);
     return score
 }
 
