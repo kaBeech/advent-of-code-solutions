@@ -3,11 +3,11 @@ import { assignmentCouple } from "./types.ts";
 
 let total = 0;
 
-const assignmentsCouples = [] as assignmentCouple[][];
+const assignmentsCouples = [] as assignmentCouple[];
 
 const populateassignmentsCouples = (assignmentsString: string) => {
   if (assignmentsString.length < 1) return;
-  return assignmentsCouples.push(assignmentsString.split(",") as assignmentCouple[]);
+  return assignmentsCouples.push(assignmentsString.split(",") as assignmentCouple);
 };
 
 const sumDuplicateAssignments = (assignmentsCouple: assignmentCouple) => {

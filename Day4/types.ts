@@ -1,6 +1,7 @@
 import { integer, twoDigitInteger } from "../tools/commonTypes.ts";
 
-type assignmentCouple = `${integer | twoDigitInteger}-${integer | twoDigitInteger}`;
+type assignment = `${integer | twoDigitInteger}-${integer | twoDigitInteger}`;
 
+type assignmentCouple = assignment[]
 
-export type { assignmentCouple };
+export type { assignment, assignmentCouple };
