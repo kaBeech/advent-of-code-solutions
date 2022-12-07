@@ -3,30 +3,21 @@ import { Round } from "./types";
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
 
-const shapeScorer = (round: Round) => {
+const subtotalScorer = (round: Round) => {
     switch(round[0]) {
         case "A":
-            return shapeSubtotal += 1;
+            shapeSubtotal += 1;
+            switch(round[2]) {
+            case "X":
+                return outcomeSubtotal += 3;
+            case "Y":
+                return outcomeSubtotal += 0;
+            case "Z":
+                return outcomeSubtotal += 6;
+            }
+            break;
         case "B":
-            return shapeSubtotal += 2;
-        case "C":
-            return shapeSubtotal += 3;
-    }
-}
-
-const outcomeScorer = (round: Round) => {
-    switch(round[0]) {
-        case "A":
-             switch(round[2]) {
-                case "X":
-                    return outcomeSubtotal += 3;
-                case "Y":
-                    return outcomeSubtotal += 0;
-                case "Z":
-                    return outcomeSubtotal += 6;
-             }
-             break;
-        case "B":
+            shapeSubtotal += 2;
             switch(round[2]) {
                 case "X":
                     return outcomeSubtotal += 6;
@@ -37,6 +28,7 @@ const outcomeScorer = (round: Round) => {
             }
             break;
         case "C":
+            shapeSubtotal += 3;
             switch(round[2]) {
                 case "X":
                     return outcomeSubtotal += 0;
