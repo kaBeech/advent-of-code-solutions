@@ -8,41 +8,41 @@ let total = 0;
 const subtotalScorer = (round: Round) => {
     switch(round[2]) {
         case "X":
-            outcomeSubtotal += 0;
+            shapeSubtotal += 1;
             switch(round[0]) {
             case "A":
-                return shapeSubtotal += 3;
+                return outcomeSubtotal += 3;
             case "B":
-                return shapeSubtotal += 1;
+                return outcomeSubtotal += 0;
             case "C":
-                return shapeSubtotal += 2;
+                return outcomeSubtotal += 6;
             }
             break;
         case "Y":
-            outcomeSubtotal += 3;
+            shapeSubtotal += 2;
             switch(round[0]) {
                 case "A":
-                    return shapeSubtotal += 1;
+                    return outcomeSubtotal += 6;
                 case "B":
-                    return shapeSubtotal += 2;
+                    return outcomeSubtotal += 3;
                 case "C":
-                    return shapeSubtotal += 3;
+                    return outcomeSubtotal += 0;
             }
             break;
         case "Z":
-            outcomeSubtotal += 6;
+            shapeSubtotal += 3;
             switch(round[0]) {
                 case "A":
-                    return shapeSubtotal += 2;
+                    return outcomeSubtotal += 0;
                 case "B":
-                    return shapeSubtotal += 3;
+                    return outcomeSubtotal += 6;
                 case "C":
-                    return shapeSubtotal += 1;
+                    return outcomeSubtotal += 3;
             }
     }
 }
 
-const scoreCryptoRPS = async (rounds: string | Round[]) => {
+const scoreRPS = async (rounds: string | Round[]) => {
     if (typeof(rounds) === "string") {
         rounds = await convertMultiLineStringToArray(rounds) as Round[];
     }
@@ -56,8 +56,8 @@ const scoreCryptoRPS = async (rounds: string | Round[]) => {
     console.log(`Shape Subtotal: ${shapeSubtotal}`)
     console.log(`Outcome Subtotal: ${outcomeSubtotal}`)
     console.log(`Total: ${total}`)
-
+    
     return total
 }
 
-export { scoreCryptoRPS }
+export { scoreRPS }

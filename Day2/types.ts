@@ -8,10 +8,15 @@ type OpposingSelection =
 | "B"
 | "C";
 
-type Round = `${PlayerSelection} ${OpposingSelection}`;
+type Round = `${OpposingSelection} ${PlayerSelection}`;
+
+type ScoringMethod =
+| "simple"
+| "crypto";
 
 export type {
     PlayerSelection,
     OpposingSelection,
     Round,
+    ScoringMethod,
   };
