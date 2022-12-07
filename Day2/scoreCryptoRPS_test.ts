@@ -11,14 +11,14 @@ Deno.test("testInput returns a number", async () => {
     assertEquals("number", typeof(result))
 });
 
-Deno.test("testInput returns 15", async () => {
+Deno.test("testInput returns 12", async () => {
     const result = await scoreCryptoRPS(testInput);
 
-    assertEquals(15, result)
+    assertEquals(12, result)
 });
 
-Deno.test("testInput2 returns 9", async () => {
+Deno.test("testInput2 returns 14", async () => {
     const result2 = await scoreCryptoRPS(testInput2);
 
-    assertEquals(9, result2)
+    assertEquals(14, result2)
 });
