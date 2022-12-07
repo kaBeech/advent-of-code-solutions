@@ -1,4 +1,5 @@
 import { Round } from "./types.ts";
+import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
@@ -39,11 +40,6 @@ const subtotalScorer = (round: Round) => {
                     return outcomeSubtotal += 3;
             }
     }
-}
-
-const convertMultiLineStringToArray = async (input: string) => {
-    const inputString = await Deno.readTextFile(input);
-    return inputString.split(/\n/);
 }
 
 const scoreRPS = async (rounds: string | Round[]) => {
