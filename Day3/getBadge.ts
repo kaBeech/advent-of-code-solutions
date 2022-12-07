@@ -8,7 +8,7 @@ const getBadge = (rucksacks: string[]) => {
     i++;
   }
   if (rucksacks[0].length === 0) return "_";
-  throw `No duplicate item found in ${rucksacks}!`;
+  throw `No badge item found in ${rucksacks}!`;
 };
 
 export { getBadge };
