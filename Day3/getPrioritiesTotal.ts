@@ -1,20 +1,43 @@
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts";
+import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { getBadge } from "./getBadge.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
 const prioritiesLegend =
   "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let itemMethod = "duplicate";
 let prioritiesTotal = 0;
 
-const sumPriorities = (rucksack: string) => {
-  const duplicateItem = getDuplicateItem(rucksack);
-  prioritiesTotal += prioritiesLegend.indexOf(duplicateItem);
+const sumPriorities = (inventory: string | string[]) => {
+  let targetItem;
+
+  if (typeof (inventory) === "string") {
+    targetItem = getDuplicateItem(inventory);
+  } else targetItem = getBadge(inventory);
+
+  prioritiesTotal += prioritiesLegend.indexOf(targetItem);
 };
 
-const getPrioritiesTotal = async (rucksacks: string | string[]) => {
-  if (typeof (rucksacks) === "string") {
-    rucksacks = await convertMultiLineStringToArray(rucksacks) as string[];
-  }
+const getPrioritiesTotal = async (
+  rucksacksFile: string,
+  method: "badge" | "duplicate",
+) => {
+  itemMethod = method;
   prioritiesTotal = 0;
+  let rucksacks = [];
+  const rucksacksRaw = await convertMultiLineFileToArray(rucksacksFile);
+
+  if (itemMethod === "badge") {
+    let rucksackGroup = [] as string[];
+    for (let i = 0; i < rucksacksRaw.length; i++) {
+      rucksackGroup.push(rucksacksRaw[i]);
+      if ((i + 1) % 3 === 0) {
+        rucksacks.push(rucksackGroup);
+        rucksackGroup = [];
+      }
+    }
+  } else {
+    rucksacks = rucksacksRaw;
+  }
 
   rucksacks.forEach(sumPriorities);
 
