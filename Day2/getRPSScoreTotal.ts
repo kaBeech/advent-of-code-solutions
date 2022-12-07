@@ -19,7 +19,7 @@ const sumRoundScores = (round: Round) => {
     outcomeSubtotal += result[1];
 }
 
-const getTotalRPSScore = async (rounds: string | Round[], method: ScoringMethod) => {
+const getRPSScoreTotal = async (rounds: string | Round[], method: ScoringMethod) => {
     if (typeof(rounds) === "string") {
         rounds = await convertMultiLineStringToArray(rounds) as Round[];
     }
@@ -38,4 +38,4 @@ const getTotalRPSScore = async (rounds: string | Round[], method: ScoringMethod)
     return total
 }
 
-export { getTotalRPSScore }
+export { getRPSScoreTotal }
