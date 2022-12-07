@@ -1,5 +1,5 @@
 const convertMultiParagraphStringToArray = (inputString: string) => {
-    return inputString.split(/\n\n/);
-}
+  return inputString.split(/\n\n/);
+};
 
-export { convertMultiParagraphStringToArray } 
+export { convertMultiParagraphStringToArray };

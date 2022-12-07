@@ -4,13 +4,13 @@ import { boilerplateFunction } from "./boilerplateModule.ts";
 const testInput = "testInput.txt";
 
 Deno.test("testInput returns a number", async () => {
-    const result = await boilerplateFunction(testInput);
+  const result = await boilerplateFunction(testInput);
 
-    assertEquals("number", typeof(result))
+  assertEquals("number", typeof (result));
 });
 
 Deno.test("testInput returns 0", async () => {
-    const result = await boilerplateFunction(testInput);
+  const result = await boilerplateFunction(testInput);
 
-    assertEquals(0, result)
+  assertEquals(0, result);
 });

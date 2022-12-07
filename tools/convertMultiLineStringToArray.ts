@@ -1,5 +1,5 @@
 const convertMultiLineStringToArray = (inputString: string) => {
-    return inputString.split(/\n/);
-}
+  return inputString.split(/\n/);
+};
 
-export { convertMultiLineStringToArray } 
+export { convertMultiLineStringToArray };

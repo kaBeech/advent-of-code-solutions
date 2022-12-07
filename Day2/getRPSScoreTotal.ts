@@ -1,41 +1,44 @@
 import { Round, ScoringMethod } from "./types.ts";
 import { scoreRound } from "./scoreRound.ts";
 import { scoreRoundCrypto } from "./scoreRoundCrypto.ts";
-import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts"
+import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts";
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
 let total = 0;
-let scoringMethod = "simple"
+let scoringMethod = "simple";
 
 const sumRoundScores = (round: Round) => {
-    let result;
-    if (scoringMethod === "crypto") {
-        result = scoreRoundCrypto(round)
-    } else {
-        result = scoreRound(round)       
-    }
-    shapeSubtotal += result[0];
-    outcomeSubtotal += result[1];
-}
+  let result;
+  if (scoringMethod === "crypto") {
+    result = scoreRoundCrypto(round);
+  } else {
+    result = scoreRound(round);
+  }
+  shapeSubtotal += result[0];
+  outcomeSubtotal += result[1];
+};
 
-const getRPSScoreTotal = async (rounds: string | Round[], method: ScoringMethod) => {
-    if (typeof(rounds) === "string") {
-        rounds = await convertMultiLineFileToArray(rounds) as Round[];
-    }
-    shapeSubtotal = 0;
-    outcomeSubtotal = 0;
-    total = 0;
-    scoringMethod = method
-    
-    rounds.forEach(sumRoundScores)
-    total = shapeSubtotal + outcomeSubtotal
+const getRPSScoreTotal = async (
+  rounds: string | Round[],
+  method: ScoringMethod,
+) => {
+  if (typeof (rounds) === "string") {
+    rounds = await convertMultiLineFileToArray(rounds) as Round[];
+  }
+  shapeSubtotal = 0;
+  outcomeSubtotal = 0;
+  total = 0;
+  scoringMethod = method;
 
-    console.log(`Shape Subtotal: ${shapeSubtotal}`)
-    console.log(`Outcome Subtotal: ${outcomeSubtotal}`)
-    console.log(`Total: ${total}`)
+  rounds.forEach(sumRoundScores);
+  total = shapeSubtotal + outcomeSubtotal;
 
-    return total
-}
+  console.log(`Shape Subtotal: ${shapeSubtotal}`);
+  console.log(`Outcome Subtotal: ${outcomeSubtotal}`);
+  console.log(`Total: ${total}`);
 
-export { getRPSScoreTotal }
+  return total;
+};
+
+export { getRPSScoreTotal };

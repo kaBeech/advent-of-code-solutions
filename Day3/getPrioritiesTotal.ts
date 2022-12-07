@@ -1,5 +1,4 @@
 import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts";
-import { convertMultiParagraphStringToArray } from "../tools/convertMultiParagraphStringToArray.ts";
 import { getBadge } from "./getBadge.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
@@ -26,7 +25,7 @@ const getPrioritiesTotal = async (
   prioritiesTotal = 0;
   let rucksacks = [];
   const rucksacksRaw = await convertMultiLineFileToArray(rucksacksFile);
-  
+
   if (itemMethod === "badge") {
     let rucksackGroup = [] as string[];
     for (let i = 0; i < rucksacksRaw.length; i++) {

@@ -4,19 +4,14 @@ type PlayerSelection =
   | "Z";
 
 type OpposingSelection =
-| "A"
-| "B"
-| "C";
+  | "A"
+  | "B"
+  | "C";
 
 type Round = `${OpposingSelection} ${PlayerSelection}`;
 
 type ScoringMethod =
-| "simple"
-| "crypto";
+  | "simple"
+  | "crypto";
 
-export type {
-    PlayerSelection,
-    OpposingSelection,
-    Round,
-    ScoringMethod,
-  };
+export type { OpposingSelection, PlayerSelection, Round, ScoringMethod };
