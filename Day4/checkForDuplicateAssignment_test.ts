@@ -29,8 +29,6 @@ Deno.test("duplicate returns 1", () => {
 });
 
 Deno.test("testInputTooShort throws proper error", () => {
-  checkForDuplicateAssignment(testInputTooShort);
-
   assertThrows(
     () => {
       checkForDuplicateAssignment(testInputTooShort);
@@ -41,8 +39,6 @@ Deno.test("testInputTooShort throws proper error", () => {
 });
 
 Deno.test("testInputTooLong throws proper error", () => {
-  checkForDuplicateAssignment(testInputTooLong);
-
   assertThrows(
     () => {
       checkForDuplicateAssignment(testInputTooLong);
