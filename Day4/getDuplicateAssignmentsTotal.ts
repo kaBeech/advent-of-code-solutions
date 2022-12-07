@@ -1,12 +1,13 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { assignmentCouple } from "./types.ts";
 
 let total = 0;
 
-const assignmentsCouples = [] as string[][];
+const assignmentsCouples = [] as assignmentCouple[][];
 
 const populateassignmentsCouples = (assignmentsString: string) => {
   if (assignmentsString.length < 1) return;
-  return assignmentsCouples.push(assignmentsString.split(","));
+  return assignmentsCouples.push(assignmentsString.split(",") as assignmentCouple[]);
 };
 
 const sumDuplicateAssignments = (assignmentsCouple) => {
