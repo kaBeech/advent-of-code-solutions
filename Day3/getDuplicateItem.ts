@@ -5,7 +5,8 @@ const getDuplicateItem = (rucksack: string) => {
     if (secondPocket.includes(rucksack[i])) return rucksack[i];
     i++;
   }
-  throw `No duplicate item found!`;
+  if (rucksack.length === 0) return "_";
+  throw `No duplicate item found in ${rucksack}!`;
 };
 
 export { getDuplicateItem };

@@ -1,17 +1,24 @@
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
+import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts";
+import { getDuplicateItem } from "./getDuplicateItem.ts";
 
-const prioritiesLegend = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-let total = 0;
+const prioritiesLegend =
+  "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let prioritiesTotal = 0;
 
+const sumPriorities = (rucksack: string) => {
+  const duplicateItem = getDuplicateItem(rucksack);
+  prioritiesTotal += prioritiesLegend.indexOf(duplicateItem);
+};
 
-const getPrioritiesTotal = async (input: any) => {
-    if (typeof(input) === "string") {
-        input = await convertMultiLineStringToArray(input) as any[];
-    }
+const getPrioritiesTotal = async (rucksacks: string | string[]) => {
+  if (typeof (rucksacks) === "string") {
+    rucksacks = await convertMultiLineStringToArray(rucksacks) as string[];
+  }
+  prioritiesTotal = 0;
 
-    total = 0;
+  rucksacks.forEach(sumPriorities);
 
-    return total
-}
+  return prioritiesTotal;
+};
 
-export { getPrioritiesTotal }
+export { getPrioritiesTotal };

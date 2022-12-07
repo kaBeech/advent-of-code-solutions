@@ -16,8 +16,8 @@ Deno.test("testInput returns 157", async () => {
     assertEquals(157, result)
 });
 
-Deno.test("testInput returns 239", async () => {
-    const result = await getPrioritiesTotal(testInput);
+Deno.test("testInput2 returns 239", async () => {
+    const result = await getPrioritiesTotal(testInput2);
 
     assertEquals(239, result)
 });
