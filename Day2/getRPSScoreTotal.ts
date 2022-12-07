@@ -1,7 +1,7 @@
 import { Round, ScoringMethod } from "./types.ts";
 import { scoreRound } from "./scoreRound.ts";
 import { scoreRoundCrypto } from "./scoreRoundCrypto.ts";
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
+import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts"
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
@@ -21,7 +21,7 @@ const sumRoundScores = (round: Round) => {
 
 const getRPSScoreTotal = async (rounds: string | Round[], method: ScoringMethod) => {
     if (typeof(rounds) === "string") {
-        rounds = await convertMultiLineStringToArray(rounds) as Round[];
+        rounds = await convertMultiLineFileToArray(rounds) as Round[];
     }
     shapeSubtotal = 0;
     outcomeSubtotal = 0;

@@ -1,5 +1,4 @@
-const convertMultiParagraphStringToArray = async (input: string) => {
-    const inputString = await Deno.readTextFile(input);
+const convertMultiParagraphStringToArray = (inputString: string) => {
     return inputString.split(/\n\n/);
 }
 

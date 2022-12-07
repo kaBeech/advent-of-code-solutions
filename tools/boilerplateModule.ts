@@ -1,11 +1,11 @@
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
+import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts"
 
 let total = 0;
 
 
 const boilerplateFunction = async (input: any) => {
     if (typeof(input) === "string") {
-        input = await convertMultiLineStringToArray(input) as any[];
+        input = await convertMultiLineFileToArray(input) as any[];
     }
 
     total = 0;

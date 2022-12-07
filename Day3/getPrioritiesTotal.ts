@@ -1,5 +1,6 @@
 import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts";
 import { convertMultiParagraphStringToArray } from "../tools/convertMultiParagraphStringToArray.ts";
+import { getBadge } from "./getBadge.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
 const prioritiesLegend =
@@ -7,28 +8,29 @@ const prioritiesLegend =
 let itemMethod = "duplicate";
 let prioritiesTotal = 0;
 
-const sumPriorities = (rucksack: string) => {
+const sumPriorities = (inventoryString: string) => {
   let targetItem;
-  if (itemMethod === "badge") {targetItem = getDuplicateItem(rucksack);}
-  else {targetItem = getDuplicateItem(rucksack);}
+  if (itemMethod === "badge") {
+    const inventory = convertMultiLineStringToArray(inventoryString);
+    targetItem = getBadge(inventory)}
+  else targetItem = getDuplicateItem(inventoryString);
+  console.log(targetItem);
 
   prioritiesTotal += prioritiesLegend.indexOf(targetItem);
 };
 
-const getPrioritiesTotal = async (rucksacks: string | string[]) => {
+const getPrioritiesTotal = async (rucksacksFile: string) => {
   itemMethod = "duplicate";
   prioritiesTotal = 0;
+  let rucksacks = [] as string[];
 
-  if (typeof (rucksacks) === "string") {
-    if (rucksacks.includes("\n\n")) {
-      itemMethod = "badge";
-      rucksacks = await convertMultiLineStringToArray(rucksacks);
-      rucksacks.forEach(convertMultiParagraphStringToArray);
-    } else {
-      rucksacks = await convertMultiLineStringToArray(rucksacks);
-    }
+  const rucksacksString = await Deno.readTextFile(rucksacksFile);
+  if (rucksacksString.includes("\n\n")) {
+    itemMethod = "badge";
+    rucksacks = convertMultiParagraphStringToArray(rucksacksString);
+  } else {
+    rucksacks = convertMultiLineStringToArray(rucksacksString);
   }
-
 
   rucksacks.forEach(sumPriorities);
 

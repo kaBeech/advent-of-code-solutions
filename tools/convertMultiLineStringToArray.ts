@@ -1,5 +1,4 @@
-const convertMultiLineStringToArray = async (input: string) => {
-    const inputString = await Deno.readTextFile(input);
+const convertMultiLineStringToArray = (inputString: string) => {
     return inputString.split(/\n/);
 }
 
