@@ -9,7 +9,7 @@ let prioritiesTotal = 0;
 
 const sumPriorities = (rucksack: string) => {
   let targetItem;
-  if (itemMethod === "badge") {targetItem = getBadge(rucksack);}
+  if (itemMethod === "badge") {targetItem = getDuplicateItem(rucksack);}
   else {targetItem = getDuplicateItem(rucksack);}
 
   prioritiesTotal += prioritiesLegend.indexOf(targetItem);

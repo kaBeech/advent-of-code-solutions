@@ -1,12 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
-const testInput = `vJrwpWtwJgWrhcsFMMfFFhFp
-jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-PmmdzqPrVvPwwTWBwg`;
-const testInput2 = `wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw`;
+const testInput = "vJrwpWtwJgWrhcsFMMfFFhFp";
+const testInput2 = "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL";
 
 Deno.test("testInput returns a one-character string", () => {
     const result = getDuplicateItem(testInput);
