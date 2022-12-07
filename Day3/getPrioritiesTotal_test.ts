@@ -3,6 +3,8 @@ import { getPrioritiesTotal } from "./getPrioritiesTotal.ts";
 
 const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
+const testInputPart2 = "testInputPart2.txt";
+
 
 Deno.test("testInput returns a number", async () => {
     const result = await getPrioritiesTotal(testInput);
@@ -20,4 +22,10 @@ Deno.test("testInput2 returns 239", async () => {
     const result = await getPrioritiesTotal(testInput2);
 
     assertEquals(239, result)
+});
+
+Deno.test("testInputPart2 returns 70", async () => {
+    const result = await getPrioritiesTotal(testInputPart2);
+
+    assertEquals(70, result)
 });
