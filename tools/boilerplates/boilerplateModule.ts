@@ -1,4 +1,4 @@
-import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { convertMultiLineFileToArray } from "../../tools/conversionFunctions.ts";
 
 let total = 0;
 
