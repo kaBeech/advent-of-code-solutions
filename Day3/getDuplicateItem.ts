@@ -1,16 +1,11 @@
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
+const getDuplicateItem = (rucksack: string) => {
+  const secondPocket = rucksack.slice(rucksack.length / 2);
+  let i = 0;
+  while (i < rucksack.length) {
+    if (secondPocket.includes(rucksack[i])) return rucksack[i];
+    i++;
+  }
+  throw `No duplicate item found!`;
+};
 
-let duplicateItem = "A";
-
-
-const getDuplicateItem = async (input: any) => {
-    if (typeof(input) === "string") {
-        input = await convertMultiLineStringToArray(input) as any[];
-    }
-
-    duplicateItem = "A";
-
-    return duplicateItem
-}
-
-export { getDuplicateItem }
+export { getDuplicateItem };
