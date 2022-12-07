@@ -1,4 +1,4 @@
-import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts";
+import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts";
 import { convertMultiParagraphStringToArray } from "../tools/convertMultiParagraphStringToArray.ts";
 import { getBadge } from "./getBadge.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
@@ -8,28 +8,36 @@ const prioritiesLegend =
 let itemMethod = "duplicate";
 let prioritiesTotal = 0;
 
-const sumPriorities = (inventoryString: string) => {
+const sumPriorities = (inventory: string | string[]) => {
   let targetItem;
-  if (itemMethod === "badge") {
-    const inventory = convertMultiLineStringToArray(inventoryString);
-    targetItem = getBadge(inventory)}
-  else targetItem = getDuplicateItem(inventoryString);
-  console.log(targetItem);
+
+  if (typeof (inventory) === "string") {
+    targetItem = getDuplicateItem(inventory);
+  } else targetItem = getBadge(inventory);
 
   prioritiesTotal += prioritiesLegend.indexOf(targetItem);
 };
 
-const getPrioritiesTotal = async (rucksacksFile: string) => {
-  itemMethod = "duplicate";
+const getPrioritiesTotal = async (
+  rucksacksFile: string,
+  method: "badge" | "duplicate",
+) => {
+  itemMethod = method;
   prioritiesTotal = 0;
-  let rucksacks = [] as string[];
-
-  const rucksacksString = await Deno.readTextFile(rucksacksFile);
-  if (rucksacksString.includes("\n\n")) {
-    itemMethod = "badge";
-    rucksacks = convertMultiParagraphStringToArray(rucksacksString);
+  let rucksacks = [];
+  const rucksacksRaw = await convertMultiLineFileToArray(rucksacksFile);
+  
+  if (itemMethod === "badge") {
+    let rucksackGroup = [] as string[];
+    for (let i = 0; i < rucksacksRaw.length; i++) {
+      rucksackGroup.push(rucksacksRaw[i]);
+      if ((i + 1) % 3 === 0) {
+        rucksacks.push(rucksackGroup);
+        rucksackGroup = [];
+      }
+    }
   } else {
-    rucksacks = convertMultiLineStringToArray(rucksacksString);
+    rucksacks = rucksacksRaw;
   }
 
   rucksacks.forEach(sumPriorities);
