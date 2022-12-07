@@ -9,7 +9,7 @@ it felt good to add some in, at least for the practice
 ### Using previous Days' work as models
 
 This sped up development. I added a boilerplates folder to the tools 
-folder for easy acces in the future
+folder for easy access in the future
 
 ## Takeaways
 
@@ -20,9 +20,10 @@ folder for easy acces in the future
 # What I learn from difficult points?
 
 ### Read the question carefully and verify input formats!
+
 I misread Part 2 to say that it was going to provide me with a new 
 input which had empty lines between each group of three rucksacks. 
-Becuse of that I spent quite a bit of time refactoring to take two 
+Because of that I spent quite a bit of time refactoring to take two 
 input formats, choose a method based on the format, and then process 
 the input appropriately. I could save myself some time in the future 
 by reading carefully and verifying the format of provided materials
