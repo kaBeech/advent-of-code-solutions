@@ -30,7 +30,7 @@ about that!
 I started out making a module for each function and linking them up, 
 but this proved more complicated than it was seeminlgly worth. We 
 can always refactor later. A goal for this project is to stay in the
-flow and solve the puzzles quickly
+flow and solve the puzzles directly
 
 ### Just use Deno!
 
