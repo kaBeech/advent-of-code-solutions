@@ -2,7 +2,7 @@ import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 
 let total = 0;
 
-const boilerplateFunction = async (input: any) => {
+const getDuplicateAssignmentsTotal = async (input: any) => {
   if (typeof (input) === "string") {
     input = await convertMultiLineFileToArray(input) as any[];
   }
@@ -12,4 +12,4 @@ const boilerplateFunction = async (input: any) => {
   return total;
 };
 
-export { boilerplateFunction };
+export { getDuplicateAssignmentsTotal };
