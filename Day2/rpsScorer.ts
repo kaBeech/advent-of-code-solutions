@@ -1,6 +1,10 @@
-const rpsScorer = (input: any) => {
+const rpsScorer = async (input: string) => {
     console.log("Hello World!")
-    return console.log(input.length)
+
+    const testInput = await Deno.readTextFile(input);
+
+
+    return testInput.length
 }
 
 export { rpsScorer }
