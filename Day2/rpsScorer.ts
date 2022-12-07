@@ -5,37 +5,37 @@ let outcomeSubtotal = 0;
 let total = 0;
 
 const subtotalScorer = (round: Round) => {
-    switch(round[0]) {
-        case "A":
+    switch(round[2]) {
+        case "X":
             shapeSubtotal += 1;
-            switch(round[2]) {
-            case "X":
+            switch(round[0]) {
+            case "A":
                 return outcomeSubtotal += 3;
-            case "Y":
+            case "B":
                 return outcomeSubtotal += 0;
-            case "Z":
+            case "C":
                 return outcomeSubtotal += 6;
             }
             break;
-        case "B":
+        case "Y":
             shapeSubtotal += 2;
-            switch(round[2]) {
-                case "X":
+            switch(round[0]) {
+                case "A":
                     return outcomeSubtotal += 6;
-                case "Y":
+                case "B":
                     return outcomeSubtotal += 3;
-                case "Z":
+                case "C":
                     return outcomeSubtotal += 0;
             }
             break;
-        case "C":
+        case "Z":
             shapeSubtotal += 3;
-            switch(round[2]) {
-                case "X":
+            switch(round[0]) {
+                case "A":
                     return outcomeSubtotal += 0;
-                case "Y":
+                case "B":
                     return outcomeSubtotal += 6;
-                case "Z":
+                case "C":
                     return outcomeSubtotal += 3;
             }
     }

@@ -17,8 +17,8 @@ Deno.test("testInput returns 15", async () => {
     assertEquals(15, result)
 });
 
-Deno.test("testInput2 returns 45", async () => {
+Deno.test("testInput2 returns 20", async () => {
     const result2 = await rpsScorer(testInput2);
 
-    assertEquals(45, result2)
+    assertEquals(20, result2)
 });
