@@ -2,6 +2,7 @@ import { Round } from "./types";
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
+let total = 0;
 
 const subtotalScorer = (round: Round) => {
     switch(round[0]) {
@@ -44,10 +45,14 @@ const rpsScorer = async (input: string) => {
     const inputString = await Deno.readTextFile(input);
     const rounds = inputString.split(/\n/);
     
-    rounds.forEach(shapeScorer)
-    rounds.forEach(outcomeScorer)
+    rounds.forEach(subtotalScorer)
+    total = shapeSubtotal + outcomeSubtotal
+
+    console.log(`Shape Subtotal: ${shapeSubtotal}`)
+    console.log(`Outcome Subtotal: ${outcomeSubtotal}`)
+    console.log(`Total: ${total}`)
     
-    return rounds.length
+    return total
 }
 
 export { rpsScorer }
