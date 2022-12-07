@@ -7,7 +7,7 @@ const testInput2 = "testInput2.txt";
 
 Deno.test("testInput returns a number", async () => {
     const result = await scoreCryptoRPS(testInput);
-
+ 
     assertEquals("number", typeof(result))
 });
 
