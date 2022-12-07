@@ -1,12 +1,14 @@
-const getBadge = (rucksack: string) => {
-  const secondPocket = rucksack.slice(rucksack.length / 2);
+const getBadge = (rucksacks: string[]) => {
   let i = 0;
-  while (i < rucksack.length) {
-    if (secondPocket.includes(rucksack[i])) return rucksack[i];
+  while (i < rucksacks[0].length) {
+    if (
+      rucksacks[1].includes(rucksacks[0][i]) &&
+      rucksacks[2].includes(rucksacks[0][i])
+    ) return rucksacks[0][i];
     i++;
   }
-  if (rucksack.length === 0) return "_";
-  throw `No duplicate item found in ${rucksack}!`;
+  if (rucksacks[0].length === 0) return "_";
+  throw `No duplicate item found in ${rucksacks}!`;
 };
 
 export { getBadge };
