@@ -1,9 +1,28 @@
-const rpsScorer = async (input: string) => {
-    console.log("Hello World!")
+import { Round } from "./types";
 
-    const testInput = await Deno.readTextFile(input);
+let shapeSubtotal = 0;
+
+const shapeScorer = (round: Round) => {
+    switch(round[0]) {
+        case "A":
+            return shapeSubtotal += 1;
+        case "B":
+            return shapeSubtotal += 2;
+        case "C":
+            return shapeSubtotal += 3;
+    }
+}
+
+
+const rpsScorer = async (input: string) => {
+    const inputString = await Deno.readTextFile(input);
+    const rounds = inputString.split(/\n/);
     
-    return testInput.length
+    rounds.forEach(shapeScorer)
+
+
+    
+    return rounds.length
 }
 
 export { rpsScorer }
