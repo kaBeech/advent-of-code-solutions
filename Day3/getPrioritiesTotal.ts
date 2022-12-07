@@ -1,4 +1,4 @@
-import { convertMultiLineFileToArray } from "../tools/convertMultiLineFileToArray.ts";
+import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 import { getBadge } from "./getBadge.ts";
 import { getDuplicateItem } from "./getDuplicateItem.ts";
 
