@@ -36,7 +36,7 @@ Deno.test("testInputTooShort throws proper error", () => {
       checkForDuplicateAssignment(testInputTooShort);
     },
     Error,
-    "Couple too short!",
+    "Couple too short",
   );
 });
 
@@ -48,6 +48,6 @@ Deno.test("testInputTooLong throws proper error", () => {
       checkForDuplicateAssignment(testInputTooLong);
     },
     Error,
-    "Couple too long!",
+    "Couple too long",
   );
 });
