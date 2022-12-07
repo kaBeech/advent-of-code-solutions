@@ -1,5 +1,4 @@
 import { Round } from "./types.ts";
-import { scoreRPS } from "./scoreRPS.ts"
 import { convertMultiLineStringToArray } from "../tools/convertMultiLineStringToArray.ts"
 
 let shapeSubtotal = 0;
@@ -9,36 +8,36 @@ let total = 0;
 const subtotalScorer = (round: Round) => {
     switch(round[2]) {
         case "X":
-            shapeSubtotal += 1;
+            outcomeSubtotal += 0;
             switch(round[0]) {
             case "A":
-                return outcomeSubtotal += 3;
+                return shapeSubtotal += 3;
             case "B":
-                return outcomeSubtotal += 0;
+                return shapeSubtotal += 1;
             case "C":
-                return outcomeSubtotal += 6;
+                return shapeSubtotal += 2;
             }
             break;
         case "Y":
-            shapeSubtotal += 2;
+            outcomeSubtotal += 3;
             switch(round[0]) {
                 case "A":
-                    return outcomeSubtotal += 6;
+                    return shapeSubtotal += 1;
                 case "B":
-                    return outcomeSubtotal += 3;
+                    return shapeSubtotal += 2;
                 case "C":
-                    return outcomeSubtotal += 0;
+                    return shapeSubtotal += 3;
             }
             break;
         case "Z":
-            shapeSubtotal += 3;
+            outcomeSubtotal += 6;
             switch(round[0]) {
                 case "A":
-                    return outcomeSubtotal += 0;
+                    return shapeSubtotal += 2;
                 case "B":
-                    return outcomeSubtotal += 6;
+                    return shapeSubtotal += 3;
                 case "C":
-                    return outcomeSubtotal += 3;
+                    return shapeSubtotal += 1;
             }
     }
 }
@@ -47,8 +46,18 @@ const scoreCryptoRPS = async (rounds: string | Round[]) => {
     if (typeof(rounds) === "string") {
         rounds = await convertMultiLineStringToArray(rounds) as Round[];
     }
+    shapeSubtotal = 0;
+    outcomeSubtotal = 0;
+    total = 0;
+    
+    rounds.forEach(subtotalScorer)
+    total = shapeSubtotal + outcomeSubtotal
 
-    return scoreRPS(rounds)
+    console.log(`Shape Subtotal: ${shapeSubtotal}`)
+    console.log(`Outcome Subtotal: ${outcomeSubtotal}`)
+    console.log(`Total: ${total}`)
+
+    return total
 }
 
 export { scoreCryptoRPS }
