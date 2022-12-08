@@ -23,7 +23,7 @@ Deno.test("testInput2 returns 'ZQW' with single method", async () => {
   assertEquals("ZQW", result);
 });
 
-Deno.test("part1Input returns 'CVCWCRTVQ' with single method", async () => {
+Deno.test("challengeInput returns 'CVCWCRTVQ' with single method", async () => {
   const result = await getTopCrates(challengeInput, "single");
 
   assertEquals("CVCWCRTVQ", result);
@@ -47,7 +47,7 @@ Deno.test("testInput2 returns 'NQW' with bulk method", async () => {
   assertEquals("NQW", result);
 });
 
-Deno.test("part1Input returns 'CVCWCRTVQ' with bulk method", async () => {
+Deno.test("challengeInput returns 'CVCWCRTVQ' with bulk method", async () => {
   const result = await getTopCrates(challengeInput, "bulk");
 
   assertEquals("CVCWCRTVQ", result);
