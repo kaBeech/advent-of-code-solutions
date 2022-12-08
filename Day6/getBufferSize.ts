@@ -1,3 +1,5 @@
+import { checkForDuplicates } from "./checkForDuplicates.ts";
+
 let bufferSize = 0;
 
 const getBufferSize = async (datastreamFile: string) => {
