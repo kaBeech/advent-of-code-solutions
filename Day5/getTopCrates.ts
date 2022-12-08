@@ -1,5 +1,6 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 
+let currentMovementMethod: "single" | "bulk" = "single";
 let crateStacks: string[][] = [["0"]];
 let currentCrateStackNumber = 1;
 let temporaryCrateStack: string[] = [];
@@ -53,25 +54,34 @@ const moveCratesBulk = (
   }
 };
 
-const directCrateMovement = (instructionsLine: string, movementMethod: "single" | "bulk") => {
+const directCrateMovement = (instructionsLine: string) => {
   if (instructionsLine[0] === "m") {
     const instructionsLineAsArray = instructionsLine.split(" ");
-    if (movementMethod === "single") return moveCrates(
-      +instructionsLineAsArray[1],
-      +instructionsLineAsArray[3],
-      +instructionsLineAsArray[5],
-    );
-    if (movementMethod === "bulk") return moveCratesBulk(
-      +instructionsLineAsArray[1],
-      +instructionsLineAsArray[3],
-      +instructionsLineAsArray[5],
-    );  }
+    if (currentMovementMethod === "single") {
+      return moveCrates(
+        +instructionsLineAsArray[1],
+        +instructionsLineAsArray[3],
+        +instructionsLineAsArray[5],
+      );
+    }
+    if (currentMovementMethod === "bulk") {
+      return moveCratesBulk(
+        +instructionsLineAsArray[1],
+        +instructionsLineAsArray[3],
+        +instructionsLineAsArray[5],
+      );
+    }
+  }
 };
 
-const getTopCrates = async (instructionsLocation: string) => {
+const getTopCrates = async (
+  instructionsLocation: string,
+  movementMethod: "single" | "bulk",
+) => {
   crateStacks = [["0"]];
   numberOfCrateStacks = 0;
   topCrateString = "";
+  currentMovementMethod = movementMethod;
 
   const instructionsLines = await convertMultiLineFileToArray(
     instructionsLocation,
@@ -89,7 +99,7 @@ const getTopCrates = async (instructionsLocation: string) => {
   }
   currentCrateStackNumber = 1;
 
-  instructionsLines.forEach(directCrateMovement);
+  instructionsLines.forEach(directCrateMovement, movementMethod);
 
   for (let i = 1; i <= numberOfCrateStacks; i++) {
     topCrateString += crateStacks[i][crateStacks[i].length - 1];
