@@ -23,7 +23,7 @@ for Day 5's challenge!
 * Keep taking good breaks!
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Take breaks!
 

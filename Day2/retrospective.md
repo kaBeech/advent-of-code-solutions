@@ -42,7 +42,7 @@ excpect may come in handy later
 * Store handy reusable modules in the tools folder
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Be careful with Git
 
