@@ -14,4 +14,9 @@ the number stored in the counter. If not, move to Step 5
 
 5. Add 1 to the counter
 
-6. Repeat Steps 3-5 until a number is returned!
+6. Shift the first character out of the holding array
+
+7. Shift the first character out of the input array and push it into 
+the holding array
+
+6. Repeat Steps 4-7 until a number is returned!
