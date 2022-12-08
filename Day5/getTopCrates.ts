@@ -1,15 +1,15 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 
-let total = 0;
+let topCrateString = "";
 
 const getTopCrates = async (input: string) => {
-  total = 0;
+  topCrateString = "";
 
   const inputStringArray = await convertMultiLineFileToArray(input) as string[];
 
   console.log(inputStringArray)
 
-  return total;
+  return topCrateString;
 };
 
 export { getTopCrates };
