@@ -1,5 +1,4 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
-import { integer } from "../tools/commonTypes.ts";
 
 let crateStacks: string[][] = [["0"]];
 let currentCrateStackNumber = 1;
@@ -31,20 +30,20 @@ const stackCrate = (instructionsLine: string) => {
   }
 };
 
-const getTopCrates = async (input: string) => {
+const getTopCrates = async (instructionsLocation: string) => {
   crateStacks = [["0"]];
   numberOfCrateStacks = 0;
   topCrateString = "";
 
-  const inputStringArray = await convertMultiLineFileToArray(input) as string[];
+  const instructionsLines = await convertMultiLineFileToArray(instructionsLocation) as string[];
 
   while (!forEachBreaker) {
-    inputStringArray.forEach(findNumberOfCrateStacks);
+    instructionsLines.forEach(findNumberOfCrateStacks);
   }
   forEachBreaker = false;
 
   while (currentCrateStackNumber <= numberOfCrateStacks) {
-    while (!forEachBreaker) inputStringArray.forEach(stackCrate);
+    while (!forEachBreaker) instructionsLines.forEach(stackCrate);
     forEachBreaker = false;
     currentCrateStackNumber += 1;
   }
