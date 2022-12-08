@@ -12,19 +12,19 @@ Deno.test("testInput returns a number", async () => {
   assertEquals("number", typeof (result));
 });
 
-Deno.test("testInput returns 0", async () => {
+Deno.test("testInput returns 7", async () => {
   const result = await getBufferSize(testInput);
 
-  assertEquals(0, result);
+  assertEquals(7, result);
 });
 
-Deno.test("testInput2 returns 0", async () => {
+Deno.test("testInput2 returns 10", async () => {
   const result = await getBufferSize(testInput2);
 
-  assertEquals(0, result);
+  assertEquals(10, result);
 });
 
-Deno.test("testInput2 returns 0", async () => {
+Deno.test("challengeInput returns 0", async () => {
   const result = await getBufferSize(challengeInput);
 
   assertEquals(0, result);
