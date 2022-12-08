@@ -12,13 +12,11 @@ const getBufferSize = async (datastreamFile: string) => {
   const first4Characters = datastreamArray.splice(0, 4);
   heldArray = heldArray.concat(first4Characters);
 
-  if (checkForDuplicates(heldArray)) {
+  while (checkForDuplicates(heldArray)) {
     bufferSize += 1;
     heldArray.shift();
     heldArray.push(datastreamArray.shift() as string)
   }
-
-  console.log(datastreamArray)
 
   return bufferSize;
 };
