@@ -12,7 +12,7 @@ const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple, overla
 
   if (overlapMethod === "partial") {
     if (
-        !(+assignment1[1] < +assignment2[0] ||
+        (+assignment1[1] < +assignment2[0] ||
           +assignment2[1] < +assignment1[0])
       ) return 0;
       return 1;
@@ -27,11 +27,6 @@ const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple, overla
       +assignment1[1] > +assignment2[1] ||
     +assignment1[0] > +assignment2[0] &&
       +assignment1[1] < +assignment2[1]
-  ) return 1;
-
-  if (
-    !(+assignment1[1] < +assignment2[0] ||
-      +assignment2[1] < +assignment1[0])
   ) return 1;
 
   return 0;
