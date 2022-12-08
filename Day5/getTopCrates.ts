@@ -76,8 +76,6 @@ const getTopCrates = async (instructionsLocation: string) => {
 
   instructionsLines.forEach(directCrateMovement);
 
-  console.log(crateStacks);
-
   for (let i = 1; i <= numberOfCrateStacks; i++) {
     topCrateString += crateStacks[i][crateStacks[i].length - 1];
   }
