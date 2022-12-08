@@ -10,7 +10,7 @@ the fuctions! It feels clean =)
 * Keep going, you're doing great!
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Feel free to move on when slogging through something non-urgent
 

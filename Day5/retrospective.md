@@ -25,7 +25,7 @@ powering through =)
 * Take breaks!!
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Modularize more!
 

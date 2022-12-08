@@ -17,7 +17,7 @@ folder for easy access in the future
 * Use boilerplates and reuse work whenever possible
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Read the question carefully and verify input formats!
 

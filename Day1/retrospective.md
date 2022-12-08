@@ -23,7 +23,7 @@ about that!
 * Learn from each other!
 * Have fun!
 
-# What I learn from difficult points?
+# What can I learn from difficult points?
 
 ### Keep it simple (at the start)
 
