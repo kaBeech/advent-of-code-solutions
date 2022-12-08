@@ -2,7 +2,7 @@ import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 
 let total = 0;
 
-const boilerplateFunction = async (input: string) => {
+const getTopCrates = async (input: string) => {
   total = 0;
 
   const inputStringArray = await convertMultiLineFileToArray(input) as string[];
@@ -12,4 +12,4 @@ const boilerplateFunction = async (input: string) => {
   return total;
 };
 
-export { boilerplateFunction };
+export { getTopCrates };
