@@ -48,10 +48,9 @@ const moveCratesBulk = (
   sourceStack: number,
   destinationStack: number,
 ) => {
-  for (let i = 0; i < numberOfCrates; i++) {
-    const cratesToMove = crateStacks[sourceStack].slice(-numberOfCrates);
-    crateStacks[destinationStack].concat(cratesToMove);
-  }
+  const cratesToMove = crateStacks[sourceStack].splice(-numberOfCrates, numberOfCrates);
+  crateStacks[destinationStack] = crateStacks[destinationStack].concat(cratesToMove);
+
 };
 
 const directCrateMovement = (instructionsLine: string) => {

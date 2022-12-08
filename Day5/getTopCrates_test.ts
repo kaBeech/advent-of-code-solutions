@@ -5,7 +5,7 @@ const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
 const challengeInput = "instructions.txt";
 
-Deno.test("testInput returns a number with single method", async () => {
+Deno.test("testInput returns a string with single method", async () => {
   const result = await getTopCrates(testInput, "single");
 
   assertEquals("string", typeof (result));
@@ -29,7 +29,7 @@ Deno.test("part1Input returns 'CVCWCRTVQ' with single method", async () => {
   assertEquals("CVCWCRTVQ", result);
 });
 
-Deno.test("testInput returns a number with bulk method", async () => {
+Deno.test("testInput returns a string with bulk method", async () => {
   const result = await getTopCrates(testInput, "bulk");
 
   assertEquals("string", typeof (result));
