@@ -1,4 +1,5 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { singleDigitInteger } from "../tools/commonTypes.ts";
 
 let crateStacks: string[][] = [["0"]];
 let currentCrateStackNumber = 1;
@@ -30,12 +31,20 @@ const stackCrate = (instructionsLine: string) => {
   }
 };
 
+const moveCrates = (numberOfCrates: singleDigitInteger, sourceStack: singleDigitInteger, destinationStack: singleDigitInteger) => {
+  for (let i = 0; i < numberOfCrates; i++) {
+    crateStacks[destinationStack].push(crateStacks[sourceStack].pop() as string)
+  }
+};
+
 const getTopCrates = async (instructionsLocation: string) => {
   crateStacks = [["0"]];
   numberOfCrateStacks = 0;
   topCrateString = "";
 
-  const instructionsLines = await convertMultiLineFileToArray(instructionsLocation) as string[];
+  const instructionsLines = await convertMultiLineFileToArray(
+    instructionsLocation,
+  ) as string[];
 
   while (!forEachBreaker) {
     instructionsLines.forEach(findNumberOfCrateStacks);
@@ -48,6 +57,8 @@ const getTopCrates = async (instructionsLocation: string) => {
     currentCrateStackNumber += 1;
   }
   currentCrateStackNumber = 1;
+
+  instructionsLines.forEach(directCrateMovement)
 
   return topCrateString;
 };
