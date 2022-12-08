@@ -7,13 +7,15 @@ const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple) => {
   if (assignmentsCouple.length > 2) {
     throw new Error(`Couple too long: ${assignmentsCouple}`);
   }
+  const assignment1 = assignmentsCouple[0].split("-");
+  const assignment2 = assignmentsCouple[1].split("-");
   if (
-    assignmentsCouple[0][0] === assignmentsCouple[1][0] ||
-    assignmentsCouple[0][2] === assignmentsCouple[1][2]
+    assignment1[0] === assignment2[0] ||
+    assignment1[1] === assignment2[1]
   ) return 1;
   if (
-    assignmentsCouple[0][0] < assignmentsCouple[1][0] &&
-    assignmentsCouple[0][2] > assignmentsCouple[1][2]
+    assignment1[0] < assignment2[0] &&
+    assignment1[1] > assignment2[1]
   ) return 1;
   return 0;
 };
