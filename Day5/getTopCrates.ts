@@ -11,8 +11,6 @@ let numberOfCrateStacks = 0;
 const findNumberOfCrateStacks = (instructionsLine: string) => {
   if (instructionsLine[1] === "1") {
     numberOfCrateStacks = (instructionsLine.length + 1) / 4;
-    console.log("length: " + instructionsLine.length);
-    console.log(numberOfCrateStacks);
     return forEachBreaker = true;
   }
   return;
@@ -34,7 +32,7 @@ const stackCrate = (instructionsLine: string) => {
 };
 
 const getTopCrates = async (input: string) => {
-  crateStacks = [["0"]]
+  crateStacks = [["0"]];
   numberOfCrateStacks = 0;
   topCrateString = "";
 
@@ -47,16 +45,10 @@ const getTopCrates = async (input: string) => {
 
   while (currentCrateStackNumber <= numberOfCrateStacks) {
     while (!forEachBreaker) inputStringArray.forEach(stackCrate);
-    console.log("forEachBreaker triggerred");
     forEachBreaker = false;
     currentCrateStackNumber += 1;
   }
-  console.log(currentCrateStackNumber);
-
   currentCrateStackNumber = 1;
-
-  console.log(crateStacks);
-  // console.log(numberOfCrateStacks);
 
   return topCrateString;
 };
