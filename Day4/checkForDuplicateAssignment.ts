@@ -15,7 +15,9 @@ const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple) => {
   ) return 1;
   if (
     assignment1[0] < assignment2[0] &&
-    assignment1[1] > assignment2[1]
+      assignment1[1] > assignment2[1] ||
+    assignment1[0] > assignment2[0] &&
+      assignment1[1] < assignment2[1]
   ) return 1;
   return 0;
 };
