@@ -3,6 +3,8 @@ import { boilerplateFunction } from "./boilerplateModule.ts";
 
 const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
+const challengeInput = "challengeInput.txt";
+
 
 Deno.test("testInput returns a number", async () => {
   const result = await boilerplateFunction(testInput);
@@ -18,6 +20,12 @@ Deno.test("testInput returns 0", async () => {
 
 Deno.test("testInput2 returns 0", async () => {
   const result = await boilerplateFunction(testInput2);
+
+  assertEquals(0, result);
+});
+
+Deno.test("testInput2 returns 0", async () => {
+  const result = await boilerplateFunction(challengeInput);
 
   assertEquals(0, result);
 });
