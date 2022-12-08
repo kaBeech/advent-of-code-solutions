@@ -17,7 +17,7 @@ Deno.test("testInput returns 2", async () => {
 });
 
 Deno.test("testInput2 returns 4", async () => {
-  const result = await getDuplicateAssignmentsTotal(testInput);
+  const result = await getDuplicateAssignmentsTotal(testInput2);
 
   assertEquals(4, result);
 });
