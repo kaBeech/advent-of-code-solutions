@@ -47,8 +47,8 @@ Deno.test("testInput2 returns 'NQW' with bulk method", async () => {
   assertEquals("NQW", result);
 });
 
-Deno.test("challengeInput returns 'CVCWCRTVQ' with bulk method", async () => {
+Deno.test("challengeInput returns 'CNSCZWLVT' with bulk method", async () => {
   const result = await getTopCrates(challengeInput, "bulk");
 
-  assertEquals("CVCWCRTVQ", result);
+  assertEquals("CNSCZWLVT", result);
 });
