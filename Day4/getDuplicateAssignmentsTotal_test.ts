@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { getDuplicateAssignmentsTotal } from "./getDuplicateAssignmentsTotal.ts";
 
 const testInput = "testInput.txt";
-const testInput2 = "assignments.txt";
+const testInput2 = "testInput2.txt";
 
 Deno.test("testInput returns a number", async () => {
   const result = await getDuplicateAssignmentsTotal(testInput);
