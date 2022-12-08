@@ -3,7 +3,7 @@ import { getBufferSize } from "./getBufferSize.ts";
 
 const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
-const challengeInput = "challengeInput.txt";
+const challengeInput = "datastream.txt";
 
 
 Deno.test("testInput returns a number", async () => {
@@ -24,8 +24,8 @@ Deno.test("testInput2 returns 10", async () => {
   assertEquals(10, result);
 });
 
-Deno.test("challengeInput returns 0", async () => {
+Deno.test("challengeInput returns 1275", async () => {
   const result = await getBufferSize(challengeInput);
 
-  assertEquals(0, result);
+  assertEquals(1275, result);
 });
