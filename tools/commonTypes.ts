@@ -1,15 +1,3 @@
-type singleDigitInteger =
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9;
-
 type integer =
   | "0"
   | "1"
@@ -24,4 +12,4 @@ type integer =
 
 type twoDigitInteger = `${integer}${integer}`;
 
-export type { integer, singleDigitInteger, twoDigitInteger };
+export type { integer, twoDigitInteger };
