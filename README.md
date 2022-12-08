@@ -6,7 +6,7 @@ just seeing how far I get
 
 I will also use this project as an opportunity to practice some Agile strategies
 
-Warning: Files labelled notes.md are for scratch note-taking and are not written 
+Warning: files labelled notes.md are for scratch note-taking and are not written 
 with the intention of being readable for anyone besides myself
 
 https://adventofcode.com/2022
