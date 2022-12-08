@@ -1,17 +1,19 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
 import { integer } from "../tools/commonTypes.ts";
 
-const crateStacks: string[][] = [["0"]];
+let crateStacks: string[][] = [["0"]];
 let currentCrateStackNumber = 1;
-const temporaryCrateStack: string[] = [];
+let temporaryCrateStack: string[] = [];
 let topCrateString = "";
-let forEachBreaker: null | 1 = null;
+let forEachBreaker = false;
 let numberOfCrateStacks = 0;
 
 const findNumberOfCrateStacks = (instructionsLine: string) => {
   if (instructionsLine[1] === "1") {
-    numberOfCrateStacks = instructionsLine.length + 1 / 4;
-    return forEachBreaker = 1;
+    numberOfCrateStacks = (instructionsLine.length + 1) / 4;
+    console.log("length: " + instructionsLine.length);
+    console.log(numberOfCrateStacks);
+    return forEachBreaker = true;
   }
   return;
 };
@@ -19,17 +21,21 @@ const findNumberOfCrateStacks = (instructionsLine: string) => {
 const stackCrate = (instructionsLine: string) => {
   if (instructionsLine[1] === "1") {
     crateStacks.push(temporaryCrateStack);
-    temporaryCrateStack.slice(0, temporaryCrateStack.length);
-    return forEachBreaker = 1;
+    temporaryCrateStack = [];
+    return forEachBreaker = true;
   }
-  // currentCrateStackNumber * 4 - 3 gives the index location
-  // of that stack in the instructions string
-  return temporaryCrateStack.unshift(
-    instructionsLine[currentCrateStackNumber * 4 - 3],
-  );
+  const indexLocationOfCurrentStack = currentCrateStackNumber * 4 - 3;
+  const currentCrateLetter = instructionsLine[indexLocationOfCurrentStack];
+  if (currentCrateLetter <= "Z" && currentCrateLetter >= "A") {
+    return temporaryCrateStack.unshift(
+      currentCrateLetter,
+    );
+  }
 };
 
 const getTopCrates = async (input: string) => {
+  crateStacks = [["0"]]
+  numberOfCrateStacks = 0;
   topCrateString = "";
 
   const inputStringArray = await convertMultiLineFileToArray(input) as string[];
@@ -37,16 +43,20 @@ const getTopCrates = async (input: string) => {
   while (!forEachBreaker) {
     inputStringArray.forEach(findNumberOfCrateStacks);
   }
-  forEachBreaker = null;
+  forEachBreaker = false;
 
   while (currentCrateStackNumber <= numberOfCrateStacks) {
     while (!forEachBreaker) inputStringArray.forEach(stackCrate);
-    forEachBreaker = null;
+    console.log("forEachBreaker triggerred");
+    forEachBreaker = false;
     currentCrateStackNumber += 1;
   }
-  currentCrateStackNumber = 1
+  console.log(currentCrateStackNumber);
 
-  console.log(inputStringArray);
+  currentCrateStackNumber = 1;
+
+  console.log(crateStacks);
+  // console.log(numberOfCrateStacks);
 
   return topCrateString;
 };
