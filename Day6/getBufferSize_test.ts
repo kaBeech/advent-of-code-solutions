@@ -48,8 +48,8 @@ Deno.test("testInput2 returns 10 with message method", async () => {
   assertEquals(29, result);
 });
 
-Deno.test("challengeInput returns 1275 with message method", async () => {
+Deno.test("challengeInput returns 3605 with message method", async () => {
   const result = await getBufferSize(challengeInput, "message");
 
-  assertEquals(1275, result);
+  assertEquals(3605, result);
 });
