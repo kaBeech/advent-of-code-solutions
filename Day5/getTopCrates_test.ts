@@ -7,17 +7,17 @@ const testInput2 = "testInput2.txt";
 Deno.test("testInput returns a number", async () => {
   const result = await getTopCrates(testInput);
 
-  assertEquals("number", typeof (result));
+  assertEquals("string", typeof (result));
 });
 
-Deno.test("testInput returns 0", async () => {
+Deno.test("testInput returns 'CMZ'", async () => {
   const result = await getTopCrates(testInput);
 
-  assertEquals(0, result);
+  assertEquals("CMZ", result);
 });
 
-Deno.test("testInput2 returns 0", async () => {
+Deno.test("testInput2 returns 'ZQW'", async () => {
   const result = await getTopCrates(testInput2);
 
-  assertEquals(0, result);
+  assertEquals("ZQW", result);
 });
