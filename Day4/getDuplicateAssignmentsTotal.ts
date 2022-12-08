@@ -20,9 +20,12 @@ const sumDuplicateAssignments = (
   total += checkForDuplicateAssignment(assignmentsCouple, currentOverlapMethod);
 };
 
-const getDuplicateAssignmentsTotal = async (assignmentsFile: string, overlapMethod: overlapMethod) => {
+const getDuplicateAssignmentsTotal = async (
+  assignmentsFile: string,
+  overlapMethod: overlapMethod,
+) => {
   total = 0;
-  currentOverlapMethod = overlapMethod
+  currentOverlapMethod = overlapMethod;
   assignmentsCouples.splice(0, assignmentsCouples.length);
 
   const assignmentsStrings = await convertMultiLineFileToArray(
