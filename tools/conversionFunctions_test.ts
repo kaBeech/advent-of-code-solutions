@@ -20,7 +20,7 @@ Deno.test("testInputMultiLine returns an array of strings", async () => {
 Deno.test("testInputMultiLine returns the expected array", async () => {
   const result = await convertMultiLineFileToArray(testInputMultiLine);
 
-  assertEquals(["1", "2", "3", ""], result);
+  assertEquals(["1", "2", "3"], result);
 });
 
 // Deno.test("convertMultiLineFileToArray throws error with unread input", async () => {
@@ -42,7 +42,7 @@ Deno.test("testInputMultiParagraph returns an array of arrays of strings", async
 // Deno.test("testInputMultiParagraph the expected array", async () => {
 //   const result = await convertMultiParagraphFileToArray(testInputMultiParagraph);
 
-//   assertEquals([["1"], ["2", "3"], [""]], result);;
+//   assertEquals([["1"], ["2", "3"]], result);
 // });
 
 // Deno.test("convertMultiParagraphFileToArray throws error with unread input", async () => {

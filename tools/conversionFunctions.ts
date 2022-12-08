@@ -1,6 +1,7 @@
 const convertMultiLineFileToArray = async (input: string) => {
   const inputString = await Deno.readTextFile(input);
-  return inputString.split(/\n/);
+  const inputStringTrimmed = inputString.trimEnd()
+  return inputStringTrimmed.split(/\n/);
 };
 
 const convertMultiLineStringToArray = (inputString: string) => {
@@ -9,7 +10,8 @@ const convertMultiLineStringToArray = (inputString: string) => {
 
 const convertMultiParagraphFileToArray = async (input: string) => {
   const inputString = await Deno.readTextFile(input);
-  return inputString.split(/\n\n/);
+  const inputStringTrimmed = inputString.trimEnd()
+  return inputStringTrimmed.split(/\n\n/);
 };
 
 const convertMultiParagraphStringToArray = (inputString: string) => {
