@@ -24,7 +24,7 @@ Deno.test("testInput2 returns 0", async () => {
   assertEquals(0, result);
 });
 
-Deno.test("testInput2 returns 0", async () => {
+Deno.test("challengeInput returns 0", async () => {
   const result = await boilerplateFunction(challengeInput);
 
   assertEquals(0, result);
