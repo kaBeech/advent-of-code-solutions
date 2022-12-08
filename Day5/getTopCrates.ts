@@ -53,15 +53,19 @@ const moveCratesBulk = (
   }
 };
 
-const directCrateMovement = (instructionsLine: string) => {
+const directCrateMovement = (instructionsLine: string, movementMethod: "single" | "bulk") => {
   if (instructionsLine[0] === "m") {
     const instructionsLineAsArray = instructionsLine.split(" ");
-    moveCrates(
+    if (movementMethod === "single") return moveCrates(
       +instructionsLineAsArray[1],
       +instructionsLineAsArray[3],
       +instructionsLineAsArray[5],
     );
-  }
+    if (movementMethod === "bulk") return moveCratesBulk(
+      +instructionsLineAsArray[1],
+      +instructionsLineAsArray[3],
+      +instructionsLineAsArray[5],
+    );  }
 };
 
 const getTopCrates = async (instructionsLocation: string) => {
