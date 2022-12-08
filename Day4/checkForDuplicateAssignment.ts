@@ -1,6 +1,6 @@
-import { assignmentCouple } from "./types.ts";
+import { assignmentCouple, overlapMethod } from "./types.ts";
 
-const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple, overlapMethod: "full" | "partial") => {
+const checkForDuplicateAssignment = (assignmentsCouple: assignmentCouple, overlapMethod: overlapMethod) => {
   if (assignmentsCouple.length < 2) {
     throw new Error(`Couple too short: ${assignmentsCouple}`);
   }
