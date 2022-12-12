@@ -17,3 +17,7 @@
 # Ideas for possible future implementaion
 
 ### 
+
+# Notes
+
+* Define Types before writing Tests
