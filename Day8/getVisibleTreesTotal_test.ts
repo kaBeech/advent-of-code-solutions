@@ -12,16 +12,16 @@ Deno.test("testInput returns a number", async () => {
   assertEquals("number", typeof (result));
 });
 
-Deno.test("testInput returns 0", async () => {
+Deno.test("testInput returns 21", async () => {
   const result = await getVisibleTreesTotal(testInput);
 
-  assertEquals(0, result);
+  assertEquals(21, result);
 });
 
-Deno.test("testInput2 returns 0", async () => {
+Deno.test("testInput2 returns 24", async () => {
   const result = await getVisibleTreesTotal(testInput2);
 
-  assertEquals(0, result);
+  assertEquals(24, result);
 });
 
 Deno.test("challengeInput returns 0", async () => {
