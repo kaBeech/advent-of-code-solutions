@@ -11,4 +11,7 @@ interface TreeMap {
   sideLength: number;
 }
 
-export type { Tree, TreeMap };
+//Legend: 0 = -X, 1 = -Y, 2 = +X, 3 = +Y
+type CardinalDirection2D = 0 | 1 | 2 | 3
+
+export type { Tree, TreeMap, CardinalDirection2D };
