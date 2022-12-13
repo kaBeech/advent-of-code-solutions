@@ -23,7 +23,7 @@ const checkVisibility = (
     return tree.getVisibility()[direction] as boolean;
   }
 
-  const nextTreeCoordinates = tree.getLocation();
+  const nextTreeCoordinates = tree.getLocation().slice();
   let nextTreeIndex = -1;
   switch (direction) {
     case 0:
