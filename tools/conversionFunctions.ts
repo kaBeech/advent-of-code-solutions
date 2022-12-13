@@ -10,7 +10,12 @@ const convertMultiParagraphFileToArray = async (input: string) => {
   return inputStringTrimmed.split(/\n\n/);
 };
 
+const convertXYCoordinatesToIndexNumber = () => {
+
+}
+
 export {
   convertMultiLineFileToArray,
   convertMultiParagraphFileToArray,
+  convertXYCoordinatesToIndexNumber,
 };
