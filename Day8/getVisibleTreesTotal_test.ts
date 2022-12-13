@@ -3,7 +3,7 @@ import { getVisibleTreesTotal } from "./getVisibleTreesTotal.ts";
 
 const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
-const challengeInput = "challengeInput.txt";
+const challengeInput = "treeGrid.txt";
 
 
 Deno.test("testInput returns a number", async () => {
