@@ -7,7 +7,7 @@ const testInput2 = "testInput2.txt";
 Deno.test("every tree returned has a location array that is 2 elements long", async () => {
   const result = await parseTreesString(testInput);
   let invalidLocationCounter = 0;
-  for (let tree of result.trees) {
+  for (const tree of result.trees) {
     if (tree.location.length !== 2) {
       invalidLocationCounter += 1;
       console.log(tree.location);
@@ -20,7 +20,7 @@ Deno.test("every tree returned has a location array that is 2 elements long", as
 Deno.test("every tree returned has a location array composed of integers", async () => {
   const result = await parseTreesString(testInput);
   let invalidLocationCounter = 0;
-  for (let tree of result.trees) {
+  for (const tree of result.trees) {
     if (tree.location[0] % 1 !== 0 || tree.location[1] % 1 !== 0) {
       invalidLocationCounter += 1;
       console.log(tree.location);
