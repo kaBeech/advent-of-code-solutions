@@ -1,6 +1,26 @@
 import { assertThrows } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { verifyXYCoordinates } from "./verifyXYCoordinates.ts";
 
+Deno.test("calling with a negative integer base throws error", () => {
+  assertThrows(
+    () => {
+      verifyXYCoordinates([24, 25], -50);
+    },
+    Error,
+    "Base must be a positive integer! Received: -50",
+  );
+});
+
+Deno.test("calling with a non-integer base throws error", () => {
+  assertThrows(
+    () => {
+      verifyXYCoordinates([24, 25], 50.2);
+    },
+    Error,
+    "Base must be a positive integer! Received: 50.2",
+  );
+});
+
 Deno.test("calling with coordinates less than 2 elements long throws error", () => {
     assertThrows(
       () => {

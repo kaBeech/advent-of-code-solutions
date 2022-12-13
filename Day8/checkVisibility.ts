@@ -26,7 +26,7 @@ const checkVisibility = (
   }
 
   let nextTreeCoordinates = getNextTreeCoordinates(
-    tree.getLocation(),
+    tree.getLocation(), treeMap.sideLength,
     direction,
   );
   let nextTreeIndex = -1;
@@ -62,7 +62,7 @@ const checkVisibility = (
     )
   ) {
     nextTreeCoordinates = getNextTreeCoordinates(
-      nextTree.getLocation(),
+      nextTree.getLocation(), treeMap.sideLength,
       direction,
     );
     nextTreeIndex = convertXYCoordinatesToIndexNumber(
