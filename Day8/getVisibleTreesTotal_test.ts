@@ -24,8 +24,8 @@ Deno.test("testInput2 returns 36", async () => {
   assertEquals(result, 36);
 });
 
-Deno.test("challengeInput returns 0", async () => {
+Deno.test("challengeInput returns 1818", async () => {
   const result = await getVisibleTreesTotal(challengeInput);
 
-  assertEquals(result, 0);
+  assertEquals(result, 1818);
 });
