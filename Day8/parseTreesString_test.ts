@@ -64,11 +64,11 @@ Deno.test("testInput returns 5 sideLength", async () => {
 Deno.test("testInput2 returns 49 Trees", async () => {
   const result = await parseTreesString(testInput2);
 
-  assertEquals(49, result);
+  assertEquals(49, result.trees.length);
 });
 
 Deno.test("testInput2 returns 7 sideLength", async () => {
   const result = await parseTreesString(testInput2);
 
-  assertEquals(7, result);
+  assertEquals(7, result.sideLength);
 });
