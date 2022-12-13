@@ -7,7 +7,6 @@ import { convertMultiLineFileToArray, convertMultiParagraphFileToArray } from ".
 Deno.test("testInputMultiLine returns an array of strings", async () => {
   const result = await convertMultiLineFileToArray("testInputMultiLine.txt");
 
-  assertEquals("array", typeof (result));
   assertEquals("string", typeof (result[0]));
 });
 
@@ -18,7 +17,7 @@ Deno.test("testInputMultiLine returns the expected array", async () => {
 });
 
 Deno.test("testInputMultiLine2 returns the expected array", async () => {
-  const result = await convertMultiLineFileToArray("testInputMultiParagraph.txt");
+  const result = await convertMultiLineFileToArray("testInputMultiLine2.txt");
 
   assertEquals(["x", "y", "z"], result);
 });
@@ -28,8 +27,6 @@ Deno.test("testInputMultiParagraph returns an array of arrays of strings", async
     "testInputMultiParagraph.txt",
   );
 
-  assertEquals("array", typeof (result));
-  assertEquals("array", typeof (result[0]));
   assertEquals("string", typeof (result[0][0]));
 });
 
