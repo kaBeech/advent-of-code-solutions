@@ -12,4 +12,6 @@ type integer =
 
 type twoDigitInteger = `${integer}${integer}`;
 
-export type { integer, twoDigitInteger };
+type ModalBoolean = true | false | null;
+
+export type { integer, twoDigitInteger, ModalBoolean };
