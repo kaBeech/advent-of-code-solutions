@@ -1,37 +1,33 @@
 import {
   assertEquals,
-  assertRejects,
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import {
   convertMultiLineFileToArray,
   convertMultiParagraphFileToArray,
 } from "./convertFileToArray.ts";
 
-const testInputMultiLine = "testInputMultiLine.txt";
-const testInputMultiParagraph = "testInputMultiParagraph.txt"
-
 Deno.test("testInputMultiLine returns an array of strings", async () => {
-  const result = await convertMultiLineFileToArray(testInputMultiLine);
+  const result = await convertMultiLineFileToArray("testInputMultiLine.txt");
 
   assertEquals("array", typeof (result));
   assertEquals("string", typeof (result[0]));
 });
 
 Deno.test("testInputMultiLine returns the expected array", async () => {
-  const result = await convertMultiLineFileToArray(testInputMultiLine);
+  const result = await convertMultiLineFileToArray("testInputMultiLine.txt");
 
   assertEquals(["1", "2", "3"], result);
 });
 
-// Deno.test("convertMultiLineFileToArray throws error with unread input", async () => {
-//   const result = await convertMultiLineFileToArray(testInputMultiLine);
+Deno.test("testInputMultiLine2 returns the expected array", async () => {
+  const result = await convertMultiLineFileToArray("testInputMultiParagraph.txt");
 
-//   assertRejects();
-// });
+  assertEquals(["x", "y", "z"], result);
+});
 
 Deno.test("testInputMultiParagraph returns an array of arrays of strings", async () => {
   const result = await convertMultiParagraphFileToArray(
-    testInputMultiParagraph,
+    "testInputMultiParagraph.txt",
   );
 
   assertEquals("array", typeof (result));
@@ -39,14 +35,14 @@ Deno.test("testInputMultiParagraph returns an array of arrays of strings", async
   assertEquals("string", typeof (result[0][0]));
 });
 
-// Deno.test("testInputMultiParagraph the expected array", async () => {
-//   const result = await convertMultiParagraphFileToArray(testInputMultiParagraph);
+Deno.test("testInputMultiParagraph returns the expected array", async () => {
+  const result = await convertMultiParagraphFileToArray("testInputMultiParagraph.txt");
 
-//   assertEquals([["1"], ["2", "3"]], result);
-// });
+  assertEquals([["1"], ["2", "3"]], result);
+});
 
-// Deno.test("convertMultiParagraphFileToArray throws error with unread input", async () => {
-//   const result = await convertMultiParagraphFileToArray(testInputMultiParagraph);
+Deno.test("testInputMultiParagraph2 returns the expected array", async () => {
+  const result = await convertMultiParagraphFileToArray("testInputMultiParagraph2.txt");
 
-//   assertEquals(2, result);
-// });
+  assertEquals([["x", "y"], ["z"]], result);
+});
