@@ -1,5 +1,8 @@
 const convertXYCoordinatesToIndexNumber = (xyCoordinates: number[], base: number) => {
-  return 24 as number 
+
+  const index = (xyCoordinates[0] + (xyCoordinates[1] * base))
+
+  return index
 }
 
 export {
