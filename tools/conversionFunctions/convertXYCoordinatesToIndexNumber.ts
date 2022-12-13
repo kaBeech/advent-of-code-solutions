@@ -2,12 +2,7 @@ const convertXYCoordinatesToIndexNumber = (
   xyCoordinates: number[],
   base: number,
 ) => {
-  if (base < 0) {
-    throw new Error(
-      `Base must be a positive integer! Received: ${base}`,
-    );
-  }
-  if (base % 1 !== 0) {
+  if (base < 0 || base % 1 !== 0) {
     throw new Error(
       `Base must be a positive integer! Received: ${base}`,
     );
@@ -28,14 +23,7 @@ const convertXYCoordinatesToIndexNumber = (
         `Coordinates must all be integers! Received: [${xyCoordinates}]`,
       );
     }
-    if (coordinate < 0) {
-      throw new Error(
-        `Coordinates must all be in domain! Received Coordinates: [${xyCoordinates}], Domain: 0 to ${
-          base - 1
-        }`,
-      );
-    }
-    if (coordinate >= base) {
+    if (coordinate < 0 || coordinate >= base) {
       throw new Error(
         `Coordinates must all be in domain! Received Coordinates: [${xyCoordinates}], Domain: 0 to ${
           base - 1
