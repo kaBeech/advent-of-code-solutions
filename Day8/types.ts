@@ -1,9 +1,12 @@
-import { ModalBoolean, SingleDigitInteger } from "../tools/commonTypes.ts";
+import {
+  ModalBoolean,
+  SingleDigitInteger,
+} from "../tools/commonTypes.ts";
 
 interface Tree {
-  location: number[];
-  height: SingleDigitInteger;
-  visibility: ModalBoolean[];
+  getLocation: { (): number[]};
+  getHeight: { (): SingleDigitInteger };
+  getVisibility: { (): ModalBoolean[] };
 }
 
 interface TreeMap {
@@ -12,6 +15,6 @@ interface TreeMap {
 }
 
 //Legend: 0 = -X, 1 = -Y, 2 = +X, 3 = +Y
-type OrthagonalDirection2D = 0 | 1 | 2 | 3
+type OrthagonalDirection2D = 0 | 1 | 2 | 3;
 
-export type { Tree, TreeMap, OrthagonalDirection2D };
+export type { OrthagonalDirection2D, Tree, TreeMap };
