@@ -1,4 +1,4 @@
-import { convertMultiLineFileToArray } from "../tools/convertFileToArray.ts";
+import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
 import { checkForDuplicateAssignment } from "./checkForDuplicateAssignment.ts";
 import { assignmentCouple, overlapMethod } from "./types.ts";
 

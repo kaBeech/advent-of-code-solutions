@@ -1,10 +1,8 @@
 import {
   assertEquals,
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import {
-  convertMultiLineFileToArray,
-  convertMultiParagraphFileToArray,
-} from "./convertFileToArray.ts";
+import { convertMultiLineFileToArray, convertMultiParagraphFileToArray } from "../conversionFunctions/convertFileToArray.ts";
+
 
 Deno.test("testInputMultiLine returns an array of strings", async () => {
   const result = await convertMultiLineFileToArray("testInputMultiLine.txt");

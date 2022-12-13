@@ -1,4 +1,5 @@
-import { convertMultiLineFileToArray } from "../tools/convertFileToArray.ts";
+import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
+
 
 let currentMovementMethod: "single" | "bulk" = "single";
 let crateStacks: string[][] = [["0"]];
