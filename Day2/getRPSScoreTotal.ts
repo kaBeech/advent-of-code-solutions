@@ -1,7 +1,7 @@
 import { Round, ScoringMethod } from "./types.ts";
 import { scoreRound } from "./scoreRound.ts";
 import { scoreRoundCrypto } from "./scoreRoundCrypto.ts";
-import { convertMultiLineFileToArray } from "../tools/conversionFunctions.ts";
+import { convertMultiLineFileToArray } from "../tools/convertFileToArray.ts";
 
 let shapeSubtotal = 0;
 let outcomeSubtotal = 0;
