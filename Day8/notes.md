@@ -11,7 +11,7 @@
     2. Take the first character of input. If is a new line following an integer, increment the rowCounter by 1, set the columnCounter to 0 and repeat Step 2. If it is an integer, use it to create a Tree obect. If it is a new line following a new line, return Trees and the value of columnCounter as sideLength
     3. Give this Tree object a Height equal to the input integer's value
     4. Give this Tree object a Location, as a pair of coordinate integers in a couple built from the rowCounter and columnCounter, like so: [columnCounter, rowCounter]
-    4. Give this Tree object a VisibilityArray, as a quadruple of modalBoolean values initially set to null, i.e. [null, null, null, null]
+    4. Give this Tree object a Visibility array, as a quadruple of modalBoolean values initially set to null, i.e. [null, null, null, null]
     5. Add this Tree to an array of Trees
     6. Repeat Steps 2-5 for each character of the input
 
