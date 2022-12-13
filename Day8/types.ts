@@ -1,13 +1,14 @@
-import { integer } from "../tools/commonTypes.ts";
+import { integer, ModalBoolean } from "../tools/commonTypes.ts";
 
 interface Tree {
-  location: number[],
-  height: integer
+  location: number[];
+  height: integer;
+  visibility: ModalBoolean[];
 }
 
 interface TreeMap {
-  trees: Tree[]
-  sideLength: number
+  trees: Tree[];
+  sideLength: number;
 }
 
 export type { Tree, TreeMap };
