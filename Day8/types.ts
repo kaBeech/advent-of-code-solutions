@@ -1,4 +1,4 @@
-import { integer, ModalBoolean, SingleDigitInteger } from "../tools/commonTypes.ts";
+import { ModalBoolean, SingleDigitInteger } from "../tools/commonTypes.ts";
 
 interface Tree {
   location: number[];
