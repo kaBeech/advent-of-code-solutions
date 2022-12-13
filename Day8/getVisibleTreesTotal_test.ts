@@ -9,23 +9,23 @@ const challengeInput = "challengeInput.txt";
 Deno.test("testInput returns a number", async () => {
   const result = await getVisibleTreesTotal(testInput);
 
-  assertEquals("number", typeof (result));
+  assertEquals(typeof (result), "number");
 });
 
 Deno.test("testInput returns 21", async () => {
   const result = await getVisibleTreesTotal(testInput);
 
-  assertEquals(21, result);
+  assertEquals(result, 21);
 });
 
 Deno.test("testInput2 returns 24", async () => {
   const result = await getVisibleTreesTotal(testInput2);
 
-  assertEquals(24, result);
+  assertEquals(result, 24);
 });
 
 Deno.test("challengeInput returns 0", async () => {
   const result = await getVisibleTreesTotal(challengeInput);
 
-  assertEquals(0, result);
+  assertEquals(result, 0);
 });
