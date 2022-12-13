@@ -15,7 +15,7 @@ const parseTreesString = async (treesFile: string) => {
       rowCounter += 1;
     }
     if (char === "0" || (+char > 0 && +char < 10)) {
-      const tree = Tree(rowCounter, columnCounter, +char as SingleDigitInteger);
+      const tree = Tree(columnCounter, rowCounter, +char as SingleDigitInteger);
       trees.push(tree);
       columnCounter += 1;
     }
