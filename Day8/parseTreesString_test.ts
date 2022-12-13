@@ -4,28 +4,48 @@ import { parseTreesString } from "./parseTreesString.ts";
 const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
 
-Deno.test("testInput returns an object including an array of Trees", async () => {
+Deno.test("every tree returned has a location array that is 2 elements long", async () => {
   const result = await parseTreesString(testInput);
+  let invalidLocationCounter = 0;
+  for (let tree of result.trees) {
+    if (tree.location.length !== 2) {
+      invalidLocationCounter += 1;
+      console.log(tree.location);
+    }
+  }
 
-  assertEquals("number", typeof (result));
+  assertEquals(0, invalidLocationCounter);
+});
+
+Deno.test("every tree returned has a location array composed of integers", async () => {
+  const result = await parseTreesString(testInput);
+  let invalidLocationCounter = 0;
+  for (let tree of result.trees) {
+    if (tree.location[0] % 1 !== 0 || tree.location[1] % 1 !== 0) {
+      invalidLocationCounter += 1;
+      console.log(tree.location);
+    }
+  }
+
+  assertEquals(0, invalidLocationCounter);
 });
 
 Deno.test("testInput returns an object incuding an integer reporting the sideLength", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals("number", typeof (result));
+  assertEquals(0, result.sideLength % 1);
 });
 
 Deno.test("testInput returns 25 Trees", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals(25, result);
+  assertEquals(25, result.trees.length);
 });
 
 Deno.test("testInput returns 5 sideLength", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals(5, result);
+  assertEquals(5, result.sideLength);
 });
 
 Deno.test("testInput2 returns 49 Trees", async () => {
