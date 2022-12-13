@@ -1,7 +1,12 @@
-const parseTreesString = async (treesFile: string) => {
-    const treesString = await Deno.readTextFile(treesFile);
-    const treesStringTrimmed = treesString.trimEnd()
-    return treesStringTrimmed.split(/\n/);
-  };
+import { TreeMap } from "./types.ts";
 
-  export {parseTreesString}
+const parseTreesString = async (treesFile: string) => {
+
+  const treesString = await Deno.readTextFile(treesFile);
+  const treesStringTrimmed = treesString.trimEnd();
+  treesStringTrimmed.split(/\n/);
+  
+  return "test" as unknown as TreeMap;
+};
+
+export { parseTreesString };
