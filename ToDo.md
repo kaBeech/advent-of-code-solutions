@@ -2,9 +2,7 @@
 
 * Add tests to show the solutions to test files (like currently exists for Day 6)
 
-### Complete testing for conversionFunctions
-
-### Refactor to remove the conversionFunctions that don't include a .readFile() component 
+### Complete testing for convertFileToArray
 
 ### Possibly improve error handling for early days
 
