@@ -1,0 +1,7 @@
+const convertXYCoordinatesToIndexNumber = () => {
+
+}
+
+export {
+  convertXYCoordinatesToIndexNumber,
+};
