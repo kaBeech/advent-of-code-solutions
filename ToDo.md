@@ -6,6 +6,8 @@
 
 ### Complete testing for convertFileToArray
 
+### Standardize style
+
 ### Possibly improve error handling for early days
 
 ### Possibly refactor Day 1
