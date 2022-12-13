@@ -18,10 +18,10 @@ Deno.test("testInput returns 21", async () => {
   assertEquals(result, 21);
 });
 
-Deno.test("testInput2 returns 24", async () => {
+Deno.test("testInput2 returns 36", async () => {
   const result = await getVisibleTreesTotal(testInput2);
 
-  assertEquals(result, 24);
+  assertEquals(result, 36);
 });
 
 Deno.test("challengeInput returns 0", async () => {
