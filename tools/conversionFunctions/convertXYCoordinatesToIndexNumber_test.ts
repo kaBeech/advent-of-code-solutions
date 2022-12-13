@@ -22,7 +22,7 @@ Deno.test("calling with with a negative integer base throws error", () => {
       convertXYCoordinatesToIndexNumber([24, 25], -50);
     },
     Error,
-    "Base must be a positive integer! Recevied: -50",
+    "Base must be a positive integer! Received: -50",
   );
 });
 
