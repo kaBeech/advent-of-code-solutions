@@ -7,6 +7,7 @@ interface Tree {
   getLocation: { (): number[]};
   getHeight: { (): SingleDigitInteger };
   getVisibility: { (): ModalBoolean[] };
+  setVisibility: { (visibility: boolean, direction: OrthagonalDirection2D): undefined };
 }
 
 interface TreeMap {
