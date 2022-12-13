@@ -12,31 +12,31 @@ const testTreeMap2 = parseTreesString("testInput2.txt")
 Deno.test("testTreeMap returns a boolean", async () => {
   const result = checkVisibility(24, await testTreeMap, 0);
 
-  assertEquals("boolean", typeof (result));
+  assertEquals(typeof (result), "boolean");
 });
 
 Deno.test("visible tree  at the edge (in negative direction) returns true", async () => {
-  const result = checkVisibility(8, await testTreeMap2, 0);
+  const result = checkVisibility(7, await testTreeMap2, 0);
 
-  assertEquals(true, result);
+  assertEquals(result, true);
 });
 
 Deno.test("visible tree in the middle (in positive direction) returns true", async () => {
-  const result = checkVisibility(24, await testTreeMap, 2);
+  const result = checkVisibility(13, await testTreeMap, 2);
 
-  assertEquals(true, result);
+  assertEquals(result, true);
 });
 
 Deno.test("non-visible tree in positive direction returns false", async () => {
   const result = checkVisibility(24, await testTreeMap2, 3);
 
-  assertEquals(false, result);
+  assertEquals(result, false);
 });
 
 Deno.test("non-visible tree in negative direction returns false", async () => {
   const result = checkVisibility(5, await testTreeMap, 1);
 
-  assertEquals(false, result);
+  assertEquals(result, false);
 });
 
 Deno.test("calling with a non-integer index throws error", () => {
