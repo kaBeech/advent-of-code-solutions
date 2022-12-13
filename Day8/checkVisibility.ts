@@ -1,30 +1,11 @@
 import { OrthagonalDirection2D, TreeMap } from "./types.ts";
 import { convertXYCoordinatesToIndexNumber } from "../tools/conversionFunctions/convertXYCoordinatesToIndexNumber.ts";
 
-const checkVisibility = (
-  treeIndex: number,
-  treeMap: TreeMap,
+const getNextTreeCoordinates = (
+  currentTreeCoordinates: number[],
   direction: OrthagonalDirection2D,
-): boolean => {
-  if (treeIndex < 0 || treeIndex >= treeMap.trees.length) {
-    throw new Error(
-      `Index must be within domain! Received Index: ${treeIndex}, Domain: 0-${
-        treeMap.trees.length - 1
-      }`,
-    );
-  }  if (treeIndex % 1 !== 0) {
-    throw new Error(
-      `Index must be a positive integer! Received: ${treeIndex}`,
-    );
-  }
-
-  const tree = treeMap.trees[treeIndex];
-  if (tree.getVisibility()[direction] !== null) {
-    return tree.getVisibility()[direction] as boolean;
-  }
-
-  const nextTreeCoordinates = tree.getLocation().slice();
-  let nextTreeIndex = -1;
+) => {
+  const nextTreeCoordinates = currentTreeCoordinates.slice();
   switch (direction) {
     case 0:
       nextTreeCoordinates[0] -= 1;
@@ -37,8 +18,38 @@ const checkVisibility = (
       break;
     case 3:
       nextTreeCoordinates[1] += 1;
-      break;
   }
+  return nextTreeCoordinates;
+};
+
+const checkVisibility = (
+  treeIndex: number,
+  treeMap: TreeMap,
+  direction: OrthagonalDirection2D,
+): boolean => {
+  if (treeIndex < 0 || treeIndex >= treeMap.trees.length) {
+    throw new Error(
+      `Index must be within domain! Received Index: ${treeIndex}, Domain: 0-${
+        treeMap.trees.length - 1
+      }`,
+    );
+  }
+  if (treeIndex % 1 !== 0) {
+    throw new Error(
+      `Index must be a positive integer! Received: ${treeIndex}`,
+    );
+  }
+
+  const tree = treeMap.trees[treeIndex];
+  if (tree.getVisibility()[direction] !== null) {
+    return tree.getVisibility()[direction] as boolean;
+  }
+
+  let nextTreeCoordinates = getNextTreeCoordinates(
+    tree.getLocation(),
+    direction,
+  );
+  let nextTreeIndex = -1;
   try {
     convertXYCoordinatesToIndexNumber(
       nextTreeCoordinates,
@@ -55,19 +66,37 @@ const checkVisibility = (
     } else throw err;
   }
 
-  const nextTree = treeMap.trees[nextTreeIndex];
+  let nextTree = treeMap.trees[nextTreeIndex];
 
   if (nextTree.getHeight() >= tree.getHeight()) {
     tree.setVisibility(false, direction);
     return false;
   }
 
-  const result: boolean = checkVisibility(nextTreeIndex, treeMap, direction);
-  tree.setVisibility(
-    result,
-    direction,
-  );
-  return result;
+  // if the next tree isn't visible, compare against the tree after that one instead
+  while (
+    !checkVisibility(
+      nextTreeIndex,
+      treeMap,
+      direction,
+    )
+  ) {
+    nextTreeCoordinates = getNextTreeCoordinates(
+      nextTree.getLocation(),
+      direction,
+    );
+    nextTreeIndex = convertXYCoordinatesToIndexNumber(
+      nextTreeCoordinates,
+      treeMap.sideLength,
+    );
+    nextTree = treeMap.trees[nextTreeIndex];
+    if (nextTree.getHeight() >= tree.getHeight()) {
+      tree.setVisibility(false, direction);
+      return false;
+    }
+  }
+
+  return true;
 };
 
 export { checkVisibility };
