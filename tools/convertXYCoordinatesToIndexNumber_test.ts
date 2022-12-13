@@ -4,6 +4,18 @@ import {
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { convertXYCoordinatesToIndexNumber } from "./convertXYCoordinatesToIndexNumber.ts";
 
+Deno.test("coordinates [2, 4] with base 10 convert to an index of 24", () => {
+  const result = convertXYCoordinatesToIndexNumber([2, 4], 10);
+
+  assertEquals(24, result);
+});
+
+Deno.test("coordinates [24, 48] with base 68 convert to an index of 1680", () => {
+  const result = convertXYCoordinatesToIndexNumber([24, 48], 68);
+
+  assertEquals(1680, result);
+});
+
 Deno.test("calling convertXYCoordinatesToIndexNumber on coordinates less than 2 elements long throws error", () => {
   assertThrows(
     () => {
@@ -62,16 +74,4 @@ Deno.test("calling convertXYCoordinatesToIndexNumber on with a negative integer 
     Error,
     "Base must be a positive integer: -50",
   );
-});
-
-Deno.test("coordinates [2, 4] with base 10 convert to an index of 24", () => {
-  const result = convertXYCoordinatesToIndexNumber([2, 4], 10);
-
-  assertEquals(24, result);
-});
-
-Deno.test("coordinates [24, 48] with base 68 convert to an index of 1680", () => {
-  const result = convertXYCoordinatesToIndexNumber([24, 48], 68);
-
-  assertEquals(1680, result);
 });
