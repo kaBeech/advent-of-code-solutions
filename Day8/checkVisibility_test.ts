@@ -38,16 +38,6 @@ Deno.test("non-visible tree in negative direction returns false", () => {
   assertEquals(result, false);
 });
 
-Deno.test("calling with a non-integer index throws error", () => {
-  assertThrows(
-    () => {
-      checkVisibility(24.5, testTreeMap, 2);
-    },
-    Error,
-    "Index must be a positive integer! Received: 24.5",
-  );
-});
-
 Deno.test("calling with index outside of domain throws error", () => {
   assertThrows(
     () => {
@@ -55,5 +45,15 @@ Deno.test("calling with index outside of domain throws error", () => {
     },
     Error,
     "Index must be within domain! Received Index: 24000, Domain: 0-24",
+  );
+});
+
+Deno.test("calling with a non-integer index throws error", () => {
+  assertThrows(
+    () => {
+      checkVisibility(24.5, testTreeMap, 2);
+    },
+    Error,
+    "Index must be a positive integer! Received: 24.5",
   );
 });
