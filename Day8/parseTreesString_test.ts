@@ -14,7 +14,7 @@ Deno.test("every tree returned has a visibility array that is 4 elements long", 
     }
   }
 
-  assertEquals(0, invalidVisibilityCounter);
+  assertEquals(invalidVisibilityCounter, 0);
 });
 
 Deno.test("every tree returned has a location array that is 2 elements long", async () => {
@@ -27,7 +27,7 @@ Deno.test("every tree returned has a location array that is 2 elements long", as
     }
   }
 
-  assertEquals(0, invalidLocationCounter);
+  assertEquals(invalidLocationCounter, 0);
 });
 
 Deno.test("every tree returned has a location array composed of integers", async () => {
@@ -40,35 +40,35 @@ Deno.test("every tree returned has a location array composed of integers", async
     }
   }
 
-  assertEquals(0, invalidLocationCounter);
+  assertEquals(invalidLocationCounter, 0);
 });
 
 Deno.test("testInput returns an object incuding an integer reporting the sideLength", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals(0, result.sideLength % 1);
+  assertEquals(result.sideLength % 1, 0);
 });
 
 Deno.test("testInput returns 25 Trees", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals(25, result.trees.length);
+  assertEquals(result.trees.length, 25);
 });
 
 Deno.test("testInput returns 5 sideLength", async () => {
   const result = await parseTreesString(testInput);
 
-  assertEquals(5, result.sideLength);
+  assertEquals(result.sideLength, 5);
 });
 
 Deno.test("testInput2 returns 49 Trees", async () => {
   const result = await parseTreesString(testInput2);
 
-  assertEquals(49, result.trees.length);
+  assertEquals(result.trees.length, 49);
 });
 
 Deno.test("testInput2 returns 7 sideLength", async () => {
   const result = await parseTreesString(testInput2);
 
-  assertEquals(7, result.sideLength);
+  assertEquals(result.sideLength, 7);
 });
