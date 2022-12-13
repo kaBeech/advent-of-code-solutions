@@ -6,6 +6,18 @@ const checkVisibility = (
   treeMap: TreeMap,
   direction: OrthagonalDirection2D,
 ): boolean => {
+  if (treeIndex < 0 || treeIndex >= treeMap.trees.length) {
+    throw new Error(
+      `Index must be within domain! Received Index: ${treeIndex}, Domain: 0-${
+        treeMap.trees.length - 1
+      }`,
+    );
+  }  if (treeIndex % 1 !== 0) {
+    throw new Error(
+      `Index must be a positive integer! Received: ${treeIndex}`,
+    );
+  }
+
   const tree = treeMap.trees[treeIndex];
   if (tree.getVisibility()[direction] !== null) {
     return tree.getVisibility()[direction] as boolean;
