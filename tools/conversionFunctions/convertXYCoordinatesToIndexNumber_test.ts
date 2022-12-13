@@ -16,62 +16,72 @@ Deno.test("coordinates [48, 24] with base 68 convert to an index of 1680", () =>
   assertEquals(1680, result);
 });
 
-Deno.test("calling convertXYCoordinatesToIndexNumber on coordinates less than 2 elements long throws error", () => {
-  assertThrows(
-    () => {
-      convertXYCoordinatesToIndexNumber([4], 25);
-    },
-    Error,
-    "Coordinate array is too short: [4]",
-  );
-});
-
-Deno.test("calling convertXYCoordinatesToIndexNumber on coordinates more than 2 elements long throws error", () => {
-  assertThrows(
-    () => {
-      convertXYCoordinatesToIndexNumber([4, 8, 16], 25);
-    },
-    Error,
-    "Coordinate array is too long: [4, 8, 16]",
-  );
-});
-
-Deno.test("calling convertXYCoordinatesToIndexNumber on non-integer coordinates throws error", () => {
-  assertThrows(
-    () => {
-      convertXYCoordinatesToIndexNumber([2.4, 2.5], 5);
-    },
-    Error,
-    "Coordinates must all be integers: [2.4, 2.5]",
-  );
-});
-
-Deno.test("calling convertXYCoordinatesToIndexNumber on coordinates outside of domain throws error", () => {
-  assertThrows(
-    () => {
-      convertXYCoordinatesToIndexNumber([24, -25], 5);
-    },
-    Error,
-    "Coordinates must all be in domain! Coordinates: [24, -25], Domain: 0-4",
-  );
-});
-
-Deno.test("calling convertXYCoordinatesToIndexNumber on with a non-integer base throws error", () => {
-  assertThrows(
-    () => {
-      convertXYCoordinatesToIndexNumber([24, 25], 50.2);
-    },
-    Error,
-    "Base must be a positive integer: 50.2",
-  );
-});
-
-Deno.test("calling convertXYCoordinatesToIndexNumber on with a negative integer base throws error", () => {
+Deno.test("calling with with a negative integer base throws error", () => {
   assertThrows(
     () => {
       convertXYCoordinatesToIndexNumber([24, 25], -50);
     },
     Error,
-    "Base must be a positive integer: -50",
+    "Base must be a positive integer! Recevied: -50",
+  );
+});
+
+Deno.test("calling with with a non-integer base throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([24, 25], 50.2);
+    },
+    Error,
+    "Base must be a positive integer! Received: 50.2",
+  );
+});
+
+Deno.test("calling with coordinates less than 2 elements long throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([4], 25);
+    },
+    Error,
+    "Coordinate array must have 2 elements - input is too short! Received: [4]",
+  );
+});
+
+Deno.test("calling with coordinates more than 2 elements long throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([4, 8, 16], 25);
+    },
+    Error,
+    "Coordinate array must have 2 elements - input is too long! Received: [4,8,16]",
+  );
+});
+
+Deno.test("calling with non-integer coordinates throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([2.4, 2.5], 5);
+    },
+    Error,
+    "Coordinates must all be integers! Received: [2.4,2.5]",
+  );
+});
+
+Deno.test("calling with negative coordinates throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([24, -5], 25);
+    },
+    Error,
+    "Coordinates must all be in domain! Received Coordinates: [24,-5], Domain: 0 to 24",
+  );
+});
+
+Deno.test("calling with coordinates outside of domain throws error", () => {
+  assertThrows(
+    () => {
+      convertXYCoordinatesToIndexNumber([24, 25], 25);
+    },
+    Error,
+    "Coordinates must all be in domain! Received Coordinates: [24,25], Domain: 0 to 24",
   );
 });
