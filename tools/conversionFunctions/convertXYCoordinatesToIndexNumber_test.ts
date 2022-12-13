@@ -16,7 +16,7 @@ Deno.test("coordinates [48, 24] with base 68 convert to an index of 1680", () =>
   assertEquals(1680, result);
 });
 
-Deno.test("calling with with a negative integer base throws error", () => {
+Deno.test("calling with a negative integer base throws error", () => {
   assertThrows(
     () => {
       convertXYCoordinatesToIndexNumber([24, 25], -50);
@@ -26,7 +26,7 @@ Deno.test("calling with with a negative integer base throws error", () => {
   );
 });
 
-Deno.test("calling with with a non-integer base throws error", () => {
+Deno.test("calling with a non-integer base throws error", () => {
   assertThrows(
     () => {
       convertXYCoordinatesToIndexNumber([24, 25], 50.2);
