@@ -24,8 +24,8 @@ Deno.test("testInput2 returns 45", async () => {
   assertEquals(result, 45);
 });
 
-Deno.test("challengeInput returns 1818", async () => {
+Deno.test("challengeInput returns 368368", async () => {
   const result = await getHighestScenicScore(challengeInput);
 
-  assertEquals(result, 1818);
+  assertEquals(result, 368368);
 });
