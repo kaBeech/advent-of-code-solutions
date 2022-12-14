@@ -15,7 +15,7 @@ Naturally, later Days tend to contain more sophisticated code
 
 ### Notes
 
-Warning: files labelled notes.md are for scratch note-taking most of their
+Warning: files labelled notes.md are for scratch note-taking and much of their
 content is not written with the intention of being readable for anyone besides
 myself
 
