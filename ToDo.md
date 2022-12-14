@@ -5,6 +5,8 @@
 
 ### Some test asserts have Actual and Expected reversed. Fix that
 
+- There's some more test cleanup that can be done as well
+
 ### Add app.ts for Days 1-6
 
 ### Standardize style
