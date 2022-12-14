@@ -15,7 +15,8 @@ Warning: files labelled notes.md are for scratch note-taking most of their
 content is not written with the intention of being readable for anyone besides
 myself
 
-    - They do contain handy links to the challenges for individual Days' pages though!
+- They do contain handy links to the challenges for individual Days' pages
+  though!
 
 ToDo contains known opportunities and fresh ideas for improving this project
 
