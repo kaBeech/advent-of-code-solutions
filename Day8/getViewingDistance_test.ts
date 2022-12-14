@@ -14,16 +14,16 @@ Deno.test("testTreeMap returns a number", () => {
   assertEquals(typeof (result), "number");
 });
 
-Deno.test("tree  at the edge (in negative direction) returns 0", () => {
+Deno.test("tree at the edge (in negative direction) returns 0", () => {
   const result = getViewingDistance(7, testTreeMap2, 0);
 
   assertEquals(result, 0);
 });
 
-Deno.test("tree counting is blocked by tree of same height (in positive direction)", () => {
-  const result = getViewingDistance(12, testTreeMap, 2);
+Deno.test("tree counting is not blocked by shorter trees of same height (in positive direction)", () => {
+  const result = getViewingDistance(10, testTreeMap, 2);
 
-  assertEquals(result, 1);
+  assertEquals(result, 4);
 });
 
 Deno.test("tree counting is not blocked by shorter trees (in positive direction)", () => {
