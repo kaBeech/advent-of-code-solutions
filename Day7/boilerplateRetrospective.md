@@ -4,7 +4,7 @@
 
 ## Takeaways
 
-* Have fun!
+- Have fun!
 
 # What can I learn from difficult points?
 
@@ -12,7 +12,7 @@
 
 ## Takeaways
 
-* 
+-
 
 # Ideas for possible future implementaion
 

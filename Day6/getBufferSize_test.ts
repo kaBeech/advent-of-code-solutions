@@ -5,7 +5,6 @@ const testInput = "testInput.txt";
 const testInput2 = "testInput2.txt";
 const challengeInput = "datastream.txt";
 
-
 Deno.test("testInput returns a number with packet method", async () => {
   const result = await getBufferSize(testInput, "packet");
 

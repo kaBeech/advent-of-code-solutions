@@ -1,6 +1,11 @@
-import { SingleDigitIntegerString, TwoDigitIntegerString } from "../tools/commonTypes.ts";
+import {
+  SingleDigitIntegerString,
+  TwoDigitIntegerString,
+} from "../tools/commonTypes.ts";
 
-type Assignment = `${SingleDigitIntegerString | TwoDigitIntegerString}-${SingleDigitIntegerString | TwoDigitIntegerString}`;
+type Assignment = `${SingleDigitIntegerString | TwoDigitIntegerString}-${
+  | SingleDigitIntegerString
+  | TwoDigitIntegerString}`;
 
 type AssignmentCouple = Assignment[];
 

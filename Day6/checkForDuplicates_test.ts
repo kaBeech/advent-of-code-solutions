@@ -5,7 +5,7 @@ const testInput = ["A", "b", "C", "D"];
 const testInput2 = ["b", "b", "Z", "X"];
 
 Deno.test("testInput returns a boolean", () => {
-  const result =  checkForDuplicates(testInput);
+  const result = checkForDuplicates(testInput);
 
   assertEquals("boolean", typeof (result));
 });
