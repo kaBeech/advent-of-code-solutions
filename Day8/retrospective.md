@@ -67,7 +67,8 @@
   1. Add boilerplate content
   2. Add pseudocode
   3. Define Types
-  4. Scaffold modules
+  4. Scaffold modules (i.e. add properly typed inputs and outputs and any
+     necessary boilerplate content)
   5. Write tests
   6. Pass tests
   7. Refactor
