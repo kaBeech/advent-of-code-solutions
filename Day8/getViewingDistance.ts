@@ -2,11 +2,11 @@ import { OrthagonalDirection2D, TreeMap } from "./types.ts";
 import { convertXYCoordinatesToIndexNumber } from "../tools/conversionFunctions/convertXYCoordinatesToIndexNumber.ts";
 import { getNextTreeCoordinates } from "./getNextTreeCoordinates.ts";
 
-const checkVisibility = (
+const getViewingDistance = (
   treeIndex: number,
   treeMap: TreeMap,
   direction: OrthagonalDirection2D,
-): boolean => {
+): number => {
   if (treeIndex < 0 || treeIndex >= treeMap.trees.length) {
     throw new Error(
       `Index must be within domain! Received Index: ${treeIndex}, Domain: 0-${
@@ -20,13 +20,12 @@ const checkVisibility = (
     );
   }
 
+  let visibleTreesCounter = 0;
   const tree = treeMap.trees[treeIndex];
-  if (tree.getVisibility()[direction] !== null) {
-    return tree.getVisibility()[direction] as boolean;
-  }
 
   let nextTreeCoordinates = getNextTreeCoordinates(
-    tree.getLocation(), treeMap.sideLength,
+    tree.getLocation(),
+    treeMap.sideLength,
     direction,
   );
   let nextTreeIndex = -1;
@@ -41,42 +40,39 @@ const checkVisibility = (
     );
   } catch (err) {
     if (err.message.includes(`Coordinates must all be in domain!`)) {
-      tree.setVisibility(true, direction);
-      return true;
+      return visibleTreesCounter;
     } else throw err;
   }
 
+  visibleTreesCounter += 1;
   let nextTree = treeMap.trees[nextTreeIndex];
 
-  if (nextTree.getHeight() >= tree.getHeight()) {
-    tree.setVisibility(false, direction);
-    return false;
-  }
-
-  // if the next tree isn't visible, compare against the tree after that one instead
-  while (
-    !checkVisibility(
-      nextTreeIndex,
-      treeMap,
-      direction,
-    )
-  ) {
+  // if the next tree is shorter than this tree, add 1 to visibleTreesCounter and compare against the tree after that one
+  while (nextTree.getHeight() < tree.getHeight()) {
     nextTreeCoordinates = getNextTreeCoordinates(
-      nextTree.getLocation(), treeMap.sideLength,
+      nextTree.getLocation(),
+      treeMap.sideLength,
       direction,
     );
-    nextTreeIndex = convertXYCoordinatesToIndexNumber(
-      nextTreeCoordinates,
-      treeMap.sideLength,
-    );
-    nextTree = treeMap.trees[nextTreeIndex];
-    if (nextTree.getHeight() >= tree.getHeight()) {
-      tree.setVisibility(false, direction);
-      return false;
+    try {
+      convertXYCoordinatesToIndexNumber(
+        nextTreeCoordinates,
+        treeMap.sideLength,
+      );
+      nextTreeIndex = convertXYCoordinatesToIndexNumber(
+        nextTreeCoordinates,
+        treeMap.sideLength,
+      );
+    } catch (err) {
+      if (err.message.includes(`Coordinates must all be in domain!`)) {
+        return visibleTreesCounter;
+      } else throw err;
     }
+    visibleTreesCounter += 1;
+    nextTree = treeMap.trees[nextTreeIndex];
   }
 
-  return true;
+  return visibleTreesCounter;
 };
 
-export { checkVisibility };
+export { getViewingDistance };
