@@ -1,3 +1,4 @@
+import { countVisibleTrees } from "./countVisibleTrees.ts";
 import { parseTreesString } from "./parseTreesString.ts";
 import { OrthagonalDirection2D, Tree, TreeMap } from "./types.ts";
 let _highestScenicScoreTree = null as unknown as Tree;
