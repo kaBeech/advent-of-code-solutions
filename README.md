@@ -11,7 +11,7 @@ I am also using this project as an opportunity to practice some Agile strategies
 
 Naturally, later Days tend to contain more sophisticated code
 
-#### Notes
+### Notes
 
 Warning: files labelled notes.md are for scratch note-taking most of their
 content is not written with the intention of being readable for anyone besides
@@ -20,15 +20,15 @@ myself
 - They do contain handy links to the challenges for individual Days' pages
   though!
 
-#### ToDo
+### ToDo
 
 ToDo contains known opportunities and fresh ideas for improving this project
 
-#### Retrospectives
+### Retrospectives
 
 Retrospectives contain reflections on that Day's work
 
-#### app.ts
+### app.ts
 
 Files labelled app.ts are runnable and will return that Day's solutions as well
 as log solution messages to the console. They can be run from inside that Day's
