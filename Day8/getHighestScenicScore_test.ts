@@ -18,10 +18,10 @@ Deno.test("testInput returns 8", async () => {
   assertEquals(result, 8);
 });
 
-Deno.test("testInput2 returns 18", async () => {
+Deno.test("testInput2 returns 45", async () => {
   const result = await getHighestScenicScore(testInput2);
 
-  assertEquals(result, 18);
+  assertEquals(result, 45);
 });
 
 Deno.test("challengeInput returns 1818", async () => {
