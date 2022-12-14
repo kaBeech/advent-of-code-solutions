@@ -2,11 +2,6 @@
 
 https://adventofcode.com/2022/day/8
 
-## Scratch Notes
-
-- In tests, maybe pull the Results out of the individual test cases and make
-  them global?
-
 ## Pseudocode
 
 - Format the input:
