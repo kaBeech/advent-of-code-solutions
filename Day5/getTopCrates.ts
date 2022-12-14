@@ -1,6 +1,5 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
 
-
 let currentMovementMethod: "single" | "bulk" = "single";
 let crateStacks: string[][] = [["0"]];
 let currentCrateStackNumber = 1;
@@ -49,9 +48,13 @@ const moveCratesBulk = (
   sourceStack: number,
   destinationStack: number,
 ) => {
-  const cratesToMove = crateStacks[sourceStack].splice(-numberOfCrates, numberOfCrates);
-  crateStacks[destinationStack] = crateStacks[destinationStack].concat(cratesToMove);
-
+  const cratesToMove = crateStacks[sourceStack].splice(
+    -numberOfCrates,
+    numberOfCrates,
+  );
+  crateStacks[destinationStack] = crateStacks[destinationStack].concat(
+    cratesToMove,
+  );
 };
 
 const directCrateMovement = (instructionsLine: string) => {

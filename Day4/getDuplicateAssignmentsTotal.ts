@@ -25,7 +25,7 @@ const getDuplicateAssignmentsTotal = async (
   overlapMethod: OverlapMethod,
 ) => {
   total = 0;
-  currentOverlapMethod = OverlapMethod;
+  currentOverlapMethod = overlapMethod;
   assignmentsCouples.splice(0, assignmentsCouples.length);
 
   const assignmentsStrings = await convertMultiLineFileToArray(

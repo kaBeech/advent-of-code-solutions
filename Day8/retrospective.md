@@ -3,22 +3,22 @@
 ### Writing code in a more real-world way
 
 - Well, I asked for it! This was a good excuse to add in a Constructor, and I
-  took the opportunity to reassess some of my structure and build this day in a
-  way closer to how I'd build a real-world project. All in all, I'm proud of
-  this code. It could be improved, sure, but it's relatively clean, organized,
-  SOLID, and optimized, especially for a short challenge
+  took the opportunity to reassess some of my structure and build this Day in a
+  way closer to how I build real-world projects. All in all, I'm proud of this
+  code. It could be improved, sure, but it's relatively clean, organized, SOLID,
+  and optimized, especially for a short challenge
 
 ### Optimizing!
 
 - Related to the above. I hadn't planned on thinking too much about optimization
   during this project, but after choosing to memoize the visibility data I
-  started noticing more opportunities to speed up the code I was writing
+  started noticing more opportunities to speed up my code as I was writing it
 
   - Mostly these are little things. Like when writing error handling it makes
-    more sense to put the errors that are cheaper to check before more expensive
-    ones (e.g. `if (myVar > 0)` before `if (myVar % 1 === 0)` ), or more common
-    errors before less common ones. I think that's fun! Noticing those
-    opportunites (if not actively looking for them) makes writing fairly
+    more sense to put the errors that are cheaper to check for before more
+    expensive ones (e.g. `if (myVar > 0)` before `if (myVar % 1 === 0)` ), or
+    more common errors before less common ones. I think that's fun! Noticing
+    those opportunites (if not actively looking for them) makes writing fairly
     straightforward code feel more like a game =)
 
 ### Organizing!
@@ -58,8 +58,8 @@
 
 ### Define Types before writing tests
 
-- This wansn't a big difficulty, but early on it became clear that these tests
-  were easier to write if I already have some Types defined, and maybe some
+- This wasn't a big difficulty, but early on it became clear that these tests
+  were easier to write when I already have some Types defined, and maybe some
   scaffolding done as well. I'm still experimenting with my order of approach
   (and I like keeping it flexible), but this general flow seems to be working
   well:
@@ -67,7 +67,8 @@
   1. Add boilerplate content
   2. Add pseudocode
   3. Define Types
-  4. Scaffold modules
+  4. Scaffold modules (i.e. add properly typed inputs and outputs and any
+     necessary boilerplate content)
   5. Write tests
   6. Pass tests
   7. Refactor

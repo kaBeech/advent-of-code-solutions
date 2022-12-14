@@ -1,15 +1,17 @@
 # Start Day 2
 
+https://adventofcode.com/2022/day/2
+
 ## Pseudocode
 
-* Wrap input string into an array of strings
+- Wrap input string into an array of strings
 
-* Add up subtotal score from the shapes selected
+- Add up subtotal score from the shapes selected
 
-* Calculate scores from the outcome of each round
+- Calculate scores from the outcome of each round
 
-* Add up subtotal score from the round outcomes
+- Add up subtotal score from the round outcomes
 
-* Sum the shape subtotal and outcome subtotal to get the overall total
+- Sum the shape subtotal and outcome subtotal to get the overall total
 
-* Return the overall total
+- Return the overall total

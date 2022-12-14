@@ -1,9 +1,6 @@
 # Start Day 8
 
-## Scratch Notes
-
-- In tests, maybe pull the Results out of the individual test cases and make
-  them global?
+https://adventofcode.com/2022/day/8
 
 ## Pseudocode
 
@@ -27,18 +24,18 @@
   1. Create a visibleTreeCounter equal to 0
   2. Take the first Tree in Trees and look at its neighbor at relative
      coordinates [-1, 0]:
-     - If it is not a Tree (i.e. one or both absolute coordinates are less than
-       0 or greater than or equal to sideLength), return true (visible)
-     - If it is a Tree with Height greater than or equal to the referance Tree's
-       Height, return false (not visible)
-     - If it is a Tree with Height less than the referance Tree's Height, check
-       its visiblity. If it is visible, return true (visible), else return false
-       (not visible)
+     1. If it is not a Tree (i.e. one or both absolute coordinates are less than
+        0 or greater than or equal to sideLength), return true (visible)
+     2. If it is a Tree with Height greater than or equal to the referance
+        Tree's Height, return false (not visible)
+     3. If it is a Tree with Height less than the referance Tree's Height, check
+        its visiblity. If it is visible, return true (visible), else return
+        false (not visible)
   3. If Step 1 returns true (visible), increment the visibleTreeCounter. Else,
      repeat Steps 1-2 for each remaining cardinal (orthagonal) direction
   4. Repeat Steps 1-2 for each remaining Tree
   5. Return the value of visibleTreeCounter
 
 - Oh, I forgot the bit about converting a Tree's coordinates to its index in the
-  Trees array. Add a converter in there. It's basically { Index =
-  Coordinates[0] + (Coordinates[1] * sideLength)}
+  Trees array. Add a converter in there. It's basically
+  `Index = Coordinates[0] + (Coordinates[1] * sideLength)`
