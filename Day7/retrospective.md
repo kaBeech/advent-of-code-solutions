@@ -10,7 +10,7 @@
 
 - Obviously (well, to me anyway. I guess I what I mean here is that this is a
   strength I'm comfortable highlighting when I position myself to teams that are
-  largely made up of other people who are also crazy smart and have more
+  largely made up of other people who are also wicked smart and have more
   concrete evidence to prove it than I do), I bring a lot of valuable soft
   skills and leadership ability
   - I mean, this is kind of a place for me to brag, but more importanly it's a
