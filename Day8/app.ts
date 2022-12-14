@@ -13,8 +13,10 @@ const app = (async (
 
   console.log(`Part 1: How many trees are visible from outside the forest?
     Solution: ${visibleTreesTotal}`);
-  console.log(`Part 2: How many trees are visible from outside the forest?
-    Solution: ${highestScenicScore}`);
+  console.log(
+    `Part 2: What is the highest scenic score among all trees in the forest?
+    Solution: ${highestScenicScore}`,
+  );
 
   return {
     visibleTreesTotal,

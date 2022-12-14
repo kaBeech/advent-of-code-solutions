@@ -18,8 +18,8 @@
     more sense to put the errors that are cheaper to check for before more
     expensive ones (e.g. `if (myVar > 0)` before `if (myVar % 1 === 0)` ), or
     more common errors before less common ones. I think that's fun! Noticing
-    those opportunites (if not actively looking for them) makes writing fairly
-    straightforward code feel more like a game =)
+    those opportunites (even if not actively looking for them) makes writing
+    fairly straightforward code feel more like a game =)
 
 ### Organizing!
 
