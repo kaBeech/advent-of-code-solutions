@@ -10,6 +10,9 @@ I'm sticking to fundamentals: using JS/TS with Deno, not going for speed, just
 seeing how far I get
 
 I am also using this project as an opportunity to practice some Agile strategies
+such as prioritizing working code, iterative/incremental/evolutionary
+development, continuous refactoring, periodic retrospectives, SCRUM, Test Driven
+Development, and Pair Programming
 
 Naturally, later Days tend to contain more sophisticated code
 
