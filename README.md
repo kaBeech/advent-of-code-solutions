@@ -4,6 +4,8 @@ Repository for my work on the Advent Of Code 2022 challenges
 
 https://adventofcode.com/2022
 
+### Basic Info
+
 I'm sticking to fundamentals: using JS/TS with Deno, not going for speed, just
 seeing how far I get
 
