@@ -7,7 +7,7 @@ https://adventofcode.com/2022
 ### Basic Info
 
 I'm sticking to fundamentals: using JS/TS with Deno, not going for speed, just
-seeing how far I get
+seeing how far I get while building a progressively more sophisticated code base
 
 I am also using this project as an opportunity to practice some Agile strategies
 such as prioritizing working code, iterative/incremental/evolutionary
