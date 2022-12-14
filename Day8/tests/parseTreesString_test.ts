@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { parseTreesString } from "./parseTreesString.ts";
+import { parseTreesString } from "../parseTreesString.ts";
 
-const testInput = "testInput.txt";
-const testInput2 = "testInput2.txt";
+const testInput = "tests/testInput.txt";
+const testInput2 = "tests/testInput2.txt";
 
 Deno.test("testInput returns an object incuding an integer reporting the sideLength", async () => {
   const result = await parseTreesString(testInput);

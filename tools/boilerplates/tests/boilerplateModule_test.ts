@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { boilerplateFunction } from "./boilerplateModule.ts";
+import { boilerplateFunction } from "../boilerplateModule.ts";
 
-const testInput = "testInput.txt";
-const testInput2 = "testInput2.txt";
-const challengeInput = "challengeInput.txt";
+const testInput = "tests/testInput.txt";
+const testInput2 = "tests/testInput2.txt";
+const challengeInput = "tests/challengeInput.txt";
 
 
 Deno.test("testInput returns a number", async () => {

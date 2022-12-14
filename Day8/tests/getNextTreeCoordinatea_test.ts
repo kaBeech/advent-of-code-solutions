@@ -1,7 +1,7 @@
 import {
   assertEquals,
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { getNextTreeCoordinates } from "./getNextTreeCoordinates.ts";
+import { getNextTreeCoordinates } from "../getNextTreeCoordinates.ts";
 
 Deno.test("correct coordinates are returned for direction 0", () => {
   const result = getNextTreeCoordinates([57, 32], 99, 0);

@@ -2,11 +2,11 @@ import {
   assertEquals,
   assertThrows,
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { checkVisibility } from "./checkVisibility.ts";
-import { parseTreesString } from "./parseTreesString.ts";
+import { checkVisibility } from "../checkVisibility.ts";
+import { parseTreesString } from "../parseTreesString.ts";
 
-const testTreeMap = await parseTreesString("testInput.txt");
-const testTreeMap2 = await parseTreesString("testInput2.txt");
+const testTreeMap = await parseTreesString("tests/testInput.txt");
+const testTreeMap2 = await parseTreesString("tests/testInput2.txt");
 
 Deno.test("testTreeMap returns a boolean", () => {
   const result = checkVisibility(24, testTreeMap, 0);

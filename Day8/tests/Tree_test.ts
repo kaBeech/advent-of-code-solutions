@@ -1,5 +1,5 @@
 import { assertEquals, assertThrows } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import Tree from "./Tree.ts";
+import Tree from "../Tree.ts";
 
 const testTree = Tree(4, 2, 7);
 const testTree2 = Tree(5, 8, 9);
