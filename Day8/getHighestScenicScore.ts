@@ -9,11 +9,11 @@ const assessScenicScore = (tree: Tree) => {
   let directionCounter = 0;
   let scenicScore = 1;
   while (directionCounter < 4) {
-      scenicScore *= countVisibleTrees(
-        treeMap.trees.indexOf(tree),
-        treeMap,
-        directionCounter as OrthagonalDirection2D,
-      );
+    scenicScore *= countVisibleTrees(
+      treeMap.trees.indexOf(tree),
+      treeMap,
+      directionCounter as OrthagonalDirection2D,
+    );
     directionCounter += 1;
   }
   if (scenicScore > highestScenicScore) {
