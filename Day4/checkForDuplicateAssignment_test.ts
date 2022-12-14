@@ -3,13 +3,13 @@ import {
   assertThrows,
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { checkForDuplicateAssignment } from "./checkForDuplicateAssignment.ts";
-import { assignmentCouple } from "./types.ts";
+import { AssignmentCouple } from "./types.ts";
 
-const testInput = ["2-4", "6-8"] as assignmentCouple;
-const testInput2 = ["2-8", "3-7"] as assignmentCouple;
-const testInput3 = ["2-4", "3-7"] as assignmentCouple;
-const testInputTooShort = ["2-8"] as assignmentCouple;
-const testInputTooLong = ["2-4", "6-8", "3-7"] as assignmentCouple;
+const testInput = ["2-4", "6-8"] as AssignmentCouple;
+const testInput2 = ["2-8", "3-7"] as AssignmentCouple;
+const testInput3 = ["2-4", "3-7"] as AssignmentCouple;
+const testInputTooShort = ["2-8"] as AssignmentCouple;
+const testInputTooLong = ["2-4", "6-8", "3-7"] as AssignmentCouple;
 
 Deno.test("testInput returns a number on full", () => {
   const result = checkForDuplicateAssignment(testInput, "full");
