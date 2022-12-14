@@ -19,7 +19,7 @@ Warning: files labelled notes.md are for scratch note-taking and much of their
 content is not written with the intention of being readable for anyone besides
 myself
 
-- They do contain handy links to the challenges for individual Days' pages
+- They do contain handy links to the pages for individual Days' challenges
   though!
 
 ### ToDo
