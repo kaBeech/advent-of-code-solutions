@@ -1,6 +1,4 @@
-import {
-  assertEquals,
-} from "https://deno.land/std@0.167.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { convertXYCoordinatesToIndexNumber } from "./convertXYCoordinatesToIndexNumber.ts";
 
 Deno.test("coordinates [4, 2] with base 10 convert to an index of 24", () => {

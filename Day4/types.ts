@@ -1,9 +1,9 @@
-import { integer, twoDigitInteger } from "../tools/commonTypes.ts";
+import { SingleDigitIntegerString, TwoDigitIntegerString } from "../tools/commonTypes.ts";
 
-type assignment = `${integer | twoDigitInteger}-${integer | twoDigitInteger}`;
+type Assignment = `${SingleDigitIntegerString | TwoDigitIntegerString}-${SingleDigitIntegerString | TwoDigitIntegerString}`;
 
-type assignmentCouple = assignment[];
+type AssignmentCouple = Assignment[];
 
-type overlapMethod = "full" | "partial";
+type OverlapMethod = "full" | "partial";
 
-export type { assignment, assignmentCouple, overlapMethod };
+export type { Assignment, AssignmentCouple, OverlapMethod };

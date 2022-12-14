@@ -1,31 +1,31 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
 import { checkForDuplicateAssignment } from "./checkForDuplicateAssignment.ts";
-import { assignmentCouple, overlapMethod } from "./types.ts";
+import { AssignmentCouple, OverlapMethod } from "./types.ts";
 
 let total = 0;
-let currentOverlapMethod = "full" as overlapMethod;
+let currentOverlapMethod = "full" as OverlapMethod;
 
-const assignmentsCouples = [] as assignmentCouple[];
+const assignmentsCouples = [] as AssignmentCouple[];
 
 const populateassignmentsCouples = (assignmentsString: string) => {
   if (assignmentsString.length < 1) return;
   return assignmentsCouples.push(
-    assignmentsString.split(",") as assignmentCouple,
+    assignmentsString.split(",") as AssignmentCouple,
   );
 };
 
 const sumDuplicateAssignments = (
-  assignmentsCouple: assignmentCouple,
+  assignmentsCouple: AssignmentCouple,
 ) => {
   total += checkForDuplicateAssignment(assignmentsCouple, currentOverlapMethod);
 };
 
 const getDuplicateAssignmentsTotal = async (
   assignmentsFile: string,
-  overlapMethod: overlapMethod,
+  overlapMethod: OverlapMethod,
 ) => {
   total = 0;
-  currentOverlapMethod = overlapMethod;
+  currentOverlapMethod = OverlapMethod;
   assignmentsCouples.splice(0, assignmentsCouples.length);
 
   const assignmentsStrings = await convertMultiLineFileToArray(

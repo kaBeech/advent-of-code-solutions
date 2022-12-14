@@ -50,4 +50,4 @@ const Tree = (row: number, column: number, height: SingleDigitInteger) => {
   };
 };
 
-export default Tree;
+export { Tree };
