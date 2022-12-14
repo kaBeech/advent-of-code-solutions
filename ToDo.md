@@ -9,7 +9,9 @@
 
 ### Standardize style
 
-    - I'm using this as a catch-all both to mean to make functionally idental code be sylistically identical and to update code in earlier Days with structure and methods implemented in later Days
+- I'm using this as a catch-all both to mean to make functionally idental code
+  be sylistically identical and to update code in earlier Days with structure
+  and methods implemented in later Days
 
 ### Possibly improve error handling for early days
 
