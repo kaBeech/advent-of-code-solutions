@@ -23,7 +23,7 @@ const getViewingDistance = (
   let visibleTreesCounter = 0;
   const tree = treeMap.trees[treeIndex];
 
-  const nextTreeCoordinates = getNextTreeCoordinates(
+  let nextTreeCoordinates = getNextTreeCoordinates(
     tree.getLocation(),
     treeMap.sideLength,
     direction,
@@ -45,13 +45,32 @@ const getViewingDistance = (
   }
 
   visibleTreesCounter += 1;
-  const nextTree = treeMap.trees[nextTreeIndex];
+  let nextTree = treeMap.trees[nextTreeIndex];
 
-  if (nextTree.getHeight() >= tree.getHeight()) {
-    return visibleTreesCounter;
+  // if the next tree is shorter than this tree, add 1 to visibleTreesCounter and compare against the tree after that one
+  while (nextTree.getHeight() < tree.getHeight()) {
+    nextTreeCoordinates = getNextTreeCoordinates(
+      nextTree.getLocation(),
+      treeMap.sideLength,
+      direction,
+    );
+    try {
+      convertXYCoordinatesToIndexNumber(
+        nextTreeCoordinates,
+        treeMap.sideLength,
+      );
+      nextTreeIndex = convertXYCoordinatesToIndexNumber(
+        nextTreeCoordinates,
+        treeMap.sideLength,
+      );
+    } catch (err) {
+      if (err.message.includes(`Coordinates must all be in domain!`)) {
+        return visibleTreesCounter;
+      } else throw err;
+    }
+    visibleTreesCounter += 1;
+    nextTree = treeMap.trees[nextTreeIndex];
   }
-
-  visibleTreesCounter += getViewingDistance(nextTreeIndex, treeMap, direction);
 
   return visibleTreesCounter;
 };
