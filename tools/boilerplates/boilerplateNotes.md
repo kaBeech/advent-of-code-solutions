@@ -1,4 +1,4 @@
-# Start Day 
+# Start Day
 
 ## Pseudocode
 

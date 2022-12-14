@@ -6,7 +6,7 @@ const getNextTreeCoordinates = (
   base: number,
   direction: OrthagonalDirection2D,
 ) => {
-  verifyXYCoordinates(currentTreeCoordinates, base)
+  verifyXYCoordinates(currentTreeCoordinates, base);
   const nextTreeCoordinates = currentTreeCoordinates.slice();
   switch (direction) {
     case 0:

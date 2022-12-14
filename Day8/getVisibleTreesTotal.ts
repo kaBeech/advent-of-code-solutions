@@ -10,7 +10,11 @@ const assessVisibility = (tree: Tree) => {
   let overallVisibility: ModalBoolean = null;
   while (directionCounter < 4 && overallVisibility !== true) {
     if (
-      checkVisibility(treeMap.trees.indexOf(tree), treeMap, directionCounter as OrthagonalDirection2D)
+      checkVisibility(
+        treeMap.trees.indexOf(tree),
+        treeMap,
+        directionCounter as OrthagonalDirection2D,
+      )
     ) overallVisibility = true;
     directionCounter += 1;
   }

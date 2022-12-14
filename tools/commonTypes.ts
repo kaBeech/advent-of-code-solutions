@@ -12,8 +12,14 @@ type SingleDigitIntegerString =
   | "8"
   | "9";
 
-type TwoDigitIntegerString = `${SingleDigitIntegerString}${SingleDigitIntegerString}`;
+type TwoDigitIntegerString =
+  `${SingleDigitIntegerString}${SingleDigitIntegerString}`;
 
 type ModalBoolean = true | false | null;
 
-export type { SingleDigitIntegerString, ModalBoolean, TwoDigitIntegerString, SingleDigitInteger };
+export type {
+  ModalBoolean,
+  SingleDigitInteger,
+  SingleDigitIntegerString,
+  TwoDigitIntegerString,
+};

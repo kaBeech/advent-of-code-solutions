@@ -1,13 +1,12 @@
-import {
-  ModalBoolean,
-  SingleDigitInteger,
-} from "../tools/commonTypes.ts";
+import { ModalBoolean, SingleDigitInteger } from "../tools/commonTypes.ts";
 
 interface Tree {
-  getLocation: { (): number[]};
+  getLocation: { (): number[] };
   getHeight: { (): SingleDigitInteger };
   getVisibility: { (): ModalBoolean[] };
-  setVisibility: { (visibility: boolean, direction: OrthagonalDirection2D): undefined };
+  setVisibility: {
+    (visibility: boolean, direction: OrthagonalDirection2D): undefined;
+  };
 }
 
 interface TreeMap {

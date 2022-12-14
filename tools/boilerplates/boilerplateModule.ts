@@ -7,7 +7,7 @@ const boilerplateFunction = async (input: string) => {
 
   const inputStringArray = await convertMultiLineFileToArray(input) as string[];
 
-  console.log(inputStringArray)
+  console.log(inputStringArray);
 
   return total;
 };
