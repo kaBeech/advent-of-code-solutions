@@ -42,5 +42,5 @@ https://adventofcode.com/2022/day/8
   5. Return the value of visibleTreeCounter
 
 - Oh, I forgot the bit about converting a Tree's coordinates to its index in the
-  Trees array. Add a converter in there. It's basically { Index =
-  Coordinates[0] + (Coordinates[1] * sideLength)}
+  Trees array. Add a converter in there. It's basically
+  `Index = Coordinates[0] + (Coordinates[1] * sideLength)`
