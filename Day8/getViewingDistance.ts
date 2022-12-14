@@ -2,7 +2,7 @@ import { OrthagonalDirection2D, TreeMap } from "./types.ts";
 import { convertXYCoordinatesToIndexNumber } from "../tools/conversionFunctions/convertXYCoordinatesToIndexNumber.ts";
 import { getNextTreeCoordinates } from "./getNextTreeCoordinates.ts";
 
-const countVisibleTrees = (
+const getViewingDistance = (
   treeIndex: number,
   treeMap: TreeMap,
   direction: OrthagonalDirection2D,
@@ -51,9 +51,9 @@ const countVisibleTrees = (
     return visibleTreesCounter;
   }
 
-  visibleTreesCounter += countVisibleTrees(nextTreeIndex, treeMap, direction);
+  visibleTreesCounter += getViewingDistance(nextTreeIndex, treeMap, direction);
 
   return visibleTreesCounter;
 };
 
-export { countVisibleTrees };
+export { getViewingDistance };

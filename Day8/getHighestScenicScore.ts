@@ -1,4 +1,4 @@
-import { countVisibleTrees } from "./countVisibleTrees.ts";
+import { getViewingDistance } from "./getViewingDistance.ts";
 import { parseTreesString } from "./parseTreesString.ts";
 import { OrthagonalDirection2D, Tree, TreeMap } from "./types.ts";
 let _highestScenicScoreTree = null as unknown as Tree;
@@ -9,7 +9,7 @@ const assessScenicScore = (tree: Tree) => {
   let directionCounter = 0;
   let scenicScore = 1;
   while (directionCounter < 4) {
-    scenicScore *= countVisibleTrees(
+    scenicScore *= getViewingDistance(
       treeMap.trees.indexOf(tree),
       treeMap,
       directionCounter as OrthagonalDirection2D,
