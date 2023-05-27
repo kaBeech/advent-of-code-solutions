@@ -46,3 +46,13 @@ https://adventofcode.com/2022/day/9
 - countVisitedPositions(): 
     - Pass movementDirections from input to ropeHead
     - Count and return the number of positions in ropeTail.visitedPositions
+
+# Notes
+
+- testInput2 visitedPositions I think are:
+00
+1-1
+1-2
+2-3
+2-4
+3-4
