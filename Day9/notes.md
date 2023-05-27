@@ -12,10 +12,10 @@ https://adventofcode.com/2022/day/9
 - ropeHead:
     - When passed a movementInstruction (direction and distance, like "U 2"), do the following:
         - while ( movementInstruction.distance > 0 ) {
-            - Store the movementInstruction in storedInstruction
+            - Store the movementInstruction in storedInstruction as array
             - Change currentPosition by 1 based on the storedInstruction.direction (i.e. U -> [0,+1], D -> [0,-1], L -> [-1,0], R -> [+1,0])
             - Pass currentPosition to ropeTail
-            - Decrement storedInstruction.distance by 1 (e.g. "U 2" -> "U 1")
+            - Decrement storedInstruction.distance by 1 (e.g. "U,2" -> "U,1")
             }
 
 - ropeTail:

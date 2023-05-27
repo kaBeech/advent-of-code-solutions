@@ -6,15 +6,21 @@ type MovementDirection =
   | "L"
   | "R";
 
-let total = 0;
-
 const handleSingleMove = (
   currentPosition: XYCoordinate,
   movementDirection: MovementDirection,
 ): XYCoordinate => {
-  const newPosition: XYCoordinate = [0, 0];
-
-  return newPosition;
+  const newPosition = [currentPosition[0], currentPosition[1]];
+  if (movementDirection === "U") {
+    newPosition[1]++;
+  } else if (movementDirection === "D") {
+    newPosition[1]--;
+  } else if (movementDirection === "L") {
+    newPosition[0]--;
+  } else {
+    newPosition[0]++;
+  }
+  return newPosition as XYCoordinate;
 };
 
 export { handleSingleMove };
