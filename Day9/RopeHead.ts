@@ -1,24 +1,20 @@
 import { XYCoordinate } from "../tools/commonTypes.ts";
+import { handleHeadPositionChange } from "./handleHeadPositionChange.ts";
 import { handleSingleMove } from "./handleSingleMove.ts";
 import { MovementDirection } from "./types.ts";
 
-interface RopeHeadState {
-  currentPosition: XYCoordinate;
+interface RopeState {
+  headPosition: XYCoordinate;
+  tailPosition: XYCoordinate;
   storedInstruction: [MovementDirection, number] | null;
-  visitedLocations: XYCoordinate[];
+  visitedTailLocations: XYCoordinate[];
 }
 
-const currentPositionGetter = (state: RopeHeadState) => ({
-  getCurrentPosition: () => state.currentPosition,
+const visitedTailLocationsGetter = (state: RopeState) => ({
+  getVisitedTailLocations: () => state.visitedTailLocations,
 });
 
-const currentPositionSetter = (state: RopeHeadState) => ({
-  setCurrentPosition: (newCurrentPosition: XYCoordinate) => {
-    state.currentPosition = newCurrentPosition;
-  },
-});
-
-const movementInstructionHandler = (state: RopeHeadState) => ({
+const movementInstructionHandler = (state: RopeState) => ({
   handleMovementInstruction: (movementInstructionRaw: string) => {
     // if (state.storedInstruction) {throw error}
     const movementInstructionFormatted = movementInstructionRaw.split(" ");
@@ -29,12 +25,20 @@ const movementInstructionHandler = (state: RopeHeadState) => ({
     ];
 
     while (state.storedInstruction[1] > 0) {
-      const newPosition = handleSingleMove(
-        state.currentPosition,
+      const newHeadPosition = handleSingleMove(
+        state.headPosition,
         state.storedInstruction[0],
       );
-      state.currentPosition = newPosition;
-      //   Pass current position to RopeTail
+      state.headPosition = newHeadPosition;
+      state.tailPosition = handleHeadPositionChange(
+        state.tailPosition,
+        state.headPosition,
+      );
+      if (
+        !state.visitedTailLocations.includes(state.tailPosition)
+      ) {
+        state.visitedTailLocations.push(state.tailPosition);
+      }
       state.storedInstruction = [
         state.storedInstruction[0],
         state.storedInstruction[1]--,
@@ -43,18 +47,18 @@ const movementInstructionHandler = (state: RopeHeadState) => ({
   },
 });
 
-const RopeHead = (
-  currentPosition: XYCoordinate,
-) => {
+const Rope = () => {
   const state = {
-    currentPosition: [0, 0] as XYCoordinate,
+    headPosition: [0, 0] as XYCoordinate,
+    tailPosition: [0, 0] as XYCoordinate,
     storedInstruction: null as [MovementDirection, number] | null,
-    visitedLocations: [[0, 0]] as XYCoordinate[],
+    visitedTailLocations: [[0, 0]] as XYCoordinate[],
   };
 
   return {
+    ...visitedTailLocationsGetter(state),
     ...movementInstructionHandler(state),
   };
 };
 
-export { RopeHead };
+export { Rope };
