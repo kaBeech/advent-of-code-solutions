@@ -6,7 +6,7 @@ import { countVisitedPositions } from "../countVisitedPositions.ts";
 
 const testInput1 = "tests/testInput.txt";
 const testInput2 = "tests/testInput2.txt";
-// const challengeInput = "tests/ropeMovementDirections.txt";
+// const challengeInput = "tests/ropeMovementInstructions.txt";
 
 Deno.test("returns an integer", async () => {
   const result1 = await countVisitedPositions(testInput1);
