@@ -10,7 +10,7 @@ Deno.test("move in upwards direction returns proper coordinates", () => {
   const result2 = handleSingleMove(testCurrentPosition2, "U");
 
   assertEquals(result1, [0, 1]);
-  assertEquals(result2, [24, -35]);
+  assertEquals(result2, [24, -36]);
 });
 
 Deno.test("move in downwards direction returns proper coordinates", () => {
@@ -18,7 +18,7 @@ Deno.test("move in downwards direction returns proper coordinates", () => {
   const result2 = handleSingleMove(testCurrentPosition2, "D");
 
   assertEquals(result1, [0, -1]);
-  assertEquals(result2, [24, -37]);
+  assertEquals(result2, [24, -38]);
 });
 
 Deno.test("move in left direction returns proper coordinates", () => {
@@ -26,7 +26,7 @@ Deno.test("move in left direction returns proper coordinates", () => {
   const result2 = handleSingleMove(testCurrentPosition2, "L");
 
   assertEquals(result1, [-1, 0]);
-  assertEquals(result2, [23, -36]);
+  assertEquals(result2, [23, -37]);
 });
 
 Deno.test("move in right direction returns proper coordinates", () => {
@@ -34,5 +34,5 @@ Deno.test("move in right direction returns proper coordinates", () => {
   const result2 = handleSingleMove(testCurrentPosition2, "R");
 
   assertEquals(result1, [1, 0]);
-  assertEquals(result2, [25, -36]);
+  assertEquals(result2, [25, -37]);
 });
