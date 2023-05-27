@@ -17,9 +17,12 @@ type TwoDigitIntegerString =
 
 type ModalBoolean = true | false | null;
 
+type XYCoordinate = [number, number];
+
 export type {
   ModalBoolean,
   SingleDigitInteger,
   SingleDigitIntegerString,
   TwoDigitIntegerString,
+  XYCoordinate,
 };
