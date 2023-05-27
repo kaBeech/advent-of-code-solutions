@@ -8,12 +8,6 @@ const testInput = "tests/testInput.txt";
 const testInput2 = "tests/testInput2.txt";
 // const challengeInput = "tests/ropeMovementDirections.txt";
 
-Deno.test("testInput returns a number", async () => {
-  const result = await countVisitedPositions(testInput);
-
-  assertEquals(typeof (result), "number");
-});
-
 Deno.test("testInput returns an integer", async () => {
   const result = await countVisitedPositions(testInput);
 

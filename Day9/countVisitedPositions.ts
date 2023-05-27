@@ -2,7 +2,7 @@ import { convertMultiLineFileToArray } from "../tools/conversionFunctions/conver
 
 let total = 0;
 
-const countVisitedPositions = async (input: string) => {
+const countVisitedPositions = async (input: string): Promise<number> => {
   total = 0;
 
   const inputStringArray = await convertMultiLineFileToArray(input) as string[];
