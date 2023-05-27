@@ -1,10 +1,5 @@
 import { XYCoordinate } from "../tools/commonTypes.ts";
-
-type MovementDirection =
-  | "U"
-  | "D"
-  | "L"
-  | "R";
+import { MovementDirection } from "./types.ts";
 
 const handleSingleMove = (
   currentPosition: XYCoordinate,
