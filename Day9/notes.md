@@ -7,12 +7,12 @@ https://adventofcode.com/2022/day/9
 ### Part 1
 
 - Make 2 objects (ropeHead and ropeTail), each having a currentPosition property (starting at [0,0])
-    - ropeHead also gets a storedInstruction property (starting at null) and a visitedPositions property (starting at [[0,0]])
+    - ropeHead also gets a storedInstruction property (starting at null) and a visitedPositions property (starting at [ [0,0] ])
 
 - ropeHead:
     - When passed a movementInstruction (direction and distance, like "U 2"), do the following:
+        - Store the movementInstruction in storedInstruction as array
         - while ( movementInstruction.distance > 0 ) {
-            - Store the movementInstruction in storedInstruction as array
             - Change currentPosition by 1 based on the storedInstruction.direction (i.e. U -> [0,+1], D -> [0,-1], L -> [-1,0], R -> [+1,0])
             - Pass currentPosition to ropeTail
             - Decrement storedInstruction.distance by 1 (e.g. "U,2" -> "U,1")
