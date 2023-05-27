@@ -8,23 +8,23 @@ const challengeInput = "tests/challengeInput.txt";
 Deno.test("testInput returns a number", async () => {
   const result = await boilerplateFunction(testInput);
 
-  assertEquals("number", typeof (result));
+  assertEquals(typeof (result), "number");
 });
 
 Deno.test("testInput returns 0", async () => {
   const result = await boilerplateFunction(testInput);
 
-  assertEquals(0, result);
+  assertEquals(result, 0);
 });
 
 Deno.test("testInput2 returns 0", async () => {
   const result = await boilerplateFunction(testInput2);
 
-  assertEquals(0, result);
+  assertEquals(result, 0);
 });
 
 Deno.test("challengeInput returns 0", async () => {
   const result = await boilerplateFunction(challengeInput);
 
-  assertEquals(0, result);
+  assertEquals(result, 0);
 });
