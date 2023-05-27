@@ -19,10 +19,10 @@ const handleHeadPositionChange = (
 
   const newPosition = [currentPosition[0], currentPosition[1]];
 
-  newPosition[1] > currentPosition[1] ? newPosition[1]++ : newPosition;
-  newPosition[1] < currentPosition[1] ? newPosition[1]-- : newPosition;
-  newPosition[0] < currentPosition[0] ? newPosition[0]-- : newPosition;
-  newPosition[0] > currentPosition[0] ? newPosition[0]++ : newPosition;
+  headPosition[1] > currentPosition[1] && newPosition[1]++;
+  headPosition[1] < currentPosition[1] && newPosition[1]--;
+  headPosition[0] < currentPosition[0] && newPosition[0]--;
+  headPosition[0] > currentPosition[0] && newPosition[0]++;
 
   return newPosition as XYCoordinate;
 };
