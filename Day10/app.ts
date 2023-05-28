@@ -1,4 +1,5 @@
 import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
+import { getDifference } from "../tools/mathFunctions/getDifference.ts";
 
 const app = (async (
   crtProgramFile?: string,
@@ -15,6 +16,7 @@ const app = (async (
     valueToAdd: number;
   }[] = [];
   let collectedSignalStrengthsSum = 0;
+  const screenPixels: string[] = [];
   inputArray.forEach((input) => {
     if (
       unfinishedAddXProcesses.length > 0 &&
@@ -24,6 +26,7 @@ const app = (async (
       unfinishedAddXProcesses.shift();
     }
 
+    // Additional Cycles (Sub Cycles)
     if (input[0] === "a") {
       const inputValue = input.split(" ")[1];
       unfinishedAddXProcesses.push({
@@ -39,6 +42,12 @@ const app = (async (
         );
         console.log("Sum total = " + collectedSignalStrengthsSum);
       }
+      if (getDifference(cycleNumber - 1, registerX) <= 1) {
+        screenPixels.push("#");
+      } else {
+        screenPixels.push(".");
+      }
+      // End of Cycle
       cycleNumber++;
       if (
         unfinishedAddXProcesses.length > 0 &&
@@ -57,6 +66,12 @@ const app = (async (
       );
       console.log("Sum total = " + collectedSignalStrengthsSum);
     }
+    if (getDifference(cycleNumber - 1, registerX) <= 1) {
+      screenPixels.push("#");
+    } else {
+      screenPixels.push(".");
+    }
+    // End of Cycle
     console.log("Cy#" + cycleNumber++ + " " + input);
   });
 
@@ -67,10 +82,10 @@ const app = (async (
     `Part 1: What is the sum of these six signal strengths?
     Solution: ${solutionPart1}`,
   );
-  //   console.log(
-  //     `Part 2: How many positions does the tail of the rope visit at least once?
-  //       Solution: ${solutionPart2}`,
-  //   );
+  console.log(
+    `Part 2: What eight capital letters appear on your CRT?
+        Solution: ${solutionPart2}`,
+  );
 
   return {
     solutionPart1,
