@@ -23,14 +23,24 @@ const handleHeadPositionChange = (
 
   if (xDifference === ropeLength) {
     headPosition[0] < currentTailPosition[0]
-      ? newTailPosition[1]--
-      : newTailPosition[1]++;
+      ? newTailPosition[0]--
+      : newTailPosition[0]++;
+    if (yDifference === ropeLength - 1) {
+      headPosition[1] < currentTailPosition[1]
+        ? newTailPosition[1]--
+        : newTailPosition[1]++;
+    }
   }
 
   if (yDifference === ropeLength) {
     headPosition[1] < currentTailPosition[1]
-      ? newTailPosition[0]--
-      : newTailPosition[0]++;
+      ? newTailPosition[1]--
+      : newTailPosition[1]++;
+    if (xDifference === ropeLength - 1) {
+      headPosition[0] < currentTailPosition[0]
+        ? newTailPosition[0]--
+        : newTailPosition[0]++;
+    }
   }
 
   return newTailPosition as XYCoordinate;
