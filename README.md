@@ -4,21 +4,11 @@ Repository for my work on the Advent Of Code challenges
 
 https://adventofcode.com/
 
-
-## Basic Info
-
-I'm sticking to fundamentals: using JS/TS with Deno, not going for speed, just
-seeing how far I get while building a progressively more sophisticated code base
-
-I am also using this project as an opportunity to practice some Agile strategies
-such as prioritizing working code, iterative/incremental/evolutionary
-development, continuous refactoring, periodic retrospectives, SCRUM, Test Driven
-Development, and Pair Programming
-
-Naturally, later Days tend to contain more sophisticated code and strategies
-than earlier ones
-
 ## Individual Years
+
+This started as a repo for my work on the 2022 challenges (hence the repo name), but has since been updated to include earlier changes
+
+- The repo name will be updated when I decide to also update URI's that point to this repo
 
 - Note that the years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
 
