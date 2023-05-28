@@ -4,9 +4,8 @@ import {
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { Rope } from "../Rope.ts";
 
-const rope = Rope(2);
-const rope2 = Rope(2);
-const rope10 = Rope(10);
+const rope = Rope();
+const rope2 = Rope();
 
 Deno.test("inital get functions work", () => {
   assertEquals(rope.getVisitedTailLocations(), []);

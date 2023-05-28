@@ -8,7 +8,6 @@ interface RopeState {
   tailPosition: XYCoordinate;
   storedInstruction: [MovementDirection, number] | null;
   visitedTailLocations: string[];
-  length: number;
 }
 
 const visitedTailLocationsGetter = (state: RopeState) => ({
@@ -50,7 +49,6 @@ const movementInstructionHandler = (state: RopeState) => ({
       state.tailPosition = handleHeadPositionChange(
         state.tailPosition,
         state.headPosition,
-        state.length,
       );
       if (
         !state.visitedTailLocations.includes(String(state.tailPosition))
@@ -66,13 +64,12 @@ const movementInstructionHandler = (state: RopeState) => ({
   },
 });
 
-const Rope = (length: number) => {
+const Rope = () => {
   const state = {
     headPosition: [0, 0] as XYCoordinate,
     tailPosition: [0, 0] as XYCoordinate,
     storedInstruction: null as [MovementDirection, number] | null,
     visitedTailLocations: [] as string[],
-    length,
   };
 
   return {

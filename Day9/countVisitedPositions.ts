@@ -3,12 +3,11 @@ import { Rope } from "./Rope.ts";
 
 const countVisitedPositions = async (
   ropeMovementInstructionsFile: string,
-  ropeLength: number,
 ): Promise<number> => {
   const ropeMovementInstructionsArray = await convertMultiLineFileToArray(
     ropeMovementInstructionsFile,
   ) as string[];
-  const rope = Rope(ropeLength);
+  const rope = Rope();
   for (const movementInstruction of ropeMovementInstructionsArray) {
     rope.handleMovementInstruction(movementInstruction);
   }
