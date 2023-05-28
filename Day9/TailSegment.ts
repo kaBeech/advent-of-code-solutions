@@ -1,14 +1,14 @@
 import { XYCoordinate } from "../tools/commonTypes.ts";
 import { handleHeadPositionChange } from "./handleHeadPositionChange.ts";
 
-interface RopeSegmentState {
+interface TailSegmentState {
   nextSegment: {
     moveTail: (newPreviousSegmentPosition: XYCoordinate) => XYCoordinate;
   } | null;
   currentSegmentPosition: XYCoordinate;
 }
 
-const tailMover = (state: RopeSegmentState) => ({
+const tailMover = (state: TailSegmentState) => ({
   moveTail: (
     newPreviousSegmentPosition: XYCoordinate,
   ) => {
@@ -22,7 +22,7 @@ const tailMover = (state: RopeSegmentState) => ({
   },
 });
 
-const RopeSegment = (remainingSegments: number) => {
+const TailSegment = (remainingSegments: number) => {
   const state = {
     currentSegmentPosition: [0, 0] as XYCoordinate,
     nextSegment: null as {
@@ -31,7 +31,7 @@ const RopeSegment = (remainingSegments: number) => {
   };
 
   if (remainingSegments > 1) {
-    state.nextSegment = RopeSegment(remainingSegments - 1);
+    state.nextSegment = TailSegment(remainingSegments - 1);
   }
 
   return {
@@ -39,4 +39,4 @@ const RopeSegment = (remainingSegments: number) => {
   };
 };
 
-export { RopeSegment };
+export { TailSegment };

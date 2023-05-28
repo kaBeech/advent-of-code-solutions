@@ -1,5 +1,5 @@
 import { XYCoordinate } from "../tools/commonTypes.ts";
-import { RopeSegment } from "./RopeSegment.ts";
+import { TailSegment } from "./TailSegment.ts";
 import { handleSingleMove } from "./handleSingleMove.ts";
 import { MovementDirection } from "./types.ts";
 
@@ -7,7 +7,7 @@ interface RopeState {
   headPosition: XYCoordinate;
   tailPosition: XYCoordinate;
   tailBase: { moveTail: (newHeadPosition: XYCoordinate) => XYCoordinate };
-  numberOfRopeSegments: number;
+  numberOfTailSegments: number;
   storedInstruction: [MovementDirection, number] | null;
   visitedTailLocations: string[];
 }
@@ -65,12 +65,12 @@ const movementInstructionHandler = (state: RopeState) => ({
   },
 });
 
-const Rope = (numberOfRopeSegments: number) => {
+const Rope = (numberOfTailSegments: number) => {
   const state = {
     headPosition: [0, 0] as XYCoordinate,
     tailPosition: [0, 0] as XYCoordinate,
-    tailBase: RopeSegment(numberOfRopeSegments),
-    numberOfRopeSegments,
+    tailBase: TailSegment(numberOfTailSegments),
+    numberOfTailSegments,
     storedInstruction: null as [MovementDirection, number] | null,
     visitedTailLocations: [] as string[],
   };

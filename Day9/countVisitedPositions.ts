@@ -7,7 +7,7 @@ const countVisitedPositions = async (
   const ropeMovementInstructionsArray = await convertMultiLineFileToArray(
     ropeMovementInstructionsFile,
   ) as string[];
-  const rope = Rope();
+  const rope = Rope(1);
   for (const movementInstruction of ropeMovementInstructionsArray) {
     rope.handleMovementInstruction(movementInstruction);
   }
