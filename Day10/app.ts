@@ -16,7 +16,10 @@ const app = (async (
   }[] = [];
   let collectedSignalStrengthsSum = 0;
   inputArray.forEach((input) => {
-    if ((unfinishedAddXProcesses[0].effectiveCycle === cycleNumber)) {
+    if (
+      unfinishedAddXProcesses.length > 0 &&
+      (unfinishedAddXProcesses[0].effectiveCycle === cycleNumber)
+    ) {
       registerX += unfinishedAddXProcesses[0].valueToAdd;
       unfinishedAddXProcesses.shift();
     }
@@ -32,10 +35,10 @@ const app = (async (
     if (Number.isInteger((cycleNumber + 20) / 40)) {
       collectedSignalStrengthsSum += cycleNumber * registerX;
     }
-    cycleNumber++;
+    console.log(cycleNumber++);
   });
 
-  const solutionPart1 = 0;
+  const solutionPart1 = collectedSignalStrengthsSum;
   const solutionPart2 = 1;
 
   console.log(
