@@ -1,4 +1,4 @@
-import { XYCoordinate } from "../tools/commonTypes.ts";
+import { XYCoordinate } from "../../tools/commonTypes.ts";
 import { MovementDirection } from "./types.ts";
 
 const handleSingleMove = (
