@@ -10,46 +10,21 @@ const app = (async (
   const challengeInput = await Deno.readTextFile(challengeInputFile);
   const challengeInputFormatted = convertMultiLineStringToArray(challengeInput);
 
-  let prevSum: number;
-  let currentSum: number;
-
-  let prevDepth2: number;
   let prevDepth: number;
-  let currentDepth: number;
-  let depthIncreases = 0;
-  let depthSumIncreases = 0;
+  let depthIncreases: number = 0;
 
   challengeInputFormatted.forEach((depth) => {
-    currentDepth = Number(depth);
-    if (prevDepth === null) {
-      prevDepth = currentDepth;
+    if (challengeInputFormatted.indexOf(depth) === 0) {
       return;
     }
-
-    if (currentDepth > prevDepth) {
-      depthIncreases = depthIncreases + 1;
+    if (+depth > prevDepth) {
+      depthIncreases++;
     }
-    if (prevDepth2 === null) {
-      prevDepth2 = prevDepth;
-      return;
-    }
-
-    currentSum = currentDepth + prevDepth + prevDepth2;
-    if (prevSum === null) {
-      prevSum = currentSum;
-      return;
-    }
-
-    if (currentSum > prevSum) {
-      depthSumIncreases = depthSumIncreases + 1;
-    }
-    prevDepth2 = prevDepth;
-    prevDepth = currentDepth;
-    prevSum = currentSum;
+    prevDepth = +depth;
   });
 
   const solutionPart1 = depthIncreases;
-  const solutionPart2 = depthSumIncreases;
+  const solutionPart2 = +challengeInputFormatted[0];
 
   console.log(
     `Part 1: How many measurements are larger than the previous measurement?
