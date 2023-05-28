@@ -4,7 +4,7 @@ const app = (async (
   crtProgramFile?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: number }> => {
   if (!crtProgramFile) {
-    crtProgramFile = "tests/testInput.txt";
+    crtProgramFile = "tests/crtProgram.txt";
   }
 
   const inputArray = await convertMultiLineFileToArray(crtProgramFile);
