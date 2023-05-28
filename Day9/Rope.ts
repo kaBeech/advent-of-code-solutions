@@ -18,10 +18,23 @@ const movementInstructionHandler = (state: RopeState) => ({
   handleMovementInstruction: (movementInstructionRaw: string) => {
     if (state.storedInstruction) {
       throw new Error(
-        `There is already an instruction stored! storedInstruction: [${state.storedInstruction}], Received headPosition: [${headPosition}]`,
+        `There is already an instruction stored! storedInstruction: [${state.storedInstruction}], Received headPosition: [${state.headPosition}]`,
       );
     }
+
     const movementInstructionFormatted = movementInstructionRaw.split(" ");
+
+    const orthagonalDirections = ["U", "D", "L", "R"];
+    if (
+      !(movementInstructionFormatted.length === 2 &&
+        orthagonalDirections.includes(movementInstructionFormatted[0]) &&
+        (Number.isInteger(+movementInstructionFormatted[1])))
+    ) {
+      throw new Error(
+        `Invalid movement instruction received. Expected input: a string consisting of one of the letters "U", "D", "L", and "R", followed by a space, followed by an integer. Example: "U 9". Input received: "${movementInstructionRaw}"`,
+      );
+    }
+
     state.storedInstruction = movementInstructionFormatted as [
       MovementDirection,
       number,
@@ -47,6 +60,7 @@ const movementInstructionHandler = (state: RopeState) => ({
         state.storedInstruction[1] - 1,
       ];
     }
+    state.storedInstruction = null;
   },
 });
 
