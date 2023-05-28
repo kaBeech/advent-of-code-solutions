@@ -1,11 +1,13 @@
 import { XYCoordinate } from "../tools/commonTypes.ts";
-import { handleHeadPositionChange } from "./handleHeadPositionChange.ts";
+import { TailSegment } from "./TailSegment.ts";
 import { handleSingleMove } from "./handleSingleMove.ts";
 import { MovementDirection } from "./types.ts";
 
 interface RopeState {
   headPosition: XYCoordinate;
   tailPosition: XYCoordinate;
+  tailBase: { moveTail: (newHeadPosition: XYCoordinate) => XYCoordinate };
+  numberOfTailSegments: number;
   storedInstruction: [MovementDirection, number] | null;
   visitedTailLocations: string[];
 }
@@ -46,8 +48,7 @@ const movementInstructionHandler = (state: RopeState) => ({
         state.storedInstruction[0],
       );
       state.headPosition = newHeadPosition;
-      state.tailPosition = handleHeadPositionChange(
-        state.tailPosition,
+      state.tailPosition = state.tailBase.moveTail(
         state.headPosition,
       );
       if (
@@ -64,10 +65,12 @@ const movementInstructionHandler = (state: RopeState) => ({
   },
 });
 
-const Rope = () => {
+const Rope = (numberOfTailSegments: number) => {
   const state = {
     headPosition: [0, 0] as XYCoordinate,
     tailPosition: [0, 0] as XYCoordinate,
+    tailBase: TailSegment(numberOfTailSegments),
+    numberOfTailSegments,
     storedInstruction: null as [MovementDirection, number] | null,
     visitedTailLocations: [] as string[],
   };

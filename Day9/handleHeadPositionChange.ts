@@ -12,9 +12,9 @@ const handleHeadPositionChange = (
     (xDifference === 2 && yDifference === 2) || xDifference > 2 ||
     yDifference > 2
   ) {
-    throw new Error(
-      `Head position is too far away from (i.e. not adjacent to) current tail position! Received currentTailPosition: [${currentTailPosition}], headPosition: [${headPosition}]`,
-    );
+    // throw new Error(
+    //   `Head position is too far away from (i.e. not adjacent to) current tail position! Received currentTailPosition: [${currentTailPosition}], headPosition: [${headPosition}]`,
+    // );
   }
 
   if (
