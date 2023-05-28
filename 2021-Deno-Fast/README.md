@@ -4,7 +4,7 @@ Repository for my work on the Advent Of Code 2021 challenges
 
 https://adventofcode.com/2021
 
-### Basic Info
+## Basic Info
 
 This is a speedrun! I'm using JS/TS with Deno and just going for the fastest path to a solution
 
@@ -16,7 +16,7 @@ For each Day I will include a time taken to complete (Part1, Part2, and Total). 
 
 This folder was made to contrast with my Advent-Of-Code-2022 solutions, in which I am taking a more thorough approach
 
-### Notes
+## Notes
 
 Warning: files labelled notes.md are for scratch note-taking and much of their
 content is not written with the intention of being readable for anyone besides
@@ -25,11 +25,11 @@ myself
 - They do contain handy links to the pages for individual Days' challenges
   though!
 
-### Retrospectives
+## Retrospectives
 
 Retrospectives contain reflections on that Day's work
 
-### app.ts
+## app.ts
 
 Files labelled app.ts are runnable and will return that Day's solutions as well
 as log solution messages to the console. They can be run from inside that Day's
