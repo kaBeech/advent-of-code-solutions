@@ -9,17 +9,22 @@ const app = (async (
   }
 
   const solutionPart1 = await countVisitedPositions(
+    1,
     ropeMovementInstructionsFile,
   );
-  //   const solutionPart2 = await boilerplateFunction(ropeMovementInstructionsFile);
+  const solutionPart2 = await countVisitedPositions(
+    9,
+    ropeMovementInstructionsFile,
+  );
 
   console.log(
     `Part 1: How many positions does the tail of the rope visit at least once?
     Solution: ${solutionPart1}`,
   );
-  //   console.log(`Part 2: What is the answer to Part 2?
-  //     Solution: ${solutionPart2}`);
-  const solutionPart2 = 0;
+  console.log(
+    `Part 2: How many positions does the tail of the rope visit at least once?
+      Solution: ${solutionPart2}`,
+  );
 
   return {
     solutionPart1,
