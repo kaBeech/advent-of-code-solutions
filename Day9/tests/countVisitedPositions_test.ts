@@ -6,7 +6,7 @@ import { countVisitedPositions } from "../countVisitedPositions.ts";
 
 const testInput1 = "tests/testInput1.txt";
 const testInput2 = "tests/testInput2.txt";
-// const challengeInput = "tests/ropeMovementInstructions.txt";
+const challengeInput = "tests/ropeMovementInstructions.txt";
 
 Deno.test("returns an integer", async () => {
   const result1 = await countVisitedPositions(testInput1);
@@ -32,8 +32,8 @@ Deno.test("returns correct answer", async () => {
   assertEquals(result2, 6);
 });
 
-// Deno.test("challengeInput returns 0", async () => {
-//   const result = await countVisitedPositions(challengeInput);
+Deno.test("challengeInput returns 0", async () => {
+  const result = await countVisitedPositions(challengeInput);
 
-//   assertEquals(result, 0);
-// });
+  assertEquals(result, 5710);
+});
