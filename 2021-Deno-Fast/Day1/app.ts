@@ -11,7 +11,7 @@ const app = (async (
   const challengeInputFormatted = convertMultiLineStringToArray(challengeInput);
 
   const solutionPart1 = +challengeInput;
-  const solutionPart2 = 0;
+  const solutionPart2 = +challengeInputFormatted[0];
 
   console.log(`Part 1: What is the answer to Part 1?
     Solution: ${solutionPart1}`);
