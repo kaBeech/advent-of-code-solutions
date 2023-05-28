@@ -1,4 +1,4 @@
-import { ModalBoolean } from "../tools/commonTypes.ts";
+import { ModalBoolean } from "../../tools/commonTypes.ts";
 import { checkVisibility } from "./checkVisibility.ts";
 import { parseTreesString } from "./parseTreesString.ts";
 import { OrthagonalDirection2D, Tree, TreeMap } from "./types.ts";

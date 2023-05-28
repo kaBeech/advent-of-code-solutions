@@ -1,4 +1,4 @@
-import { XYCoordinate } from "../tools/commonTypes.ts";
+import { XYCoordinate } from "../../tools/commonTypes.ts";
 import { TailSegment } from "./TailSegment.ts";
 import { handleSingleMove } from "./handleSingleMove.ts";
 import { MovementDirection } from "./types.ts";

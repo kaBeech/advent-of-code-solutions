@@ -1,5 +1,5 @@
 import { OrthagonalDirection2D, TreeMap } from "./types.ts";
-import { convertXYCoordinatesToIndexNumber } from "../tools/conversionFunctions/convertXYCoordinatesToIndexNumber.ts";
+import { convertXYCoordinatesToIndexNumber } from "../../tools/conversionFunctions/convertXYCoordinatesToIndexNumber.ts";
 import { getNextTreeCoordinates } from "./getNextTreeCoordinates.ts";
 
 const getViewingDistance = (

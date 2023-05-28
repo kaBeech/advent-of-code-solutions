@@ -1,4 +1,4 @@
-import { verifyXYCoordinates } from "../tools/verificationFunctions/verifyXYCoordinates.ts";
+import { verifyXYCoordinates } from "../../tools/verificationFunctions/verifyXYCoordinates.ts";
 import { OrthagonalDirection2D } from "./types.ts";
 
 const getNextTreeCoordinates = (

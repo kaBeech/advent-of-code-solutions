@@ -1,4 +1,4 @@
-import { SingleDigitInteger } from "../tools/commonTypes.ts";
+import { SingleDigitInteger } from "../../tools/commonTypes.ts";
 import { Tree } from "./Tree.ts";
 import { TreeMap } from "./types.ts";
 

@@ -1,5 +1,5 @@
-import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
-import { getDifference } from "../tools/mathFunctions/getDifference.ts";
+import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { getDifference } from "../../tools/mathFunctions/getDifference.ts";
 
 const app = (async (
   crtProgramFile?: string,

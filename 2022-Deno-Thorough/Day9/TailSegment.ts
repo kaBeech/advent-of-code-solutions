@@ -1,4 +1,4 @@
-import { XYCoordinate } from "../tools/commonTypes.ts";
+import { XYCoordinate } from "../../tools/commonTypes.ts";
 import { handleHeadPositionChange } from "./handleHeadPositionChange.ts";
 
 interface TailSegmentState {

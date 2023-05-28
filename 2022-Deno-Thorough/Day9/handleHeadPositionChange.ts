@@ -1,5 +1,5 @@
-import { XYCoordinate } from "../tools/commonTypes.ts";
-import { getDifference } from "../tools/mathFunctions/getDifference.ts";
+import { XYCoordinate } from "../../tools/commonTypes.ts";
+import { getDifference } from "../../tools/mathFunctions/getDifference.ts";
 
 const handleHeadPositionChange = (
   currentTailPosition: XYCoordinate,

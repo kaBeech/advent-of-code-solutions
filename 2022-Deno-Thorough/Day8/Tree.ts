@@ -1,4 +1,4 @@
-import { ModalBoolean, SingleDigitInteger } from "../tools/commonTypes.ts";
+import { ModalBoolean, SingleDigitInteger } from "../../tools/commonTypes.ts";
 import { OrthagonalDirection2D } from "./types.ts";
 
 interface TreeState {

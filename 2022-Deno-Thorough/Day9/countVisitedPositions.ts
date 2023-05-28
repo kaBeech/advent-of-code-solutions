@@ -1,4 +1,4 @@
-import { convertMultiLineFileToArray } from "../tools/conversionFunctions/convertFileToArray.ts";
+import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { Rope } from "./Rope.ts";
 
 const countVisitedPositions = async (

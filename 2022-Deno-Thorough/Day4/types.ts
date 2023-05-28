@@ -1,7 +1,7 @@
 import {
   SingleDigitIntegerString,
   TwoDigitIntegerString,
-} from "../tools/commonTypes.ts";
+} from "../../tools/commonTypes.ts";
 
 type Assignment = `${SingleDigitIntegerString | TwoDigitIntegerString}-${
   | SingleDigitIntegerString
