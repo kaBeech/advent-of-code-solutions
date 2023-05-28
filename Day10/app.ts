@@ -4,10 +4,10 @@ const app = (async (
   crtProgramFile?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: number }> => {
   if (!crtProgramFile) {
-    crtProgramFile = "tests/ropeMovementInstructions.txt";
+    crtProgramFile = "tests/testInput.txt";
   }
 
-  const inputArray = await convertMultiLineFileToArray("tests/crtProgram.txt");
+  const inputArray = await convertMultiLineFileToArray(crtProgramFile);
   let cycleNumber = 1;
   let registerX = 1;
   const unfinishedAddXProcesses: {
@@ -27,15 +27,37 @@ const app = (async (
     if (input[0] === "a") {
       const inputValue = input.split(" ")[1];
       unfinishedAddXProcesses.push({
-        effectiveCycle: cycleNumber + 3,
+        effectiveCycle: cycleNumber + 2,
         valueToAdd: +inputValue,
       });
+
+      if (Number.isInteger((cycleNumber + 20) / 40)) {
+        collectedSignalStrengthsSum += cycleNumber * registerX;
+        console.log(
+          "Cy#" + cycleNumber + " * regX" + registerX + " = " +
+            cycleNumber * registerX,
+        );
+        console.log("Sum total = " + collectedSignalStrengthsSum);
+      }
+      cycleNumber++;
+      if (
+        unfinishedAddXProcesses.length > 0 &&
+        (unfinishedAddXProcesses[0].effectiveCycle === cycleNumber)
+      ) {
+        registerX += unfinishedAddXProcesses[0].valueToAdd;
+        unfinishedAddXProcesses.shift();
+      }
     }
 
     if (Number.isInteger((cycleNumber + 20) / 40)) {
       collectedSignalStrengthsSum += cycleNumber * registerX;
+      console.log(
+        "Cy#" + cycleNumber + " * regX" + registerX + " = " +
+          cycleNumber * registerX,
+      );
+      console.log("Sum total = " + collectedSignalStrengthsSum);
     }
-    console.log(cycleNumber++);
+    console.log("Cy#" + cycleNumber++ + " " + input);
   });
 
   const solutionPart1 = collectedSignalStrengthsSum;
