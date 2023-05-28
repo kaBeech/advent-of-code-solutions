@@ -16,9 +16,12 @@ const visitedTailLocationsGetter = (state: RopeState) => ({
 
 const movementInstructionHandler = (state: RopeState) => ({
   handleMovementInstruction: (movementInstructionRaw: string) => {
-    // if (state.storedInstruction) {throw error}
+    if (state.storedInstruction) {
+      throw new Error(
+        `There is already an instruction stored! storedInstruction: [${state.storedInstruction}], Received headPosition: [${headPosition}]`,
+      );
+    }
     const movementInstructionFormatted = movementInstructionRaw.split(" ");
-    // if movementInstructionFormatted is not of type [MovementDirection, number], throw error
     state.storedInstruction = movementInstructionFormatted as [
       MovementDirection,
       number,
