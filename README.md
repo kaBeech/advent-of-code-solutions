@@ -1,10 +1,11 @@
-# Advent-Of-Code-2022
+# Advent-Of-Code
 
-Repository for my work on the Advent Of Code 2022 challenges
+Repository for my work on the Advent Of Code challenges
 
-https://adventofcode.com/2022
+https://adventofcode.com/
 
-### Basic Info
+
+## Basic Info
 
 I'm sticking to fundamentals: using JS/TS with Deno, not going for speed, just
 seeing how far I get while building a progressively more sophisticated code base
@@ -17,25 +18,34 @@ Development, and Pair Programming
 Naturally, later Days tend to contain more sophisticated code and strategies
 than earlier ones
 
-### Notes
+## Individual Years
 
-Warning: files labelled notes.md are for scratch note-taking and much of their
-content is not written with the intention of being readable for anyone besides
-myself
+- Note that the years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
 
-- They do contain handy links to the pages for individual Days' challenges
-  though!
+### 2022-Thorough
 
-### ToDo
+In this group of challenges I focus on thoroughness and code quality, including modular components, unit testing, and error handling
 
-ToDo contains known opportunities and fresh ideas for improving this project
+This wasn't as [focused on] in the first few days, so you can see the thoroughness improve as the days progress (with the possible exception of Day10)
 
-### Retrospectives
+These challenges are completed with TypeScript/JavaScript with Deno
+
+### 2021-Fast
+
+In this group of challenges I focus on speed!
+
+I started this folder while midway through the 2022 challenges as a more fun outlet for my coding energies
+
+These challenges are completed with TypeScript/JavaScript with Deno
+
+### 2020-Rust
+
+In this group of challenges I focus less on speed and thoroughness, and more on learning about Rust
+
+I LOVE Rust, but I don't have the same depth of experience with it that I do with JavaScript, so this is an opportunity to learn more about the intricacies of how Rust works
+
+These challenges are completed with Rust!
+
+## Retrospectives
 
 Retrospectives contain reflections on that Day's work
-
-### app.ts
-
-Files labelled app.ts are runnable and will return that Day's solutions as well
-as log solution messages to the console. They can be run from inside that Day's
-directory by running `deno run app.ts` in the terminal

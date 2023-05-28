@@ -20,3 +20,5 @@
 ### Possibly refactor Day 1
 
 ### Possibly refactor Day 5
+
+### Possibly modularize, write tests, and handle errors in Day 10 (see Day 10 retrospective)
