@@ -1,4 +1,3 @@
-// import { boilerplateFunction } from "./boilerplateModule.ts";
 import { countVisitedPositions } from "./countVisitedPositions.ts";
 
 const app = (async (
