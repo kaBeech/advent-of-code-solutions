@@ -4,9 +4,8 @@ import { Rope } from "./Rope.ts";
 const countVisitedPositions = async (
   ropeMovementInstructionsFile: string,
 ): Promise<number> => {
-  const inputFile = await Deno.readTextFile(ropeMovementInstructionsFile);
   const ropeMovementInstructionsArray = await convertMultiLineFileToArray(
-    inputFile,
+    ropeMovementInstructionsFile,
   ) as string[];
   const rope = Rope();
   for (const movementInstruction of ropeMovementInstructionsArray) {

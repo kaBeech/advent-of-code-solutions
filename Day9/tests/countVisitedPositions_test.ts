@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { countVisitedPositions } from "../countVisitedPositions.ts";
 
-const testInput1 = "tests/testInput.txt";
+const testInput1 = "tests/testInput1.txt";
 const testInput2 = "tests/testInput2.txt";
 // const challengeInput = "tests/ropeMovementInstructions.txt";
 
