@@ -3,7 +3,7 @@ import { getDifference } from "../tools/mathFunctions/getDifference.ts";
 
 const app = (async (
   crtProgramFile?: string,
-): Promise<{ solutionPart1: number; solutionPart2: number }> => {
+): Promise<{ solutionPart1: number; solutionPart2: string }> => {
   if (!crtProgramFile) {
     crtProgramFile = "tests/crtProgram.txt";
   }
@@ -42,7 +42,7 @@ const app = (async (
         );
         console.log("Sum total = " + collectedSignalStrengthsSum);
       }
-      if (getDifference(cycleNumber - 1, registerX) <= 1) {
+      if (getDifference((cycleNumber % 40) - 1, registerX) <= 1) {
         screenPixels.push("#");
       } else {
         screenPixels.push(".");
@@ -66,7 +66,7 @@ const app = (async (
       );
       console.log("Sum total = " + collectedSignalStrengthsSum);
     }
-    if (getDifference(cycleNumber - 1, registerX) <= 1) {
+    if (getDifference((cycleNumber % 40) - 1, registerX) <= 1) {
       screenPixels.push("#");
     } else {
       screenPixels.push(".");
@@ -75,8 +75,21 @@ const app = (async (
     console.log("Cy#" + cycleNumber++ + " " + input);
   });
 
+  const screen = [
+    String(screenPixels.slice(0, 40)),
+    String(screenPixels.slice(40, 80)),
+    String(screenPixels.slice(80, 120)),
+    String(screenPixels.slice(120, 160)),
+    String(screenPixels.slice(160, 200)),
+    String(screenPixels.slice(200, 240)),
+  ];
+
+  screen.forEach((screenLine) => {
+    console.log(screenLine);
+  });
+
   const solutionPart1 = collectedSignalStrengthsSum;
-  const solutionPart2 = 1;
+  const solutionPart2 = "See console logs";
 
   console.log(
     `Part 1: What is the sum of these six signal strengths?
