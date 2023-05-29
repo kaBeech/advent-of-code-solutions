@@ -1,10 +1,10 @@
-# Start Day X
+# Start Day 3
 
 https://adventofcode.com/2021/day/X
 
-## Part 1 Time - XX:XX.X
+## Part 1 Time - 21:53.5
 
-X Minutes, XX.X Seconds
+21 Minutes, 53.5 Seconds
 
 ## Part 2 Time - XX:XX.X
 
