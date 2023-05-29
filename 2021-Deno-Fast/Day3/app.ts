@@ -31,25 +31,44 @@ const app = (async (
 
     // Set up variables
     //
+    let gammaRate = "";
+    let epsilonRate = "";
 
-    input.forEach((input) => {
-      // Format input
-      //
+    for (let i = 0; input[0].length > i; i++) {
+      const zeroesRegister: any[] = [];
+      const onesRegister: any[] = [];
+      input.forEach((input) => {
+        const inputBitsArray = input.split("");
+        if (inputBitsArray[i] === "0") {
+          zeroesRegister.push(inputBitsArray[i]);
+        } else onesRegister.push(inputBitsArray[i]);
 
-      // Compute
-      //
-    });
+        // Compute
+        //
+      });
+      // console.log(zeroesRegister.length);
+      // console.log(onesRegister.length);
+      if (zeroesRegister.length > onesRegister.length) {
+        gammaRate = gammaRate + "0";
+        epsilonRate = epsilonRate + "1";
+      } else {
+        gammaRate = gammaRate + "1";
+        epsilonRate = epsilonRate + "0";
+      }
+    }
 
     // Update solution calculation
     //
-    const solutionPart1 = +challengeInputFormatted[0];
-    const solutionPart2 = +challengeInputFormatted[0];
+    // console.log(gammaRate);
+    // console.log(epsilonRate);
+    const solutionPart1 = parseInt(gammaRate, 2) * parseInt(epsilonRate, 2);
+    const solutionPart2 = challengeInputFormatted[0];
 
     //
     // ONLY QUESTION PHRASING EDITS BELOW THIS LINE
     //
 
-    console.log(`Part 1: What is the answer to Part 1?
+    console.log(`Part 1: What is the power consumption of the submarine?
     ${solutionAlert} Solution: ${solutionPart1}`);
     console.log(`Part 2: What is the answer to Part 2?
     ${solutionAlert} Solution: ${solutionPart2}`);
