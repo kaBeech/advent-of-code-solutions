@@ -11,7 +11,7 @@ const app = (async (
   const challengeInputFormatted = convertMultiLineStringToArray(challengeInput);
 
   let prevDepth: number;
-  let depthIncreases: number = 0;
+  let depthIncreases = 0;
 
   challengeInputFormatted.forEach((depth) => {
     // if (challengeInputFormatted.indexOf(depth) === 0) {
