@@ -14,7 +14,8 @@ const app = (async (
   let depthIncreases: number = 0;
 
   challengeInputFormatted.forEach((depth) => {
-    if (challengeInputFormatted.indexOf(depth) === 0) {
+    // if (challengeInputFormatted.indexOf(depth) === 0) {
+    if (prevDepth === null) {
       return;
     }
     if (+depth > prevDepth) {
