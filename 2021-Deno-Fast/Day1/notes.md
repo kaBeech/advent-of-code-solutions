@@ -1,6 +1,6 @@
 # Start Day 1
 
-https://adventofcode.com/2022/day/10
+https://adventofcode.com/2021/day/1
 
 ## Part 1 Time - 7:25.9
 
