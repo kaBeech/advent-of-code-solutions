@@ -10,6 +10,18 @@ const app = (async (
   const challengeInput = await Deno.readTextFile(challengeInputFile);
   const challengeInputFormatted = convertMultiLineStringToArray(challengeInput);
 
+  // Code goes here!!!
+  //
+
+  // Format input
+  //
+
+  // Set up variables
+  //
+
+  // Compute
+  //
+
   const solutionPart1 = +challengeInputFormatted[0];
   const solutionPart2 = +challengeInputFormatted[0];
 
