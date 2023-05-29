@@ -46,7 +46,7 @@ const app = (async (
     const solutionPart2 = +challengeInputFormatted[0];
 
     //
-    // NO EDITS BELOW THIS LINE
+    // ONLY QUESTION PHRASING EDITS BELOW THIS LINE
     //
 
     console.log(`Part 1: What is the answer to Part 1?
@@ -54,6 +54,10 @@ const app = (async (
     console.log(`Part 2: What is the answer to Part 2?
     ${solutionAlert} Solution: ${solutionPart2}`);
     console.log("Done!");
+
+    //
+    // NO EDITS BELOW THIS LINE
+    //
 
     return {
       solutionPart1,
