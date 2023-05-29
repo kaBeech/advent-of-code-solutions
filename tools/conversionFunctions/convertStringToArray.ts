@@ -1,15 +1,11 @@
-const convertMultiLineFileToArray = async (
-  input: string,
-): Promise<string[]> => {
-  const inputString = await Deno.readTextFile(input);
+const convertMultiLineStringToArray = (inputString: string): string[] => {
   const inputStringTrimmed = inputString.trimEnd();
   return inputStringTrimmed.split(/\n/);
 };
 
-const convertMultiParagraphFileToArray = async (
-  input: string,
-): Promise<string[][]> => {
-  const inputString = await Deno.readTextFile(input);
+const convertMultiParagraphStringToArray = (
+  inputString: string,
+): string[][] => {
   const inputStringTrimmed = inputString.trimEnd();
   const arrayOfMultiLineStrings = inputStringTrimmed.split(/\n\n/);
   const arrayOfArraysOfStrings = [];
@@ -19,4 +15,4 @@ const convertMultiParagraphFileToArray = async (
   return arrayOfArraysOfStrings;
 };
 
-export { convertMultiLineFileToArray, convertMultiParagraphFileToArray };
+export { convertMultiLineStringToArray, convertMultiParagraphStringToArray };
