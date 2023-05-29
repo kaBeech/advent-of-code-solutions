@@ -4,7 +4,7 @@ const app = (async (
   challengeInputFile?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: number }> => {
   if (!challengeInputFile) {
-    challengeInputFile = "challengeInput.txt";
+    challengeInputFile = "testInput.txt";
   }
 
   const challengeInput = await Deno.readTextFile(challengeInputFile);
