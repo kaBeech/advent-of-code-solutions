@@ -4,7 +4,7 @@
 
 - Yeah!
 
-### Setting up my workspace beforehand
+### Setting up my workspace beforehand = <3
 
 - This was a good idea! Since I had everything at hand, I got to focus on the puzzle
 
@@ -31,12 +31,14 @@
 
     When I say 'playing with it,' I do mean playing. While this did give me valuable clues, it wasn't until I used a more structured approach and stepped through the function line by line that I fully understood what was going on
 
+    * (is this even a term? I mean the parts where I used `return` to end the `.forEach()` statements. I don't think it's actually a loop, but whatever)
+
     - So! The moral is twofold:
         
         1. Be resourceful! Think outside the box! Use whatever suitable resources are available to solve the task at hand. You can always come back after the timer stops to gain a greater understanding <3
         2. If your code is doing things you don't expect, pretend you don't understand it and step through it line by line!
     
-    ** (is that even a term? I mean the parts where I used `return` to end the `.forEach()` statements. I don't think it's actually a loop, but whatever)
+
 
 ## Takeaways
 
