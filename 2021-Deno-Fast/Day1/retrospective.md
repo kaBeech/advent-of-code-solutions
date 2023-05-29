@@ -14,7 +14,7 @@
 
 - Possibly went quicker than Part 2 because I was writing the program from scratch, so I had a more intimate knowledge of what each part was doing
 
-- Also partly because I got lucky/smart/worked around the rules a little bit. My program was giving me a solution that was too low by 1
+- Also partly because I got lucky/smart/worked around the rules a little bit. My program was giving me a solution that was too low by 1 (original code commented out in appPart1.ts)
     - When you submit an answer on the Advent Of Code website it will tell you if your answer is too low or too high (or just right) and then lock you out from submitting another answer for 60 seconds. When this happened I went back and looked at my code
     
         I thought my code might have been improperly handling the first input, so I submitted a number one greater as an answer. The 60 seconds weren't up, so I was given a notification that I was locked out. I went back to my code to scrutinize anything else that might be at issue
