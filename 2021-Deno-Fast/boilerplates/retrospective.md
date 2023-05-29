@@ -20,6 +20,6 @@
 
 # Ideas for possible future implementation
 
-### 
+### Use the lap function on your stopwatch!!
 
-- 
+- That way you don't have to add your times together ;)
