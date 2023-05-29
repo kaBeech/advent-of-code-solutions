@@ -2,7 +2,7 @@ import { convertMultiLineStringToArray } from "../../tools/conversionFunctions/c
 
 const app = (async (
   challengeInputFile?: string,
-): Promise<{ solutionPart1: number; solutionPart2: number }> => {
+): Promise<{ solutionPart1: any; solutionPart2: any }> => {
   if (!challengeInputFile) {
     challengeInputFile = "testInput.txt";
   }
@@ -11,7 +11,7 @@ const app = (async (
   const challengeInputFormatted = convertMultiLineStringToArray(challengeInput);
 
   const solutionPart1 = +challengeInputFormatted[0];
-  const solutionPart2 = 0;
+  const solutionPart2 = +challengeInputFormatted[0];
 
   console.log(`Part 1: What is the answer to Part 1?
     Solution: ${solutionPart1}`);
