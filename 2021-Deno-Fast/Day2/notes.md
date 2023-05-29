@@ -2,14 +2,16 @@
 
 https://adventofcode.com/2021/day/2
 
-## Part 1 Time - XX:XX.X
+## Part 1 Time - 11:46.9
 
-X Minutes, XX.X Seconds
+11 Minutes, 46.9 Seconds
 
-## Part 2 Time - XX:XX.X
+## Part 2 Time - 3:14.1
 
-X Minutes,XX.X Seconds
+3 Minutes, 14.1 Seconds
 
-## Combined Time - XX:XX.X
+- Hey! That's Pi!! Hi Pi!!
 
-X Minutes, XX.X Seconds
+## Combined Time - 15:01.0
+
+15 Minutes, 1.0 Seconds

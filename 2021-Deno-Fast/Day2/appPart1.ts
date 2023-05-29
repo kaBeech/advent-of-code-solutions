@@ -12,20 +12,18 @@ const app = (async (
 
   let horizPos = 0;
   let depth = 0;
-  let aim = 0;
 
   challengeInputFormatted.forEach((movementInstruction) => {
     const movementInstructionFormatted = movementInstruction.split(" ");
     switch (movementInstructionFormatted[0][0]) {
       case "f":
         horizPos += +movementInstructionFormatted[1];
-        depth += +movementInstructionFormatted[1] * aim;
         break;
       case "d":
-        aim += +movementInstructionFormatted[1];
+        depth += +movementInstructionFormatted[1];
         break;
       case "u":
-        aim -= +movementInstructionFormatted[1];
+        depth -= +movementInstructionFormatted[1];
         break;
       default:
         console.log(`Error!!!!!!`);
@@ -33,7 +31,7 @@ const app = (async (
   });
 
   const solutionPart1 = depth * horizPos;
-  const solutionPart2 = depth * horizPos;
+  const solutionPart2 = +challengeInputFormatted[0];
 
   console.log(
     `What do you get if you multiply your final horizontal position by your final depth?
