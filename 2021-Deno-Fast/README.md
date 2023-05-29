@@ -12,7 +12,7 @@ To clarify: I'm speedrunning each day individually, not the entire group of 2021
 
 For each Day I will include a time taken to complete (Part1, Part2, and Total). I will be running a stopwatch while I am at my computer working on the challenge. If I step away from my computer or switch to another task I will pause the stopwatch and resume it when I resume work on the challenge
 
-- These completion times will be in either notes.md or retrospective.md
+- These completion times will be in notes.md 
 
 This folder was made to contrast with my Advent-Of-Code-2022 solutions, in which I am taking a more thorough approach
 
