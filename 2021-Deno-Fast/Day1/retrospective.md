@@ -62,6 +62,10 @@
 
 - When having difficulty debugging, step through the program one line at a time
 
+### Oh! Also! Use the testInput!
+
+- I don't know why I was testing using the challengeInput, then waiting for the Advent Of Code website to stop locking me out so I could check the solution (see "Part 1 went quick!" section in "What went well" section). I have testInput set up for this purpose!
+
 ## Takeaways
 
 - Readable code is fast to debug!
@@ -69,6 +73,8 @@
 - When having difficulty getting the correct solution, improve the readability of the code 
 
 - When having difficulty debugging, step through the program one line at a time
+
+- Use the testInput!
 
 # Ideas for possible future implementation
 
@@ -83,3 +89,5 @@
 - I like being able to compare my code between the 2 programs
 
 - I also like being able to destructively edit the code for the Part 1 solution (even though this program gives both solutions correctly)
+
+### Edit boilerplate app.ts to use testInput by default
