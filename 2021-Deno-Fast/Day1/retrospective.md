@@ -23,15 +23,15 @@
 
         So the moral is... I dunno, be lucky?
 
-    - A similar thing actually happened in Part 2, on a larger scale. I knew something was fuzzy with the break clauses*, so I messily fiddled with it until I got an answer that seemed correct. Lucky for me, it was
+    - A similar thing actually happened in Part 2, on a larger scale. I knew something was fuzzy with the break clauses*, so I messily fiddled with it until I got an answer that seemed correct. Lucky for me, it was.
 
-    ...buuuuut I still didn't have a program that reliably gave both solutions (or that I intimately understood, even though I had written it less than an hour previously)
+        ...buuuuut I still didn't have a program that reliably gave both solutions (or that I intimately understood, even though I had written it less than an hour previously)
 
-    So I kept playing with it after finishing, until I A) intimately understood the program, B) figured out the underlying issue, and C) got the program to reliably give both solutions (not necessarily in that order)
+        So I kept playing with it after finishing, until I A) intimately understood the program, B) figured out the underlying issue, and C) got the program to reliably give both solutions (not necessarily in that order)
 
-    When I say 'playing with it,' I do mean playing. While this did give me valuable clues, it wasn't until I used a more structured approach and stepped through the function line by line that I fully understood what was going on
+        When I say 'playing with it,' I do mean playing. While this did give me valuable clues, it wasn't until I used a more structured approach and stepped through the function line by line that I fully understood what was going on
 
-    *(is this even a term? I mean the parts where I used `return` to end the `.forEach()` statements. I don't think it's actually a loop, but whatever)
+        *(is this even a term? I mean the parts where I used `return` to end the `.forEach()` statements. I don't think it's actually a loop, but whatever)
 
     - So! The moral is twofold:
         
