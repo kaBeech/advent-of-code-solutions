@@ -1,42 +1,41 @@
 # What went well during the sprint?
 
-### That was fast and fun!
+### The updated boilerplate app.ts was very helpful!
 
-- Yeah!
+- Good idea setting that up with comments of what code to add where
 
-###
+- Also having the dual output for test and challenge input was helpful
 
-- This is a real simple program, but I feel the code I used to get the correct solution is much more readable than Day 1's was
+### Thinking outside the box!
 
-- This likely helped me get to the correct solution quickly!
-
-### Destructively editing Part 2 app.ts = <3
-
-- Copying the Part 1 app.ts fort archive also = <3
-    - Just make sure to write the Part 2 app in the right file!
+- This is a little thing and maybe obvious, but I noticed that the gammaRate and epsilonRate were the binary inverse of each other (if that's a real term haha. I mean the 0's and 1's are flipped). This allowed me to calculate just one the long way and then derive the other by just flipping the digits. Keep doing things like this!
 
 ## Takeaways
 
-- Have fun!
+- It may seem silly, but little things that help me to not have to think as much when coding is beneficial! Sort of like, setting things up to get out of my own way
+
+- Keep thinking outside the box!
+
+- Little things add up!
 
 # What can I learn from difficult points?
 
-### Remember to update input
+### When in doubt, double check the question and reevaluate your approach!
 
-- This time I had the opposite issue as Day1 - I forgot I was using testInput and wondering why my answer was off!
+- In part 2 I ended up refactoring my code and breaking it down into multiple parts. This is partly due to the digit-flipping hack mentioned in the previous section. My approach for Part 1 didn't transfer over cleanly to Part 2 and it took me a little while to notice that because I misunderstood part of the question. This may seem counterintuitive during a speed run, but taking the time to slow down and make sure you understand what you're doing can actually help you get to the solution faster!
 
-- Actually, I went ahead and edited my boilerplate app.ts so it runs both the testInput and the challengeInput. This way I don't have to remember as much - I just have to pay attention to the console!
+### Even when coding quickly, typing and testing may be helpful
+
+- I ran into some silly errors with this one (see above). This may have been alleviated with a little more structure to my approach. Maybe typing and testing don't need to be comprehensive in this environment, but having a little bit there may be useful
 
 ## Takeaways
 
-- Check inputs and outputs when necessary!
+- Slow down to move faster!
 
-- But also, set things up so you don't have to remember to do as much!
+- Understand the question and your approach
+
+- Add structure when helpful
 
 # Ideas for possible future implementation
 
-### Update boilerplate app.ts to include prompts for what code to enter where
-
-### Use the lap function on your stopwatch!!
-
-- That way you don't have to add your times together ;)
+### Consider adding some typing and testing, even during speedruns!
