@@ -6,10 +6,10 @@ https://adventofcode.com/2021/day/X
 
 21 Minutes, 53.5 Seconds
 
-## Part 2 Time - XX:XX.X
+## Part 2 Time - 31:07.3
 
-X Minutes,XX.X Seconds
+31 Minutes, 07.3 Seconds
 
-## Combined Time - XX:XX.X
+## Combined Time - 52:00.8
 
-X Minutes, XX.X Seconds
+52 Minutes, 0.8 Seconds
