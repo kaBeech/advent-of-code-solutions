@@ -1,6 +1,6 @@
-# Start Day
+# Start Day 11
 
-https://adventofcode.com/2022/
+https://adventofcode.com/2022/day/11
 
 ## Pseudocode
 
