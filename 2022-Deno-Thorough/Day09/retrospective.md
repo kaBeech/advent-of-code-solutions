@@ -4,9 +4,9 @@
 
 - Christmas in May???
 
-    - Sure, why not!
+  - Sure, why not!
 
-    - I finally decided to take some time and do another of these. We'll see if I have time for more soon <3
+  - I finally decided to take some time and do another of these. We'll see if I have time for more soon <3
 
 ### Writing modular code
 
@@ -28,7 +28,7 @@
 
 - I can assume proper input for these going forward!
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Assume properly formatted input
 

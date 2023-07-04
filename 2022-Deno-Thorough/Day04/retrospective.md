@@ -30,6 +30,6 @@ regular breaks =)
 - Take care of your body/spirit
 - Take breaks
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### <3

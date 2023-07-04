@@ -2,7 +2,7 @@
 
 ### That was fast and fun!
 
-- After reading this challenge, I was like "Oh, I could just write this program real quick." Which I did, in more of a speedrun style... (Continued in 'What can I learn?' section) 
+- After reading this challenge, I was like "Oh, I could just write this program real quick." Which I did, in more of a speedrun style... (Continued in 'What can I learn?' section)
 
 ### Crunchy math and logic stuff
 
@@ -34,7 +34,7 @@
 
 - Let's do some speedruns!
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Start a speedrun challenge!
 

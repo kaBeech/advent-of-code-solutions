@@ -46,7 +46,7 @@ the remainder of this project
 - Stay in the flow
 - Use Deno!
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Add testing
 

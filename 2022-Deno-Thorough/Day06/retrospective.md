@@ -34,7 +34,7 @@ me!
 
 - Breaks are good for me!
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Modularize further and use state when appropriate
 

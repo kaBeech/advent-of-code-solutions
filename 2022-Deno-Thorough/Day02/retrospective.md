@@ -63,7 +63,7 @@ improved time and energy usage
 - Consider doing PR operations locally
 - Think about streamlining retrospectives
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Add error handling
 
