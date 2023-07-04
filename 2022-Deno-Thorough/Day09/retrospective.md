@@ -32,7 +32,7 @@
 
 ### Assume properly formatted input
 
-- See above. More coding, less worrying about unneccessary hypotheticals, more fun!
+- See above. More coding, less worrying about unnecessary hypotheticals, more fun!
 
 ### Maybe speedrun a day or two?
 
