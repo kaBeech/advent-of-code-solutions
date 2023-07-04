@@ -27,3 +27,6 @@ const Monkey = (
   // ...modalBooleanSetter(state),
   //   };
 };
+
+const monkeyBusinessLevel = mostActiveMonkey.totalItemsInspected *
+  secondMostActiveMonkey.totalItemsInspected;

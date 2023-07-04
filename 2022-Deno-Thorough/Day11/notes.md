@@ -38,17 +38,16 @@ https://adventofcode.com/2022/day/11
 
 #### Inspection method
 
-For each itemByWorryLevel {
+For each itemByWorryLevel:
 
 1. itemByWorryLevel = itemByWorryLevel (operator) operand
 2. itemByWorryLevel = itemByWorryLevel floor/ 3
 3. if (itemByWorryLevel is evenly divisible by divisor) { throw to trueDestination } else { throw to falseDestination }
 4. totalItemsInspected += 1
-   }
 
 #### Do 20 rounds of inspection
 
-1. For each monkey {inspect each item held}
+1. For each monkey, inspect each item that monkey holds
 2. Do this 20 times
 
 #### Find the 2 most active monkeys
@@ -70,4 +69,4 @@ secondMostActiveMonkey = monkey
 
 #### Find the level of monkey business
 
-const monkeyBusinessLevel = mostActiveMonkey.totalItemsInspected \* secondMostActiveMonkey.totalItemsInspected
+Multiply the totalItemsInspected values of the most and second most active monkeys
