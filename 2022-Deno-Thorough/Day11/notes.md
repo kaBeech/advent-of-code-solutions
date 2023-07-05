@@ -37,6 +37,7 @@ https://adventofcode.com/2022/day/11
 2. Give each monkey a method to receive a thrown item
 3. Give each monkey a method to throw an item
 4. Give each monkey a method to inspect each item xe is holding
+5. Give each monkey a getTotalItemsInspected method
 
 #### ReceiveThrownItem method
 
