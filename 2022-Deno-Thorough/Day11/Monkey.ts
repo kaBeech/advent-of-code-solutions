@@ -6,33 +6,55 @@ const throwItem = (thrownItem: number, destinationMonkey: MonkeyType) => {
 };
 
 const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
-  let item = state.itemsByWorryLevel.pop() as number;
+  let itemByWorryLevel = state.itemsByWorryLevel.pop() as number;
 
   switch (state.operator) {
     case "+":
-      item += state.operand;
+      if (state.operand === "old") {
+        itemByWorryLevel += itemByWorryLevel;
+      } else {
+        itemByWorryLevel += state.operand;
+      }
       break;
     case "*":
-      item *= state.operand;
+      if (state.operand === "old") {
+        itemByWorryLevel *= itemByWorryLevel;
+      } else {
+        itemByWorryLevel *= state.operand;
+      }
       break;
     default:
       console.error("Unrecognized operator");
   }
 
-  item = Math.floor(item / 3);
-
-  if (item % state.divisor === 0) {
-    throwItem(item, monkeys[state.trueDestination]);
-  } else {
-    throwItem(item, monkeys[state.falseDestination]);
-  }
+  itemByWorryLevel = Math.floor(itemByWorryLevel / 3);
 
   state.totalItemsInspected++;
+  if (itemByWorryLevel % state.divisor === 0) {
+    throwItem(itemByWorryLevel, monkeys[state.trueDestination]);
+    return {
+      itemByWorryLevel: itemByWorryLevel,
+      destination: state.trueDestination,
+    };
+  } else {
+    throwItem(itemByWorryLevel, monkeys[state.falseDestination]);
+    return {
+      itemByWorryLevel: itemByWorryLevel,
+      destination: state.falseDestination,
+    };
+  }
 };
 
 const itemsInspector = (state: MonkeyState) => ({
   inspectItems: (monkeys: MonkeyType[]) => {
-    state.itemsByWorryLevel.forEach(() => inspectSingleItem(monkeys, state));
+    const itemsAndDestinations: {
+      itemByWorryLevel: number;
+      destination: number;
+    }[] = [];
+    state.itemsByWorryLevel.forEach(() =>
+      itemsAndDestinations.push(inspectSingleItem(monkeys, state))
+    );
+    return itemsAndDestinations;
   },
 });
 
@@ -41,8 +63,10 @@ const totalItemsInspectedGetter = (state: MonkeyState) => ({
 });
 
 const thrownItemReceiver = (state: MonkeyState) => ({
-  receiveThrownItem: (thrownItem: number) =>
-    state.itemsByWorryLevel.push(thrownItem),
+  receiveThrownItem: (thrownItem: number) => {
+    state.itemsByWorryLevel.push(thrownItem);
+    return state.itemsByWorryLevel[-1];
+  },
 });
 
 const Monkey = (
