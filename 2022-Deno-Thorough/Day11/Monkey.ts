@@ -69,6 +69,8 @@ const thrownItemReceiver = (state: MonkeyState) => ({
   },
 });
 
+const nameGetter = (state: MonkeyState) => ({ getName: () => state.name });
+
 const Monkey = (
   name: number,
   itemsByWorryLevel: number[],
@@ -91,6 +93,7 @@ const Monkey = (
   };
 
   return {
+    ...nameGetter(state),
     ...itemsInspector(state),
     ...thrownItemReceiver(state),
     ...totalItemsInspectedGetter(state),
