@@ -1,17 +1,7 @@
-import { Operator } from "../../../tools/commonTypes.ts";
+import { Monkey } from "../Monkey.ts";
+import { MonkeyState } from "../types.ts";
 
-interface MonkeyState {
-  name: number;
-  itemsByWorryLevel: number[];
-  operator: Operator;
-  operand: number | "old";
-  divisor: number;
-  trueDestination: number;
-  falseDestination: number;
-  totalItemsInspected: number;
-}
-
-const testMonkeys: MonkeyState[] = [
+const testMonkeyStates: MonkeyState[] = [
   //         Monkey 0:
   //   Starting items: 79, 98
   //   Operation: new = old * 19
@@ -78,4 +68,11 @@ const testMonkeys: MonkeyState[] = [
   },
 ];
 
-export { testMonkeys };
+const testMonkeys = [
+  Monkey(0, [79, 98], "*", 19, 23, 2, 3),
+  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0),
+  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3),
+  Monkey(3, [74], "+", 3, 17, 0, 1),
+];
+
+export { testMonkeys, testMonkeyStates };
