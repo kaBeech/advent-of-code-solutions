@@ -34,16 +34,27 @@ https://adventofcode.com/2022/day/11
    totalItemsInspected: 0,
    };
    };
-2. Give each monkey a method to inspect each item xe is holding
+2. Give each monkey a method to receive a thrown item
+3. Give each monkey a method to throw an item
+4. Give each monkey a method to inspect each item xe is holding
+
+#### ReceiveThrownItem method
+
+1. Push the thrown item to monkey's state.itemsByWorryLevel array
+
+#### Throw item method
+
+1. Pop the item out of monkey's state.itemsByWorryLevel array
+2. Call the receiveThrownItem method on the destinationMonkey
 
 #### Inspection method
 
 For each itemByWorryLevel:
 
-1. itemByWorryLevel = itemByWorryLevel (operator) operand
-2. itemByWorryLevel = itemByWorryLevel floor/ 3
-3. if (itemByWorryLevel is evenly divisible by divisor) { throw to trueDestination } else { throw to falseDestination }
-4. totalItemsInspected += 1
+1. Do the operation (on the itemByWorryLevel) specified by state.operator with state.operand
+2. Floor divide the itemByWorryLevel by 3
+3. if itemByWorryLevel is evenly divisible by divisor, throw to trueDestination, else throw to falseDestination
+4. Add 1 to state.totalItemsInspected
 
 #### Do 20 rounds of inspection
 
