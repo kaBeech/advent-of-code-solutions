@@ -5,7 +5,7 @@ const playKeepAway = (
   numberOfRounds: number,
 ): MonkeyType[] => {
   for (let i = 0; i < numberOfRounds; i++) {
-    monkeys.forEach((monkey) => monkey.inspectItems());
+    monkeys.forEach((monkey) => monkey.inspectItems(monkeys));
   }
 
   return monkeys;
