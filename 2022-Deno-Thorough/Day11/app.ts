@@ -1,4 +1,3 @@
-import { boilerplateFunction } from "./boilerplateModule.ts";
 import { solvePart1 } from "./solvePart1.ts";
 
 const app = (async (
@@ -9,7 +8,8 @@ const app = (async (
   }
 
   const solutionPart1 = await solvePart1(challengeInputFile);
-  const solutionPart2 = await boilerplateFunction(challengeInputFile);
+  const solutionPart2 = await solvePart1(challengeInputFile);
+  // const solutionPart2 = await solvePart2(challengeInputFile);
 
   console.log(
     `Part 1: What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?

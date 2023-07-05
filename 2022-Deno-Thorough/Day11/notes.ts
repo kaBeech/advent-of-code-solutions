@@ -28,5 +28,5 @@ const Monkey = (
   //   };
 };
 
-const monkeyBusinessLevel = mostActiveMonkey.totalItemsInspected *
-  secondMostActiveMonkey.totalItemsInspected;
+// const monkeyBusinessLevel = mostActiveMonkey.totalItemsInspected *
+//   secondMostActiveMonkey.totalItemsInspected;
