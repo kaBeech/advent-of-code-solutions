@@ -5,3 +5,5 @@ const getMonkeyBusinessLevel = (
 ): number => {
   return 0;
 };
+
+export { getMonkeyBusinessLevel };

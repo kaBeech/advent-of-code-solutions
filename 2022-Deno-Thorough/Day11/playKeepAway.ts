@@ -10,3 +10,5 @@ const playKeepAway = (
 
   return monkeys;
 };
+
+export { playKeepAway };
