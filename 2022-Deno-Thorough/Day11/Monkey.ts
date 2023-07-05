@@ -49,10 +49,11 @@ const Monkey = (
   name: number,
   itemsByWorryLevel: number[],
   operator: Operator,
-  operand: number,
+  operand: number | "old",
   divisor: number,
   trueDestination: number,
   falseDestination: number,
+  totalItemsInspected?: number,
 ) => {
   const state = {
     name,
@@ -62,7 +63,7 @@ const Monkey = (
     divisor,
     trueDestination,
     falseDestination,
-    totalItemsInspected: 0,
+    totalItemsInspected: totalItemsInspected || 0,
   };
 
   return {
