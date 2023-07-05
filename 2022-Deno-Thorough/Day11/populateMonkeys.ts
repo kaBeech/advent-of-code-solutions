@@ -9,7 +9,7 @@ const populateMonkeys = async (
     challengeInput,
   );
   const monkeys: MonkeyType[] = [];
-  challengeInputArray.forEach((line) => {
+  challengeInputArray.forEach((monkeyInput) => {
     const monkey = Monkey();
     monkeys.push(monkey);
   });
