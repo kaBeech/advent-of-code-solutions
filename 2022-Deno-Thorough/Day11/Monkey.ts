@@ -6,7 +6,7 @@ const throwItem = (thrownItem: number, destinationMonkey: MonkeyType) => {
 };
 
 const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
-  let itemByWorryLevel = state.itemsByWorryLevel.pop() as number;
+  let itemByWorryLevel = state.itemsByWorryLevel.shift() as number;
 
   switch (state.operator) {
     case "+":
@@ -51,9 +51,9 @@ const itemsInspector = (state: MonkeyState) => ({
       itemByWorryLevel: number;
       destination: number;
     }[] = [];
-    state.itemsByWorryLevel.forEach(() =>
-      itemsAndDestinations.push(inspectSingleItem(monkeys, state))
-    );
+    while (state.itemsByWorryLevel.length) {
+      itemsAndDestinations.push(inspectSingleItem(monkeys, state));
+    }
     return itemsAndDestinations;
   },
 });
