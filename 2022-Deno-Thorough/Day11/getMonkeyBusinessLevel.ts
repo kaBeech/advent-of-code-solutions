@@ -1,6 +1,7 @@
-const getMonkeyBusinessLevel = async (
-  challengeInputFile: string,
-): Promise<number> => {
-  await playKeepAway(challengeInputFile);
+import { MonkeyType } from "./types.ts";
+
+const getMonkeyBusinessLevel = (
+  monkeys: MonkeyType[],
+): number => {
   return 0;
 };
