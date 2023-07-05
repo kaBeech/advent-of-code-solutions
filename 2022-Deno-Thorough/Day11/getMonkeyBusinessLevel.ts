@@ -1,7 +1,7 @@
 import { MonkeyState, MonkeyType } from "./types.ts";
 
 const getMonkeyBusinessLevel = (
-  monkeys: MonkeyState[],
+  monkeys: MonkeyType[],
 ): number => {
   return 0;
 };
