@@ -7,11 +7,13 @@ const app = (async (
     challengeInputFile = "tests/boilerplateChallengeInput.txt";
   }
 
-  const solutionPart1 = await boilerplateFunction(challengeInputFile);
+  const solutionPart1 = await getMonkeyBusinessLevel(challengeInputFile);
   const solutionPart2 = await boilerplateFunction(challengeInputFile);
 
-  console.log(`Part 1: What is the answer to Part 1?
-    Solution: ${solutionPart1}`);
+  console.log(
+    `Part 1: What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?
+    Solution: ${solutionPart1}`,
+  );
   console.log(`Part 2: What is the answer to Part 2?
     Solution: ${solutionPart2}`);
 
