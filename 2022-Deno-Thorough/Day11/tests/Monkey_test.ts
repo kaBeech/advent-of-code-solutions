@@ -21,7 +21,7 @@ Deno.test("inspectItems returns correct items and destinations using numeric ope
 Deno.test("inspectItems returns correct items and destinations when sorting and using 'old' operand", () => {
   assertEquals(testMonkeys[2].inspectItems(testMonkeys), [
     { itemByWorryLevel: 2080, destination: 1 },
-    { itemByWorryLevel: 1200, destination: 1 },
+    { itemByWorryLevel: 1200, destination: 3 },
     { itemByWorryLevel: 3136, destination: 3 },
   ]);
 });
