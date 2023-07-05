@@ -4,7 +4,7 @@ const app = (async (
   challengeInputFile?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: number }> => {
   if (!challengeInputFile) {
-    challengeInputFile = "tests/boilerplateChallengeInput.txt";
+    challengeInputFile = "tests/challengeInput.txt";
   }
 
   const solutionPart1 = await solvePart1(challengeInputFile);
