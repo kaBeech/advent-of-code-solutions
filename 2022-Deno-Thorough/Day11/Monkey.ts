@@ -5,7 +5,7 @@ interface MonkeyState {
   name: number;
   itemsByWorryLevel: number[];
   operator: Operator;
-  operand: number;
+  operand: number | "old";
   divisor: number;
   trueDestination: number;
   falseDestination: number;
