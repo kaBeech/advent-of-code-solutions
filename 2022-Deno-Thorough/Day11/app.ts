@@ -1,4 +1,5 @@
 import { boilerplateFunction } from "./boilerplateModule.ts";
+import { solvePart1 } from "./solvePart1.ts";
 
 const app = (async (
   challengeInputFile?: string,
@@ -7,7 +8,7 @@ const app = (async (
     challengeInputFile = "tests/boilerplateChallengeInput.txt";
   }
 
-  const solutionPart1 = await getMonkeyBusinessLevel(challengeInputFile);
+  const solutionPart1 = await solvePart1(challengeInputFile);
   const solutionPart2 = await boilerplateFunction(challengeInputFile);
 
   console.log(
