@@ -1,12 +1,12 @@
 // This file is for scratch coding in ts while psuedocoding
 
-type Operand = "+" | "-" | "*" | "/" | "%";
+type Operator = "+" | "-" | "*" | "/" | "%";
 
 const Monkey = (
   name: number,
   itemsByWorryLevel: number[],
-  operator: string,
-  operand: Operand,
+  operator: Operator,
+  operand: number,
   divisor: number,
   trueDestination: number,
   falseDestination: number,
