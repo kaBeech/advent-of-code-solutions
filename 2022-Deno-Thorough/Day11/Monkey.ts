@@ -1,4 +1,5 @@
 import { Operator } from "../../tools/commonTypes.ts";
+import { MonkeyType } from "./types.ts";
 
 interface MonkeyState {
   name: number;
@@ -11,43 +12,39 @@ interface MonkeyState {
   totalItemsInspected: number;
 }
 
-interface Monkey {
-  inspectItems: () => void;
-  getTotalItemsInspected: () => void;
-  receiveThrownItem: (thrownItem: number) => void;
-  throwItem: (destinationMonkey: Monkey) => void;
-}
-
-let monkeys: Monkey[];
-
-const throwItem = (thrownItem: number, destinationMonkey: Monkey) => {
+const throwItem = (thrownItem: number, destinationMonkey: MonkeyType) => {
   destinationMonkey.receiveThrownItem(thrownItem);
 };
 
-const inspectSingleItem = (state: MonkeyState) => {
+const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
   let item = state.itemsByWorryLevel.pop() as number;
+
   switch (state.operator) {
     case "+":
       item += state.operand;
       break;
     case "*":
       item *= state.operand;
-
       break;
     default:
       console.error("Unrecognized operator");
   }
+
   item = Math.floor(item / 3);
+
   if (item % state.divisor === 0) {
     throwItem(item, monkeys[state.trueDestination]);
   } else {
     throwItem(item, monkeys[state.falseDestination]);
   }
+
   state.totalItemsInspected++;
 };
 
 const itemsInspector = (state: MonkeyState) => ({
-  // inspectItems: () => state.modalBoolean,
+  inspectItems: (monkeys: MonkeyType[]) => {
+    state.itemsByWorryLevel.forEach(() => inspectSingleItem(monkeys, state));
+  },
 });
 
 const totalItemsInspectedGetter = (state: MonkeyState) => ({
