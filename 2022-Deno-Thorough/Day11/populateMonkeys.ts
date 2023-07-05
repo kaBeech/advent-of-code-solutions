@@ -15,3 +15,5 @@ const populateMonkeys = async (
   });
   return monkeys;
 };
+
+export { populateMonkeys };

@@ -1,3 +1,4 @@
+import { populateMonkeys } from "./populateMonkeys.ts";
 import { MonkeyType } from "./types.ts";
 
 const solvePart1 = async (challengeInput: string): Promise<number> => {
