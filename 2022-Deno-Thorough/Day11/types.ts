@@ -1,9 +1,12 @@
 import { Operator } from "../../tools/commonTypes.ts";
 
 interface MonkeyType {
-  inspectItems: () => void;
   getTotalItemsInspected: () => number;
-  receiveThrownItem: (thrownItem: number) => void;
+  receiveThrownItem: (thrownItem: number) => number;
+  inspectItems: (monkeys: MonkeyType[]) => {
+    itemByWorryLevel: number;
+    destination: number;
+  }[];
 }
 
 interface MonkeyState {
