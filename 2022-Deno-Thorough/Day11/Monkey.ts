@@ -1,16 +1,5 @@
 import { Operator } from "../../tools/commonTypes.ts";
-import { MonkeyType } from "./types.ts";
-
-interface MonkeyState {
-  name: number;
-  itemsByWorryLevel: number[];
-  operator: Operator;
-  operand: number | "old";
-  divisor: number;
-  trueDestination: number;
-  falseDestination: number;
-  totalItemsInspected: number;
-}
+import { MonkeyState, MonkeyType } from "./types.ts";
 
 const throwItem = (thrownItem: number, destinationMonkey: MonkeyType) => {
   destinationMonkey.receiveThrownItem(thrownItem);
