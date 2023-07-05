@@ -65,7 +65,7 @@ const totalItemsInspectedGetter = (state: MonkeyState) => ({
 const thrownItemReceiver = (state: MonkeyState) => ({
   receiveThrownItem: (thrownItem: number) => {
     state.itemsByWorryLevel.push(thrownItem);
-    return state.itemsByWorryLevel[-1];
+    return state.itemsByWorryLevel[state.itemsByWorryLevel.length - 1];
   },
 });
 
