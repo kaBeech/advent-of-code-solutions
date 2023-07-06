@@ -11,7 +11,7 @@ const Monkey = (
   trueDestination: number,
   falseDestination: number,
 ) => {
-  const state = {
+  const _state = {
     name,
     itemsByWorryLevel,
     operator,
@@ -27,6 +27,8 @@ const Monkey = (
   // ...modalBooleanSetter(state),
   //   };
 };
+
+export { Monkey };
 
 // const monkeyBusinessLevel = mostActiveMonkey.totalItemsInspected *
 //   secondMostActiveMonkey.totalItemsInspected;
