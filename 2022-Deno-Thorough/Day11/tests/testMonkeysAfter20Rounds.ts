@@ -4,7 +4,7 @@ import { MonkeyState } from "../types.ts";
 const testMonkeysAfter20RoundsStates: MonkeyState[] = [
   {
     name: 0,
-    itemsByWorryLevel: [10n, 12n, 14n, 2n, 34n],
+    itemsByWorryLevel: [10, 12, 14, 26, 34],
     operator: "*",
     operand: 19,
     divisor: 23,
@@ -15,7 +15,7 @@ const testMonkeysAfter20RoundsStates: MonkeyState[] = [
   },
   {
     name: 1,
-    itemsByWorryLevel: [245n, 93n, 53n, 199n, 115n],
+    itemsByWorryLevel: [245, 93, 53, 199, 115],
     operator: "+",
     operand: 6,
     divisor: 19,
@@ -49,15 +49,15 @@ const testMonkeysAfter20RoundsStates: MonkeyState[] = [
 ];
 
 const testMonkeysAfter20Rounds = [
-  Monkey(0, [10n, 12n, 14n, 26n, 34n], "*", 19, 23, 2, 3, false, 101),
-  Monkey(1, [245n, 93n, 53n, 199n, 115n], "+", 6, 19, 2, 0, false, 95),
+  Monkey(0, [10, 12, 14, 26, 34], "*", 19, 23, 2, 3, false, 101),
+  Monkey(1, [245, 93, 53, 199, 115], "+", 6, 19, 2, 0, false, 95),
   Monkey(2, [], "*", "old", 13, 1, 3, false, 7),
   Monkey(3, [], "+", 3, 17, 0, 1, false, 105),
 ];
 
 const testMonkeysAfter20RoundsPart2 = [
-  Monkey(0, [10n, 12n, 14n, 26n, 34n], "*", 19, 23, 2, 3, true, 52166),
-  Monkey(1, [245n, 93n, 53n, 199n, 115n], "+", 6, 19, 2, 0, true, 47830),
+  Monkey(0, [10, 12, 14, 26, 34], "*", 19, 23, 2, 3, true, 52166),
+  Monkey(1, [245, 93, 53, 199, 115], "+", 6, 19, 2, 0, true, 47830),
   Monkey(2, [], "*", "old", 13, 1, 3, true, 1938),
   Monkey(3, [], "+", 3, 17, 0, 1, true, 52013),
 ];
