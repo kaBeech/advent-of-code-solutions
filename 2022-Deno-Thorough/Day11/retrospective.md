@@ -43,3 +43,5 @@
 ### Continue using notes.ts for scratch ts while pseudocoding
 
 ### Put energy into making pseudocode human-readable
+
+### Take breaks!
