@@ -12,7 +12,7 @@ Deno.test("populateMonkeys sets the correct monkeyState for each monkey", async 
   });
 });
 
-Deno.test("populateMonkeys sets the correct monkeyState for each monkey during extraWorrying circumstacnes", async () => {
+Deno.test("populateMonkeys sets the correct monkeyState for each monkey during extraWorrying circumstances", async () => {
   const result = await populateMonkeys(testInput, false, "test");
 
   result.forEach((monkeyState, index) => {
