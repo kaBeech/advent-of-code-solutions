@@ -15,8 +15,10 @@ const app = (async (
     `Part 1: What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?
     Solution: ${solutionPart1}`,
   );
-  console.log(`Part 2: What is the answer to Part 2?
-    Solution: ${solutionPart2}`);
+  console.log(
+    `Part 2: Worry levels are no longer divided by three after each item is inspected; what is the level of monkey business after 10000 rounds??
+    Solution: ${solutionPart2}`,
+  );
 
   return {
     solutionPart1,
