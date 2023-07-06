@@ -19,6 +19,7 @@ interface MonkeyState {
   trueDestination: number;
   falseDestination: number;
   totalItemsInspected: number;
+  extraWorrying: boolean;
 }
 
 export type { MonkeyState, MonkeyType };
