@@ -24,6 +24,8 @@
 
 - Use notes.ts for scratch ts while pseudocoding
 
+- Use separate solvePart1 and solvePart2 modules
+
 - Have fun!
 
 # What can I learn from difficult points?
@@ -47,5 +49,7 @@
 ### Continue using notes.ts for scratch ts while pseudocoding
 
 ### Put energy into making pseudocode human-readable
+
+### Use separate solvePart1 and solvePart2 modules
 
 ### Take breaks!
