@@ -43,8 +43,8 @@ const inspectSingleItem = (
       } /23 = ${itemByWorryLevel % 23}`,
     );
   }
-  if ((itemByWorryLevel % bigDivisor) % state.divisor === 0) {
-    itemByWorryLevel = itemByWorryLevel / bigDivisor;
+  itemByWorryLevel = itemByWorryLevel % bigDivisor;
+  if ((itemByWorryLevel) % state.divisor === 0) {
     throwItem(itemByWorryLevel, monkeys[state.trueDestination]);
     return {
       itemByWorryLevel: itemByWorryLevel,
