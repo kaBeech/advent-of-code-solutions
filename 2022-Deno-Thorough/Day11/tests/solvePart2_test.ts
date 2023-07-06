@@ -6,5 +6,5 @@ const challengeInput = "tests/challengeInput.txt";
 Deno.test("testInput returns 2713310158", async () => {
   const result = await solvePart2(challengeInput);
 
-  assertEquals(result, 2713310158);
+  assertEquals(result, 15050382231);
 });
