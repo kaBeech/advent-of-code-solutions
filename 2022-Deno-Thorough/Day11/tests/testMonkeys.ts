@@ -2,7 +2,7 @@ import { Monkey } from "../Monkey.ts";
 import { MonkeyState } from "../types.ts";
 
 const testMonkeyStates: MonkeyState[] = [
-  //         Monkey 0:
+  // Monkey 0:
   //   Starting items: 79, 98
   //   Operation: new = old * 19
   //   Test: divisible by 23
@@ -72,6 +72,53 @@ const testMonkeyStates: MonkeyState[] = [
   },
 ];
 
+const testMonkeyStatesPart2: MonkeyState[] = [
+  {
+    name: 0,
+    itemsByWorryLevel: [79, 98],
+    operator: "*",
+    operand: 19,
+    divisor: 23,
+    trueDestination: 2,
+    falseDestination: 3,
+    totalItemsInspected: 0,
+    extraWorrying: false,
+  },
+  {
+    name: 1,
+    itemsByWorryLevel: [54, 65, 75, 74],
+    operator: "+",
+    operand: 6,
+    divisor: 19,
+    trueDestination: 2,
+    falseDestination: 0,
+    totalItemsInspected: 0,
+    extraWorrying: false,
+  },
+  {
+    name: 2,
+    itemsByWorryLevel: [79, 60, 97],
+    operator: "*",
+    operand: "old",
+    divisor: 13,
+    trueDestination: 1,
+    falseDestination: 3,
+    totalItemsInspected: 0,
+    extraWorrying: false,
+  },
+  {
+    name: 3,
+    itemsByWorryLevel: [74],
+    operator: "+",
+    operand: 3,
+    divisor: 17,
+    trueDestination: 0,
+    falseDestination: 1,
+    totalItemsInspected: 0,
+    extraWorrying: false,
+  },
+];
+
 const testMonkeys = [
   Monkey(0, [79, 98], "*", 19, 23, 2, 3, false),
   Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, false),
@@ -86,4 +133,9 @@ const testMonkeysPart2 = [
   Monkey(3, [74], "+", 3, 17, 0, 1, true),
 ];
 
-export { testMonkeys, testMonkeysPart2, testMonkeyStates };
+export {
+  testMonkeys,
+  testMonkeysPart2,
+  testMonkeyStates,
+  testMonkeyStatesPart2,
+};

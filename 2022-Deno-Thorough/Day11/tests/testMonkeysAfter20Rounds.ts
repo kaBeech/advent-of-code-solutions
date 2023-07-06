@@ -55,4 +55,15 @@ const testMonkeysAfter20Rounds = [
   Monkey(3, [], "+", 3, 17, 0, 1, false, 105),
 ];
 
-export { testMonkeysAfter20Rounds, testMonkeysAfter20RoundsStates };
+const testMonkeysAfter20RoundsPart2 = [
+  Monkey(0, [10, 12, 14, 26, 34], "*", 19, 23, 2, 3, true, 52166),
+  Monkey(1, [245, 93, 53, 199, 115], "+", 6, 19, 2, 0, true, 47830),
+  Monkey(2, [], "*", "old", 13, 1, 3, true, 1938),
+  Monkey(3, [], "+", 3, 17, 0, 1, true, 52013),
+];
+
+export {
+  testMonkeysAfter20Rounds,
+  testMonkeysAfter20RoundsPart2,
+  testMonkeysAfter20RoundsStates,
+};
