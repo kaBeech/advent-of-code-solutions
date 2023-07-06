@@ -6,6 +6,7 @@ import { MonkeyType } from "./types.ts";
 const solvePart1 = async (challengeInput: string): Promise<number> => {
   const monkeys: MonkeyType[] = await populateMonkeys(
     challengeInput,
+    false,
   ) as MonkeyType[];
   playKeepAway(monkeys, 20);
   return getMonkeyBusinessLevel(monkeys);

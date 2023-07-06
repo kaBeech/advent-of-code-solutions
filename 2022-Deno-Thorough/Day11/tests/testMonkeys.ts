@@ -69,10 +69,10 @@ const testMonkeyStates: MonkeyState[] = [
 ];
 
 const testMonkeys = [
-  Monkey(0, [79, 98], "*", 19, 23, 2, 3),
-  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0),
-  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3),
-  Monkey(3, [74], "+", 3, 17, 0, 1),
+  Monkey(0, [79, 98], "*", 19, 23, 2, 3, true),
+  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, true),
+  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, true),
+  Monkey(3, [74], "+", 3, 17, 0, 1, true),
 ];
 
 export { testMonkeys, testMonkeyStates };

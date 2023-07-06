@@ -5,6 +5,7 @@ import { MonkeyState, MonkeyType } from "./types.ts";
 
 const populateMonkeys = async (
   challengeInput: string,
+  extraWorrying: boolean,
   test?: "test" | undefined,
 ): Promise<MonkeyType[] | MonkeyState[]> => {
   const challengeInputArray = await convertMultiParagraphFileToArray(
@@ -33,6 +34,7 @@ const populateMonkeys = async (
       divisor,
       trueDestination,
       falseDestination,
+      extraWorrying,
     );
     monkeys.push(monkey);
   });

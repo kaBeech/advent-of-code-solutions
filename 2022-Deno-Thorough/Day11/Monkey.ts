@@ -79,6 +79,7 @@ const Monkey = (
   divisor: number,
   trueDestination: number,
   falseDestination: number,
+  extraWorrying: boolean,
   totalItemsInspected?: number,
 ) => {
   const state = {
@@ -89,6 +90,7 @@ const Monkey = (
     divisor,
     trueDestination,
     falseDestination,
+    extraWorrying,
     totalItemsInspected: totalItemsInspected || 0,
   };
 
