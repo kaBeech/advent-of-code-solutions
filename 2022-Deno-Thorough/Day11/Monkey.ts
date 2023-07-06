@@ -27,7 +27,7 @@ const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
       console.error("Unrecognized operator");
   }
 
-  itemByWorryLevel = Math.floor(itemByWorryLevel / 3);
+  if (!state.extraWorrying) itemByWorryLevel = Math.floor(itemByWorryLevel / 3);
 
   state.totalItemsInspected++;
   if (itemByWorryLevel % state.divisor === 0) {
