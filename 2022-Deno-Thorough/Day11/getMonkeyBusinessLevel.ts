@@ -3,7 +3,7 @@ import { MonkeyType } from "./types.ts";
 const getMonkeyBusinessLevel = (
   monkeys: MonkeyType[],
 ): number => {
-  let mostActiveMonkey = monkeys[0];
+  let mostActiveMonkey = monkeys[2];
   let secondMostActiveMonkey = monkeys[1];
   if (
     secondMostActiveMonkey.getTotalItemsInspected() >
