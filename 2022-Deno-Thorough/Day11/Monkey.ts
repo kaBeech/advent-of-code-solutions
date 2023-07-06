@@ -36,7 +36,7 @@ const inspectSingleItem = (
   }
 
   state.totalItemsInspected++;
-  itemByWorryLevel = itemByWorryLevel % bigDivisor;
+  if (state.extraWorrying) itemByWorryLevel = itemByWorryLevel % bigDivisor;
   if ((itemByWorryLevel) % state.divisor === 0) {
     throwItem(itemByWorryLevel, monkeys[state.trueDestination]);
     return {
