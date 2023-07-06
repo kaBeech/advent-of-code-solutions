@@ -36,13 +36,6 @@ const inspectSingleItem = (
   }
 
   state.totalItemsInspected++;
-  if (state.name === 2) {
-    console.log(
-      `Item ${itemByWorryLevel} is being inspected by monkey 2. /19 = ${
-        itemByWorryLevel % 19
-      } /23 = ${itemByWorryLevel % 23}`,
-    );
-  }
   itemByWorryLevel = itemByWorryLevel % bigDivisor;
   if ((itemByWorryLevel) % state.divisor === 0) {
     throwItem(itemByWorryLevel, monkeys[state.trueDestination]);

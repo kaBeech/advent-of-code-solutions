@@ -21,7 +21,7 @@ Deno.test("Playing 20 rounds during extraWorrying circumstances gives all monkey
 });
 
 Deno.test("Playing 10000 rounds during extraWorrying circumstances gives all monkeys the correct totalItemsProcessed", () => {
-  const resultMonkeys = playKeepAway(testMonkeysPart2, 100, 96577);
+  const resultMonkeys = playKeepAway(testMonkeysPart2, 10000, 96577);
 
   assertEquals(resultMonkeys[0].getTotalItemsInspected(), 52166);
   assertEquals(resultMonkeys[1].getTotalItemsInspected(), 47830);
