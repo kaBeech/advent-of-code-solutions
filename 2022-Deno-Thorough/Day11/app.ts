@@ -1,4 +1,5 @@
 import { solvePart1 } from "./solvePart1.ts";
+import { solvePart2 } from "./solvePart2.ts";
 
 const app = (async (
   challengeInputFile?: string,
@@ -8,8 +9,7 @@ const app = (async (
   }
 
   const solutionPart1 = await solvePart1(challengeInputFile);
-  const solutionPart2 = await solvePart1(challengeInputFile);
-  // const solutionPart2 = await solvePart2(challengeInputFile);
+  const solutionPart2 = await solvePart2(challengeInputFile);
 
   console.log(
     `Part 1: What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?
