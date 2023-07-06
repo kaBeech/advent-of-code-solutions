@@ -27,6 +27,11 @@ Deno.test("inspectItems returns correct items and destinations when sorting and 
 });
 
 Deno.test("inspectItems returns correct items and destinations during extraWorrying conditions", () => {
+  assertEquals(testMonkeysPart2[0].inspectItems(testMonkeysPart2), [
+    { itemByWorryLevel: 1501, destination: 3 },
+    { itemByWorryLevel: 1862, destination: 3 },
+  ]);
+
   assertEquals(testMonkeysPart2[2].inspectItems(testMonkeysPart2), [
     { itemByWorryLevel: 6241, destination: 3 },
     { itemByWorryLevel: 3600, destination: 3 },
