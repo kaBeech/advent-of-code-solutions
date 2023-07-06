@@ -17,6 +17,7 @@ const testMonkeyStates: MonkeyState[] = [
     trueDestination: 2,
     falseDestination: 3,
     totalItemsInspected: 0,
+    extraWorrying: false,
   },
   // Monkey 1:
   //   Starting items: 54, 65, 75, 74
@@ -33,6 +34,7 @@ const testMonkeyStates: MonkeyState[] = [
     trueDestination: 2,
     falseDestination: 0,
     totalItemsInspected: 0,
+    extraWorrying: false,
   },
   // Monkey 2:
   //   Starting items: 79, 60, 97
@@ -49,6 +51,7 @@ const testMonkeyStates: MonkeyState[] = [
     trueDestination: 1,
     falseDestination: 3,
     totalItemsInspected: 0,
+    extraWorrying: false,
   },
   // Monkey 3:
   //   Starting items: 74
@@ -65,14 +68,22 @@ const testMonkeyStates: MonkeyState[] = [
     trueDestination: 0,
     falseDestination: 1,
     totalItemsInspected: 0,
+    extraWorrying: false,
   },
 ];
 
 const testMonkeys = [
+  Monkey(0, [79, 98], "*", 19, 23, 2, 3, false),
+  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, false),
+  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, false),
+  Monkey(3, [74], "+", 3, 17, 0, 1, false),
+];
+
+const testMonkeysPart2 = [
   Monkey(0, [79, 98], "*", 19, 23, 2, 3, true),
   Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, true),
   Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, true),
   Monkey(3, [74], "+", 3, 17, 0, 1, true),
 ];
 
-export { testMonkeys, testMonkeyStates };
+export { testMonkeys, testMonkeysPart2, testMonkeyStates };

@@ -10,7 +10,7 @@ const testInput = "tests/testInput.txt";
 // });
 
 Deno.test("populateMonkeys sets the correct monkeyState for each monkey", async () => {
-  const result = await populateMonkeys(testInput, "test");
+  const result = await populateMonkeys(testInput, false, "test");
 
   result.forEach((monkeyState, index) => {
     assertEquals(monkeyState, testMonkeyStates[index]);
