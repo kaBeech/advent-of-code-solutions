@@ -3,16 +3,16 @@ import { Operator } from "../../tools/commonTypes.ts";
 interface MonkeyType {
   getName: () => number;
   getTotalItemsInspected: () => number;
-  receiveThrownItem: (thrownItem: number) => number;
+  receiveThrownItem: (thrownItem: bigint) => bigint;
   inspectItems: (monkeys: MonkeyType[]) => {
-    itemByWorryLevel: number;
+    itemByWorryLevel: bigint;
     destination: number;
   }[];
 }
 
 interface MonkeyState {
   name: number;
-  itemsByWorryLevel: number[];
+  itemsByWorryLevel: bigint[];
   operator: Operator;
   operand: number | "old";
   divisor: number;

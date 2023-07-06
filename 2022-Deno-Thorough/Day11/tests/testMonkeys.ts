@@ -10,7 +10,7 @@ const testMonkeyStates: MonkeyState[] = [
   //     If false: throw to monkey 3
   {
     name: 0,
-    itemsByWorryLevel: [79, 98],
+    itemsByWorryLevel: [79n, 98n],
     operator: "*",
     operand: 19,
     divisor: 23,
@@ -27,7 +27,7 @@ const testMonkeyStates: MonkeyState[] = [
   //     If false: throw to monkey 0
   {
     name: 1,
-    itemsByWorryLevel: [54, 65, 75, 74],
+    itemsByWorryLevel: [54n, 65n, 75n, 74n],
     operator: "+",
     operand: 6,
     divisor: 19,
@@ -44,7 +44,7 @@ const testMonkeyStates: MonkeyState[] = [
   //     If false: throw to monkey 3
   {
     name: 2,
-    itemsByWorryLevel: [79, 60, 97],
+    itemsByWorryLevel: [79n, 60n, 97n],
     operator: "*",
     operand: "old",
     divisor: 13,
@@ -61,7 +61,7 @@ const testMonkeyStates: MonkeyState[] = [
   //     If false: throw to monkey 1
   {
     name: 3,
-    itemsByWorryLevel: [74],
+    itemsByWorryLevel: [74n],
     operator: "+",
     operand: 3,
     divisor: 17,
@@ -75,7 +75,7 @@ const testMonkeyStates: MonkeyState[] = [
 const testMonkeyStatesPart2: MonkeyState[] = [
   {
     name: 0,
-    itemsByWorryLevel: [79, 98],
+    itemsByWorryLevel: [79n, 98n],
     operator: "*",
     operand: 19,
     divisor: 23,
@@ -86,7 +86,7 @@ const testMonkeyStatesPart2: MonkeyState[] = [
   },
   {
     name: 1,
-    itemsByWorryLevel: [54, 65, 75, 74],
+    itemsByWorryLevel: [54n, 65n, 75n, 74n],
     operator: "+",
     operand: 6,
     divisor: 19,
@@ -97,7 +97,7 @@ const testMonkeyStatesPart2: MonkeyState[] = [
   },
   {
     name: 2,
-    itemsByWorryLevel: [79, 60, 97],
+    itemsByWorryLevel: [79n, 60n, 97n],
     operator: "*",
     operand: "old",
     divisor: 13,
@@ -108,7 +108,7 @@ const testMonkeyStatesPart2: MonkeyState[] = [
   },
   {
     name: 3,
-    itemsByWorryLevel: [74],
+    itemsByWorryLevel: [74n],
     operator: "+",
     operand: 3,
     divisor: 17,
@@ -120,17 +120,17 @@ const testMonkeyStatesPart2: MonkeyState[] = [
 ];
 
 const testMonkeys = [
-  Monkey(0, [79, 98], "*", 19, 23, 2, 3, false),
-  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, false),
-  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, false),
-  Monkey(3, [74], "+", 3, 17, 0, 1, false),
+  Monkey(0, [79n, 98n], "*", 19, 23, 2, 3, false),
+  Monkey(1, [54n, 65n, 75n, 74n], "+", 6, 19, 2, 0, false),
+  Monkey(2, [79n, 60n, 97n], "*", "old", 13, 1, 3, false),
+  Monkey(3, [74n], "+", 3, 17, 0, 1, false),
 ];
 
 const testMonkeysPart2 = [
-  Monkey(0, [79, 98], "*", 19, 23, 2, 3, true),
-  Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, true),
-  Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, true),
-  Monkey(3, [74], "+", 3, 17, 0, 1, true),
+  Monkey(0, [79n, 98n], "*", 19, 23, 2, 3, true),
+  Monkey(1, [54n, 65n, 75n, 74n], "+", 6, 19, 2, 0, true),
+  Monkey(2, [79n, 60n, 97n], "*", "old", 13, 1, 3, true),
+  Monkey(3, [74n], "+", 3, 17, 0, 1, true),
 ];
 
 export {
