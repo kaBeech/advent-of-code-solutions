@@ -39,7 +39,7 @@ more tests in place. Think about streamlining writing tests
 - Modularize more!
 - Think about streamlining writing tests
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### Modularize further and use state
 

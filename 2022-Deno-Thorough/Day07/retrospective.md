@@ -61,6 +61,6 @@
 - Focusing on a level of abstraction that I understand well can lead to valuable
   results even when other levels of abstraction are less clear to me
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### <3

@@ -39,6 +39,6 @@ complete
 - Verify input formats
 - Verify solutions before making 'solve' commits
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
 ### =)

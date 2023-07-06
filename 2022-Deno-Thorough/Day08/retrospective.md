@@ -81,6 +81,6 @@
 - Following a sensible order of approach can be very beneficial! But always stay
   flexible!
 
-# Ideas for possible future implementaion
+# Ideas for possible future implementation
 
-### ^_^
+### ^\_^

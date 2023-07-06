@@ -11,9 +11,9 @@ let registerX = 1
 let unfinishedAddXProcesses = {effectiveCycle: number, valueToAdd: number}
 let collectedSignalStrengthsSum = [] as number[]
 while (const cycleNumber <= total cycles) {
-    if (unfinishedAddXProcesses[0].effectiveCycle === cycleNumber) {
-        registerX += unfinishedAddXProcesses.shift().valueToAdd
-    }
+if (unfinishedAddXProcesses[0].effectiveCycle === cycleNumber) {
+registerX += unfinishedAddXProcesses.shift().valueToAdd
+}
 
     if (input.operator === "addx") {
         unfinishedAddXProcesses.push({effectiveCycle: cycleNumber + 3, valueToAdd: input.value})
@@ -24,4 +24,5 @@ while (const cycleNumber <= total cycles) {
     }
 
     cycleNumber++
+
 }
