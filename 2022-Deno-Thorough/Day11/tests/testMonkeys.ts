@@ -1,7 +1,7 @@
 import { Monkey } from "../Monkey.ts";
 import { MonkeyState } from "../types.ts";
 
-const testMonkeyStates: MonkeyState[] = [
+const getTestMonkeyStates = (): MonkeyState[] => [
   // Monkey 0:
   //   Starting items: 79, 98
   //   Operation: new = old * 19
@@ -72,7 +72,7 @@ const testMonkeyStates: MonkeyState[] = [
   },
 ];
 
-const testMonkeyStatesPart2: MonkeyState[] = [
+const getTestMonkeyStatesPart2 = (): MonkeyState[] => [
   {
     name: 0,
     itemsByWorryLevel: [79, 98],
@@ -119,14 +119,14 @@ const testMonkeyStatesPart2: MonkeyState[] = [
   },
 ];
 
-const testMonkeys = [
+const getTestMonkeys = () => [
   Monkey(0, [79, 98], "*", 19, 23, 2, 3, false),
   Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, false),
   Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, false),
   Monkey(3, [74], "+", 3, 17, 0, 1, false),
 ];
 
-const testMonkeysPart2 = [
+const getTestMonkeysPart2 = () => [
   Monkey(0, [79, 98], "*", 19, 23, 2, 3, true),
   Monkey(1, [54, 65, 75, 74], "+", 6, 19, 2, 0, true),
   Monkey(2, [79, 60, 97], "*", "old", 13, 1, 3, true),
@@ -134,8 +134,8 @@ const testMonkeysPart2 = [
 ];
 
 export {
-  testMonkeys,
-  testMonkeysPart2,
-  testMonkeyStates,
-  testMonkeyStatesPart2,
+  getTestMonkeys,
+  getTestMonkeysPart2,
+  getTestMonkeyStates,
+  getTestMonkeyStatesPart2,
 };

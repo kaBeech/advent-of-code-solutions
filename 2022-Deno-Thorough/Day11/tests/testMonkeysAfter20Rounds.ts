@@ -1,7 +1,7 @@
 import { Monkey } from "../Monkey.ts";
 import { MonkeyState } from "../types.ts";
 
-const testMonkeysAfter20RoundsStates: MonkeyState[] = [
+const getTestMonkeysAfter20RoundsStates = (): MonkeyState[] => [
   {
     name: 0,
     itemsByWorryLevel: [10, 12, 14, 26, 34],
@@ -48,14 +48,14 @@ const testMonkeysAfter20RoundsStates: MonkeyState[] = [
   },
 ];
 
-const testMonkeysAfter20Rounds = [
+const getTestMonkeysAfter20Rounds = () => [
   Monkey(0, [10, 12, 14, 26, 34], "*", 19, 23, 2, 3, false, 101),
   Monkey(1, [245, 93, 53, 199, 115], "+", 6, 19, 2, 0, false, 95),
   Monkey(2, [], "*", "old", 13, 1, 3, false, 7),
   Monkey(3, [], "+", 3, 17, 0, 1, false, 105),
 ];
 
-const testMonkeysAfter20RoundsPart2 = [
+const getTestMonkeysAfter20RoundsPart2 = () => [
   Monkey(0, [10, 12, 14, 26, 34], "*", 19, 23, 2, 3, true, 52166),
   Monkey(1, [245, 93, 53, 199, 115], "+", 6, 19, 2, 0, true, 47830),
   Monkey(2, [], "*", "old", 13, 1, 3, true, 1938),
@@ -63,7 +63,7 @@ const testMonkeysAfter20RoundsPart2 = [
 ];
 
 export {
-  testMonkeysAfter20Rounds,
-  testMonkeysAfter20RoundsPart2,
-  testMonkeysAfter20RoundsStates,
+  getTestMonkeysAfter20Rounds,
+  getTestMonkeysAfter20RoundsPart2,
+  getTestMonkeysAfter20RoundsStates,
 };
