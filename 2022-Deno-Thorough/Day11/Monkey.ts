@@ -1,7 +1,7 @@
 import { Operator } from "../../tools/commonTypes.ts";
 import { MonkeyState, MonkeyType } from "./types.ts";
 
-const throwItem = (thrownItem: bigint, destinationMonkey: MonkeyType) => {
+const throwItem = (thrownItem: number, destinationMonkey: MonkeyType) => {
   destinationMonkey.receiveThrownItem(thrownItem);
 };
 
@@ -10,21 +10,21 @@ const inspectSingleItem = (
   bigDivisor: number,
   state: MonkeyState,
 ) => {
-  let itemByWorryLevel = state.itemsByWorryLevel.shift() as bigint;
+  let itemByWorryLevel = state.itemsByWorryLevel.shift() as number;
 
   switch (state.operator) {
     case "+":
       if (state.operand === "old") {
         itemByWorryLevel += itemByWorryLevel;
       } else {
-        itemByWorryLevel += BigInt(state.operand);
+        itemByWorryLevel += Number(state.operand);
       }
       break;
     case "*":
       if (state.operand === "old") {
         itemByWorryLevel *= itemByWorryLevel;
       } else {
-        itemByWorryLevel *= BigInt(state.operand);
+        itemByWorryLevel *= Number(state.operand);
       }
       break;
     default:
@@ -32,7 +32,7 @@ const inspectSingleItem = (
   }
 
   if (state.extraWorrying === false) {
-    itemByWorryLevel = BigInt(Math.floor(Number(itemByWorryLevel) / 3));
+    itemByWorryLevel = Number(Math.floor(Number(itemByWorryLevel) / 3));
   }
 
   state.totalItemsInspected++;
@@ -43,8 +43,8 @@ const inspectSingleItem = (
       } /23 = ${itemByWorryLevel % 23n}`,
     );
   }
-  if ((itemByWorryLevel % BigInt(bigDivisor)) % BigInt(state.divisor) === 0n) {
-    itemByWorryLevel = itemByWorryLevel / BigInt(bigDivisor);
+  if ((itemByWorryLevel % Number(bigDivisor)) % Number(state.divisor) === 0n) {
+    itemByWorryLevel = itemByWorryLevel / Number(bigDivisor);
     throwItem(itemByWorryLevel, monkeys[state.trueDestination]);
     return {
       itemByWorryLevel: itemByWorryLevel,
@@ -62,7 +62,7 @@ const inspectSingleItem = (
 const itemsInspector = (state: MonkeyState) => ({
   inspectItems: (monkeys: MonkeyType[], bigDivisor: number) => {
     const itemsAndDestinations: {
-      itemByWorryLevel: bigint;
+      itemByWorryLevel: number;
       destination: number;
     }[] = [];
     while (state.itemsByWorryLevel.length) {
@@ -77,7 +77,7 @@ const totalItemsInspectedGetter = (state: MonkeyState) => ({
 });
 
 const thrownItemReceiver = (state: MonkeyState) => ({
-  receiveThrownItem: (thrownItem: bigint) => {
+  receiveThrownItem: (thrownItem: number) => {
     state.itemsByWorryLevel.push(thrownItem);
     return state.itemsByWorryLevel[state.itemsByWorryLevel.length - 1];
   },
@@ -91,7 +91,7 @@ const divisorGetter = (state: MonkeyState) => ({
 
 const Monkey = (
   name: number,
-  itemsByWorryLevel: bigint[],
+  itemsByWorryLevel: number[],
   operator: Operator,
   operand: number | "old",
   divisor: number,

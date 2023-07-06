@@ -15,10 +15,10 @@ const populateMonkeys = async (
   const monkeyStates: MonkeyType[] = [];
   challengeInputArray.forEach((monkeyInput) => {
     const name = +(monkeyInput[0].match(/\d+/) as RegExpMatchArray);
-    const itemsByWorryLevel: bigint[] = [];
+    const itemsByWorryLevel: number[] = [];
     const itemsByWorryLevelStrings = monkeyInput[1].match(/\d+/g);
     itemsByWorryLevelStrings?.forEach((item) =>
-      itemsByWorryLevel.push(BigInt(item))
+      itemsByWorryLevel.push(Number(item))
     );
     const operator =
       (monkeyInput[2].match(/[+]|[*]/) as RegExpMatchArray)[0] as Operator;

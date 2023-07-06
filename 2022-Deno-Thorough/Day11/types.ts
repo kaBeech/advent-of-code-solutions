@@ -4,16 +4,16 @@ interface MonkeyType {
   getDivisor: () => number;
   getName: () => number;
   getTotalItemsInspected: () => number;
-  receiveThrownItem: (thrownItem: bigint) => bigint;
+  receiveThrownItem: (thrownItem: number) => number;
   inspectItems: (monkeys: MonkeyType[], bigDivisor: number) => {
-    itemByWorryLevel: bigint;
+    itemByWorryLevel: number;
     destination: number;
   }[];
 }
 
 interface MonkeyState {
   name: number;
-  itemsByWorryLevel: bigint[];
+  itemsByWorryLevel: number[];
   operator: Operator;
   operand: number | "old";
   divisor: number;
