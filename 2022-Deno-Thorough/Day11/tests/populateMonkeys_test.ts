@@ -1,9 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import {
-  testMonkeys,
-  testMonkeyStates,
-  testMonkeyStatesPart2,
-} from "./testMonkeys.ts";
+import { testMonkeyStates, testMonkeyStatesPart2 } from "./testMonkeys.ts";
 import { populateMonkeys } from "../populateMonkeys.ts";
 
 const testInput = "tests/testInput.txt";
