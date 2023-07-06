@@ -5,15 +5,21 @@ const getMonkeyBusinessLevel = (
 ): number => {
   let mostActiveMonkey = monkeys[0];
   let secondMostActiveMonkey = monkeys[1];
+  if (
+    secondMostActiveMonkey.getTotalItemsInspected() >
+      mostActiveMonkey.getTotalItemsInspected()
+  ) {
+    secondMostActiveMonkey = mostActiveMonkey;
+  }
   monkeys.forEach((monkey) => {
     if (
-      monkey.getTotalItemsInspected() >=
+      monkey.getTotalItemsInspected() >
         mostActiveMonkey.getTotalItemsInspected()
     ) {
       secondMostActiveMonkey = mostActiveMonkey;
       mostActiveMonkey = monkey;
     } else if (
-      monkey.getTotalItemsInspected() >=
+      monkey.getTotalItemsInspected() >
         secondMostActiveMonkey.getTotalItemsInspected()
     ) {
       secondMostActiveMonkey = monkey;
