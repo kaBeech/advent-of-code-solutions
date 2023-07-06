@@ -9,7 +9,7 @@ https://adventofcode.com/2022/day/12
 1. Parse the challengeInput into an array of Tile objects, which contain their coordinates and elevation as well as an empty array named accessibleAdjacentTilesByPreference. Make note of the coordinates of the End (E) and Start (S) Tiles
 2. Start from the E, work towards the S
 3. Create an Explorer object
-4. Give the Explorer an empty array of Tiles as currentPath, a record of the shortestPathLength, and a backtrackedFrom value set to null (in state)
+4. Give the Explorer an empty array of Tiles as currentPath, a record of the shortestPathLength, an empty array of Tiles as availableMoves, and a backtrackedFrom value set to null (in state)
 5. Give this Explorer an explore() method
 
 ### explore() method (recursive)
@@ -17,10 +17,11 @@ https://adventofcode.com/2022/day/12
 ###### When considering possible moves, do not move to a Tile that is already in your currentPath array
 
 1. If the Tile you are on (i.e. the last tile in your currentPath array) does not have accessibleAdjacentTilesByPreference set yet, create an array of each adjacent tile whose elevation is not more than 1 lower than the Tile you are on. Sort these by preference (preferring lower elevation Tiles). If two such Tiles share the same elevation, prefer the Tile that brings you closer to S (on the axis in which you are furthest from S). Set this Array as the Tile's accessibleAdjacentTilesByPreference value
-2. If there are no Tiles in the accessibleAdjacentTilesByPreference array that are not also in your currentPath array, backtrack by one tile. If there are no tiles to backtrack to, return your shortestPathLength
-3. If you are adjacent to the S Tile and can move there, move there and record the currentPath.length as your shortestPathLength, then backtrack twice
-4. If your currentPath.length is greater than your shortestPathLength minus 3 (and shortestPathLength is not undefined), backtrack by one tile
-5. Move to the most preferred Tile in accessibleAdjacentTilesByPreference that is not also in your currentPath array and that is less preferred than your backtrackedFrom Tile (if you have one currently)
+2. Set your availableMoves as all Tiles in the accessibleAdjacentTilesByPreference array that are not also in your currentPath array. If your backtrackedFrom value is se to a Tile, remove that Tile and every Tile with a higher preference from your availableMoves array
+3. If there are no Tiles in your availableMoves array, backtrack by one tile. If there are no tiles to backtrack to, return your shortestPathLength
+4. If you are adjacent to the S Tile and can move there, move there and record the currentPath.length as your shortestPathLength, then backtrack twice
+5. If your currentPath.length is greater than your shortestPathLength minus 3 (and shortestPathLength is not undefined), backtrack by one tile
+6. Move to the most preferred Tile in your availableMoves array
 
 ### move(Tile) method
 
