@@ -8,7 +8,11 @@ const solvePart1 = async (challengeInput: string): Promise<number> => {
     challengeInput,
     false,
   ) as MonkeyType[];
-  playKeepAway(monkeys, 20);
+  let bigDivisor = 1;
+  monkeys.forEach((monkey) => {
+    bigDivisor *= monkey.getDivisor();
+  });
+  playKeepAway(monkeys, 20, bigDivisor);
   return getMonkeyBusinessLevel(monkeys);
 };
 

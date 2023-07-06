@@ -3,7 +3,7 @@ import { playKeepAway } from "../playKeepAway.ts";
 import { testMonkeys, testMonkeysPart2 } from "./testMonkeys.ts";
 
 Deno.test("Playing 20 rounds gives all monkeys the correct totalItemsProcessed", () => {
-  const resultMonkeys = playKeepAway(testMonkeys, 20);
+  const resultMonkeys = playKeepAway(testMonkeys, 20, 96577);
 
   assertEquals(resultMonkeys[0].getTotalItemsInspected(), 101);
   assertEquals(resultMonkeys[1].getTotalItemsInspected(), 95);
@@ -12,7 +12,7 @@ Deno.test("Playing 20 rounds gives all monkeys the correct totalItemsProcessed",
 });
 
 Deno.test("Playing 20 rounds during extraWorrying circumstances gives all monkeys the correct totalItemsProcessed", () => {
-  const resultMonkeys = playKeepAway(testMonkeysPart2, 20);
+  const resultMonkeys = playKeepAway(testMonkeysPart2, 20, 96577);
 
   assertEquals(resultMonkeys[0].getTotalItemsInspected(), 99);
   assertEquals(resultMonkeys[1].getTotalItemsInspected(), 97);
@@ -21,7 +21,7 @@ Deno.test("Playing 20 rounds during extraWorrying circumstances gives all monkey
 });
 
 Deno.test("Playing 10000 rounds during extraWorrying circumstances gives all monkeys the correct totalItemsProcessed", () => {
-  const resultMonkeys = playKeepAway(testMonkeysPart2, 10000);
+  const resultMonkeys = playKeepAway(testMonkeysPart2, 100, 96577);
 
   assertEquals(resultMonkeys[0].getTotalItemsInspected(), 52166);
   assertEquals(resultMonkeys[1].getTotalItemsInspected(), 47830);

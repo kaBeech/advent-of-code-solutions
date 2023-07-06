@@ -1,10 +1,11 @@
 import { Operator } from "../../tools/commonTypes.ts";
 
 interface MonkeyType {
+  getDivisor: () => number;
   getName: () => number;
   getTotalItemsInspected: () => number;
   receiveThrownItem: (thrownItem: bigint) => bigint;
-  inspectItems: (monkeys: MonkeyType[]) => {
+  inspectItems: (monkeys: MonkeyType[], bigDivisor: number) => {
     itemByWorryLevel: bigint;
     destination: number;
   }[];

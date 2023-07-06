@@ -5,7 +5,11 @@ const throwItem = (thrownItem: bigint, destinationMonkey: MonkeyType) => {
   destinationMonkey.receiveThrownItem(thrownItem);
 };
 
-const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
+const inspectSingleItem = (
+  monkeys: MonkeyType[],
+  bigDivisor: number,
+  state: MonkeyState,
+) => {
   let itemByWorryLevel = state.itemsByWorryLevel.shift() as bigint;
 
   switch (state.operator) {
@@ -33,13 +37,14 @@ const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
 
   state.totalItemsInspected++;
   if (state.name === 2) {
-    // console.log(
-    //   `Item ${itemByWorryLevel} is being inspected by monkey 2. /19 = ${
-    //     itemByWorryLevel % 19
-    //   } /23 = ${itemByWorryLevel % 23}`,
-    // );
+    console.log(
+      `Item ${itemByWorryLevel} is being inspected by monkey 2. /19 = ${
+        itemByWorryLevel % 19n
+      } /23 = ${itemByWorryLevel % 23n}`,
+    );
   }
-  if (itemByWorryLevel % BigInt(state.divisor) === 0n) {
+  if ((itemByWorryLevel % BigInt(bigDivisor)) % BigInt(state.divisor) === 0n) {
+    itemByWorryLevel = itemByWorryLevel / BigInt(bigDivisor);
     throwItem(itemByWorryLevel, monkeys[state.trueDestination]);
     return {
       itemByWorryLevel: itemByWorryLevel,
@@ -55,13 +60,13 @@ const inspectSingleItem = (monkeys: MonkeyType[], state: MonkeyState) => {
 };
 
 const itemsInspector = (state: MonkeyState) => ({
-  inspectItems: (monkeys: MonkeyType[]) => {
+  inspectItems: (monkeys: MonkeyType[], bigDivisor: number) => {
     const itemsAndDestinations: {
       itemByWorryLevel: bigint;
       destination: number;
     }[] = [];
     while (state.itemsByWorryLevel.length) {
-      itemsAndDestinations.push(inspectSingleItem(monkeys, state));
+      itemsAndDestinations.push(inspectSingleItem(monkeys, bigDivisor, state));
     }
     return itemsAndDestinations;
   },
@@ -79,6 +84,10 @@ const thrownItemReceiver = (state: MonkeyState) => ({
 });
 
 const nameGetter = (state: MonkeyState) => ({ getName: () => state.name });
+
+const divisorGetter = (state: MonkeyState) => ({
+  getDivisor: () => state.divisor,
+});
 
 const Monkey = (
   name: number,
@@ -104,6 +113,7 @@ const Monkey = (
   };
 
   return {
+    ...divisorGetter(state),
     ...nameGetter(state),
     ...itemsInspector(state),
     ...thrownItemReceiver(state),
