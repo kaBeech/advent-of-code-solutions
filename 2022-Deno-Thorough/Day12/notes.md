@@ -12,7 +12,7 @@ https://adventofcode.com/2022/day/12
 4. Give the Explorer an empty array of Tiles as currentPath, a record of the shortestPathLength, an empty array of Tiles as availableMoves, a backtrackedFrom value set to null, and a distanceFromS value set to no (in state)
 5. Give this Explorer an explore() method
 
-### explore() method (recursive)
+#### explore() method (recursive)
 
 1. If the Tile you are on (i.e. the last tile in your currentPath array) does not have accessibleAdjacentTilesByPreference set yet, create an array of all adjacent tiles whose elevation is not more than 1 lower than the Tile you are on. Sort these by preference (preferring lower elevation Tiles). If two such Tiles share the same elevation, prefer the Tile that has the lower distanceFromS value (if a Tile doesn't have a distanceFromS value, calculate and store it). Set this Array as the Tile's accessibleAdjacentTilesByPreference value
 2. Set your availableMoves as all Tiles in the accessibleAdjacentTilesByPreference array that are not also in your currentPath array. If your backtrackedFrom value is se to a Tile, remove that Tile and every Tile with a higher preference from your availableMoves array
@@ -21,13 +21,13 @@ https://adventofcode.com/2022/day/12
 5. If your currentPath.length is greater than your shortestPathLength minus 3 (and shortestPathLength is not undefined), backtrack by one tile
 6. Move to the most preferred Tile in your availableMoves array
 
-### move(Tile) method
+#### move(Tile) method
 
 1. Set your backtrackedFrom value to null
 2. Add Tile to your currentPath array
 3. explore()
 
-### backtrack() method
+#### backtrack() method
 
 1. Set your backtrackedFrom value to the Tile you are backtracking from
 2. Pop the Tile you are backtracking from out of your currentPath array
