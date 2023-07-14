@@ -1,14 +1,14 @@
-import { XYCoordinate } from "../../tools/commonTypes.ts";
+import { XYCoordinates } from "../../tools/commonTypes.ts";
 
 interface TileType {
   // ...coordinatesGetter(state),
   // ...elevationGetter(state),
   // ...accessibleAdjacentTilesByPreferenceGetter(state),
   // ...distanceFromStartGetter(state),
-  getCoordinates: () => XYCoordinate;
+  getCoordinates: () => XYCoordinates;
   getElevation: () => number;
   getAccessibleAdjacentTilesByPreference: () => TileType[];
-  getDistanceFromStart: (startCoordinates: XYCoordinate) => number;
+  getDistanceFromStart: (startCoordinates: XYCoordinates) => number;
 }
 
 export type { TileType };
