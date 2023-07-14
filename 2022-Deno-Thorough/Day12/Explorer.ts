@@ -23,6 +23,23 @@ const explorer = (state: ExplorerState) => ({
       .getAccessibleAdjacentTilesByPreference().filter((tile) =>
         !state.currentPath.includes(tile)
       );
+
+    if (
+      state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
+    ) {
+      while (availableMoves.includes(state.backtrackedFrom)) {
+        availableMoves.shift();
+      }
+      availableMoves.shift();
+    }
+
+    if (availableMoves.length === 0) {
+      if (state.currentPath.length === 1) {
+        return state.shortestPathLength as number;
+      } else {
+        backtrack(state);
+      }
+    }
     return 42;
   },
 });
