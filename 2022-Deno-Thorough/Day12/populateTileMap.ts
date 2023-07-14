@@ -11,9 +11,9 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
     endTile: {} as TileType,
   } as TileMap;
   const rawMap = await convertMultiLineFileToDoubleArray(challengeInput);
-  rawMap.forEach((row, x) => {
+  rawMap.forEach((row, y) => {
     const tileRow = [] as TileType[];
-    row.forEach((value, y) => {
+    row.forEach((value, x) => {
       let elevation = value;
       if (value === "S") {
         elevation = "a";
