@@ -21,10 +21,10 @@ const nextStepsGetter = (
   getNextSteps: () => {
     if (!state.nextSteps) {
       const adjacentTiles = [
-        state.tileMap.map[state.coordinates.y - 1][state.coordinates.x],
-        state.tileMap.map[state.coordinates.y + 1][state.coordinates.x],
-        state.tileMap.map[state.coordinates.y][state.coordinates.x - 1],
-        state.tileMap.map[state.coordinates.y][state.coordinates.x + 1],
+        state.tileMap.tileMap[state.coordinates.y - 1][state.coordinates.x],
+        state.tileMap.tileMap[state.coordinates.y + 1][state.coordinates.x],
+        state.tileMap.tileMap[state.coordinates.y][state.coordinates.x - 1],
+        state.tileMap.tileMap[state.coordinates.y][state.coordinates.x + 1],
       ];
       const accessibleAdjacentTiles = adjacentTiles.filter((tile) =>
         tile.getElevation() > state.elevation

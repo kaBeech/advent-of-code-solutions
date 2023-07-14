@@ -8,7 +8,7 @@ interface TileType {
 }
 
 interface TileMap {
-  map: TileType[][];
+  tileMap: TileType[][];
   startTile: TileType;
   endTile: TileType;
 }
