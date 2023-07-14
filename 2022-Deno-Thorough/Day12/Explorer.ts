@@ -15,33 +15,36 @@ const move = (state: ExplorerState, destination: TileType) => {
 
 const backtrack = (state: ExplorerState) => {
   state.backtrackedFrom = state.currentPath.shift();
+  explore(state);
+};
+
+const explore = (state: ExplorerState): number => {
+  const availableMoves = state.currentPath[0]
+    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
+      !state.currentPath.includes(tile)
+    );
+
+  if (
+    state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
+  ) {
+    while (availableMoves.includes(state.backtrackedFrom)) {
+      availableMoves.shift();
+    }
+    availableMoves.shift();
+  }
+
+  if (availableMoves.length === 0) {
+    if (state.currentPath.length === 1) {
+      return state.shortestPathLength as number;
+    } else {
+      backtrack(state);
+    }
+  }
+  return 42;
 };
 
 const explorer = (state: ExplorerState) => ({
-  explore: (): number => {
-    const availableMoves = state.currentPath[0]
-      .getAccessibleAdjacentTilesByPreference().filter((tile) =>
-        !state.currentPath.includes(tile)
-      );
-
-    if (
-      state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
-    ) {
-      while (availableMoves.includes(state.backtrackedFrom)) {
-        availableMoves.shift();
-      }
-      availableMoves.shift();
-    }
-
-    if (availableMoves.length === 0) {
-      if (state.currentPath.length === 1) {
-        return state.shortestPathLength as number;
-      } else {
-        backtrack(state);
-      }
-    }
-    return 42;
-  },
+  explore: () => explore(state),
 });
 
 const Explorer = (
