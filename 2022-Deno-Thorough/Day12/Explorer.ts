@@ -1,38 +1,41 @@
-import { XYCoordinate } from "../../tools/commonTypes.ts";
 import { TileType } from "./types.ts";
 
 interface ExplorerState {
-  startCoordinates: XYCoordinate;
-  endCoordinates: XYCoordinate;
+  startTile: TileType;
+  endTile: TileType;
   currentPath: TileType[];
   shortestPathLength: number | undefined;
-  availableMoves: TileType[];
   backtrackedFrom: TileType | undefined;
 }
 
 const move = (state: ExplorerState, destination: TileType) => {
   state.backtrackedFrom = undefined;
-  state.currentPath.push(destination);
+  state.currentPath.unshift(destination);
 };
 
 const backtrack = (state: ExplorerState) => {
-  state.backtrackedFrom = state.currentPath.pop();
+  state.backtrackedFrom = state.currentPath.shift();
 };
 
 const explorer = (state: ExplorerState) => ({
-  explore: () => 42,
+  explore: (): number => {
+    const availableMoves = state.currentPath[0]
+      .getAccessibleAdjacentTilesByPreference().filter((tile) =>
+        !state.currentPath.includes(tile)
+      );
+    return 42;
+  },
 });
 
 const Explorer = (
-  startCoordinates: XYCoordinate,
-  endCoordinates: XYCoordinate,
+  startTile: TileType,
+  endTile: TileType,
 ) => {
   const state = {
-    startCoordinates,
-    endCoordinates,
+    startTile,
+    endTile,
     currentPath: [],
     shortestPathLength: undefined,
-    availableMoves: [],
     backtrackedFrom: undefined,
   };
 
