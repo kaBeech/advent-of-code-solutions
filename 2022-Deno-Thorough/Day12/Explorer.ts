@@ -17,12 +17,10 @@ const backtrack = (state: ExplorerState) => {
   state.backtrackedFrom = state.currentPath.shift();
 };
 
-const explore = (state: ExplorerState): number => {
-  const availableMoves = state.currentPath[0]
-    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
-      !state.currentPath.includes(tile)
-    );
-
+const removePathsAlreadyTaken = (
+  state: ExplorerState,
+  availableMoves: TileType[],
+) => {
   if (
     state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
   ) {
@@ -31,6 +29,20 @@ const explore = (state: ExplorerState): number => {
     }
     availableMoves.shift();
   }
+  return availableMoves;
+};
+
+const getAvailableMoves = (state: ExplorerState): TileType[] => {
+  const availableMoves = state.currentPath[0]
+    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
+      !state.currentPath.includes(tile)
+    );
+  removePathsAlreadyTaken(state, availableMoves);
+  return availableMoves;
+};
+
+const explore = (state: ExplorerState): number => {
+  const availableMoves = getAvailableMoves(state);
 
   if (availableMoves.length === 0) {
     if (state.currentPath.length === 1) {
