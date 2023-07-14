@@ -31,9 +31,8 @@ const nextStepsGetter = (
       );
       state.nextSteps = accessibleAdjacentTiles
         .sort((a, b) => {
-          return a.getDistanceFromStart(
-            state.tileMap.startTile.getCoordinates(),
-          ) - b.getDistanceFromStart(state.tileMap.startTile.getCoordinates());
+          return a.getDistanceFromStart() -
+            b.getDistanceFromStart();
         });
     }
     return state.nextSteps;
