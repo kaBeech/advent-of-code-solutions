@@ -9,7 +9,7 @@ https://adventofcode.com/2022/day/12
 1. Parse the challengeInput into an array of Tile objects, which contain their coordinates and elevation as well as an empty array named accessibleAdjacentTilesByPreference. Make note of the coordinates of the End (E) and Start (S) Tiles
 2. Start from the E, work towards the S
 3. Create an Explorer object
-4. Give the Explorer an empty array of Tiles as currentPath, a record of the shortestPathLength, an empty array of Tiles as availableMoves, a backtrackedFrom value set to null, and a distanceFromS value set to no (in state)
+4. Give the Explorer an empty array of Tiles as currentPath, a record of the shortestPathLength, an empty array of Tiles as availableMoves, a backtrackedFrom value set to null, and a distanceFromS value set to null (in state)
 5. Give this Explorer an explore() method
 
 #### explore() method (recursive)
