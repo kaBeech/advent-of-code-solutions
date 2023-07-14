@@ -7,4 +7,8 @@ interface TileType {
   getDistanceFromStart: (startCoordinates: XYCoordinates) => number;
 }
 
-export type { TileType };
+interface TileMap {
+  test: TileType;
+}
+
+export type { TileMap, TileType };
