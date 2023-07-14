@@ -17,6 +17,7 @@ const elevationGetter = (state: TileState) => ({
   getElevation: () => state.elevation,
 });
 
+// setAccessibleAdjacentTilesByPreference if not already set
 const accessibleAdjacentTilesByPreferenceGetter = (state: TileState) => ({
   getAccessibleAdjacentTilesByPreference: () =>
     state.accessibleAdjacentTilesByPreference,
