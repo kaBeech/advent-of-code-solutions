@@ -8,7 +8,9 @@ interface TileType {
 }
 
 interface TileMap {
-  test: TileType;
+  map: TileType[][];
+  startTile: TileType;
+  endTile: TileType;
 }
 
 export type { TileMap, TileType };
