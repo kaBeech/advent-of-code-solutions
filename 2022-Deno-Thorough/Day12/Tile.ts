@@ -41,11 +41,11 @@ const nextStepsGetter = (
 });
 
 const distanceFromStartGetter = (state: TileState) => ({
-  getDistanceFromStart: (startCoordinates: XYCoordinates) => {
+  getDistanceFromStart: () => {
     !state.distanceFromStart &&
       (state.distanceFromStart = getCartesianDistanceXY(
         state.coordinates,
-        startCoordinates,
+        state.tileMap.startTile.getCoordinates(),
       ));
     return state.distanceFromStart;
   },
