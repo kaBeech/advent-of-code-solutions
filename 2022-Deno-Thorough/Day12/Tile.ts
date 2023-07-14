@@ -1,4 +1,4 @@
-import { coordinatesGetter } from "../../tools/commonMethods/getMethods.ts";
+import { xyCoordinatesGetter } from "../../tools/commonMethods/getMethods.ts";
 import { XYCoordinates } from "../../tools/commonTypes.ts";
 import { getCartesianDistanceXY } from "../../tools/mathFunctions/getCartesianDistance.ts";
 import { TileType } from "./types.ts";
@@ -43,7 +43,7 @@ const Tile = (
   };
 
   return {
-    ...coordinatesGetter(state),
+    ...xyCoordinatesGetter(state),
     ...elevationGetter(state),
     ...accessibleAdjacentTilesByPreferenceGetter(state),
     ...distanceFromStartGetter(state),
