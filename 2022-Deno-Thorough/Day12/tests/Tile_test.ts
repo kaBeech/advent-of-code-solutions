@@ -41,8 +41,8 @@ Deno.test("getting distanceFromStart on endTile returns 5.385164807134504", () =
   assertEquals(testEndTile.getDistanceFromStart(), 5.385164807134504);
 });
 
-Deno.test("getting coordinates on randomTile returns {x: 3, y: 4}", () => {
-  assertEquals(testRandomTile.getCoordinates(), { x: 3, y: 4 });
+Deno.test("getting coordinates on randomTile returns {x: 4, y: 3}", () => {
+  assertEquals(testRandomTile.getCoordinates(), { x: 4, y: 3 });
 });
 
 Deno.test("getting elevation on randomTile returns 'u'", () => {
