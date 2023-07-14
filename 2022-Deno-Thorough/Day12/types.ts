@@ -1,9 +1,9 @@
 import { XYCoordinate } from "../../tools/commonTypes.ts";
 
-interface Tile {
+interface TileType {
   coordinates: XYCoordinate;
   elevation: string;
   accessibleAdjacentTilesByPreference: Tile[];
 }
 
-export type { Tile };
+export type { TileType };
