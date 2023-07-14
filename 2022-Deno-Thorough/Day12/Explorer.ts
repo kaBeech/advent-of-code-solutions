@@ -44,9 +44,7 @@ const explore = (state: ExplorerState): number => {
 
 const getAvailableMoves = (state: ExplorerState): TileType[] => {
   const accessibleTilesNotInCurrentPath = state.currentPath[0]
-    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
-      !state.currentPath.includes(tile)
-    );
+    .getNextSteps().filter((tile) => !state.currentPath.includes(tile));
   const availableMoves = removePathsAlreadyTaken(
     state,
     accessibleTilesNotInCurrentPath,

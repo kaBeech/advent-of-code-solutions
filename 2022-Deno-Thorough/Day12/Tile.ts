@@ -6,7 +6,7 @@ import { TileMap, TileType } from "./types.ts";
 interface TileState {
   coordinates: XYCoordinates;
   elevation: string;
-  accessibleAdjacentTilesByPreference: TileType[];
+  nextSteps: TileType[];
   distanceFromStart: number | undefined;
   tileMap: TileMap;
 }
@@ -15,10 +15,29 @@ const elevationGetter = (state: TileState) => ({
   getElevation: () => state.elevation,
 });
 
-// setAccessibleAdjacentTilesByPreference if not already set
-const accessibleAdjacentTilesByPreferenceGetter = (state: TileState) => ({
-  getAccessibleAdjacentTilesByPreference: () =>
-    state.accessibleAdjacentTilesByPreference,
+const nextStepsGetter = (
+  state: TileState,
+) => ({
+  getNextSteps: () => {
+    if (!state.nextSteps) {
+      const adjacentTiles = [
+        state.tileMap.map[state.coordinates.y - 1][state.coordinates.x],
+        state.tileMap.map[state.coordinates.y + 1][state.coordinates.x],
+        state.tileMap.map[state.coordinates.y][state.coordinates.x - 1],
+        state.tileMap.map[state.coordinates.y][state.coordinates.x + 1],
+      ];
+      const accessibleAdjacentTiles = adjacentTiles.filter((tile) =>
+        tile.getElevation() > state.elevation
+      );
+      state.nextSteps = accessibleAdjacentTiles
+        .sort((a, b) => {
+          return a.getDistanceFromStart(
+            state.tileMap.startTile.getCoordinates(),
+          ) - b.getDistanceFromStart(state.tileMap.startTile.getCoordinates());
+        });
+    }
+    return state.nextSteps;
+  },
 });
 
 const distanceFromStartGetter = (state: TileState) => ({
@@ -41,14 +60,14 @@ const Tile = (
     coordinates,
     elevation,
     tileMap,
-    accessibleAdjacentTilesByPreference: [] as TileType[],
+    nextSteps: [] as TileType[],
     distanceFromStart: undefined as number | undefined,
   };
 
   return {
     ...xyCoordinatesGetter(state),
     ...elevationGetter(state),
-    ...accessibleAdjacentTilesByPreferenceGetter(state),
+    ...nextStepsGetter(state),
     ...distanceFromStartGetter(state),
   };
 };
