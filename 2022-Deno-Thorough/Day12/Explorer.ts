@@ -15,7 +15,6 @@ const move = (state: ExplorerState, destination: TileType) => {
 
 const backtrack = (state: ExplorerState) => {
   state.backtrackedFrom = state.currentPath.shift();
-  explore(state);
 };
 
 const explore = (state: ExplorerState): number => {
@@ -38,7 +37,23 @@ const explore = (state: ExplorerState): number => {
       return state.shortestPathLength as number;
     } else {
       backtrack(state);
+      explore(state);
     }
+  }
+
+  if (availableMoves.includes(state.startTile)) {
+    state.shortestPathLength = state.currentPath.length;
+    backtrack(state);
+    backtrack(state);
+    explore(state);
+  }
+
+  if (
+    state.shortestPathLength &&
+    (state.currentPath.length >= (state.shortestPathLength - 3))
+  ) {
+    backtrack(state);
+    explore(state);
   }
   return 42;
 };
