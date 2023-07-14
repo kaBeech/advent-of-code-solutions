@@ -70,7 +70,7 @@ const Explorer = (
   const state = {
     startTile,
     endTile,
-    currentPath: [],
+    currentPath: [endTile],
     shortestPathLength: undefined,
     backtrackedFrom: undefined,
   };
