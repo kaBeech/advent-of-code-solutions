@@ -1,17 +1,14 @@
-import { XYCoordinate } from "../../tools/commonTypes.ts";
+import { coordinatesGetter } from "../../tools/commonMethods/getMethods.ts";
+import { XYCoordinates } from "../../tools/commonTypes.ts";
 import { getCartesianDistanceXY } from "../../tools/mathFunctions/getCartesianDistance.ts";
 import { TileType } from "./types.ts";
 
 interface TileState {
-  coordinates: XYCoordinate;
+  coordinates: XYCoordinates;
   elevation: string;
   accessibleAdjacentTilesByPreference: TileType[];
   distanceFromStart: number | undefined;
 }
-
-const coordinatesGetter = (state: TileState) => ({
-  getCoordinates: () => state.coordinates,
-});
 
 const elevationGetter = (state: TileState) => ({
   getElevation: () => state.elevation,
@@ -24,7 +21,7 @@ const accessibleAdjacentTilesByPreferenceGetter = (state: TileState) => ({
 });
 
 const distanceFromStartGetter = (state: TileState) => ({
-  getDistanceFromStart: (startCoordinates: XYCoordinate) => {
+  getDistanceFromStart: (startCoordinates: XYCoordinates) => {
     !state.distanceFromStart &&
       (state.distanceFromStart = getCartesianDistanceXY(
         state.coordinates,
@@ -35,7 +32,7 @@ const distanceFromStartGetter = (state: TileState) => ({
 });
 
 const Tile = (
-  coordinates: XYCoordinate,
+  coordinates: XYCoordinates,
   elevation: string,
 ) => {
   const state = {
