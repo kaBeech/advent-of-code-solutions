@@ -14,13 +14,19 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
   rawMap.forEach((row, x) => {
     const tileRow = [] as TileType[];
     row.forEach((value, y) => {
-      const tile = Tile({ x, y }, value, tileMap);
-      tileRow.push(tile);
+      let elevation = value;
+      if (value === "S") {
+        elevation = "a";
+      } else if (value === "E") {
+        elevation = "z";
+      }
+      const tile = Tile({ x, y }, elevation, tileMap);
       if (value === "S") {
         tileMap.startTile = tile;
       } else if (value === "E") {
         tileMap.endTile = tile;
       }
+      tileRow.push(tile);
     });
     tileMap.map.push(tileRow);
   });
