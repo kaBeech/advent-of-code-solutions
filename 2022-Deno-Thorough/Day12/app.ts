@@ -3,10 +3,17 @@ import { solvePart2 } from "./solvePart2.ts";
 
 const app = (async (
   challengeInputFile?: string,
+  testInputFile?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: string }> => {
   if (!challengeInputFile) {
-    challengeInputFile = "tests/boilerplateChallengeInput.txt";
+    challengeInputFile = "tests/challengeInput.txt";
   }
+  if (!testInputFile) {
+    testInputFile = "tests/testInput.txt";
+  }
+
+  const testSolutionPart1 = await solvePart1(testInputFile);
+  const testSolutionPart2 = await solvePart2(testInputFile);
 
   const solutionPart1 = await solvePart1(challengeInputFile);
   const solutionPart2 = await solvePart2(challengeInputFile);
