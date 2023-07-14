@@ -8,44 +8,15 @@ interface ExplorerState {
   backtrackedFrom: TileType | undefined;
 }
 
-const move = (state: ExplorerState, destination: TileType) => {
-  state.backtrackedFrom = undefined;
-  state.currentPath.unshift(destination);
-};
-
-const backtrack = (state: ExplorerState) => {
-  state.backtrackedFrom = state.currentPath.shift();
-};
-
-const removePathsAlreadyTaken = (
-  state: ExplorerState,
-  availableMoves: TileType[],
-) => {
-  if (
-    state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
-  ) {
-    while (availableMoves.includes(state.backtrackedFrom)) {
-      availableMoves.shift();
-    }
-    availableMoves.shift();
-  }
-  return availableMoves;
-};
-
-const getAvailableMoves = (state: ExplorerState): TileType[] => {
-  const availableMoves = state.currentPath[0]
-    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
-      !state.currentPath.includes(tile)
-    );
-  removePathsAlreadyTaken(state, availableMoves);
-  return availableMoves;
-};
+const explorer = (state: ExplorerState) => ({
+  explore: () => explore(state),
+});
 
 const explore = (state: ExplorerState): number => {
   const availableMoves = getAvailableMoves(state);
 
   if (availableMoves.length === 0) {
-    if (state.currentPath.length === 1) {
+    if (state.currentPath[0] === state.endTile) {
       return state.shortestPathLength as number;
     } else {
       backtrack(state);
@@ -71,9 +42,41 @@ const explore = (state: ExplorerState): number => {
   return explore(state);
 };
 
-const explorer = (state: ExplorerState) => ({
-  explore: () => explore(state),
-});
+const getAvailableMoves = (state: ExplorerState): TileType[] => {
+  const accessibleTilesNotInCurrentPath = state.currentPath[0]
+    .getAccessibleAdjacentTilesByPreference().filter((tile) =>
+      !state.currentPath.includes(tile)
+    );
+  const availableMoves = removePathsAlreadyTaken(
+    state,
+    accessibleTilesNotInCurrentPath,
+  );
+  return availableMoves;
+};
+
+const removePathsAlreadyTaken = (
+  state: ExplorerState,
+  availableMoves: TileType[],
+) => {
+  if (
+    state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
+  ) {
+    while (availableMoves.includes(state.backtrackedFrom)) {
+      availableMoves.shift();
+    }
+    availableMoves.shift();
+  }
+  return availableMoves;
+};
+
+const backtrack = (state: ExplorerState) => {
+  state.backtrackedFrom = state.currentPath.shift();
+};
+
+const move = (state: ExplorerState, destination: TileType) => {
+  state.backtrackedFrom = undefined;
+  state.currentPath.unshift(destination);
+};
 
 const Explorer = (
   startTile: TileType,
