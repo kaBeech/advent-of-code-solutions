@@ -6,6 +6,7 @@ import { TileMap, TileType } from "./types.ts";
 interface TileState {
   coordinates: XYCoordinates;
   elevation: string;
+  tileSurveyed: boolean;
   nextSteps: TileType[];
   distanceFromStart: number | undefined;
   tileMap: TileMap;
@@ -19,7 +20,7 @@ const nextStepsGetter = (
   state: TileState,
 ) => ({
   getNextSteps: () => {
-    if (!state.nextSteps) {
+    if (!state.tileSurveyed) {
       const adjacentTiles = [
         state.tileMap.tileMap[state.coordinates.y - 1][state.coordinates.x],
         state.tileMap.tileMap[state.coordinates.y + 1][state.coordinates.x],
@@ -34,6 +35,7 @@ const nextStepsGetter = (
           return a.getDistanceFromStart() -
             b.getDistanceFromStart();
         });
+      state.tileSurveyed = true;
     }
     return state.nextSteps;
   },
@@ -59,6 +61,7 @@ const Tile = (
     coordinates,
     elevation,
     tileMap,
+    tileSurveyed: false,
     nextSteps: [] as TileType[],
     distanceFromStart: undefined as number | undefined,
   };
