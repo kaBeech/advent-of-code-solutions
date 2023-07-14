@@ -19,7 +19,12 @@ type SingleDigitIntegerString =
 type TwoDigitIntegerString =
   `${SingleDigitIntegerString}${SingleDigitIntegerString}`;
 
-type XYCoordinate = [number, number];
+type XYCoordinateArray = [number, number];
+
+interface XYCoordinates {
+  x: number;
+  y: number;
+}
 
 export type {
   ModalBoolean,
@@ -27,5 +32,6 @@ export type {
   SingleDigitInteger,
   SingleDigitIntegerString,
   TwoDigitIntegerString,
-  XYCoordinate,
+  XYCoordinateArray,
+  XYCoordinates,
 };
