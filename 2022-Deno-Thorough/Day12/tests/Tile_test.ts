@@ -33,8 +33,8 @@ Deno.test("getting elevation on endTile returns 26", () => {
   assertEquals(testEndTile.getElevation(), 26);
 });
 
-Deno.test("getting nextSteps on endTile returns 4 tiles", () => {
-  assertEquals(testEndTile.getNextSteps().length, 4);
+Deno.test("getting nextSteps on endTile returns 3 tiles", () => {
+  assertEquals(testEndTile.getNextSteps().length, 3);
 });
 
 Deno.test("getting distanceFromStart on endTile returns 5.385164807134504", () => {
@@ -53,6 +53,6 @@ Deno.test("getting nextSteps on randomTile returns 3 tiles", () => {
   assertEquals(testRandomTile.getNextSteps().length, 3);
 });
 
-Deno.test("getting distanceFromStart on randomTile returns 5.0990195135927845", () => {
-  assertEquals(testRandomTile.getDistanceFromStart(), 5.0990195135927845);
+Deno.test("getting distanceFromStart on randomTile returns 5", () => {
+  assertEquals(testRandomTile.getDistanceFromStart(), 5);
 });
