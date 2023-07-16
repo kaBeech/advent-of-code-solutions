@@ -4,23 +4,30 @@ interface ExplorerState {
   startTile: TileType;
   endTile: TileType;
   currentPath: TileType[];
+  explorationComplete: boolean;
   shortestPathLength: number | undefined;
   backtrackedFrom: TileType | undefined;
 }
 
 const explorer = (state: ExplorerState) => ({
-  explore: () => explore(state),
+  explore: () => {
+    while (!state.explorationComplete) {
+      explore(state);
+    }
+    return state.shortestPathLength as number;
+  },
 });
 
-const explore = (state: ExplorerState): number => {
+const explore = (state: ExplorerState) => {
   const availableMoves = getAvailableMoves(state);
 
   if (availableMoves.length === 0) {
     if (state.currentPath[0] === state.endTile) {
-      return state.shortestPathLength as number;
+      state.explorationComplete = true;
+      return;
     } else {
       backtrack(state);
-      return explore(state);
+      return;
     }
   }
 
@@ -28,7 +35,7 @@ const explore = (state: ExplorerState): number => {
     state.shortestPathLength = state.currentPath.length;
     backtrack(state);
     backtrack(state);
-    return explore(state);
+    return;
   }
 
   if (
@@ -36,10 +43,10 @@ const explore = (state: ExplorerState): number => {
     (state.currentPath.length >= (state.shortestPathLength - 3))
   ) {
     backtrack(state);
-    return explore(state);
+    return;
   }
   move(state, availableMoves[0]);
-  return explore(state);
+  return;
 };
 
 const getAvailableMoves = (state: ExplorerState): TileType[] => {
@@ -84,6 +91,7 @@ const Explorer = (
     startTile,
     endTile,
     currentPath: [endTile],
+    explorationComplete: false,
     shortestPathLength: undefined,
     backtrackedFrom: undefined,
   };
