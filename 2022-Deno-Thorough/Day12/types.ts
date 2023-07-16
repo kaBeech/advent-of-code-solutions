@@ -2,7 +2,7 @@ import { XYCoordinates } from "../../tools/commonTypes.ts";
 
 interface TileType {
   getCoordinates: () => XYCoordinates;
-  getElevation: () => string;
+  getElevation: () => number;
   getNextSteps: () => TileType[];
   getDistanceFromStart: () => number;
 }

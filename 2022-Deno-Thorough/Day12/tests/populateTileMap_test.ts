@@ -12,9 +12,9 @@ Deno.test("testTileMap has 8 columns", () => {
 });
 
 Deno.test("testTileMap has startTile", () => {
-  assertEquals(testTileMap.startTile.getElevation(), "a");
+  assertEquals(testTileMap.startTile.getElevation(), 1);
 });
 
 Deno.test("testTileMap has endTile", () => {
-  assertEquals(testTileMap.endTile.getElevation(), "z");
+  assertEquals(testTileMap.endTile.getElevation(), 26);
 });

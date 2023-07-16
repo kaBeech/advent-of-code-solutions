@@ -1,6 +1,7 @@
 import {
   convertMultiLineFileToDoubleArray,
 } from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { convertLowercaseLetterToNumber } from "../../tools/conversionFunctions/convertLetterToNumber.ts";
 import { Tile } from "./Tile.ts";
 import { TileMap, TileType } from "./types.ts";
 
@@ -14,11 +15,13 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
   rawMap.forEach((row, y) => {
     const tileRow = [] as TileType[];
     row.forEach((value, x) => {
-      let elevation = value;
+      let elevation = -1;
       if (value === "S") {
-        elevation = "a";
+        elevation = 1;
       } else if (value === "E") {
-        elevation = "z";
+        elevation = 26;
+      } else {
+        elevation = convertLowercaseLetterToNumber(value);
       }
       const tile = Tile({ x, y }, elevation, tileMap);
       if (value === "S") {
