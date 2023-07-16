@@ -4,11 +4,11 @@ import { populateTileMap } from "../populateTileMap.ts";
 const testTileMap = await populateTileMap("tests/testInput.txt");
 
 Deno.test("testTileMap has 5 rows", () => {
-  assertEquals(testTileMap.tileMap.length, 5);
+  assertEquals(testTileMap.allTiles.length, 5);
 });
 
 Deno.test("testTileMap has 8 columns", () => {
-  assertEquals(testTileMap.tileMap[0].length, 8);
+  assertEquals(testTileMap.allTiles[0].length, 8);
 });
 
 Deno.test("testTileMap has startTile", () => {

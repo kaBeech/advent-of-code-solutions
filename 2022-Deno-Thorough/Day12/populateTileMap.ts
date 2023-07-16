@@ -6,7 +6,7 @@ import { TileMap, TileType } from "./types.ts";
 
 const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
   const tileMap = {
-    tileMap: [] as TileType[][],
+    allTiles: [] as TileType[][],
     startTile: {} as TileType,
     endTile: {} as TileType,
   } as TileMap;
@@ -28,7 +28,7 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
       }
       tileRow.push(tile);
     });
-    tileMap.tileMap.push(tileRow);
+    tileMap.allTiles.push(tileRow);
   });
   return tileMap;
 };

@@ -7,7 +7,7 @@ const testStartTile = testTileMap.startTile;
 
 const testEndTile = testTileMap.endTile;
 
-const testRandomTile = testTileMap.tileMap[3][4];
+const testRandomTile = testTileMap.allTiles[3][4];
 
 Deno.test("getting coordinates on startTile returns {x: 0, y: 0}", () => {
   assertEquals(testStartTile.getCoordinates(), { x: 0, y: 0 });
