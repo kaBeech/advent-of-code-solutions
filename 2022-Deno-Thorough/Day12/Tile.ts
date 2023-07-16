@@ -21,12 +21,11 @@ const nextStepsGetter = (
 ) => ({
   getNextSteps: () => {
     if (!state.tileSurveyed) {
-      const adjacentTiles = [
-        state.tileMap.tileMap[state.coordinates.y - 1][state.coordinates.x],
-        state.tileMap.tileMap[state.coordinates.y + 1][state.coordinates.x],
-        state.tileMap.tileMap[state.coordinates.y][state.coordinates.x - 1],
-        state.tileMap.tileMap[state.coordinates.y][state.coordinates.x + 1],
-      ];
+      const adjacentTiles = getAdjacentTiles(
+        state.tileMap.allTiles,
+        state.coordinates.x,
+        state.coordinates.y,
+      );
       const accessibleAdjacentTiles = adjacentTiles.filter((tile) =>
         tile.getElevation() > state.elevation
       );
@@ -40,6 +39,17 @@ const nextStepsGetter = (
     return state.nextSteps;
   },
 });
+
+const getAdjacentTiles = (allTiles: TileType[][], x: number, y: number) => {
+  const adjacentCoordinates = [[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]];
+  const adjacentTiles: TileType[] = [];
+  adjacentCoordinates.forEach(([x, y]) => {
+    if (allTiles[y]?.[x] !== undefined) {
+      adjacentTiles.push(allTiles[y][x]);
+    }
+  });
+  return adjacentTiles;
+};
 
 const distanceFromStartGetter = (state: TileState) => ({
   getDistanceFromStart: () => {
