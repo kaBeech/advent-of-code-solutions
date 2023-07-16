@@ -27,7 +27,7 @@ const nextStepsGetter = (
         state.coordinates.y,
       );
       const accessibleAdjacentTiles = adjacentTiles.filter((tile) =>
-        tile.getElevation() > state.elevation
+        tile.getElevation() >= state.elevation - 1
       );
       state.nextSteps = accessibleAdjacentTiles
         .sort((a, b) => {
