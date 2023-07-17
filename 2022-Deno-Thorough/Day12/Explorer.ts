@@ -5,8 +5,10 @@ interface ExplorerState {
   endTile: TileType;
   currentPath: TileType[];
   explorationComplete: boolean;
+  longestPathLength: number;
   shortestPathLength: number | undefined;
   backtrackedFrom: TileType | undefined;
+  lowestElevation: number;
 }
 
 const explorer = (state: ExplorerState) => ({
@@ -21,7 +23,7 @@ const explorer = (state: ExplorerState) => ({
 const explore = (state: ExplorerState) => {
   const availableMoves = getAvailableMoves(state);
 
-  if (availableMoves.length === 0) {
+  if (availableMoves.length < 1) {
     if (state.currentPath[0] === state.endTile) {
       state.explorationComplete = true;
       return;
@@ -40,7 +42,7 @@ const explore = (state: ExplorerState) => {
 
   if (
     state.shortestPathLength &&
-    (state.currentPath.length >= (state.shortestPathLength - 3))
+    (state.currentPath.length > (state.shortestPathLength - 2))
   ) {
     backtrack(state);
     return;
@@ -61,14 +63,12 @@ const getAvailableMoves = (state: ExplorerState): TileType[] => {
 
 const removePathsAlreadyTaken = (
   state: ExplorerState,
-  availableMoves: TileType[],
+  tiles: TileType[],
 ) => {
-  if (
+  const availableMoves = tiles.slice();
+  while (
     state.backtrackedFrom && availableMoves.includes(state.backtrackedFrom)
   ) {
-    while (availableMoves.includes(state.backtrackedFrom)) {
-      availableMoves.shift();
-    }
     availableMoves.shift();
   }
   return availableMoves;
@@ -81,6 +81,14 @@ const backtrack = (state: ExplorerState) => {
 const move = (state: ExplorerState, destination: TileType) => {
   state.backtrackedFrom = undefined;
   state.currentPath.unshift(destination);
+  if (state.currentPath[0].getElevation() < state.lowestElevation) {
+    state.lowestElevation = state.currentPath[0].getElevation();
+  }
+  if (state.currentPath.length > state.longestPathLength) {
+    state.longestPathLength = state.currentPath.length;
+  }
+  if (state.currentPath[0].getElevation() === 11) {
+  }
 };
 
 const Explorer = (
@@ -94,6 +102,8 @@ const Explorer = (
     explorationComplete: false,
     shortestPathLength: undefined,
     backtrackedFrom: undefined,
+    lowestElevation: endTile.getElevation(),
+    longestPathLength: 0,
   };
 
   return {
