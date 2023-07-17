@@ -12,6 +12,8 @@ interface TileState {
   tileMap: TileMap;
 }
 
+export { Tile };
+
 const Tile = (
   coordinates: XYCoordinates,
   elevation: number,
@@ -86,5 +88,3 @@ const distanceFromFinishGetter = (state: TileState) => ({
     return state.distanceFromFinish;
   },
 });
-
-export { Tile };

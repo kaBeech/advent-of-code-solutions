@@ -11,6 +11,8 @@ interface ExplorerState {
   lowestElevation: number;
 }
 
+export { Explorer };
+
 const Explorer = (
   startTile: TileType,
   endTile: TileType,
@@ -110,5 +112,3 @@ const move = (state: ExplorerState, destination: TileType) => {
     state.longestPathLength = state.currentPath.length;
   }
 };
-
-export { Explorer };
