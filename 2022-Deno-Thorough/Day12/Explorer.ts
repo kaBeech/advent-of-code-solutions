@@ -87,8 +87,6 @@ const move = (state: ExplorerState, destination: TileType) => {
   if (state.currentPath.length > state.longestPathLength) {
     state.longestPathLength = state.currentPath.length;
   }
-  if (state.currentPath[0].getElevation() === 11) {
-  }
 };
 
 const Explorer = (
