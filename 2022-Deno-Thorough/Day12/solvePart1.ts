@@ -4,7 +4,7 @@ import { populateTileMap } from "./populateTileMap.ts";
 const solvePart1 = async (challengeInput: string): Promise<number> => {
   const tileMap = await populateTileMap(challengeInput);
   const explorer = Explorer(tileMap.startTile, tileMap.endTile);
-  const shortestPathLength = explorer.explore();
+  const shortestPathLength = explorer.findShortestPath();
   return shortestPathLength;
 };
 

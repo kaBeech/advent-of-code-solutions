@@ -11,8 +11,8 @@ interface ExplorerState {
   lowestElevation: number;
 }
 
-const explorer = (state: ExplorerState) => ({
-  explore: () => {
+const shortestPathFinder = (state: ExplorerState) => ({
+  findShortestPath: () => {
     while (!state.explorationComplete) {
       explore(state);
     }
@@ -105,7 +105,7 @@ const Explorer = (
   };
 
   return {
-    ...explorer(state),
+    ...shortestPathFinder(state),
   };
 };
 
