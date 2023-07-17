@@ -24,7 +24,7 @@ const explore = (state: ExplorerState) => {
   const availableMoves = getAvailableMoves(state);
 
   if (availableMoves.length < 1) {
-    if (state.currentPath[0] === state.endTile) {
+    if (state.currentPath[0] === state.startTile) {
       state.explorationComplete = true;
       return;
     } else {
@@ -33,7 +33,7 @@ const explore = (state: ExplorerState) => {
     }
   }
 
-  if (availableMoves.includes(state.startTile)) {
+  if (availableMoves.includes(state.endTile)) {
     state.shortestPathLength = state.currentPath.length;
     backtrack(state);
     backtrack(state);
@@ -98,11 +98,11 @@ const Explorer = (
   const state = {
     startTile,
     endTile,
-    currentPath: [endTile],
+    currentPath: [startTile],
     explorationComplete: false,
     shortestPathLength: undefined,
     backtrackedFrom: undefined,
-    lowestElevation: endTile.getElevation(),
+    lowestElevation: startTile.getElevation(),
     longestPathLength: 0,
   };
 

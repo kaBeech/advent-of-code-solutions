@@ -9,36 +9,36 @@ const testEndTile = testTileMap.endTile;
 
 const testRandomTile = testTileMap.allTiles[3][4];
 
-Deno.test("getting coordinates on startTile returns {x: 0, y: 0}", () => {
-  assertEquals(testStartTile.getCoordinates(), { x: 0, y: 0 });
+Deno.test("getting coordinates on endTile returns {x: 0, y: 0}", () => {
+  assertEquals(testEndTile.getCoordinates(), { x: 0, y: 0 });
 });
 
-Deno.test("getting elevation on startTile returns 1", () => {
-  assertEquals(testStartTile.getElevation(), 1);
+Deno.test("getting elevation on endTile returns 1", () => {
+  assertEquals(testEndTile.getElevation(), 1);
 });
 
-Deno.test("getting nextSteps on startTile returns 2 tiles", () => {
-  assertEquals(testStartTile.getNextSteps().length, 2);
+Deno.test("getting nextSteps on endTile returns 2 tiles", () => {
+  assertEquals(testEndTile.getNextSteps().length, 2);
 });
 
-Deno.test("getting distanceFromStart on startTile returns 0", () => {
-  assertEquals(testStartTile.getDistanceFromStart(), 0);
+Deno.test("getting distanceFromFinish on endTile returns 0", () => {
+  assertEquals(testEndTile.getdistanceFromFinish(), 0);
 });
 
-Deno.test("getting coordinates on endTile returns {x: 5, y: 2}", () => {
-  assertEquals(testEndTile.getCoordinates(), { x: 5, y: 2 });
+Deno.test("getting coordinates on startTile returns {x: 5, y: 2}", () => {
+  assertEquals(testStartTile.getCoordinates(), { x: 5, y: 2 });
 });
 
-Deno.test("getting elevation on endTile returns 26", () => {
-  assertEquals(testEndTile.getElevation(), 26);
+Deno.test("getting elevation on startTile returns 26", () => {
+  assertEquals(testStartTile.getElevation(), 26);
 });
 
-Deno.test("getting nextSteps on endTile returns 1 tiles", () => {
-  assertEquals(testEndTile.getNextSteps().length, 1);
+Deno.test("getting nextSteps on startTile returns 1 tiles", () => {
+  assertEquals(testStartTile.getNextSteps().length, 1);
 });
 
-Deno.test("getting distanceFromStart on endTile returns 5.385164807134504", () => {
-  assertEquals(testEndTile.getDistanceFromStart(), 5.385164807134504);
+Deno.test("getting distanceFromFinish on startTile returns 5.385164807134504", () => {
+  assertEquals(testStartTile.getdistanceFromFinish(), 5.385164807134504);
 });
 
 Deno.test("getting coordinates on randomTile returns {x: 4, y: 3}", () => {
@@ -53,6 +53,6 @@ Deno.test("getting nextSteps on randomTile returns 3 tiles", () => {
   assertEquals(testRandomTile.getNextSteps().length, 3);
 });
 
-Deno.test("getting distanceFromStart on randomTile returns 5", () => {
-  assertEquals(testRandomTile.getDistanceFromStart(), 5);
+Deno.test("getting distanceFromFinish on randomTile returns 5", () => {
+  assertEquals(testRandomTile.getdistanceFromFinish(), 5);
 });
