@@ -23,7 +23,7 @@ const explorer = (state: ExplorerState) => ({
 const explore = (state: ExplorerState) => {
   const availableMoves = getAvailableMoves(state);
 
-  if (availableMoves.length < 1) {
+  if (availableMoves.length === 0) {
     if (state.currentPath[0] === state.startTile) {
       state.explorationComplete = true;
       return;
