@@ -31,8 +31,8 @@ const nextStepsGetter = (
       );
       state.nextSteps = accessibleAdjacentTiles
         .sort((a, b) => {
-          return a.getdistanceFromFinish() -
-            b.getdistanceFromFinish();
+          return a.getDistanceFromFinish() -
+            b.getDistanceFromFinish();
         })
         .sort((a, b) => {
           return a.getElevation() - b.getElevation();
@@ -55,7 +55,7 @@ const getAdjacentTiles = (allTiles: TileType[][], x: number, y: number) => {
 };
 
 const distanceFromFinishGetter = (state: TileState) => ({
-  getdistanceFromFinish: () => {
+  getDistanceFromFinish: () => {
     !state.distanceFromFinish &&
       (state.distanceFromFinish = getCartesianDistanceXY(
         state.coordinates,

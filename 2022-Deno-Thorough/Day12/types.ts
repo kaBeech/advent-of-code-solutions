@@ -4,7 +4,7 @@ interface TileType {
   getCoordinates: () => XYCoordinates;
   getElevation: () => number;
   getNextSteps: () => TileType[];
-  getdistanceFromFinish: () => number;
+  getDistanceFromFinish: () => number;
 }
 
 interface TileMap {
