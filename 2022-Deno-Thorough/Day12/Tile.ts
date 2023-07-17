@@ -7,7 +7,7 @@ interface TileState {
   coordinates: XYCoordinates;
   elevation: number;
   tileSurveyed: boolean;
-  nextSteps: TileType[];
+  adjacentTilesByPreference: TileType[];
   distanceFromFinish: number | undefined;
   tileMap: TileMap;
 }
@@ -16,10 +16,10 @@ const elevationGetter = (state: TileState) => ({
   getElevation: () => state.elevation,
 });
 
-const nextStepsGetter = (
+const adjacentTilesByPreferenceGetter = (
   state: TileState,
 ) => ({
-  getNextSteps: () => {
+  getAdjacentTilesByPreference: () => {
     if (!state.tileSurveyed) {
       const adjacentTiles = getAdjacentTiles(
         state.tileMap.allTiles,
@@ -29,7 +29,7 @@ const nextStepsGetter = (
       const accessibleAdjacentTiles = adjacentTiles.filter((tile) =>
         tile.getElevation() >= state.elevation - 1
       );
-      state.nextSteps = accessibleAdjacentTiles
+      state.adjacentTilesByPreference = accessibleAdjacentTiles
         .sort((a, b) => {
           return a.getDistanceFromFinish() -
             b.getDistanceFromFinish();
@@ -39,7 +39,7 @@ const nextStepsGetter = (
         });
       state.tileSurveyed = true;
     }
-    return state.nextSteps;
+    return state.adjacentTilesByPreference;
   },
 });
 
@@ -75,14 +75,14 @@ const Tile = (
     elevation,
     tileMap,
     tileSurveyed: false,
-    nextSteps: [] as TileType[],
+    adjacentTilesByPreference: [] as TileType[],
     distanceFromFinish: undefined as number | undefined,
   };
 
   return {
     ...xyCoordinatesGetter(state),
     ...elevationGetter(state),
-    ...nextStepsGetter(state),
+    ...adjacentTilesByPreferenceGetter(state),
     ...distanceFromFinishGetter(state),
   };
 };
