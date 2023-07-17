@@ -33,6 +33,8 @@ const nextStepsGetter = (
         .sort((a, b) => {
           return a.getDistanceFromStart() -
             b.getDistanceFromStart();
+        }).sort((a, b) => {
+          return a.getElevation() - b.getElevation();
         });
       state.tileSurveyed = true;
     }
