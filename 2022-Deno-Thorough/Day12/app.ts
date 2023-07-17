@@ -12,7 +12,7 @@ const app = (async (
     testInputFile = "tests/testInput.txt";
   }
 
-  const testSolutionPart1 = await solvePart1(testInputFile);
+  // const testSolutionPart1 = await solvePart1(testInputFile);
   const testSolutionPart2 = await solvePart2(testInputFile);
 
   const solutionPart1 = await solvePart1(challengeInputFile);
