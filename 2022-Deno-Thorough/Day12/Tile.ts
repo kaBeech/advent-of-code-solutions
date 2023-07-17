@@ -12,6 +12,28 @@ interface TileState {
   tileMap: TileMap;
 }
 
+const Tile = (
+  coordinates: XYCoordinates,
+  elevation: number,
+  tileMap: TileMap,
+) => {
+  const state = {
+    coordinates,
+    elevation,
+    tileMap,
+    tileSurveyed: false,
+    adjacentTilesByPreference: [] as TileType[],
+    distanceFromFinish: undefined as number | undefined,
+  };
+
+  return {
+    ...elevationGetter(state),
+    ...xyCoordinatesGetter(state),
+    ...adjacentTilesByPreferenceGetter(state),
+    ...distanceFromFinishGetter(state),
+  };
+};
+
 const elevationGetter = (state: TileState) => ({
   getElevation: () => state.elevation,
 });
@@ -64,27 +86,5 @@ const distanceFromFinishGetter = (state: TileState) => ({
     return state.distanceFromFinish;
   },
 });
-
-const Tile = (
-  coordinates: XYCoordinates,
-  elevation: number,
-  tileMap: TileMap,
-) => {
-  const state = {
-    coordinates,
-    elevation,
-    tileMap,
-    tileSurveyed: false,
-    adjacentTilesByPreference: [] as TileType[],
-    distanceFromFinish: undefined as number | undefined,
-  };
-
-  return {
-    ...xyCoordinatesGetter(state),
-    ...elevationGetter(state),
-    ...adjacentTilesByPreferenceGetter(state),
-    ...distanceFromFinishGetter(state),
-  };
-};
 
 export { Tile };

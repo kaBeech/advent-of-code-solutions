@@ -11,6 +11,26 @@ interface ExplorerState {
   lowestElevation: number;
 }
 
+const Explorer = (
+  startTile: TileType,
+  endTile: TileType,
+) => {
+  const state = {
+    startTile,
+    endTile,
+    currentPath: [startTile],
+    explorationComplete: false,
+    shortestPathLength: undefined,
+    backtrackedFrom: undefined,
+    lowestElevation: startTile.getElevation(),
+    longestPathLength: 0,
+  };
+
+  return {
+    ...shortestPathFinder(state),
+  };
+};
+
 const shortestPathFinder = (state: ExplorerState) => ({
   findShortestPath: () => {
     while (!state.explorationComplete) {
@@ -89,26 +109,6 @@ const move = (state: ExplorerState, destination: TileType) => {
   if (state.currentPath.length > state.longestPathLength) {
     state.longestPathLength = state.currentPath.length;
   }
-};
-
-const Explorer = (
-  startTile: TileType,
-  endTile: TileType,
-) => {
-  const state = {
-    startTile,
-    endTile,
-    currentPath: [startTile],
-    explorationComplete: false,
-    shortestPathLength: undefined,
-    backtrackedFrom: undefined,
-    lowestElevation: startTile.getElevation(),
-    longestPathLength: 0,
-  };
-
-  return {
-    ...shortestPathFinder(state),
-  };
 };
 
 export { Explorer };
