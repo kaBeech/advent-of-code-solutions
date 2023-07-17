@@ -1,4 +1,4 @@
-const solvePart2 = async (challengeInput: string): Promise<string> => {
+const solvePart2 = (challengeInput: string): string => {
   return challengeInput;
 };
 
