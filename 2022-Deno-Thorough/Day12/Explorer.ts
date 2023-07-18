@@ -5,6 +5,7 @@ interface ExplorerState {
   currentTile: TileType;
   destinationTile: TileType;
   destinationTileVisited: boolean;
+  queuedTiles: TileType[];
 }
 
 export { Explorer };
@@ -17,6 +18,7 @@ const Explorer = (
     currentTile: tileMap.endTile,
     destinationTile: tileMap.startTile,
     destinationTileVisited: false,
+    queuedTiles: [tileMap.endTile],
   };
 
   return {
