@@ -5,6 +5,8 @@ interface ExplorerState {
   currentTile: TileType;
   destinationTile: TileType;
   destinationTileVisited: boolean;
+  lowestPossibleElevationVisited: boolean;
+  fewestStepsToLowestPossibleElevation: number | undefined;
   queuedTiles: TileType[];
 }
 
@@ -18,11 +20,14 @@ const Explorer = (
     currentTile: tileMap.endTile,
     destinationTile: tileMap.startTile,
     destinationTileVisited: false,
+    lowestPossibleElevationVisited: false,
+    fewestStepsToLowestPossibleElevation: undefined,
     queuedTiles: [tileMap.endTile],
   };
 
   return {
     ...shortestPathToDestinationFinder(state),
+    ...shortestPathToLowestElevationFinder(state),
   };
 };
 
@@ -62,6 +67,10 @@ const survey = (state: ExplorerState) => {
       tile.setFewestSteps(state.currentTile.getFewestSteps()! + 1);
       state.queuedTiles.push(tile);
     }
+    if (tile.getElevation() === 1) {
+      state.lowestPossibleElevationVisited = true;
+      state.fewestStepsToLowestPossibleElevation = tile.getFewestSteps();
+    }
   });
 };
 
@@ -80,3 +89,12 @@ const getAdjacentTiles = (state: ExplorerState) => {
   });
   return adjacentTiles;
 };
+
+const shortestPathToLowestElevationFinder = (state: ExplorerState) => ({
+  findShortestPathToLowestElevation: () => {
+    while (!state.destinationTileVisited) {
+      survey(state);
+    }
+    return state.fewestStepsToLowestPossibleElevation;
+  },
+});
