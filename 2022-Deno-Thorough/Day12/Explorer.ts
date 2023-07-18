@@ -48,11 +48,21 @@ const survey = (state: ExplorerState) => {
   if (accessibleTiles.includes(state.destinationTile)) {
     state.destinationTileVisited = true;
     state.destinationTile.setFewestSteps(
-      state.currentTile.getFewestSteps() as number +
+      state.currentTile.getFewestSteps()! +
         1,
     );
     return;
   }
+
+  accessibleTiles.forEach((tile) => {
+    if (
+      tile.getFewestSteps() === undefined ||
+      tile.getFewestSteps()! > state.currentTile.getFewestSteps()! + 1
+    ) {
+      tile.setFewestSteps(state.currentTile.getFewestSteps()! + 1);
+      state.queuedTiles.push(tile);
+    }
+  });
 
   if (availableMoves.length === 0) {
     if (state.currentPath[0] === state.startTile) {
