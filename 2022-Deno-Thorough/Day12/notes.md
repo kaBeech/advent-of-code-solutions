@@ -4,7 +4,7 @@ https://adventofcode.com/2022/day/12
 
 ## Pseudocode
 
-### Part 1
+### Part 1 (Deprecated - see Part 1 Take 2)
 
 1. Parse the challengeInput into an array of Tile objects, which contain their coordinates and elevation as well as an empty array named accessibleAdjacentTilesByPreference. Make note of the coordinates of the End (E) and Start (S) Tiles
 2. Start from the E, work towards the S
@@ -32,3 +32,27 @@ https://adventofcode.com/2022/day/12
 1. Set your backtrackedFrom value to the Tile you are backtracking from
 2. Pop the Tile you are backtracking from out of your currentPath array
 3. explore()
+
+### Part 1, Take 2
+
+1. Parse the challengeInput into a tileMap object, which contains a double array of all the Tiles as well as values for the startTile and the endTile (in state)
+2. Each Tile object contains the tile's coordinates and elevation, as well as a fewestSteps value set to undefined (in state)
+3. Start from the endTile, work towards the startTile
+4. Create an Explorer object with the tileMap, a currentTile value set to the endTile, a destinationTile value set to the startTile, a destinationTileVisited value set to false, and a queuedTiles value set to an array containing only the endTile (in state)
+5. Give this Explorer a survey() method and a findShortestPathToDestination() method
+
+#### survey() method
+
+1. Set state.currentTile to state.queuedTiles[0]
+2. For each tile adjacent to state.currentTile, calculate whether it's accessible (i.e. its elevation is not more than one unit lower than the currentTile's elevation). If it's not accessible, return
+3. If this tileBeingSurveyed is accessible and it is the destinationTile, set state.destinationTileVisited to true
+4. Compare tileBeingSurveyed.fewestSteps with state.currentTile's fewestSteps. If tileBeingSurveyed.fewestSteps is less than or equal to state.currentTile.fewestSteps + 1, return
+5. If tileBeingSurveyed.fewestSteps is undefined or is greater than state.currentTile.fewestSteps +1, set tileBeingSurveyed.fewestSteps to state.currentTile.fewestSteps + 1
+6. If no previous step has returned, push tileBeingSurveyed onto state.queuedTiles
+7. Once every adjacent tile has been processed, shift state.currentTile off the state.queuedTiles array
+
+#### findShortestPathToDestination() method
+
+1. While state.destinationTileVisited is false:
+2. survey()
+3. Once state.destinationTileVisited is true, return state.destinationTile.fewestSteps
