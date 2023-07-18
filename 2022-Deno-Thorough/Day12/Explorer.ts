@@ -1,48 +1,39 @@
-import { TileType } from "./types.ts";
+import { TileMap, TileType } from "./types.ts";
 
 interface ExplorerState {
-  startTile: TileType;
-  endTile: TileType;
-  currentPath: TileType[];
-  explorationComplete: boolean;
-  longestPathLength: number;
-  shortestPathLength: number | undefined;
-  backtrackedFrom: TileType | undefined;
-  lowestElevation: number;
+  tileMap: TileMap;
+  currentTile: TileType;
+  destinationTile: TileType;
+  destinationTileVisited: boolean;
 }
 
 export { Explorer };
 
 const Explorer = (
-  startTile: TileType,
-  endTile: TileType,
+  tileMap: TileMap,
 ) => {
   const state = {
-    startTile,
-    endTile,
-    currentPath: [startTile],
-    explorationComplete: false,
-    shortestPathLength: undefined,
-    backtrackedFrom: undefined,
-    lowestElevation: startTile.getElevation(),
-    longestPathLength: 0,
+    tileMap,
+    currentTile: tileMap.endTile,
+    destinationTile: tileMap.startTile,
+    destinationTileVisited: false,
   };
 
   return {
-    ...shortestPathFinder(state),
+    ...shortestPathToDestinationFinder(state),
   };
 };
 
-const shortestPathFinder = (state: ExplorerState) => ({
-  findShortestPath: () => {
-    while (!state.explorationComplete) {
-      explore(state);
+const shortestPathToDestinationFinder = (state: ExplorerState) => ({
+  findShortestPathToDestination: () => {
+    while (!state.destinationTileVisited) {
+      survey(state);
     }
-    return state.shortestPathLength as number;
+    return state.destinationTile.getFewestSteps();
   },
 });
 
-const explore = (state: ExplorerState) => {
+const survey = (state: ExplorerState) => {
   const availableMoves = getAvailableMoves(state);
 
   if (availableMoves.length === 0) {
