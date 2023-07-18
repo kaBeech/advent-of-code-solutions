@@ -36,7 +36,23 @@ const shortestPathToDestinationFinder = (state: ExplorerState) => ({
 });
 
 const survey = (state: ExplorerState) => {
-  const availableMoves = getAvailableMoves(state);
+  state.currentTile = state.queuedTiles.shift()!;
+  if (state.currentTile.getFewestSteps() === undefined) {
+    state.currentTile.setFewestSteps(0);
+  }
+  const adjacentTiles = getAdjacentTiles(state);
+  const accessibleTiles = adjacentTiles.filter((tile) =>
+    tile.getElevation() >= state.currentTile.getElevation() - 1
+  );
+
+  if (accessibleTiles.includes(state.destinationTile)) {
+    state.destinationTileVisited = true;
+    state.destinationTile.setFewestSteps(
+      state.currentTile.getFewestSteps() as number +
+        1,
+    );
+    return;
+  }
 
   if (availableMoves.length === 0) {
     if (state.currentPath[0] === state.startTile) {
@@ -64,6 +80,22 @@ const survey = (state: ExplorerState) => {
   }
   move(state, availableMoves[0]);
   return;
+};
+
+const getAdjacentTiles = (state: ExplorerState) => {
+  const allTiles = state.tileMap.allTiles;
+  const x = state.currentTile.getCoordinates().x;
+  const y = state.currentTile.getCoordinates().y;
+
+  const adjacentCoordinates = [[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]];
+  const adjacentTiles: TileType[] = [];
+
+  adjacentCoordinates.forEach(([x, y]) => {
+    if (x >= 0 && y >= 0 && x < allTiles[0].length && y < allTiles.length) {
+      adjacentTiles.push(allTiles[y][x]);
+    }
+  });
+  return adjacentTiles;
 };
 
 const getAvailableMoves = (state: ExplorerState): TileType[] => {
