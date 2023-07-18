@@ -1,16 +1,18 @@
-import { XYCoordinate } from "../../tools/commonTypes.ts";
+import { XYCoordinateArray } from "../../tools/commonTypes.ts";
 import { handleHeadPositionChange } from "./handleHeadPositionChange.ts";
 
 interface TailSegmentState {
   nextSegment: {
-    moveTail: (newPreviousSegmentPosition: XYCoordinate) => XYCoordinate;
+    moveTail: (
+      newPreviousSegmentPosition: XYCoordinateArray,
+    ) => XYCoordinateArray;
   } | null;
-  currentSegmentPosition: XYCoordinate;
+  currentSegmentPosition: XYCoordinateArray;
 }
 
 const tailMover = (state: TailSegmentState) => ({
   moveTail: (
-    newPreviousSegmentPosition: XYCoordinate,
+    newPreviousSegmentPosition: XYCoordinateArray,
   ) => {
     state.currentSegmentPosition = handleHeadPositionChange(
       state.currentSegmentPosition,
@@ -24,9 +26,11 @@ const tailMover = (state: TailSegmentState) => ({
 
 const TailSegment = (remainingSegments: number) => {
   const state = {
-    currentSegmentPosition: [0, 0] as XYCoordinate,
+    currentSegmentPosition: [0, 0] as XYCoordinateArray,
     nextSegment: null as {
-      moveTail: (newPreviousSegmentPosition: XYCoordinate) => XYCoordinate;
+      moveTail: (
+        newPreviousSegmentPosition: XYCoordinateArray,
+      ) => XYCoordinateArray;
     } | null,
   };
 

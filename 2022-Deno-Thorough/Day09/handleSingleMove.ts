@@ -1,10 +1,10 @@
-import { XYCoordinate } from "../../tools/commonTypes.ts";
+import { XYCoordinateArray } from "../../tools/commonTypes.ts";
 import { MovementDirection } from "./types.ts";
 
 const handleSingleMove = (
-  currentPosition: XYCoordinate,
+  currentPosition: XYCoordinateArray,
   movementDirection: MovementDirection,
-): XYCoordinate => {
+): XYCoordinateArray => {
   const newPosition = [currentPosition[0], currentPosition[1]];
   movementDirection === "U"
     ? newPosition[1]++
@@ -14,7 +14,7 @@ const handleSingleMove = (
     ? newPosition[0]--
     : newPosition[0]++;
 
-  return newPosition as XYCoordinate;
+  return newPosition as XYCoordinateArray;
 };
 
 export { handleSingleMove };

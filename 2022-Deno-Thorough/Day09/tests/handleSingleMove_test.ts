@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
 import { handleSingleMove } from "../handleSingleMove.ts";
-import { XYCoordinate } from "../../../tools/commonTypes.ts";
+import { XYCoordinateArray } from "../../../tools/commonTypes.ts";
 
-const testCurrentPosition1: XYCoordinate = [0, 0];
-const testCurrentPosition2: XYCoordinate = [24, -37];
+const testCurrentPosition1: XYCoordinateArray = [0, 0];
+const testCurrentPosition2: XYCoordinateArray = [24, -37];
 
 Deno.test("move in upwards direction returns proper coordinates", () => {
   const result1 = handleSingleMove(testCurrentPosition1, "U");
