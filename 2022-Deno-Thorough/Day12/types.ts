@@ -4,6 +4,7 @@ interface TileType {
   getCoordinates: () => XYCoordinates;
   getElevation: () => number;
   getFewestSteps: () => number | undefined;
+  setFewestSteps: (fewestSteps: number) => void;
 }
 
 interface TileMap {
