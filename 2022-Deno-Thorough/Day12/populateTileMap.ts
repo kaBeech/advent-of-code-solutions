@@ -24,7 +24,6 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
         elevation = convertLowercaseLetterToNumber(value);
       }
       const tile = Tile({ x, y }, elevation);
-      // Start from the End, work towards the Start
       if (value === "E") {
         tileMap.endTile = tile;
       } else if (value === "S") {
