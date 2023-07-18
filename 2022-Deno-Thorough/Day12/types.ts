@@ -3,8 +3,7 @@ import { XYCoordinates } from "../../tools/commonTypes.ts";
 interface TileType {
   getCoordinates: () => XYCoordinates;
   getElevation: () => number;
-  getAdjacentTilesByPreference: () => TileType[];
-  getDistanceFromFinish: () => number;
+  getFewestSteps: () => number | undefined;
 }
 
 interface TileMap {
