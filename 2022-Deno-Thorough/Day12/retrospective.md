@@ -42,7 +42,7 @@ This might not have made my solution to Part 1 much faster (in terms of runtime)
 
 ### 2 ^ 160 is WAAAAAAAAAAAAAY bigger than 40 \* 160 \* 4
 
-In my first attempt at Part 1, my Explorer would take one path until it got to the finish or a dead-end, then backtrack and take the next path. After doing this for all paths, xe would report the length of the shortest path
+In my first attempt at Part 1, my Explorer would take one path until it got to the finish or a dead-end (or to a point where the current path was as long as the shortest path known), then backtrack and take the next path. After doing this for all paths, xe would report the length of the shortest path
 
 This meant that without further optimization, the program would explore every possible path from the origin tile. If there were 160 tiles between the origin and the destination and each tile had 2 possible tiles to go to next (which is a less complicated input than the challengeInput), that would be 2 ^ 160 (or 1.461501637x10^48) possible paths! Even with the optimizations I had built in, the number of paths the Explorer was likely to visit would be absurdly large
 
