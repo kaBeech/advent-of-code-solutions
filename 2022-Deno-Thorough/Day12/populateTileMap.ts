@@ -25,9 +25,9 @@ const populateTileMap = async (challengeInput: string): Promise<TileMap> => {
       }
       const tile = Tile({ x, y }, elevation);
       // Start from the End, work towards the Start
-      if (value === "S") {
+      if (value === "E") {
         tileMap.endTile = tile;
-      } else if (value === "E") {
+      } else if (value === "S") {
         tileMap.startTile = tile;
       }
       tileRow.push(tile);
