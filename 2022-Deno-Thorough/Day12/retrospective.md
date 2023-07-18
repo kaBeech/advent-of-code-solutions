@@ -6,7 +6,7 @@ In my first attempt at Part 1, my program was running without returning an answe
 
 I asked my roommate to take a look and see if he could notice anything amiss with my code. He took one look and said "Why aren't you using Dijkstra's Algorithm?"
 
-This is a great response if my goal is to solve the puzzle. However, understanding the challenge and learning something new is at least as important to me (in this project) than solving the puzzle, and this response left me unsatisfied
+This was a great response if my goal was to solve the puzzle. However, understanding the challenge and learning something new is at least as important to me (in this project) than solving the puzzle, and this response left me unsatisfied
 
 I agreed with my roommate that Dijkstra's is likely a more optimal solution, but said that I still wanted to know why my solution didn't work. He opined that there's probably something amiss with my backtrack() method, then had to leave for an appointment
 
@@ -58,12 +58,12 @@ Moral of this story: do as much as you can to reduce the number of iterations in
 
 - Remember that possible values for a string or array increase exponentially with the string/array's length
 
-- Remember that your solution may be sound, but takes an unfeasibly long time to compute!
+- Remember that your solution may be sound, but still take an unfeasibly long time to compute!
 
 # Ideas for possible future implementation
 
-### Make an app to randomly assign modifications to the Advent Of Code challenges
+### Make an app that randomly assigns modifications to Advent Of Code challenges
 
-This is tangential to this whole topic, but while working on this I realized it would be fun to add additional modifications to these Advent Of Code puzzles for an extra challenge. Challenges like "Complete this puzzle in a language you've never used before" and "Complete this puzzle without reassigning any variables"
+This is tangential to this whole topic, but while working on this I realized it would be fun to add additional modifications to these Advent Of Code puzzles for an extra challenge. Modifications like "Complete this puzzle in a language you've never used before" and "Complete this puzzle without reassigning any variables"
 
 I think I'll make an app to modify these puzzles and use it for 2024's Advent Of Code =)
