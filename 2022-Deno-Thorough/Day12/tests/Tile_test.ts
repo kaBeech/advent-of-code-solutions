@@ -38,6 +38,6 @@ Deno.test("getting fewestSteps on startTile before assignment returns undefined"
 });
 
 Deno.test("getting fewestSteps on startTile after assignment returns the assigned number", () => {
-  testEndTile.setFewestSteps(5);
+  testStartTile.setFewestSteps(5);
   assertEquals(testStartTile.getFewestSteps(), 5);
 });
