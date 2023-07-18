@@ -4,7 +4,7 @@ https://adventofcode.com/2022/day/12
 
 ## Pseudocode
 
-### Part 1 (Deprecated - see Part 1 Take 2)
+### Part 1 (Deprecated - see Part 1, Take 2)
 
 1. Parse the challengeInput into an array of Tile objects, which contain their coordinates and elevation as well as an empty array named accessibleAdjacentTilesByPreference. Make note of the coordinates of the End (E) and Start (S) Tiles
 2. Start from the E, work towards the S
