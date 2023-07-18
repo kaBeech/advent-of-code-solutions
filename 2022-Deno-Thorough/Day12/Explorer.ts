@@ -17,6 +17,7 @@ const Explorer = (
 ) => {
   const state = {
     tileMap,
+    // Start from the End, work towards the Start
     currentTile: tileMap.endTile,
     destinationTile: tileMap.startTile,
     destinationTileVisited: false,
