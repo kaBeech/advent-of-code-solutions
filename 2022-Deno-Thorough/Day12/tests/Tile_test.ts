@@ -17,28 +17,12 @@ Deno.test("getting elevation on endTile returns 1", () => {
   assertEquals(testEndTile.getElevation(), 1);
 });
 
-Deno.test("getting adjacentTilesByPreference on endTile returns 2 tiles", () => {
-  assertEquals(testEndTile.getAdjacentTilesByPreference().length, 2);
-});
-
-Deno.test("getting distanceFromFinish on endTile returns 0", () => {
-  assertEquals(testEndTile.getDistanceFromFinish(), 0);
-});
-
 Deno.test("getting coordinates on startTile returns {x: 5, y: 2}", () => {
   assertEquals(testStartTile.getCoordinates(), { x: 5, y: 2 });
 });
 
 Deno.test("getting elevation on startTile returns 26", () => {
   assertEquals(testStartTile.getElevation(), 26);
-});
-
-Deno.test("getting adjacentTilesByPreference on startTile returns 1 tiles", () => {
-  assertEquals(testStartTile.getAdjacentTilesByPreference().length, 1);
-});
-
-Deno.test("getting distanceFromFinish on startTile returns 5.385164807134504", () => {
-  assertEquals(testStartTile.getDistanceFromFinish(), 5.385164807134504);
 });
 
 Deno.test("getting coordinates on randomTile returns {x: 4, y: 3}", () => {
@@ -49,10 +33,11 @@ Deno.test("getting elevation on randomTile returns 21", () => {
   assertEquals(testRandomTile.getElevation(), 21);
 });
 
-Deno.test("getting adjacentTilesByPreference on randomTile returns 3 tiles", () => {
-  assertEquals(testRandomTile.getAdjacentTilesByPreference().length, 3);
+Deno.test("getting fewestSteps on endTile before assignment returns undefined", () => {
+  assertEquals(testEndTile.getFewestSteps(), undefined);
 });
 
-Deno.test("getting distanceFromFinish on randomTile returns 5", () => {
-  assertEquals(testRandomTile.getDistanceFromFinish(), 5);
+Deno.test("getting fewestSteps on endTile after assignment returns the assigned number", () => {
+  testEndTile.setFewestSteps(5);
+  assertEquals(testEndTile.getFewestSteps(), 5);
 });

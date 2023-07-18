@@ -4,8 +4,8 @@ import { populateTileMap } from "../populateTileMap.ts";
 
 const testTileMap = await populateTileMap("tests/testInput.txt");
 
-const testExplorer = Explorer(testTileMap.startTile, testTileMap.endTile);
+const testExplorer = Explorer(testTileMap);
 
 Deno.test("exploring the testTileMap yields shortestPath of 31 steps", () => {
-  assertEquals(testExplorer.findShortestPath(), 31);
+  assertEquals(testExplorer.findShortestPathToDestination(), 31);
 });
