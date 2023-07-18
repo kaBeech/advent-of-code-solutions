@@ -67,7 +67,10 @@ const survey = (state: ExplorerState) => {
       tile.setFewestSteps(state.currentTile.getFewestSteps()! + 1);
       state.queuedTiles.push(tile);
     }
-    if (tile.getElevation() === 1) {
+    if (
+      tile.getElevation() === 1 &&
+      !(state.fewestStepsToLowestPossibleElevation! <= tile.getFewestSteps()!)
+    ) {
       state.lowestPossibleElevationVisited = true;
       state.fewestStepsToLowestPossibleElevation = tile.getFewestSteps();
     }
