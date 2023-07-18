@@ -43,13 +43,12 @@ https://adventofcode.com/2022/day/12
 
 #### survey() method
 
-1. Set state.currentTile to state.queuedTiles[0]
+1. Set state.currentTile to state.queuedTiles[0] (and shift that tile off state.queuedTiles)
 2. For each tile adjacent to state.currentTile, calculate whether it's accessible (i.e. its elevation is not more than one unit lower than the currentTile's elevation). If it's not accessible, return
 3. If this tileBeingSurveyed is accessible and it is the destinationTile, set state.destinationTileVisited to true
 4. Compare tileBeingSurveyed.fewestSteps with state.currentTile's fewestSteps. If tileBeingSurveyed.fewestSteps is less than or equal to state.currentTile.fewestSteps + 1, return
 5. If tileBeingSurveyed.fewestSteps is undefined or is greater than state.currentTile.fewestSteps +1, set tileBeingSurveyed.fewestSteps to state.currentTile.fewestSteps + 1
 6. If no previous step has returned, push tileBeingSurveyed onto state.queuedTiles
-7. Once every adjacent tile has been processed, shift state.currentTile off the state.queuedTiles array
 
 #### findShortestPathToDestination() method
 
