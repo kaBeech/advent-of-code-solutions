@@ -38,11 +38,16 @@ const shortestPathToDestinationFinder = (state: ExplorerState) => ({
   findShortestPathToDestination: () => {
     while (!state.destinationTileVisited) {
       state.currentTile = state.queuedTiles.shift()!;
-      survey(
+      const surveyResult = survey(
         state.tileMap.allTiles,
         state.currentTile,
         state.destinationTile,
       );
+      state.destinationTileVisited = surveyResult.foundDestinationTile;
+      surveyResult.tilesToVisit.forEach((tile) => {
+        state.queuedTiles.push(tile);
+      });
+    }
     return state.destinationTile.getFewestSteps();
   },
 });
@@ -51,7 +56,18 @@ const shortestPathToLowestElevationFinder = (state: ExplorerState) => ({
   findShortestPathToLowestElevation: () => {
     while (!state.lowestPossibleElevationVisited) {
       state.currentTile = state.queuedTiles.shift()!;
-      survey(state.tileMap.allTiles, state.currentTile, state.destinationTile);
+      const surveyResult = survey(
+        state.tileMap.allTiles,
+        state.currentTile,
+        state.destinationTile,
+      );
+      state.lowestPossibleElevationVisited =
+        surveyResult.foundLowestPossibleElevation;
+      state.fewestStepsToLowestPossibleElevation =
+        surveyResult.fewestStepsToLowestPossibleElevation;
+      surveyResult.tilesToVisit.forEach((tile) => {
+        state.queuedTiles.push(tile);
+      });
     }
     return state.fewestStepsToLowestPossibleElevation;
   },
