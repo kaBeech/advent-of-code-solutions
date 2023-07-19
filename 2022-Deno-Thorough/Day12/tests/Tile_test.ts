@@ -1,7 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { populateTileMap } from "../populateTileMap.ts";
-
-const testTileMap = await populateTileMap("tests/testInput.txt");
+import { testTileMap } from "./testObjects.ts";
 
 const testStartTile = testTileMap.startTile;
 
