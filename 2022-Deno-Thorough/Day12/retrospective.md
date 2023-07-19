@@ -50,6 +50,16 @@ Instead, my second attempt processes one step at a time and only takes steps tha
 
 Moral of this story: do as much as you can to reduce the number of iterations in your program. Rule out possible paths to an outcome as early as you can. If you have a choice between 2 ^ 99 possibilities to sort through and 99 ^ 2 possibilities, choose the latter <3
 
+### Write loosely coupled code from the start
+
+After finishing Part 2, I wanted my code to look nicer. That involved modularizing the Explorer constructor and writing tests for the resulting function modules
+
+In doing so, I decided to destructure the state that was passed to these functions into discrete arguments
+
+The process of refactoring to remove state from the function arguments and return results from the functions that were then used to set the explorer's state was important in decoupling my code, though it was tedious work
+
+I can save myself some functional debt in the future by decoupling my code from the start
+
 ## Takeaways
 
 - Do as much as you can to reduce the number of iterations in your program
@@ -60,11 +70,11 @@ Moral of this story: do as much as you can to reduce the number of iterations in
 
 - Remember that your solution may be sound, but still take an unfeasibly long time to compute!
 
+- If a function isn't a method, it doesn't need to be declared in a constructor module
+
+- If a function isn't a method, it probably doesn't need to be passed state
+
 # Ideas for possible future implementation
-
-### Modularize and decouple code
-
-Right now, survey() is tightly coupled with ExplorerState. In the future, I'd like to have my code less tightly coupled
 
 ### Make an app that randomly assigns modifications to Advent Of Code challenges
 
