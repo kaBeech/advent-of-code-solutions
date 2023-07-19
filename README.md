@@ -1,8 +1,6 @@
 # Advent-Of-Code
 
-Repository for my work on the Advent Of Code challenges
-
-https://adventofcode.com/
+Repository for my work on the [Advent Of Code challenges](https://adventofcode.com/)
 
 ## Individual Years
 
