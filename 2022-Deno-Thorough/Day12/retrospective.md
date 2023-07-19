@@ -64,7 +64,7 @@ Moral of this story: do as much as you can to reduce the number of iterations in
 
 ### Modularize and decouple code
 
-Right now, Explorer is tightly coupled to getAdjacentTiles() and survey(). In the future, I'd like to have my code less tightly coupled
+Right now, survey() is tightly coupled with ExplorerState. In the future, I'd like to have my code less tightly coupled
 
 ### Make an app that randomly assigns modifications to Advent Of Code challenges
 
