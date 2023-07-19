@@ -16,7 +16,7 @@ This started as a repo for my work on the 2022 challenges (hence the repo name),
 
 In this group of challenges I focus on thoroughness and code quality, including modular components, unit testing, and error handling
 
-This wasn't as [focused on] in the first few days, so you can see the thoroughness improve as the days progress (with the possible exception of Day10)
+This aspect wasn't as focused on in the first few days, so you can see the thoroughness improve as the days progress (with the possible exception of Day10)
 
 These challenges are completed with TypeScript/JavaScript with Deno
 
@@ -32,7 +32,7 @@ These challenges are completed with TypeScript/JavaScript with Deno
 
 In this group of challenges I focus less on speed and thoroughness, and more on learning about Rust
 
-I LOVE Rust, but I don't have the same depth of experience with it that I do with JavaScript, so this is an opportunity to learn more about the intricacies of how Rust works
+I love Rust, but I don't have the same depth of experience with it that I do with JavaScript, so this is an opportunity to learn more about the intricacies of how Rust works
 
 These challenges are completed with Rust!
 
