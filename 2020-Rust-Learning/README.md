@@ -8,7 +8,7 @@ https://adventofcode.com/2021
 
 In this group of challenges I focus less on speed and thoroughness, and more on learning about Rust
 
-I LOVE Rust, but I don't have the same depth of experience with it that I do with JavaScript, so this is an opportunity to learn more about the intricacies of how Rust works
+I love Rust, but I don't have the same depth of experience with it that I do with JavaScript, so this is an opportunity to learn more about the intricacies of how Rust works
 
 ## Notes
 
