@@ -2,6 +2,8 @@
 
 Repository for my work on the [Advent Of Code challenges](https://adventofcode.com/)
 
+If you're interested, [I'm also building a mod to add a bonus layer of randomized challenge to these puzzles](https://github.com/kaBeech/Advent-Of-Code-QSLs-Mod)
+
 ## Individual Years
 
 This started as a repo for my work on the 2022 challenges (hence the repo name), but has since been updated to include earlier changes
