@@ -8,7 +8,11 @@ const survey = (state: ExplorerState) => {
   if (state.currentTile.getFewestSteps() === undefined) {
     state.currentTile.setFewestSteps(0);
   }
-  const adjacentTiles = getAdjacentTiles(state);
+  const adjacentTiles = getAdjacentTiles(
+    state.tileMap.allTiles,
+    state.currentTile.getCoordinates().x,
+    state.currentTile.getCoordinates().y,
+  );
   const accessibleTiles = adjacentTiles.filter((tile) =>
     tile.getElevation() >= state.currentTile.getElevation() - 1
   );
