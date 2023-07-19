@@ -20,7 +20,7 @@ I'm glad I stayed curious. I didn't blindly accept that another algorithm was be
 
 I'm also glad that I refactored my code using my own understanding of Dijkstra's, instead of looking up Dijkstra's Algorithm and parroting that. It encouraged me to think critically about the algorithm and understand each step and why it's there. Comparing my code to Dijkstra's Algorithm after the fact was also helpful to verify that I understood the algorithm and to see the differences in my implementation compared with common implementations
 
-Also, shoutout to my roommate for helping me through this blockage!!
+Also, shoutout to my roommate for helping me through this obstacle!
 
 ### Be Creative!
 
@@ -80,4 +80,4 @@ I can save myself some functional debt in the future by decoupling my code from 
 
 This is tangential to this whole topic, but while working on this I realized it would be fun to add additional modifications to these Advent Of Code puzzles for an extra challenge. Modifications like "Complete this puzzle in a language you've never used before" and "Complete this puzzle without reassigning any variables"
 
-I think I'll make an app to modify these puzzles and use it for 2024's Advent Of Code =)
+I think I'll make an app to modify these puzzles and use it for 2023's Advent Of Code =)
