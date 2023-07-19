@@ -62,6 +62,10 @@ Moral of this story: do as much as you can to reduce the number of iterations in
 
 # Ideas for possible future implementation
 
+### Modularize and decouple code
+
+Right now, Explorer is tightly coupled to getAdjacentTiles() and survey(). In the future, I'd like to have my code less tightly coupled
+
 ### Make an app that randomly assigns modifications to Advent Of Code challenges
 
 This is tangential to this whole topic, but while working on this I realized it would be fun to add additional modifications to these Advent Of Code puzzles for an extra challenge. Modifications like "Complete this puzzle in a language you've never used before" and "Complete this puzzle without reassigning any variables"
