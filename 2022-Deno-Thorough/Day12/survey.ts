@@ -29,12 +29,11 @@ const survey = (
 
   if (accessibleTiles.includes(destinationTile)) {
     result.foundDestinationTile = true;
-    // state.destinationTileVisited = true;
     destinationTile.setFewestSteps(
       currentTile.getFewestSteps()! +
         1,
     );
-    return;
+    return result;
   }
 
   accessibleTiles.forEach((tile) => {
@@ -44,16 +43,14 @@ const survey = (
     ) {
       tile.setFewestSteps(currentTile.getFewestSteps()! + 1);
       result.tilesToVisit.push(tile);
-      // state.queuedTiles.push(tile);
     }
     if (
       tile.getElevation() === 1 &&
       !(result.fewestStepsToLowestPossibleElevation! <= tile.getFewestSteps()!)
     ) {
       result.foundLowestPossibleElevation = true;
-      // state.lowestPossibleElevationVisited = true;
       result.fewestStepsToLowestPossibleElevation = tile.getFewestSteps();
-      // state.fewestStepsToLowestPossibleElevation = tile.getFewestSteps();
     }
   });
+  return result;
 };
