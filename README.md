@@ -2,7 +2,7 @@
 
 Repository for my work on the [Advent Of Code challenges](https://adventofcode.com/)
 
-If you're interested, [I'm also building a mod to add a bonus layer of randomized challenge to these puzzles](https://github.com/kaBeech/Advent-Of-Code-QSLs-Mod)
+If you're interested, [I'm also building a mod to add a bonus layer of randomized challenge to these puzzles](https://github.com/kaBeech/advent-of-code-xxxmas-mod)
 
 ## Individual Years
 
