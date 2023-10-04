@@ -2,29 +2,30 @@ import { solvePart1 } from "./solvePart1.ts";
 import { solvePart2 } from "./solvePart2.ts";
 
 const app = (async (
-  challengeInputFile?: string,
-  testInputFile?: string,
+  challengeInputFilePath?: string,
+  testInputFilePath?: string,
 ): Promise<{ solutionPart1: number; solutionPart2: number }> => {
-  if (!challengeInputFile) {
-    challengeInputFile = "tests/challengeInput.txt";
+  if (!challengeInputFilePath) {
+    challengeInputFilePath = "tests/challengeInput.txt";
   }
-  if (!testInputFile) {
-    testInputFile = "tests/testInput.txt";
+  if (!testInputFilePath) {
+    testInputFilePath = "tests/testInput.txt";
   }
 
-  const testSolutionPart1 = await solvePart1(testInputFile);
-  const testSolutionPart2 = await solvePart2(testInputFile);
+  const testSolutionPart1 = await solvePart1(testInputFilePath);
+  const testSolutionPart2 = await solvePart2(testInputFilePath);
 
-  const solutionPart1 = await solvePart1(challengeInputFile);
-  const solutionPart2 = await solvePart2(challengeInputFile);
+  const solutionPart1 = await solvePart1(challengeInputFilePath);
+  // const solutionPart2 = await solvePart2(challengeInputFilePath);
+  const solutionPart2 = 2;
 
   console.log(
-    `Part 1: What is the fewest steps required to move from your current position to the location that should get the best signal?
+    `Part 1: Determine which pairs of packets are already in the right order. What is the sum of the indices of those pairs?
     Test Solution: ${testSolutionPart1}
     Solution: ${solutionPart1}`,
   );
   console.log(
-    `Part 2: What is the fewest steps required to move starting from any square with elevation a to the location that should get the best signal?
+    `Part 2: What is the answer to Part 2?
   Test Solution: ${testSolutionPart2}
   Solution: ${solutionPart2}`,
   );
