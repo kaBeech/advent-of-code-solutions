@@ -19,5 +19,5 @@ Deno.test("testInput returns 13", async () => {
 Deno.test("challengeInput returns 0", async () => {
   const result = await solvePart1(challengeInput);
 
-  assertEquals(result, 0);
+  assertEquals(result, 5330);
 });
