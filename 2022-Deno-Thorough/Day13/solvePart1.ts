@@ -6,7 +6,6 @@ const solvePart1 = async (challengeInput: string): Promise<number> => {
   const packetPairArray = await convertMultiParagraphFileToArray(
     challengeInput,
   ) as string[][];
-  console.log(packetPairArray);
 
   packetPairArray.forEach((packetPair, index) => {
     const leftPacket = JSON.parse(packetPair[0]);
