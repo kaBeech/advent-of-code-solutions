@@ -1,11 +1,12 @@
-import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { comparePackets } from "./comparePackets.ts";
 
 const solvePart1 = async (challengeInput: string): Promise<number> => {
   let indexSum = 0;
-  const packetPairArray = await convertMultiLineFileToDoubleArray(
+  const packetPairArray = await convertMultiParagraphFileToArray(
     challengeInput,
   ) as string[][];
+  console.log(packetPairArray);
 
   packetPairArray.forEach((packetPair, index) => {
     const leftPacket = JSON.parse(packetPair[0]);
