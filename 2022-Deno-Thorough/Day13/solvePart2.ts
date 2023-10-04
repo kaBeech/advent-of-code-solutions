@@ -1,8 +1,8 @@
 import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { comparePackets } from "./comparePackets.ts";
+import { comparePacketsPart2 } from "./comparePacketsPart2.ts";
+import { Packet } from "./types.ts";
 
 const solvePart2 = async (challengeInput: string): Promise<number> => {
-  let indexSum = 0;
   const packetPairArray = await convertMultiParagraphFileToArray(
     challengeInput,
   ) as string[][];
@@ -11,15 +11,11 @@ const solvePart2 = async (challengeInput: string): Promise<number> => {
   packetArray.push("[[6]]");
   packetArray.sort(comparePacketsPart2);
 
-  packetPairArray.forEach((packetPair, index) => {
-    const leftPacket = JSON.parse(packetPair[0]);
-    const rightPacket = JSON.parse(packetPair[1]);
-    if (comparePackets(leftPacket, rightPacket) === "right order") {
-      indexSum += index + 1;
-    }
-  });
+  const indexA = packetArray.findIndex((packet) => packet === "[[2]]");
+  const indexB = packetArray.findIndex((packet) => packet === "[[6]]");
+  const indexProduct = (indexA + 1) * (indexB + 1);
 
-  return indexSum;
+  return indexProduct;
 };
 
 export { solvePart2 };
