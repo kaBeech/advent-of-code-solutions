@@ -1,7 +1,15 @@
+import { Packet } from "./types.ts";
+
 export const comparePacketsPart2 = (
-  leftPacket: number | Array<any>,
-  rightPacket: number | Array<any>,
+  leftPacket: string | Packet,
+  rightPacket: string | Packet,
 ): number => {
+  if (typeof leftPacket === "string") {
+    leftPacket = JSON.parse(leftPacket as string) as Packet;
+  }
+  if (typeof rightPacket === "string") {
+    rightPacket = JSON.parse(rightPacket as string) as Packet;
+  }
   // Both packets are numbers
   if (typeof leftPacket === "number" && typeof rightPacket === "number") {
     if (leftPacket < rightPacket) {
@@ -15,8 +23,8 @@ export const comparePacketsPart2 = (
   if (Array.isArray(leftPacket) && Array.isArray(rightPacket)) {
     while (leftPacket.length > 0 && rightPacket.length > 0) {
       const result = comparePacketsPart2(
-        leftPacket.shift(),
-        rightPacket.shift(),
+        leftPacket.shift()!,
+        rightPacket.shift()!,
       );
       switch (result) {
         case -1:
