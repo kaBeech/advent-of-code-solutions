@@ -1,5 +1,5 @@
-const solvePart2 = async (challengeInput: string): Promise<string> => {
-  return challengeInput;
+const solvePart2 = async (challengeInput: string): Promise<number> => {
+  return 2;
 };
 
 export { solvePart2 };

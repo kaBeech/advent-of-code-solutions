@@ -16,8 +16,7 @@ const app = (async (
   const testSolutionPart2 = await solvePart2(testInputFilePath);
 
   const solutionPart1 = await solvePart1(challengeInputFilePath);
-  // const solutionPart2 = await solvePart2(challengeInputFilePath);
-  const solutionPart2 = 2;
+  const solutionPart2 = await solvePart2(challengeInputFilePath);
 
   console.log(
     `Part 1: Determine which pairs of packets are already in the right order. What is the sum of the indices of those pairs?
@@ -25,7 +24,7 @@ const app = (async (
     Solution: ${solutionPart1}`,
   );
   console.log(
-    `Part 2: What is the answer to Part 2?
+    `Part 2: Organize all of the packets into the correct order. What is the decoder key for the distress signal??
   Test Solution: ${testSolutionPart2}
   Solution: ${solutionPart2}`,
   );
