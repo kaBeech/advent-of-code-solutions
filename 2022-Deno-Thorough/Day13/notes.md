@@ -28,7 +28,7 @@ const comparePackets = (X: number | Array, Y: number | Array) => {
    }
 
 2. if (typeof X === Array && typeof Y === Array) {
-   while (X.length > 0 && Y.lengh > 0) {
+   while (X.length > 0 && Y.length > 0) {
    const result = comparePackets(X.shift(), Y.shift())
    switch result {
    case "right order":
@@ -52,4 +52,4 @@ const comparePackets = (X: number | Array, Y: number | Array) => {
 
 4. if (typeof Y === number) {
    return comparePackets(X, [Y])
-   } else throw new Error with Message: `Packets ${X} amd ${Y} are not comparable`
+   } else throw new Error with Message: `Packets ${X} and ${Y} are not comparable`
