@@ -12,7 +12,7 @@ const solvePart1 = async (challengeInput: string): Promise<number> => {
     const leftPacket = JSON.parse(packetPair[0]);
     const rightPacket = JSON.parse(packetPair[1]);
     if (comparePackets(leftPacket, rightPacket) === "right order") {
-      indexSum += index;
+      indexSum += index + 1;
     }
   });
 
