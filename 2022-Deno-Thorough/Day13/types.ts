@@ -21,10 +21,4 @@ interface ExampleType4 {
 
 type exampleTypeCombined = `${exampleType1} ${exampleType2}`;
 
-export type {
-  exampleType1,
-  exampleType2,
-  ExampleType3,
-  ExampleType4,
-  exampleTypeCombined,
-};
+export type { exampleType1, exampleType2, exampleTypeCombined };
