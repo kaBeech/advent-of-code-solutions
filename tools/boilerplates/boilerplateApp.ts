@@ -2,21 +2,21 @@ import { solvePart1 } from "./solvePart1.ts";
 import { solvePart2 } from "./solvePart2.ts";
 
 const app = (async (
-  challengeInputFile?: string,
-  testInputFile?: string,
+  challengeInputFilePath?: string,
+  testInputFilePath?: string,
 ): Promise<{ solutionPart1: string; solutionPart2: string }> => {
-  if (!challengeInputFile) {
-    challengeInputFile = "tests/challengeInput.txt";
+  if (!challengeInputFilePath) {
+    challengeInputFilePath = "tests/challengeInput.txt";
   }
-  if (!testInputFile) {
-    testInputFile = "tests/testInput.txt";
+  if (!testInputFilePath) {
+    testInputFilePath = "tests/testInput.txt";
   }
 
-  const testSolutionPart1 = await solvePart1(testInputFile);
-  const testSolutionPart2 = await solvePart2(testInputFile);
+  const testSolutionPart1 = await solvePart1(testInputFilePath);
+  const testSolutionPart2 = await solvePart2(testInputFilePath);
 
-  const solutionPart1 = await solvePart1(challengeInputFile);
-  const solutionPart2 = await solvePart2(challengeInputFile);
+  const solutionPart1 = await solvePart1(challengeInputFilePath);
+  const solutionPart2 = await solvePart2(challengeInputFilePath);
 
   console.log(`Part 1: What is the answer to Part 1?
     TestSolution: ${testSolutionPart1}
