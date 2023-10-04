@@ -7,7 +7,8 @@ const solvePart2 = async (challengeInput: string): Promise<number> => {
     challengeInput,
   ) as string[][];
   const packetArray = packetPairArray.flat();
-  console.log(packetArray);
+  packetArray.push("[[2]]");
+  packetArray.push("[[6]]");
 
   packetPairArray.forEach((packetPair, index) => {
     const leftPacket = JSON.parse(packetPair[0]);
