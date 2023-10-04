@@ -22,13 +22,13 @@ export const comparePackets = (
           return "wrong order";
         default:
       }
-      if (rightPacket.length > 0) {
-        return "right order";
-      } else if (leftPacket.length > 0) {
-        return "wrong order";
-      }
-      return "indeterminate order";
     }
+    if (rightPacket.length > 0) {
+      return "right order";
+    } else if (leftPacket.length > 0) {
+      return "wrong order";
+    }
+    return "indeterminate order";
   }
   // Left packet is a number, right packet is an array
   if (typeof leftPacket === "number") {
