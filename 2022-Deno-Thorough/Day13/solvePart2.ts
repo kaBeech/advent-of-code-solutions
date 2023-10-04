@@ -1,6 +1,5 @@
 import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { comparePacketsPart2 } from "./comparePacketsPart2.ts";
-import { Packet } from "./types.ts";
 
 const solvePart2 = async (challengeInput: string): Promise<number> => {
   const packetPairArray = await convertMultiParagraphFileToArray(
