@@ -20,6 +20,9 @@ Files labelled notes.md are for scratch note-taking and much of their
 content is not written with the intention of being readable for anyone besides
 myself
 
+- They do contain handy links to the Advent of Code pages for individual Days' challenges
+  though!
+
 ## app.ts
 
 Files labelled app.ts will usually be runnable and return that Day's solutions as well as log solution messages to the console. They can generally be run from inside that Day's
