@@ -8,4 +8,10 @@ https://xmas-frontend-test.vercel.app/game/public/32/day/1/
 
 ### Challenge Modifier
 
+"You must complete this challenge with the smallest application size you can"
+
+### Notes
+
+Since this is a test run for my XXC site, I'm not gonna be too hardcore about getting this app size super small. I'll do it in Deno and make an effort to keep things small. I'll also do it in JavaScript because I imagine that makes the application smaller than it would be in TypeScript
+
 ## Part 2
