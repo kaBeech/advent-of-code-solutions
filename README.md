@@ -34,6 +34,14 @@ I love Rust, but I don't have the same depth of experience with it that I do wit
 
 These challenges are completed with Rust!
 
+### 2017-XXC-Test-Run
+
+This group of challenges is a test run for my [Xtreme Xmas Code](https://www.xtremexmascode.com/) site
+
+I'm not going particularly fast or being particularly strict with the rules, it's more of a test to make sure everything works swimmingly ahead of the 2023 Advent Of Code
+
+They are real solutions though!
+
 ## Retrospectives
 
 Retrospectives contain reflections on that Day's work
