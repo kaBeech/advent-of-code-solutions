@@ -10,6 +10,10 @@ This year's set of solutions are a test run for my [Xtreme Xmas Code](https://gi
 
 I'll stick with Deno/TS by default and I don't plan on taking it too hardcore
 
+## Public Link
+
+[This game on Xtreme Xmas Code](https://www.xtremexmascode.com/game/public/32/)
+
 ## About.md
 
 Files labelled about.md contain links to that day on Xtreme Xmas Code and information about that day (which Challenge Modifiers were rolled, evidence of Challenge Modifier completion, any additional information, etc.)
