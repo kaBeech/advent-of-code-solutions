@@ -22,8 +22,12 @@ Let's goooooo!
 
 #### Tokens Spent
 
-2
+2 (Part 1)
 
 ### Tokens Earned
 
+2
+
 ### Notes
+
+To run this program, navigate into the Day3 directory, then run `deno`. Inside the Deno REPL, run `import {solvePart1} from "./solvePart1.js"` followed by `solvePart1(${yourChallengeInput})` for the solution to Part 1. For Part 2, replace `...Part1` with `...Part2`
