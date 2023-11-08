@@ -6,7 +6,7 @@ export const p1 = (() => {
     r === c ? s++ : (r = c);
   });
   a[0] === a[a.length - 1] && s++;
-  console.log(s);
+  // console.log(s);
   return {
     s,
   };
