@@ -43,14 +43,16 @@ export const walkFromCenter = (square: number) => {
       tangentSteps = Math.abs(((sideLength + 1) / 2) - (stepsTaken + 2));
       break;
     }
-    case "W":
+    case "W": {
       sideLength = stepsNeeded + 1;
       tangentSteps = Math.abs(((sideLength + 1) / 2) - (stepsTaken + 1));
       break;
-    case "S":
+    }
+    case "S": {
       sideLength = stepsNeeded + 1;
       tangentSteps = Math.abs(((sideLength + 1) / 2) - (stepsTaken + 1));
       break;
+    }
   }
   const solution = layer + tangentSteps;
   return { solution };
