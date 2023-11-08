@@ -3,10 +3,9 @@ export const p1 = (() => {
   let r;
   let s = 0;
   a.forEach((c) => {
-    r === c ? s++ : (r = c);
+    r === c ? (s += +c) : (r = c);
   });
-  a[0] === a[a.length - 1] && s++;
-  // console.log(s);
+  a[0] === a[a.length - 1] && (s += +a[0]);
   return {
     s,
   };
