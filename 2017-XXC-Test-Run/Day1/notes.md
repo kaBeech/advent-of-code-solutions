@@ -1,4 +1,4 @@
-# Start Day
+# Start Day 2
 
 https://adventofcode.com/2017/day/1
 

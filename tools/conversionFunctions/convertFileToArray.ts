@@ -8,13 +8,14 @@ const convertMultiLineFileToArray = async (
 
 const convertMultiLineFileToDoubleArray = async (
   input: string,
+  splitOn?: string,
 ): Promise<string[][]> => {
   const inputString = await Deno.readTextFile(input);
   const inputStringTrimmed = inputString.trimEnd();
   const inputStringArray = inputStringTrimmed.split(/\n/);
   const inputStringDoubleArray: string[][] = [];
   inputStringArray.forEach((line) => {
-    inputStringDoubleArray.push(line.split(""));
+    inputStringDoubleArray.push(line.split(splitOn || ""));
   });
   return inputStringDoubleArray;
 };
