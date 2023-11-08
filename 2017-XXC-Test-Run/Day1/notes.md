@@ -15,5 +15,3 @@ Variables: `Array`, `Reference`, `Compare`, `SumCaptcha`
    - Else if `Reference` and `Compare` are equal, add 1 to `SumCaptcha`.
    - Else if `Reference` and `Compare` are not equal, just go to the next Step.
 3. Move the digit in `Compare` into `Reference` and go to Step 1.
-
-Actually... I could probably just do this as a regex. I'll check that out later
