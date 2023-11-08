@@ -6,4 +6,4 @@ https://adventofcode.com/2017/day/3
 
 ### Part 1
 
-1. Step 1
+See pseudocode.ts
