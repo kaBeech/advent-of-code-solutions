@@ -10,9 +10,15 @@ You must complete this challenge using as small of functions (in separate module
 
 ### Rerolls
 
+0
+
 #### Tokens Spent
 
+0
+
 ### Tokens Earned
+
+2
 
 ### Notes
 
