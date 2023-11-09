@@ -12,7 +12,7 @@ I'll stick with Deno/TS by default and I don't plan on taking it too hardcore
 
 ## Public Link
 
-[This game on Xtreme Xmas Code](https://www.xtremexmascode.com/game/public/32/)
+[This game on Xtreme Xmas Code](https://www.xtremexmascode.com/game/public/1/)
 
 ## About.md
 
