@@ -2,7 +2,7 @@
 
 ## Xtreme Xmas Code Link
 
-https://www.xtremexmascode.com/game/public/32/day/3/
+https://www.xtremexmascode.com/game/public/1/day/3/
 
 ### Challenge Modifier
 
