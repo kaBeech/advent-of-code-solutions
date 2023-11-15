@@ -1,3 +1,5 @@
+import scala.io.Source
+
 @main def solvePart2: Unit =
   println(
     "Part 2: " + jumpUntilOutOfBounds(
@@ -7,7 +9,8 @@
     )
   )
 
-def maze = List(0, 3, 0, 1, -3)
+def maze =
+  Source.fromFile("../../challengeInput.txt").getLines.map(_.toInt).toList
 
 def currentIndex = 0
 
