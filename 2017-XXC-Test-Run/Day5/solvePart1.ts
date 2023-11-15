@@ -1,18 +1,12 @@
-import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { jumpUntilOutOfBounds } from "./jumpUntilOutOfBounds.ts";
+import { parseInput } from "./parseInput.ts";
 import type { Maze } from "./types.ts";
 
 export const solvePart1 = (async (): Promise<number> => {
-  const maze: Maze = [];
-  const mazeString: string[] = await convertMultiLineFileToArray(
-    "./challengeInput.txt",
-  );
-  mazeString.forEach((jumpInstruction) => {
-    maze.push(parseInt(jumpInstruction));
-  });
-
+  const maze: Maze = await parseInput();
   const currentIndex = 0;
   let numberOfStepsTaken = 0;
+
   numberOfStepsTaken = jumpUntilOutOfBounds(
     maze,
     currentIndex,
