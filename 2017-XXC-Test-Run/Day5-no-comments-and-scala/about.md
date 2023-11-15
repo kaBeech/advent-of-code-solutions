@@ -16,8 +16,22 @@ Sweet! I've got a meeting to go to, but after that I'm learning some Scala!
 
 ### Rerolls
 
+Part 1: 0
+
+Part 2: 1
+
 #### Tokens Spent
+
+Part 1: 0
+
+Part 2: 2
 
 ### Tokens Earned
 
+2
+
 ### Notes
+
+To run Part 1, use `deno run --allow-read solvePart1.ts` from within the Part1-no-comments directory
+
+To run Part 2, install Scala, then use `sbt` from within the Part2-scala directory. Inside sbt, enter `~run`
