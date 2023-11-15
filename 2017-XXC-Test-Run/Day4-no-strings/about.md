@@ -22,4 +22,4 @@ https://www.xtremexmascode.com/game/public/1/day/4/
 
 ### Notes
 
-None
+To run, use `deno run --allow-read solvePart1.ts` (substitute solvePart2 for Part 2)
