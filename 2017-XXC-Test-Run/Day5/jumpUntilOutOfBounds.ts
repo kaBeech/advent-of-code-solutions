@@ -5,13 +5,11 @@ export const jumpUntilOutOfBounds = (
   currentIndex: number,
   numberOfStepsTaken: number,
 ): number => {
-  if (currentIndex < 0 || currentIndex >= maze.length) {
-    return numberOfStepsTaken;
-  } else {
+  while (currentIndex >= 0 && currentIndex < maze.length) {
     const currentJumpInstruction = maze[currentIndex];
     maze[currentIndex]++;
     currentIndex += currentJumpInstruction;
     numberOfStepsTaken++;
-    return jumpUntilOutOfBounds(maze, currentIndex, numberOfStepsTaken);
   }
+  return numberOfStepsTaken;
 };
