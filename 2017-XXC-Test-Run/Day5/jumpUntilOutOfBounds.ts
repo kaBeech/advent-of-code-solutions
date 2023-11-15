@@ -8,9 +8,9 @@ export const jumpUntilOutOfBounds = (
   if (currentIndex < 0 || currentIndex >= maze.length) {
     return numberOfStepsTaken;
   } else {
-    const jumpInstruction = maze[currentIndex];
+    const currentJumpInstruction = maze[currentIndex];
     maze[currentIndex]++;
-    currentIndex += jumpInstruction - 1;
+    currentIndex += currentJumpInstruction;
     numberOfStepsTaken++;
     return jumpUntilOutOfBounds(maze, currentIndex, numberOfStepsTaken);
   }
