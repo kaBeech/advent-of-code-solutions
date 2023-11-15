@@ -16,9 +16,19 @@ Sweet! I've got a meeting to go to, but after that I'm learning some Scala!
 
 ### Rerolls
 
+Part 1: 0
+
+Part 2: 1
+
 #### Tokens Spent
 
+Part 1: 0
+
+Part 2: 2
+
 ### Tokens Earned
+
+2
 
 ### Notes
 
