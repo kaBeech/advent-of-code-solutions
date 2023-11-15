@@ -10,7 +10,7 @@ import scala.io.Source
   )
 
 def maze =
-  Source.fromFile("../../challengeInput.txt").getLines.map(_.toInt).toList
+  List(0, 3, 0, 1, -3)
 
 def currentIndex = 0
 
@@ -22,6 +22,13 @@ def jumpUntilOutOfBounds(
     numberOfStepsTaken: Int
 ): Int =
   if (currentIndex >= maze.length || currentIndex < 0) numberOfStepsTaken
+  else if (maze(currentIndex) >= 3)
+    val newIndex = currentIndex + maze(currentIndex)
+    jumpUntilOutOfBounds(
+      newIndex,
+      maze.updated(currentIndex, maze(currentIndex) - 1),
+      numberOfStepsTaken + 1
+    )
   else
     val newIndex = currentIndex + maze(currentIndex)
     jumpUntilOutOfBounds(
