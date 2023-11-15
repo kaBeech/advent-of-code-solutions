@@ -10,7 +10,7 @@ import scala.io.Source
   )
 
 def maze =
-  List(0, 3, 0, 1, -3)
+  Source.fromFile("../../challengeInput.txt").getLines.map(_.toInt).toList
 
 def currentIndex = 0
 
