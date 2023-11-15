@@ -4,8 +4,6 @@ https://adventofcode.com/2017/day/4
 
 ## Pseudocode
 
-"You must complete this challenge using no strings"
-
 ### Part 1
 
 Variables: `Passphrase`, `Sequence`, `Compare`, `ValidPassphraseCounter`
