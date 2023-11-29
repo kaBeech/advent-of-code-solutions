@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "solve-part-1": "deno run --allow-read solvePart1.ts",
+    "solve-part-2": "deno run --allow-read solvePart2.ts"
+  }
+}
