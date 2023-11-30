@@ -2,13 +2,23 @@
 
 Repository for my work on the [Advent Of Code challenges](https://adventofcode.com/)
 
-If you're interested, [I'm also building a mod to add a bonus layer of randomized challenge to these puzzles](https://github.com/kaBeech/xtreme-xmas-code)
+If you're interested, [I also built a mod to add a bonus layer of randomized challenge to these puzzles](https://www.xtremexmascode.com/modifier/11/option/203/)
 
 ## Individual Years
 
 This started as a repo for my work on the 2022 challenges, but has since been updated to include earlier changes
 
 Note that the years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
+
+### 2023-Xtreme-Xmas-Code-Maiden-Voyage
+
+This year I'm using my [Xtreme Xmas Code](https://www.xtremexmascode.com/) mod for the first (official) time!
+
+Every day, Xtreme Xmas Code will [roll me a challenge modifier](https://www.xtremexmascode.com/about) to add an extra layer of unpredictable fun!
+
+I expect to code in languages I've never used before, to practice strictly following specific principles, maybe even to write a program without using the letter 'c'
+
+I'll also be posting my progress each day on [LinkedIn](https://www.linkedin.com/in/kyle-beechly/)
 
 ### 2022-Thorough
 
