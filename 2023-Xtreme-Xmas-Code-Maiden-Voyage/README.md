@@ -33,4 +33,4 @@ myself
 
 ## Running the application
 
-Files named solvePart1.ts and solvePart2.ts will usually be executable and return that Day's solutions as well as log solution messages to the console. They can generally be run from inside that Day's directory by running `deno task solve-part-1` and `deno task solve-part-2` in the terminal. However, this is all subject to the Day's rolled Challenge Modifiers
+Files named solvePart1.ts and solvePart2.ts will usually be executable and return that Day's solutions as well as log solution messages to the console. They can generally be run from inside that Day's directory by running `deno run --allow-read solvePart1.ts ` and `deno run --allow-read solvePart2.ts ` in the terminal. However, this is all subject to the Day's rolled Challenge Modifiers
