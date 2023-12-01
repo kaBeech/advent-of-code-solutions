@@ -12,321 +12,80 @@ begin
 end;
 
 type
-DigitString = (zero, one, two, three, four, five, six, seven, eight, nine);
+DigitStringArray = array[0..9] of string;
 
 var
 configurationDocument: Text;
 selectedConfigurationLine: string;
-input: string;
-reversedInput: string;
+reversedConfigurationLine: string;
+currentIndex: Integer;
 selectedPosition: Integer;
-lowestPosition: Integer = 9999;
+selectedNumericPosition: Integer;
+tensDigitLowestPosition: Integer;
+onesDigitLowestPosition: Integer;
 tensDigit: Integer;
 onesDigit: Integer;
 configurationValue: Integer;
 configurationValueSum: Longint = 0;
-calibrationValueString: string;
+
+const
+digitStrings: DigitStringArray = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine');
+reversedDigitStrings: DigitStringArray = ('orez', 'eno', 'owt', 'eerht', 'ruof', 'evif', 'xis', 'neves', 'thgie', 'enin');
+numericDigitStrings: DigitStringArray = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 
 begin
-
-  assign(configurationDocument, 'challengeInput.dat');
+  assign(configurationDocument, '../challengeInput.txt');
   reset(configurationDocument);
+
   while not eof(configurationDocument) do
+
   begin
     ReadLn(configurationDocument, selectedConfigurationLine);
-    lowestPosition := 9999;
 
-    // writeln('Please enter your input: ');
-    // readln(input);
+    begin
+      currentIndex := 0;
+        tensDigitLowestPosition := 9999;
+        onesDigitLowestPosition := 9999;
 
-    writeln(selectedConfigurationLine);
+      while currentIndex <= 9 do
+        begin
 
-    selectedPosition := pos('zero',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 0;
-     end;
+          selectedPosition := pos(digitStrings[currentIndex],selectedConfigurationLine);
+          selectedNumericPosition := pos(numericDigitStrings[currentIndex],selectedConfigurationLine);
+          
+          if (selectedNumericPosition < selectedPosition) and (selectedNumericPosition > 0) or (selectedPosition = 0) then
+            selectedPosition := selectedNumericPosition;
+          
+          if (selectedPosition < tensDigitLowestPosition) and (selectedPosition > 0) then
+          
+            begin
+              tensDigit := currentIndex * 10;
+              tensDigitLowestPosition := selectedPosition;
+            end;          
 
-    selectedPosition := pos('0',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 0;
-     end;
+          reversedConfigurationLine := reverseString(selectedConfigurationLine);
 
-    selectedPosition := pos('one',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 10;
-     end;
-
-    selectedPosition := pos('1',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 10;
-     end;
-
-    selectedPosition := pos('two',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 20;
-     end;
-
-    selectedPosition := pos('2',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 20;
-     end;
-
-    selectedPosition := pos('three',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 30;
-     end;
-
-    selectedPosition := pos('3',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 30;
-     end;
-
-    selectedPosition := pos('four',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 40;
-     end;
-
-    selectedPosition := pos('4',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 40;
-     end;
-
-    selectedPosition := pos('five',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 50;
-     end;
-
-    selectedPosition := pos('5',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 50;
-     end;
-
-    selectedPosition := pos('six',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 60;
-     end;
-
-    selectedPosition := pos('6',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 60;
-     end;
-
-    selectedPosition := pos('seven',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-      tensDigit := 70;
-     end;
-
-    selectedPosition := pos('7',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-     tensDigit := 70;
-     end;
-
-    selectedPosition := pos('eight',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-     tensDigit := 80;
-     end;
-
-    selectedPosition := pos('8',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-     tensDigit := 80;
-     end;
-
-    selectedPosition := pos('nine',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-     tensDigit := 90;
-     end;
-
-    selectedPosition := pos('9',selectedConfigurationLine);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-     begin
-      lowestPosition := selectedPosition;
-     tensDigit := 90;
-     end;
-
-    reversedInput := reverseString(selectedConfigurationLine);
-    lowestPosition := 9999;
-
-    selectedPosition := pos('orez',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 0;
-      end;
-
-    selectedPosition := pos('0',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 0;
-      end;
-
-    selectedPosition := pos('eno',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 1;
-      end;
-
-    selectedPosition := pos('1',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 1;
-      end;
-
-    selectedPosition := pos('owt',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 2;
-      end;
-
-    selectedPosition := pos('2',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 2;
-      end;
-
-    selectedPosition := pos('eerht',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 3;
-      end;
-
-    selectedPosition := pos('3',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 3;
-      end;
-
-    selectedPosition := pos('ruof',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 4;
-      end;
-
-    selectedPosition := pos('4',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 4;
-      end;
-
-    selectedPosition := pos('evif',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 5;
-      end;
-
-    selectedPosition := pos('5',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-        onesDigit := 5;
-      end;
-
-    selectedPosition := pos('xis',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 6;
-      end;
-
-    selectedPosition := pos('6',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 6;
-      end;
-
-    selectedPosition := pos('neves',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 7;
-      end;
-
-    selectedPosition := pos('7',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 7;
-      end;
-
-    selectedPosition := pos('thgie',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 8;
-      end;
-
-    selectedPosition := pos('8',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 8;
-      end;
-
-    selectedPosition := pos('enin',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 9;
-      end;
-
-    selectedPosition := pos('9',reversedInput);
-    if (selectedPosition < lowestPosition) and (selectedPosition > 0) then
-      begin
-        lowestPosition := selectedPosition;
-      onesDigit := 9;
-      end;
+          selectedPosition := pos(reversedDigitStrings[currentIndex],reversedConfigurationLine);
+          selectedNumericPosition := pos(numericDigitStrings[currentIndex],reversedConfigurationLine);
+          
+          if (selectedNumericPosition < selectedPosition) and (selectedNumericPosition > 0) or (selectedPosition = 0) then
+            selectedPosition := selectedNumericPosition;
+          
+          if (selectedPosition < onesDigitLowestPosition) and (selectedPosition > 0) then
+          
+            begin
+              onesDigitLowestPosition := selectedPosition;
+              onesDigit := currentIndex;
+            end;
+          
+          currentIndex := currentIndex + 1;
+          
+        end;
+    end;
 
     configurationValue := tensDigit + onesDigit;
     configurationValueSum := configurationValueSum + configurationValue;
-    writeln(configurationValueSum);
+
   end;
    writeln(configurationValueSum);
    readkey;
