@@ -10,9 +10,11 @@ Part 1: "Your challenge is to write a program to complete today's puzzle while m
 
 Easy!
 
-Part 2: ""
+Let's reroll for Part 2!
 
-This is where we put notes for Part 2's Challenge Modifier!
+Part 2: "Your challenge is to write a program to complete today's puzzle using a random selection from the Legacy Programming Box: Pascal"
+
+Ooh cool!
 
 ### Points Earned
 

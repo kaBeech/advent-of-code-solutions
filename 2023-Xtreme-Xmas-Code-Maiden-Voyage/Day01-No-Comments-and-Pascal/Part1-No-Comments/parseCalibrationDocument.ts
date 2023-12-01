@@ -1,4 +1,4 @@
-import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { convertMultiLineFileToArray } from "../../../tools/conversionFunctions/convertFileToArray.ts";
 import { CalibrationDocument } from "./types.ts";
 
 export const parseCalibrationDocument = async (): Promise<
@@ -6,7 +6,7 @@ export const parseCalibrationDocument = async (): Promise<
 > => {
   const calibrationDocument: CalibrationDocument =
     await convertMultiLineFileToArray(
-      "./challengeInput.txt",
+      "../challengeInput.txt",
     );
 
   return calibrationDocument;
