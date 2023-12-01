@@ -18,24 +18,26 @@ Ooh cool!
 
 ### Points Earned
 
-X
+40
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 1
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 2
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+To run Part 1, enter `deno run --allow-read solvePart1.ts` from within the Part1-No-Comments directory
+
+To run Part 2, enter `./solvePart2` from within the Part2-Pascal directory
