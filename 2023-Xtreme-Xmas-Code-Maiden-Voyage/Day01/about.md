@@ -6,9 +6,9 @@ https://www.xtremexmascode.com/game/public/13/day/1/
 
 ### Challenge Modifier
 
-Part 1: ""
+Part 1: "Your challenge is to write a program to complete today's puzzle while making your code as clear as possible, but using no comments"
 
-This is where we put notes for Part 1's Challenge Modifier!
+Easy!
 
 Part 2: ""
 
