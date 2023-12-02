@@ -6,7 +6,9 @@ https://www.xtremexmascode.com/game/public/13/day/2/
 
 ### Challenge Modifier
 
-Part 1: ""
+Part 1: "Your challenge is to write a program to complete today's puzzle using a random selection from the C-Like Languages Box: Carbon"
+
+Aww yeah!!! I've been hoping to roll this one! I know very little about Carbon, but it's new and making waves and I'm excited to give it a go!
 
 Part 2: ""
 
