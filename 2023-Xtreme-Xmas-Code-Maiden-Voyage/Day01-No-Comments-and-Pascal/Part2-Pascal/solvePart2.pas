@@ -15,9 +15,9 @@ type
 DigitStringArray = array[0..9] of string;
 
 var
-configurationDocument: Text;
-selectedConfigurationLine: string;
-reversedConfigurationLine: string;
+calibrationDocument: Text;
+selectedCalibrationLine: string;
+reversedCalibrationLine: string;
 currentIndex: Integer;
 selectedPosition: Integer;
 selectedNumericPosition: Integer;
@@ -25,8 +25,8 @@ tensDigitLowestPosition: Integer;
 onesDigitLowestPosition: Integer;
 tensDigit: Integer;
 onesDigit: Integer;
-configurationValue: Integer;
-configurationValueSum: Longint = 0;
+calibrationValue: Integer;
+calibrationValueSum: Longint = 0;
 
 const
 digitStrings: DigitStringArray = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine');
@@ -34,13 +34,13 @@ reversedDigitStrings: DigitStringArray = ('orez', 'eno', 'owt', 'eerht', 'ruof',
 numericDigitStrings: DigitStringArray = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 
 begin
-  assign(configurationDocument, '../challengeInput.txt');
-  reset(configurationDocument);
+  assign(calibrationDocument, '../challengeInput.txt');
+  reset(calibrationDocument);
 
-  while not eof(configurationDocument) do
+  while not eof(calibrationDocument) do
 
   begin
-    ReadLn(configurationDocument, selectedConfigurationLine);
+    ReadLn(calibrationDocument, selectedCalibrationLine);
 
     begin
       currentIndex := 0;
@@ -50,8 +50,8 @@ begin
       while currentIndex <= 9 do
         begin
 
-          selectedPosition := pos(digitStrings[currentIndex],selectedConfigurationLine);
-          selectedNumericPosition := pos(numericDigitStrings[currentIndex],selectedConfigurationLine);
+          selectedPosition := pos(digitStrings[currentIndex],selectedCalibrationLine);
+          selectedNumericPosition := pos(numericDigitStrings[currentIndex],selectedCalibrationLine);
           
           if (selectedNumericPosition < selectedPosition) and (selectedNumericPosition > 0) or (selectedPosition = 0) then
             selectedPosition := selectedNumericPosition;
@@ -63,10 +63,10 @@ begin
               tensDigitLowestPosition := selectedPosition;
             end;          
 
-          reversedConfigurationLine := reverseString(selectedConfigurationLine);
+          reversedCalibrationLine := reverseString(selectedCalibrationLine);
 
-          selectedPosition := pos(reversedDigitStrings[currentIndex],reversedConfigurationLine);
-          selectedNumericPosition := pos(numericDigitStrings[currentIndex],reversedConfigurationLine);
+          selectedPosition := pos(reversedDigitStrings[currentIndex],reversedCalibrationLine);
+          selectedNumericPosition := pos(numericDigitStrings[currentIndex],reversedCalibrationLine);
           
           if (selectedNumericPosition < selectedPosition) and (selectedNumericPosition > 0) or (selectedPosition = 0) then
             selectedPosition := selectedNumericPosition;
@@ -83,10 +83,10 @@ begin
         end;
     end;
 
-    configurationValue := tensDigit + onesDigit;
-    configurationValueSum := configurationValueSum + configurationValue;
+    calibrationValue := tensDigit + onesDigit;
+    calibrationValueSum := calibrationValueSum + calibrationValue;
 
   end;
-   writeln(configurationValueSum);
+   writeln(calibrationValueSum);
    readkey;
 end. 
