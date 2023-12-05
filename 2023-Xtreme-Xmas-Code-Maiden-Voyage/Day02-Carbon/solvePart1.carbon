@@ -9,6 +9,7 @@ class Game {
   var isPossible: bool;
   var colonFound: bool;
   var isParsed: bool;
+  var addedToSum: bool;
 }
 
 class PossibilityResult {
@@ -99,11 +100,11 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
 
 fn Main() -> i32 {
   let gameStringLength: i32 = 200;
-  // Hardcode gameStringLength into rawGames declation because I'm having  
+  // Hardcode gameStringLength and numberOfGames into rawGames declation because I'm having  
   // difficulty getting Carbon to recognize the integer
+  let numberOfGames: i32 = 5;
   let rawGames: [[String; 200]; 5] = (("G", "a", "m", "e", " ", "1", ":", " ", "3", " ", "b", "l", "u", "e", ",", " ", "4", " ", "r", "e", "d", ";", " ", "1", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", ",", " ", "6", " ", "b", "l", "u", "e", ";", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "2", ":", " ", "1", " ", "b", "l", "u", "e", ",", " ", "2", " ", "g", "r", "e", "e", "n", ";", " ", "3", " ", "g", "r", "e", "e", "n", ",", " ", "4", " ", "b", "l", "u", "e", ",", " ", "1", " ", "r", "e", "d", ";", " ", "1", " ", "g", "r", "e", "e", "n", ",", " ", "1", " ", "b", "l", "u", "e", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "3", ":", " ", "8", " ", "g", "r", "e", "e", "n", ",", " ", "6", " ", "b", "l", "u", "e", ",", " ", "2", "0", " ", "r", "e", "d", ";", " ", "5", " ", "b", "l", "u", "e", ",", " ", "4", " ", "r", "e", "d", ",", " ", "1", "3", " ", "g", "r", "e", "e", "n", ";", " ", "5", " ", "g", "r", "e", "e", "n", ",", " ", "1", " ", "r", "e", "d", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "4", ":", " ", "1", " ", "g", "r", "e", "e", "n", ",", " ", "3", " ", "r", "e", "d", ",", " ", "6", " ", "b", "l", "u", "e", ";", " ", "3", " ", "g", "r", "e", "e", "n", ",", " ", "6", " ", "r", "e", "d", ";", " ", "3", " ", "g", "r", "e", "e", "n", ",", " ", "1", "5", " ", "b", "l", "u", "e", ",", " ", "1", "4", " ", "r", "e", "d", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "5", ":", " ", "6", " ", "r", "e", "d", ",", " ", "1", " ", "b", "l", "u", "e", ",", " ", "3", " ", "g", "r", "e", "e", "n", ";", " ", "2", " ", "b", "l", "u", "e", ",", " ", "1", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"));
   var currentGameIndex: i32 = 0;
-  let numberOfGames: i32 = 2;
   var possibleGamesSum: i32 = 0;
 
   while (currentGameIndex < numberOfGames) {
@@ -114,19 +115,27 @@ fn Main() -> i32 {
       .isPossible = true,
       .colonFound = false,
       .isParsed = false,
+      .addedToSum = false,
       };
 
       while (game.currentGameCharIndex < gameStringLength) {
+        if (game.isParsed == false) {
+          game.isParsed = CheckForEndOfLine(game);
+        } else if (game.addedToSum == false) {
+          if (game.isPossible) {
+            possibleGamesSum = possibleGamesSum + game.number;
+            game.addedToSum = true;
+          } 
+        }
+        
         if (game.colonFound == false) {
           game.colonFound = FindColon(game);
-        // } else if (game.isParsed == false) {
-        //   game.isParsed = CheckForEndOfLine(game);
         } else if (game.isPossible) {
           let possibilityResult: PossibilityResult = CheckCurrentGameCharForGamePossibility(game);
           game.isPossible = possibilityResult.isPossible;
           game.currentGameCharIndex = possibilityResult.newCurrentGameCharIndex;
         } else {
-          possibleGamesSum = possibleGamesSum + game.number;
+        // If game is not possible, skip to end of line
           game.currentGameCharIndex = 199;
         }
 
@@ -137,5 +146,5 @@ fn Main() -> i32 {
   }
 
   Print("Sum of all possible games: {0}", possibleGamesSum);
-  return 0;
+  return possibleGamesSum;
 }
