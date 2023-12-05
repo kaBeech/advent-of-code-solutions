@@ -1,13 +1,16 @@
 import { parseInput } from "./parseInput.ts";
-import selectElfNumber42 from "./selectElfNumber42.ts";
-import { Elf, ElfMap } from "./types.ts";
+import { TileMap } from "./types.ts";
 
-export const solvePart1 = (async (): Promise<Elf> => {
-  const elfMap: ElfMap = await parseInput();
+export const solvePart1 = (async (): Promise<number> => {
+  const tileMap: TileMap = await parseInput();
 
-  const elfNumber42 = selectElfNumber42(
-    elfMap,
-  );
+  tileMap.forEach((tileRow) => {
+    tileRow.forEach((tile) => {
+      if (tile.value !== ("X" || ".")) {
+        tile.addedToSum = false;
+      }
+    });
+  });
 
   console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
 
