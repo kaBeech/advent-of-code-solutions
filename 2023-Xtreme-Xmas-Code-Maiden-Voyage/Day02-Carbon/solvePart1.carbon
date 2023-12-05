@@ -8,6 +8,7 @@ class Game {
   var currentGameCharIndex: i32;
   var isPossible: bool;
   var colonFound: bool;
+  var isParsed: bool;
 }
 
 class ParsedNumber {
@@ -25,7 +26,17 @@ fn FindColon(game: Game) -> bool {
   return colonFound;
 }
 
-fn ParseNumberInGameChars(game: Game) -> ParsedNumber {
+fn CheckForEndOfLine(game: Game) -> bool {
+  var isParsed: bool = false;
+
+  if (game.gameChars[game.currentGameCharIndex] == "X") {
+    isParsed = true;
+  }
+
+  return isParsed;
+}
+
+fn CheckCurrentGameCharForGamePossibility(game: Game) -> ParsedNumber {
    var parsedNumber: ParsedNumber = {
     .value = 0,
     .newCurrentGameCharIndex = game.currentGameCharIndex,
@@ -60,13 +71,16 @@ fn Main() -> i32 {
       .currentGameCharIndex = 0,
       .isPossible = true,
       .colonFound = false,
+      .isParsed = false,
       };
 
       while (game.currentGameCharIndex < gameStringLength) {
         if (game.colonFound == false) {
           game.colonFound = FindColon(game);
+        } else if (game.isParsed == false) {
+          game.isParsed = CheckForEndOfLine(game);
         } else if (game.isPossible) {
-            Print(game.gameChars[game.currentGameCharIndex]);
+          game.isPossible = CheckCurrentGameCharForGamePossibility(game)
         }
         game.currentGameCharIndex = game.currentGameCharIndex + 1;
 
