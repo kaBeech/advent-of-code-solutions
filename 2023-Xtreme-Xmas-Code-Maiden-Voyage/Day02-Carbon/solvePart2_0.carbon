@@ -6,7 +6,6 @@ class Game {
   // difficulty getting Carbon to recognize the integer 
   var gameChars: [String; 160];
   var currentGameCharIndex: i32;
-  var isPossible: bool;
   var colonFound: bool;
   var isParsed: bool;
   var addedToSum: bool;
@@ -198,7 +197,6 @@ fn Main() -> i32 {
       .number = currentGameIndex + 1,
       .gameChars = rawGames[currentGameIndex],
       .currentGameCharIndex = 0,
-      .isPossible = true,
       .colonFound = false,
       .isParsed = false,
       .addedToSum = false,
@@ -209,15 +207,6 @@ fn Main() -> i32 {
       };
 
       while (game.currentGameCharIndex < gameStringLength) {
-        if (game.isParsed == false) {
-          game.isParsed = CheckForEndOfLine(game);
-        } else if (game.addedToSum == false) {
-          if (game.isPossible) {
-            possibleGamesSum = possibleGamesSum + game.number;
-            game.addedToSum = true;
-          } 
-        }
-        
         if (game.colonFound == false) {
           game.colonFound = FindColon(game);
         } else if (game.isParsed == false) {
@@ -239,6 +228,6 @@ fn Main() -> i32 {
     currentGameIndex = currentGameIndex + 1;
   }
 
-  Print("Sum of all possible games: {0}", possibleGamesSum);
-  return possibleGamesSum;
+  Print("Sum of all cube set powers: {0}", cubeSetPowerSum);
+  return cubeSetPowerSum;
 }
