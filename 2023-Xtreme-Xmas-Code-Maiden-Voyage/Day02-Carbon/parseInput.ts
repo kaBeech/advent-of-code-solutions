@@ -31,6 +31,16 @@ export const parseInput = (async (): Promise<string> => {
     console.log(result);
     Deno.writeTextFile(`./parsedInputs/parsedInput${index}.txt`, result);
   });
+  const testInput: string = await Deno.readTextFile("./testInput.txt");
+  const testInputArrayRaw: string[] = testInput.split("\n");
+  result = `(`;
+  testInputArrayRaw.forEach((line) => {
+    result += `${parseLine(line)}, `;
+  });
+  result = result.slice(0, -2);
+  result += `)`;
+  console.log(result);
+  Deno.writeTextFile(`./parsedInputs/parsedTestInput.txt`, result);
   return result;
 })();
 
