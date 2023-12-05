@@ -1,5 +1,21 @@
 package ExplorerTest api;
 
+fn SetGameNumber(game: [String; 200]) -> i32 {
+  var gameNumber: i32 = 0;
+  match (game[6]) {
+          case "1" => {
+            gameNumber = 1;
+          }
+          case "2" => {
+            gameNumber = 2;
+          }
+          default => {
+            gameNumber = 0;
+          }
+        }
+  return gameNumber;
+}
+
 fn Main() -> i32 {
   let gameStringLength: i32 = 200;
   // Hardcode gameStringLength into games declation because I'm having  
@@ -16,20 +32,9 @@ fn Main() -> i32 {
     
     while (currentGameCharIndex < gameStringLength) {
 
-      // while (gameNumber < 1) {
-      //   match (games[currentGameIndex][currentGameCharIndex]) {
-      //     case "1" => {
-      //       // return;
-      //     }
-      //     case "2" => {
-      //       // return;
-      //     }
-      //     default => {
-      //       // return;
-      //     }
-      //   }
-      //   currentGameCharIndex = currentGameCharIndex + 1;
-      // }
+      if (gameNumber < 1) {
+        gameNumber = SetGameNumber(games[currentGameIndex]);
+      }
 
       if (games[currentGameIndex][currentGameCharIndex] == "r") {
            Print(games[currentGameIndex][currentGameCharIndex]);
