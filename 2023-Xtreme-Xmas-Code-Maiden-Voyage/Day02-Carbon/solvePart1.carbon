@@ -41,7 +41,6 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
     .isPossible = game.isPossible,
     .newCurrentGameCharIndex = game.currentGameCharIndex,
   };
-
   match (game.gameChars[game.currentGameCharIndex]) {
     case "1" => {
       match (game.gameChars[game.currentGameCharIndex + 1]) {
@@ -49,7 +48,6 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
         case "3" => {
           if (game.gameChars[game.currentGameCharIndex + 3] == "r") {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
           } else {
             possibilityResult.newCurrentGameCharIndex = game.currentGameCharIndex + 1;
           }
@@ -57,33 +55,26 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
         case "4" => {
           if (game.gameChars[game.currentGameCharIndex + 3] == "r") {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
           } else if (game.gameChars[game.currentGameCharIndex + 3] == "g") {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
           } else {
             possibilityResult.newCurrentGameCharIndex = game.currentGameCharIndex + 1;
           }
         }
         case "5" => {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
         }
         case "6" => {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
         }
         case "7" => {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
         }
         case "8" => {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
         }
         case "9" => {
             possibilityResult.isPossible = false;
-            possibilityResult.newCurrentGameCharIndex = 199;
         }
         default => {
           // Only do something if gameChar is an integer
@@ -95,7 +86,6 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
       if (game.gameChars[game.currentGameCharIndex + 1] == "0") {
       // If we have 20 of any cube, game is not possible
         possibilityResult.isPossible = false;
-        possibilityResult.newCurrentGameCharIndex = 199;
       }
     }
     default => {
@@ -111,7 +101,7 @@ fn Main() -> i32 {
   let gameStringLength: i32 = 200;
   // Hardcode gameStringLength into rawGames declation because I'm having  
   // difficulty getting Carbon to recognize the integer
-  let rawGames: [[String; 200]; 2] = (("G", "a", "m", "e", " ", "1", ":", " ", "3", " ", "b", "l", "u", "e", ",", " ", "4", " ", "r", "e", "d", ";", " ", "1", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", ",", " ", "6", " ", "b", "l", "u", "e", ";", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "2", ":", " ", "6", " ", "r", "e", "d", ",", " ", "1", " ", "b", "l", "u", "e", ",", " ", "3", " ", "g", "r", "e", "e", "n", ";", " ", "2", " ", "b", "l", "u", "e", ",", " ", "1", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"));
+  let rawGames: [[String; 200]; 2] = (("G", "a", "m", "e", " ", "1", ":", " ", "3", " ", "b", "l", "u", "e", ",", " ", "4", " ", "r", "e", "d", ";", " ", "1", "4", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", ",", " ", "6", " ", "b", "l", "u", "e", ";", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"), ("G", "a", "m", "e", " ", "2", ":", " ", "6", " ", "r", "e", "d", ",", " ", "1", " ", "b", "l", "u", "e", ",", " ", "3", " ", "g", "r", "e", "e", "n", ";", " ", "2", " ", "b", "l", "u", "e", ",", " ", "1", " ", "r", "e", "d", ",", " ", "2", " ", "g", "r", "e", "e", "n", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"));
   var currentGameIndex: i32 = 0;
   let numberOfGames: i32 = 2;
   var possibleGamesSum: i32 = 0;
@@ -129,20 +119,23 @@ fn Main() -> i32 {
       while (game.currentGameCharIndex < gameStringLength) {
         if (game.colonFound == false) {
           game.colonFound = FindColon(game);
-        } else if (game.isParsed == false) {
-          game.isParsed = CheckForEndOfLine(game);
+        // } else if (game.isParsed == false) {
+        //   game.isParsed = CheckForEndOfLine(game);
         } else if (game.isPossible) {
           let possibilityResult: PossibilityResult = CheckCurrentGameCharForGamePossibility(game);
           game.isPossible = possibilityResult.isPossible;
           game.currentGameCharIndex = possibilityResult.newCurrentGameCharIndex;
+        } else {
+          possibleGamesSum = possibleGamesSum + game.number;
+          game.currentGameCharIndex = 199;
         }
-        game.currentGameCharIndex = game.currentGameCharIndex + 1;
 
+        game.currentGameCharIndex = game.currentGameCharIndex + 1;
       }
 
     currentGameIndex = currentGameIndex + 1;
   }
 
-  Print("Printing {0}", 1);
+  Print("Sum of all possible games: {0}", possibleGamesSum);
   return 0;
 }
