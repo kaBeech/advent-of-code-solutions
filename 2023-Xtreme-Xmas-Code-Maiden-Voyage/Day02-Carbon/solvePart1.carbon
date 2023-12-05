@@ -7,11 +7,22 @@ class Game {
   var gameChars: [String; 200];
   var currentGameCharIndex: i32;
   var isPossible: bool;
+  var colonFound: bool;
 }
 
 class ParsedNumber {
   var value: i32;
   var newCurrentGameCharIndex: i32;
+}
+
+fn FindColon(game: Game) -> bool {
+  var colonFound: bool = false;
+
+  if (game.gameChars[game.currentGameCharIndex] == ":") {
+    colonFound = true;
+  }
+
+  return colonFound;
 }
 
 fn ParseNumberInGameChars(game: Game) -> ParsedNumber {
@@ -48,18 +59,18 @@ fn Main() -> i32 {
       .gameChars = rawGames[currentGameIndex],
       .currentGameCharIndex = 0,
       .isPossible = true,
+      .colonFound = false,
       };
 
-    while (game.isPossible){
       while (game.currentGameCharIndex < gameStringLength) {
-
-        if (game.gameChars[game.currentGameCharIndex] == "r") {
+        if (game.colonFound == false) {
+          game.colonFound = FindColon(game);
+        } else if (game.isPossible) {
             Print(game.gameChars[game.currentGameCharIndex]);
         }
         game.currentGameCharIndex = game.currentGameCharIndex + 1;
 
       }
-    }
 
     currentGameIndex = currentGameIndex + 1;
   }
