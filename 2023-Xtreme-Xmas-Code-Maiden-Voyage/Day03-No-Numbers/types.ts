@@ -1,8 +1,20 @@
 import { XYCoordinates } from "../../tools/commonTypes.ts";
 
-export interface Elf {
-  id: number;
+export type PseudoNumber =
+  | "A"
+  | "B"
+  | "C"
+  | "D"
+  | "E"
+  | "F"
+  | "G"
+  | "H"
+  | "I"
+  | "J";
+
+export interface Tile {
+  value: PseudoNumber | "X";
   coordinates: XYCoordinates;
 }
 
-export type ElfMap = Elf[];
+export type TileMap = Tile[];
