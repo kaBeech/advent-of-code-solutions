@@ -5,10 +5,15 @@ export const solucionaParte2 = (async (): Promise<number> => {
   const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
   let sumaDeNúmerosDePiezas = 0;
 
-  mapaDeBaldosas.forEach((filaDaBolsados) => {
-    filaDaBolsados.forEach((bolsado) => {
-      if (bolsado.valor !== ("X" || ".")) {
-        bolsado.agregadaALaSuma = false;
+  mapaDeBaldosas.forEach((filaDaBaldosa) => {
+    filaDaBaldosa.forEach((baldosa) => {
+      if (baldosa.valor !== ("X" || ".")) {
+        // Hace nada
+      } else if (baldosa.agregadaALaSuma === false) {
+        const adyacenteAUnSímbolo = comprobaBaldosasAdyacentes(
+          mapaDeBaldosas,
+          baldosa,
+        );
       }
     });
   });

@@ -1,21 +1,33 @@
 import { analizaEntrada } from "./analizaEntrada.ts";
-import { MapaDeBaldosas } from "./tipos.ts";
+import { Baldosa, MapaDeBaldosas } from "./tipos.ts";
 
 export const solucionaParte1 = (async (): Promise<number> => {
   const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
   let sumaDeNúmerosDePiezas = 0;
 
-  mapaDeBaldosas.forEach((filaDaBolsados) => {
-    filaDaBolsados.forEach((bolsado) => {
-      if (bolsado.valor !== ("X" || ".")) {
-        bolsado.agregadaALaSuma = false;
+  mapaDeBaldosas.forEach((filaDaBaldosa) => {
+    filaDaBaldosa.forEach((baldosa) => {
+      if (baldosa.valor !== ("X" || ".")) {
+        // Hace nada
+      } else if (baldosa.agregadaALaSuma === false) {
+        const adyacenteAUnSímbolo = comprobaBaldosasAdyacentes(
+          mapaDeBaldosas,
+          baldosa,
+        );
       }
     });
   });
 
   console.log(
-    `Part 1: La suma de los números de piezas es ${sumaDeNúmerosDePiezas}`,
+    `Part 2: La suma de los números de piezas es ${sumaDeNúmerosDePiezas}`,
   );
 
   return sumaDeNúmerosDePiezas;
 })();
+
+function comprobaBaldosasAdyacentes(
+  mapaDeBaldosas: MapaDeBaldosas,
+  baldosa: Baldosa,
+) {
+  throw new Error("Function not implemented.");
+}
