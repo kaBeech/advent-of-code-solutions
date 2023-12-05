@@ -13,7 +13,7 @@ export type PseudoNumber =
   | "J";
 
 export interface Tile {
-  value: PseudoNumber | "X";
+  value: PseudoNumber | "X" | ".";
   coordinates: XYCoordinates;
 }
 
