@@ -6,7 +6,7 @@ class Game {
   // difficulty getting Carbon to recognize the integer 
   var gameChars: [String; 200];
   var currentGameCharIndex: i32;
-  var gameIsPossible: bool;
+  var isPossible: bool;
 }
 
 class ParsedNumber {
@@ -47,16 +47,18 @@ fn Main() -> i32 {
       .number = currentGameIndex + 1,
       .gameChars = rawGames[currentGameIndex],
       .currentGameCharIndex = 0,
-      .gameIsPossible = true,
+      .isPossible = true,
       };
 
-    while (game.currentGameCharIndex < gameStringLength) {
+    while (game.isPossible){
+      while (game.currentGameCharIndex < gameStringLength) {
 
-      if (game.gameChars[game.currentGameCharIndex] == "r") {
-           Print(game.gameChars[game.currentGameCharIndex]);
+        if (game.gameChars[game.currentGameCharIndex] == "r") {
+            Print(game.gameChars[game.currentGameCharIndex]);
+        }
+        game.currentGameCharIndex = game.currentGameCharIndex + 1;
+
       }
-      game.currentGameCharIndex = game.currentGameCharIndex + 1;
-
     }
 
     currentGameIndex = currentGameIndex + 1;
