@@ -1,15 +1,21 @@
-import { parseInput } from "./parseInput.ts";
-import selectElfNumber24 from "./selectElfNumber24.ts";
-import { Elf, ElfMap } from "./types.ts";
+import { analizaEntrada } from "./analizaEntrada.ts";
+import { MapaDeBaldosas } from "./tipos.ts";
 
-export const solucionaParte2 = (async (): Promise<Elf> => {
-  const elfMap: ElfMap = await parseInput();
+export const solucionaParte2 = (async (): Promise<number> => {
+  const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
+  let sumaDeNúmerosDePiezas = 0;
 
-  const elfNumber24 = selectElfNumber24(
-    elfMap,
+  mapaDeBaldosas.forEach((filaDaBolsados) => {
+    filaDaBolsados.forEach((bolsado) => {
+      if (bolsado.valor !== ("X" || ".")) {
+        bolsado.agregadaALaSuma = false;
+      }
+    });
+  });
+
+  console.log(
+    `Part 2: La suma de los números de piezas es ${sumaDeNúmerosDePiezas}`,
   );
 
-  console.log(`Part 2: Elf Number 24 is ${JSON.stringify(elfNumber24)}`);
-
-  return elfNumber24;
+  return sumaDeNúmerosDePiezas;
 })();

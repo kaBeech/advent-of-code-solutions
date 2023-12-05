@@ -1,18 +1,21 @@
-import { parseInput } from "./parseInput.ts";
-import { TileMap } from "./types.ts";
+import { analizaEntrada } from "./analizaEntrada.ts";
+import { MapaDeBaldosas } from "./tipos.ts";
 
 export const solucionaParte1 = (async (): Promise<number> => {
-  const tileMap: TileMap = await parseInput();
+  const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
+  let sumaDeNúmerosDePiezas = 0;
 
-  tileMap.forEach((tileRow) => {
-    tileRow.forEach((tile) => {
-      if (tile.value !== ("X" || ".")) {
-        tile.addedToSum = false;
+  mapaDeBaldosas.forEach((filaDaBolsados) => {
+    filaDaBolsados.forEach((bolsado) => {
+      if (bolsado.valor !== ("X" || ".")) {
+        bolsado.agregadaALaSuma = false;
       }
     });
   });
 
-  console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
+  console.log(
+    `Part 1: La suma de los números de piezas es ${sumaDeNúmerosDePiezas}`,
+  );
 
-  return elfNumber42;
+  return sumaDeNúmerosDePiezas;
 })();
