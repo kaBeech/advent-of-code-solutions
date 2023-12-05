@@ -24,6 +24,7 @@ export const analizaEntrada = async (): Promise<MapaDeBaldosas> => {
         agregadaALaSuma: false,
       });
     });
+    mapaDeBaldosas.push(filaDeMapaDeBaldosas);
   });
   return mapaDeBaldosas;
 };
