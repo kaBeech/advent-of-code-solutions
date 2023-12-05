@@ -5,7 +5,7 @@
 // Example output: `(("a", "b", "c", "X"...), ("d", "e", "f", "X"...), ("g", "h", "i", "X"...))`
 
 export const parseInput = (async (): Promise<string> => {
-  const input: string = await Deno.readTextFile("./challengeInput.txt");
+  const input: string = await Deno.readTextFile("./testInput.txt");
   const inputArray: string[] = input.split("\n");
   let result = `(`;
   inputArray.forEach((line) => {
