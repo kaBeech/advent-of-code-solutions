@@ -6,8 +6,8 @@ export const solucionaParte1 = (async (): Promise<number> => {
   const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
   let sumaDeNúmerosDePiezas = 0;
 
-  mapaDeBaldosas.forEach((filaDaBaldosa) => {
-    filaDaBaldosa.forEach((baldosa) => {
+  mapaDeBaldosas.forEach((filaDeBaldosas) => {
+    filaDeBaldosas.forEach((baldosa) => {
       if (baldosa.valor !== ("X" || ".")) {
         // Hace nada
       } else if (baldosa.agregadaALaSuma === false) {

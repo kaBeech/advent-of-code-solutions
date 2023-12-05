@@ -6,8 +6,8 @@ export default function (
 ): boolean {
   let baldosaEstaAdyacenteAUnSímbolo = false;
   while (!baldosaEstaAdyacenteAUnSímbolo) {
-    mapaDeBaldosas.forEach((filaDaBaldosa) => {
-      filaDaBaldosa.forEach((baldosaComprobada) => {
+    mapaDeBaldosas.forEach((filaDeBaldosas) => {
+      filaDeBaldosas.forEach((baldosaComprobada) => {
         if (
           Math.abs(baldosaComprobada.coordinadas.x - baldosa.coordinadas.x) <=
             1 &&
