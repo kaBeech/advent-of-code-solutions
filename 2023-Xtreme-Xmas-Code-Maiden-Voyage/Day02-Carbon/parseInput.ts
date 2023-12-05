@@ -8,6 +8,7 @@ export const parseInput = (async (): Promise<string> => {
   const input: string = await Deno.readTextFile("./challengeInput.txt");
   const inputArrayRaw: string[] = input.split("\n");
   let result = "";
+  //   Chunk out parsedInput because Carbon Explorer will think there's an infinite loop if there are too many interpreter steps
   const inputArrays = [
     inputArrayRaw.slice(0, 10),
     inputArrayRaw.slice(10, 20),
@@ -28,7 +29,7 @@ export const parseInput = (async (): Promise<string> => {
     result = result.slice(0, -2);
     result += `)`;
     console.log(result);
-    Deno.writeTextFile(`./parsedInput${index}.txt`, result);
+    Deno.writeTextFile(`./parsedInputs/parsedInput${index}.txt`, result);
   });
   return result;
 })();
