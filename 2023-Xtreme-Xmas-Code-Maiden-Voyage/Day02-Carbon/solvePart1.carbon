@@ -9,45 +9,29 @@ class Game {
   var gameIsPossible: bool;
 }
 
-// fn SetGameNumber(game: Game) -> i32 {
-//   var gameNumber: i32 = 0;
-//   match (game.gameChars[6]) {
-//     case "1" => {
-//       gameNumber = 1;
-//     }
-//     case "2" => {
-//       gameNumber = 2;
-//     }
-//     case "3" => {
-//       gameNumber = 3;
-//     }
-//     case "4" => {
-//       gameNumber = 4;
-//     }
-//     case "5" => {
-//       gameNumber = 5;
-//     }
-//     case "6" => {
-//       gameNumber = 6;
-//     }
-//     case "7" => {
-//       gameNumber = 7;
-//     }
-//     case "8" => {
-//       gameNumber = 8;
-//     }
-//     case "9" => {
-//       gameNumber = 9;
-//     }
-//     case "0" => {
-//       gameNumber = 0;
-//     }
-//     default => {
-//       // Do nothing
-//     }
-//   }
-//   return gameNumber;
-// }
+class ParsedNumber {
+  var value: i32;
+  var newCurrentGameCharIndex: i32;
+}
+
+fn ParseNumberInGameChars(game: Game) -> ParsedNumber {
+   var parsedNumber: ParsedNumber = {
+    .value = 0,
+    .newCurrentGameCharIndex = game.currentGameCharIndex,
+  };
+
+  match (game.gameChars[game.currentGameCharIndex]) {
+    case "1" => {
+      parsedNumber.value = 1;
+    }
+
+    default => {
+      // Do nothing
+    }
+  }
+ 
+  return parsedNumber;
+}
 
 fn Main() -> i32 {
   let gameStringLength: i32 = 200;
@@ -65,6 +49,7 @@ fn Main() -> i32 {
       .currentGameCharIndex = 0,
       .gameIsPossible = true,
       };
+
     while (game.currentGameCharIndex < gameStringLength) {
 
       if (game.gameChars[game.currentGameCharIndex] == "r") {
