@@ -23,6 +23,7 @@ export const parseInput = async (): Promise<TileMap> => {
       tileMapRow.push({
         value,
         coordinates: { x: index2, y: index },
+        addedToSum: false,
       });
     });
   });

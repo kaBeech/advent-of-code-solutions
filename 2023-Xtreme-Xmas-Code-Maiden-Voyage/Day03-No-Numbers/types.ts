@@ -17,6 +17,7 @@ export type TileValue = PseudoNumber | "X" | ".";
 export interface Tile {
   value: TileValue;
   coordinates: XYCoordinates;
+  addedToSum: boolean;
 }
 
 export type TileMap = Tile[][];
