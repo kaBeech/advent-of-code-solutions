@@ -1,7 +1,7 @@
 import { parseInput } from "./parseInput.ts";
 import { TileMap } from "./types.ts";
 
-export const solvePart1 = (async (): Promise<number> => {
+export const solucionaParte1 = (async (): Promise<number> => {
   const tileMap: TileMap = await parseInput();
 
   tileMap.forEach((tileRow) => {

@@ -2,7 +2,7 @@ import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctio
 import { convertSingleDigitNumberToPseudoNumberString } from "../../tools/conversionFunctions/convertNumberToPseudoNumber.ts";
 import { PseudoNumber, Tile, TileMap, TileValue } from "./types.ts";
 
-export const parseInput = async (): Promise<TileMap> => {
+export const analizaEntrada = async (): Promise<TileMap> => {
   const rawTileMap: string[][] = await convertMultiLineFileToDoubleArray(
     "./testInput.txt",
   );
