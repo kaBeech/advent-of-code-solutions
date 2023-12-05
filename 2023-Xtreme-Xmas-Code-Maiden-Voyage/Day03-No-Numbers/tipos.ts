@@ -1,23 +1,14 @@
-import { XYCoordinates } from "../../tools/commonTypes.ts";
-
-export type PseudoNumber =
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F"
-  | "G"
-  | "H"
-  | "I"
-  | "J";
-
-export type TileValue = PseudoNumber | "X" | ".";
-
-export interface Tile {
-  value: TileValue;
-  coordinates: XYCoordinates;
-  addedToSum: boolean;
+interface CoordinadasXY {
+  x: number;
+  y: number;
 }
 
-export type TileMap = Tile[][];
+export type ValorDeBaldosa = number | "X" | ".";
+
+export interface Baldosa {
+  valor: ValorDeBaldosa;
+  coordinadas: CoordinadasXY;
+  agregadaALaSuma: boolean;
+}
+
+export type MapaDeBaldosas = Baldosa[][];

@@ -1,31 +1,29 @@
-import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { convertSingleDigitNumberToPseudoNumberString } from "../../tools/conversionFunctions/convertNumberToPseudoNumber.ts";
-import { PseudoNumber, Tile, TileMap, TileValue } from "./types.ts";
+import { converteArchivoDeVariasLíneasADobleFormación } from "./converteArchivoAFormación.ts";
+import { Baldosa, MapaDeBaldosas, ValorDeBaldosa } from "./tipos.ts";
 
-export const analizaEntrada = async (): Promise<TileMap> => {
-  const rawTileMap: string[][] = await convertMultiLineFileToDoubleArray(
-    "./testInput.txt",
-  );
-  const tileMap: TileMap = [];
-  rawTileMap.forEach((rawTileRow, index) => {
-    const tileMapRow: Tile[] = [];
-    rawTileRow.forEach((rawTile, index2) => {
-      let value: TileValue;
-      if (!Number.isNaN(+rawTile)) {
-        value = convertSingleDigitNumberToPseudoNumberString(
-          +rawTile,
-        ) as PseudoNumber;
-      } else if (rawTile === ".") {
-        value = ".";
+export const analizaEntrada = async (): Promise<MapaDeBaldosas> => {
+  const mapaDeBaldosasCruda: string[][] =
+    await converteArchivoDeVariasLíneasADobleFormación(
+      "./entradaDePrueba.txt",
+    );
+  const mapaDeBaldosas: MapaDeBaldosas = [];
+  mapaDeBaldosasCruda.forEach((filaDeMapaDeBaldosasCrudas, coordinadaY) => {
+    const filaDeMapaDeBaldosas: Baldosa[] = [];
+    filaDeMapaDeBaldosasCrudas.forEach((baldosaCruda, coordinadaX) => {
+      let valor: ValorDeBaldosa;
+      if (!Number.isNaN(+baldosaCruda)) {
+        valor = +baldosaCruda;
+      } else if (baldosaCruda === ".") {
+        valor = ".";
       } else {
-        value = "X";
+        valor = "X";
       }
-      tileMapRow.push({
-        value,
-        coordinates: { x: index2, y: index },
-        addedToSum: false,
+      filaDeMapaDeBaldosas.push({
+        valor,
+        coordinadas: { x: coordinadaX, y: coordinadaY },
+        agregadaALaSuma: false,
       });
     });
   });
-  return tileMap;
+  return mapaDeBaldosas;
 };
