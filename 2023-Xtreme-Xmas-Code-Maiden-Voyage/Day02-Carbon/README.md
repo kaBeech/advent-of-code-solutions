@@ -12,19 +12,19 @@ Aww yeah!!! I've been hoping to roll this one! I know very little about Carbon, 
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: x
+Part 1: 0
 
-Part 2: x
+Part 2: 0
 
 ### Tokens Earned
 
