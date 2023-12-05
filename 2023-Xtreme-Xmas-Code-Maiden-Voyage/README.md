@@ -18,9 +18,9 @@ I'll also be posting my progress each day on [LinkedIn](https://www.linkedin.com
 
 [My progress on LinkedIn](https://www.linkedin.com/in/kyle-beechly/recent-activity/all/)
 
-## About.md
+## README.md
 
-Files labelled about.md contain links to that day on Xtreme Xmas Code and information about that day (which Challenge Modifiers were rolled, evidence of Challenge Modifier completion, any additional information, etc.)
+Files labelled README.md contain links to that day on Xtreme Xmas Code and information about that day (which Challenge Modifiers were rolled, evidence of Challenge Modifier completion, any additional information, etc.)
 
 ## Notes
 
