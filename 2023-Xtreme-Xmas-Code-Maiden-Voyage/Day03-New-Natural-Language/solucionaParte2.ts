@@ -1,15 +1,13 @@
 import { analizaEntrada } from "./analizaEntrada.ts";
 import comprobaBaldosasAdyacentes from "./comprobaBaldosasAdyacentes.ts";
-import { Baldosa, MapaDeBaldosas } from "./tipos.ts";
-
-const obteneNúmeroDePieza = (baldoda: Baldosa, filaDeBaldosas): number => {
+import { MapaDeBaldosas } from "./tipos.ts";
 
 export const solucionaParte2 = (async (): Promise<number> => {
   const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
   let sumaDeNúmerosDePiezas = 0;
 
   mapaDeBaldosas.forEach((filaDeBaldosas) => {
-    filaDeBaldosas.forEach((baldosa, índice) => {
+    filaDeBaldosas.forEach((baldosa) => {
       if (baldosa.valor !== ("X" || ".")) {
         // Hace nada
       } else if (baldosa.agregadaALaSuma === false) {
@@ -17,13 +15,6 @@ export const solucionaParte2 = (async (): Promise<number> => {
           mapaDeBaldosas,
           baldosa,
         );
-        if (adyacenteAUnSímbolo) {
-          let númeroDePieza = `${baldosa.valor}`;
-          if (!isNaN(+filaDeBaldosas[índice - 1])) {
-            númeroDePieza = `${filaDeBaldosas[índice - 1].valor}` +
-              númeroDePieza;
-          }
-        }
       }
     });
   });
