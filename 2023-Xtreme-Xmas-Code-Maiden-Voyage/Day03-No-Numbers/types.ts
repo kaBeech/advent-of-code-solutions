@@ -17,4 +17,4 @@ export interface Tile {
   coordinates: XYCoordinates;
 }
 
-export type TileMap = Tile[];
+export type TileMap = Tile[][];
