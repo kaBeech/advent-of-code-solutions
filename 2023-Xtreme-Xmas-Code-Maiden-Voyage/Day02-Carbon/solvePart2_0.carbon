@@ -212,6 +212,13 @@ fn Main() -> i32 {
         } else if (game.isParsed == false) {
           game.isParsed = CheckForEndOfLine(game);
           let cubeValue: CubeValue = CheckCurrentGameCharForCubeValue(game);
+          if (cubeValue.color == "red" and cubeValue.number > game.redCubes) {
+            game.redCubes = cubeValue.number;
+          } else if (cubeValue.color == "green" and cubeValue.number > game.greenCubes) {
+            game.greenCubes = cubeValue.number;
+          } else if (cubeValue.color == "blue" and cubeValue.number > game.blueCubes) {
+            game.blueCubes = cubeValue.number;
+          }
           game.currentGameCharIndex = cubeValue.newCurrentGameCharIndex;
         } else if (game.addedToSum == false) {
           game.cubeSetPower = game.redCubes * game.greenCubes * game.blueCubes;
