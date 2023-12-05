@@ -8,16 +8,34 @@ fn Main() -> i32 {
   let gamesLength: i32 = 108;
   var possibleGamesSum: i32 = 0;
 
-  var test: auto = ("t", "e", "s", "t");
-
   while (i < numberOfGames) {
+    var gameIsPossible: bool = true;
+    var gameNumber: i32 = 0;
+    
     while (j < gamesLength) {
-      j = j + 1;
-      if (games[i][j] == "r") {
-           Print("YYYYYEEEEEESSSSSSSSS");
+
+      while (gameNumber < 1) {
+        match (games[i][j]) {
+          case "1" => {
+            // return;
+          }
+          case "2" => {
+            // return;
+          }
+          default => {
+            // return;
+          }
+        }
+        j = j + 1;
       }
-    Print(test[0]);
+
+      if (games[i][j] == "r") {
+           Print(games[i][j]);
+      }
+      j = j + 1;
+
     }
+
     i = i + 1;
   }
 
