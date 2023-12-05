@@ -11,13 +11,13 @@ class Game {
   var isParsed: bool;
 }
 
-class ParsedNumber {
-  var value: i32;
+class PossibilityResult {
+  var isPossible: bool;
   var newCurrentGameCharIndex: i32;
 }
 
 fn FindColon(game: Game) -> bool {
-  var colonFound: bool = false;
+  var colonFound: bool = game.colonFound;
 
   if (game.gameChars[game.currentGameCharIndex] == ":") {
     colonFound = true;
@@ -27,7 +27,7 @@ fn FindColon(game: Game) -> bool {
 }
 
 fn CheckForEndOfLine(game: Game) -> bool {
-  var isParsed: bool = false;
+  var isParsed: bool = game.isParsed;
 
   if (game.gameChars[game.currentGameCharIndex] == "X") {
     isParsed = true;
@@ -36,15 +36,15 @@ fn CheckForEndOfLine(game: Game) -> bool {
   return isParsed;
 }
 
-fn CheckCurrentGameCharForGamePossibility(game: Game) -> ParsedNumber {
-   var parsedNumber: ParsedNumber = {
-    .value = 0,
+fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
+   var possibilityResult: PossibilityResult = {
+    .isPossible = game.isPossible,
     .newCurrentGameCharIndex = game.currentGameCharIndex,
   };
 
   match (game.gameChars[game.currentGameCharIndex]) {
     case "1" => {
-      parsedNumber.value = 1;
+      // parsedNumber.value = 1;
     }
 
     default => {
@@ -52,7 +52,7 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> ParsedNumber {
     }
   }
  
-  return parsedNumber;
+  return possibilityResult;
 }
 
 fn Main() -> i32 {
@@ -80,7 +80,9 @@ fn Main() -> i32 {
         } else if (game.isParsed == false) {
           game.isParsed = CheckForEndOfLine(game);
         } else if (game.isPossible) {
-          game.isPossible = CheckCurrentGameCharForGamePossibility(game)
+          let possibilityResult: PossibilityResult = CheckCurrentGameCharForGamePossibility(game);
+          game.isPossible = possibilityResult.isPossible;
+          game.currentGameCharIndex = possibilityResult.newCurrentGameCharIndex;
         }
         game.currentGameCharIndex = game.currentGameCharIndex + 1;
 
