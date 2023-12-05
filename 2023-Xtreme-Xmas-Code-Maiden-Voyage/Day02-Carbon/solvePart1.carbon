@@ -44,11 +44,63 @@ fn CheckCurrentGameCharForGamePossibility(game: Game) -> PossibilityResult {
 
   match (game.gameChars[game.currentGameCharIndex]) {
     case "1" => {
-      // parsedNumber.value = 1;
+      match (game.gameChars[game.currentGameCharIndex + 1]) {
+        // If we have 15 or more of any cube, game is not possible
+        case "3" => {
+          if (game.gameChars[game.currentGameCharIndex + 3] == "r") {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+          } else {
+            possibilityResult.newCurrentGameCharIndex = game.currentGameCharIndex + 1;
+          }
+        }
+        case "4" => {
+          if (game.gameChars[game.currentGameCharIndex + 3] == "r") {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+          } else if (game.gameChars[game.currentGameCharIndex + 3] == "g") {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+          } else {
+            possibilityResult.newCurrentGameCharIndex = game.currentGameCharIndex + 1;
+          }
+        }
+        case "5" => {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+        }
+        case "6" => {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+        }
+        case "7" => {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+        }
+        case "8" => {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+        }
+        case "9" => {
+            possibilityResult.isPossible = false;
+            possibilityResult.newCurrentGameCharIndex = 199;
+        }
+        default => {
+          // Only do something if gameChar is an integer
+          // If we have 12 or less of any cube, game is possible
+        }
+      }
     }
-
+    case "2" => {
+      if (game.gameChars[game.currentGameCharIndex + 1] == "0") {
+      // If we have 20 of any cube, game is not possible
+        possibilityResult.isPossible = false;
+        possibilityResult.newCurrentGameCharIndex = 199;
+      }
+    }
     default => {
-      // Do nothing
+      // Only do something if gameChar is an integer
+      // Maximum number of cubes is 20 and if we have less than 10 cubes, game is possible
     }
   }
  
