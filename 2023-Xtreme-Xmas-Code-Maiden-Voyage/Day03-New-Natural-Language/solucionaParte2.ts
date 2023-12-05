@@ -1,5 +1,5 @@
 import { analizaEntrada } from "./analizaEntrada.ts";
-import { MapaDeBaldosas } from "./tipos.ts";
+import { Baldosa, MapaDeBaldosas } from "./tipos.ts";
 
 export const solucionaParte2 = (async (): Promise<number> => {
   const mapaDeBaldosas: MapaDeBaldosas = await analizaEntrada();
@@ -24,3 +24,10 @@ export const solucionaParte2 = (async (): Promise<number> => {
 
   return sumaDeNúmerosDePiezas;
 })();
+
+function comprobaBaldosasAdyacentes(
+  mapaDeBaldosas: MapaDeBaldosas,
+  baldosa: Baldosa,
+) {
+  throw new Error("Function not implemented.");
+}
