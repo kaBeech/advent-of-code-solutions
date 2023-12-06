@@ -15,6 +15,7 @@ export const parseInput = async (): Promise<Almanac> => {
     ) => parseInt(seed)),
     seedMaps: almanacString,
   };
+  almanac.seeds = almanac.seeds.filter((seed) => !isNaN(seed));
   console.log(almanac);
   return {
     seeds: almanacString[0].map((seed) => parseInt(seed)),
