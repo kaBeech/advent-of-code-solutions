@@ -7,7 +7,7 @@ def process_input_from_file(filename="challengeInput.txt"):
     lines = input_str.strip().split('\n')
 
     # Declare arrays
-    scratchcards_by_id = {}
+    scratchcards = []
 
     for line in lines:
         # Extract card_id (number before the colon)
@@ -24,22 +24,17 @@ def process_input_from_file(filename="challengeInput.txt"):
         # Create scratchcard
         scratchcard = {'id': scratchcard_id, 'shared_numbers': shared_numbers,
                        'winning_numbers': winning_numbers, 'my_numbers': my_numbers}
-        
-        # Add scratchcard to the dictionary with id as the key
-        scratchcards_by_id[scratchcard_id] = scratchcard
+        scratchcards.append(scratchcard)
 
     # Process scratchcards
-    original_scratchcards_ids = list(scratchcards_by_id.keys())
-    for scratchcard_id in original_scratchcards_ids:
-        scratchcard = scratchcards_by_id[scratchcard_id]
-        for j in range(1, scratchcard['shared_numbers'] + 1):
-            # Add copies of scratchcards with sequential id's
-            new_scratchcard_id = scratchcard_id + j
-            new_scratchcard = scratchcards_by_id[new_scratchcard_id].copy()
-            scratchcards_by_id[new_scratchcard_id + j] = new_scratchcard
+    for scratchcard in scratchcards:
+        for i in range(scratchcard['shared_numbers']):
+            # Add copies of scratchcards with the same id
+            new_scratchcard = scratchcards[scratchcard['id'] - 1].copy()
+            scratchcards.append(new_scratchcard)
 
     # Return the total number of scratchcards
-    return len(scratchcards_by_id)
+    return len(scratchcards)
 
 
 # Call the function to process input from the file
