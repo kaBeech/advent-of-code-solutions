@@ -42,4 +42,8 @@ Funny note - in Part 2 I lazily hard-coded the seed ranges for the test input, i
 
 The funny part is that if I had coded the seed ranges properly from the start, my non-optimized code would have actually gotten the the correct answer before I got bored waiting to it to finish and decided to optimize it!
 
-For what it's worth, my non-optimized code would have gotten the correct answer in 24,261,545 cycles. My optimized code got the correct answer in 2 cycles 😎
+For what it's worth, my non-optimized code would have gotten the correct answer in a little over 24.2 million cycles. My optimized code got the correct answer in 2 cycles 😎
+
+If the the answer had been different (i.e. the input data was different but was in a similar shape), my non-optimized algorithm could have taken over 3 billion cycles to get the correct answer. I think my optimized algorithm which has a maximum number of cycles around 240 in similar cases, but that could be a low estimate.
+
+In any case, I had fun playing with this algorithm!
