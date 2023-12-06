@@ -17,11 +17,11 @@ export const parseInput = async (): Promise<Almanac> => {
     const seedMap: SeedMap = [];
     rawSeedMap.shift();
     rawSeedMap.forEach((rawSeedMapLine) => {
-      rawSeedMapLine.trim().split(` `);
+      const seedMapLineArray: string[] = rawSeedMapLine.trim().split(` `);
       const seedMapLine: SeedMapLine = {
-        sourceRangeStart: +rawSeedMapLine[0],
-        destinationRangeStart: +rawSeedMapLine[1],
-        rangeLength: +rawSeedMapLine[2],
+        sourceRangeStart: +seedMapLineArray[0],
+        destinationRangeStart: +seedMapLineArray[1],
+        rangeLength: +seedMapLineArray[2],
       };
       seedMap.push(seedMapLine);
     });
