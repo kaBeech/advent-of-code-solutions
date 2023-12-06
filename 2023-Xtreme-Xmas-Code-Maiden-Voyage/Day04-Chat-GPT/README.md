@@ -10,6 +10,10 @@ https://www.xtremexmascode.com/game/public/13/day/4/
 
 Haha, nice.
 
+### Evidence
+
+[Part 1's Chat Log](https://chat.openai.com/share/34886ffd-e26a-4df9-8512-459287460907)
+
 ### Points Earned
 
 X
