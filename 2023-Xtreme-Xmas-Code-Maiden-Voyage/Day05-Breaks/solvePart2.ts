@@ -11,30 +11,38 @@ export const solvePart2 = (async (): Promise<number> => {
       lowestDestinationRangeStart = rawLocation.destinationRangeStart;
     }
   });
-  console.log(lowestDestinationRangeStart);
-  const locations: number[] = [];
 
-  almanac.seeds.forEach((seed) => {
-    almanac.seedMaps.forEach((seedMap) => {
+  const magicNumber = 69;
+  let seedFound = false;
+  let currentLocation = 0;
+  while (currentLocation < lowestDestinationRangeStart && !seedFound) {
+    let seed = currentLocation;
+    let currentSeedMapIndex = almanac.seedMaps.length - 1;
+    while (currentSeedMapIndex >= 0) {
+      const currentSeedMap = almanac.seedMaps[currentSeedMapIndex];
       let seedMapProcessed = false;
-      seedMap.forEach((seedMapLine) => {
+
+      currentSeedMap.forEach((seedMapLine) => {
         if (
-          seed >= seedMapLine.sourceRangeStart &&
-          seed < seedMapLine.sourceRangeStart + seedMapLine.rangeLength &&
+          seed >= seedMapLine.destinationRangeStart &&
+          seed <
+            seedMapLine.destinationRangeStart + seedMapLine.rangeLength &&
           !seedMapProcessed
         ) {
-          seed = seed + seedMapLine.destinationRangeStart -
-            seedMapLine.sourceRangeStart;
+          seed = seed + seedMapLine.sourceRangeStart -
+            seedMapLine.destinationRangeStart;
           seedMapProcessed = true;
         }
       });
-    });
-    locations.push(seed);
-  });
+      currentSeedMapIndex--;
+    }
+    if (seed === magicNumber) {
+      seedFound = true;
+    }
+    currentLocation++;
+  }
 
-  // console.log(locations);
-
-  const closestLocation: number = Math.min(...locations);
+  const closestLocation = currentLocation;
   console.log(
     `Part 2: The lowest location number that corresponds to any of the initial seed numbers is ${closestLocation}`,
   );
