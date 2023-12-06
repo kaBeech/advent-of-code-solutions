@@ -11,13 +11,13 @@ def process_input_from_file(filename="challengeInput.txt"):
     bonus_scratchcards = []
 
     for line in lines:
-        # Parse line
-        parts = line.split(':')
-        scratchcard_id = int(parts[0])
+        # Extract card_id (number before the colon)
+        card_id_str, rest_of_line = line.split(':')
+        scratchcard_id = int(card_id_str.split()[-1])
 
         # Extract winning_numbers and my_numbers
-        winning_numbers = list(map(int, parts[1].split('|')[0].split()))
-        my_numbers = list(map(int, parts[1].split('|')[1].split()))
+        winning_numbers = list(map(int, rest_of_line.split('|')[0].split()))
+        my_numbers = list(map(int, rest_of_line.split('|')[1].split()))
 
         # Create scratchcard
         scratchcard = {'id': scratchcard_id, 'shared_numbers': 0,
