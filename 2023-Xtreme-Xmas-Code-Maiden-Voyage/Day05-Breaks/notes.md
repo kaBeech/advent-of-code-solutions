@@ -4,9 +4,4 @@ https://adventofcode.com/2023/day/5
 
 ## Pseudocode
 
-### Part 1
-
-Variables: `ElfMap`: Elf[], `Elf`: {id: number, coordinates: XYCoordinates}, `SelectedElf`: Elf
-
-1.  Select `Elf` with id of 42 from `ElfMap`
-2.  Return `SelectedElf`
+(I didn't do any pseudocoding for this day)
