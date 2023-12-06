@@ -9,16 +9,25 @@ const obteneNúmeroDePieza = (
   let baldosaAnterior = filaDeBaldosas[baldosa.coordinadas.x - 1];
   let baldosaSiguiente = filaDeBaldosas[baldosa.coordinadas.x + 1];
   let númeroDePieza = `${baldosa.valor}`;
-  while (!isNaN(+baldosaAnterior)) {
+  while (!isNaN(+baldosaAnterior.valor)) {
     númeroDePieza = `${baldosaAnterior.valor}` +
       númeroDePieza;
-    baldosaAnterior = filaDeBaldosas[baldosaAnterior.coordinadas.x - 1];
+    if (filaDeBaldosas[baldosaAnterior.coordinadas.x - 1]) {
+      baldosaAnterior = filaDeBaldosas[baldosaAnterior.coordinadas.x - 1];
+    } else {
+      baldosaAnterior.valor = ".";
+    }
   }
-  while (!isNaN(+baldosaSiguiente)) {
+  while (!isNaN(+baldosaSiguiente.valor)) {
     númeroDePieza = númeroDePieza +
       `${baldosaSiguiente.valor}`;
-    baldosaSiguiente = filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1];
+    if (filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1]) {
+      baldosaSiguiente = filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1];
+    } else {
+      baldosaSiguiente.valor = ".";
+    }
   }
+  console.log(`Part 2: La pieza es ${númeroDePieza}`);
   return +númeroDePieza;
 };
 
@@ -27,8 +36,8 @@ export const solucionaParte1 = (async (): Promise<number> => {
   let sumaDeNúmerosDePiezas = 0;
 
   mapaDeBaldosas.forEach((filaDeBaldosas) => {
-    filaDeBaldosas.forEach((baldosa, índice) => {
-      if (baldosa.valor !== ("X" || ".")) {
+    filaDeBaldosas.forEach((baldosa) => {
+      if (isNaN(+baldosa.valor)) {
         // Hace nada
       } else if (baldosa.agregadaALaSuma === false) {
         const adyacenteAUnSímbolo = comprobaBaldosasAdyacentes(
