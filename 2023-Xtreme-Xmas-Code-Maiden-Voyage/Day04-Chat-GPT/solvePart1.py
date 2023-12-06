@@ -16,8 +16,9 @@ def calculate_points_from_file(file_path):
             # Remove everything before the colon
             line = line.split(':')[-1].strip()
 
-            # Split the line into winning and my numbers
-            winning_numbers, my_numbers = map(lambda x: list(map(int, x.split('|'))), line.split())
+            # Split the line into winning numbers and my numbers
+            winning_numbers = list(map(int, line.split('|')[0].split()))
+            my_numbers = list(map(int, line.split('|')[1].split()))
 
             # Find shared numbers
             shared_numbers = list(set(winning_numbers) & set(my_numbers))
