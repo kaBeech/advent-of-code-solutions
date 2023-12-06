@@ -19,8 +19,8 @@ export const parseInput = async (): Promise<Almanac> => {
     rawSeedMap.forEach((rawSeedMapLine) => {
       const seedMapLineArray: string[] = rawSeedMapLine.trim().split(` `);
       const seedMapLine: SeedMapLine = {
-        sourceRangeStart: +seedMapLineArray[0],
-        destinationRangeStart: +seedMapLineArray[1],
+        destinationRangeStart: +seedMapLineArray[0],
+        sourceRangeStart: +seedMapLineArray[1],
         rangeLength: +seedMapLineArray[2],
       };
       seedMap.push(seedMapLine);
