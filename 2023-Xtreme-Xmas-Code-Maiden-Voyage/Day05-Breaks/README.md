@@ -44,6 +44,6 @@ The funny part is that if I had coded the seed ranges properly from the start, m
 
 For what it's worth, my non-optimized code would have gotten the correct answer in a little over 24.2 million cycles. A program with even less-optimized code would likely get the answer in a little over 1 billion cycles. My optimized code got the correct answer in 2 cycles 😎
 
-If the the answer had been different (i.e. the input data was different but was in a similar shape), my non-optimized algorithm could have taken over 4.2 billion cycles to get the correct answer in a worst-case scenario. I think my optimized algorithm has a worst case of about 240 cycles, but that could be a low estimate.
+If the the answer had been different (i.e. the input data was different but was in a similar shape), my non-optimized algorithm could have taken around 2.4 billion cycles to get the correct answer in a worst-case scenario. I think my optimized algorithm has a worst case of about 240 cycles, but that could be a low estimate.
 
 In any case, I had fun playing with this algorithm!
