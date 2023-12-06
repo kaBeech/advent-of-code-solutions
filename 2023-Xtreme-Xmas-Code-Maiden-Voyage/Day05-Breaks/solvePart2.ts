@@ -17,6 +17,7 @@ export const solvePart2 = (async (): Promise<number> => {
   while (currentLocation < lowestDestinationRangeStart && !seedFound) {
     let seed = currentLocation;
     let currentSeedMapIndex = almanac.seedMaps.length - 1;
+    let lowestRangeLength = Infinity;
     while (currentSeedMapIndex >= 0) {
       const currentSeedMap = almanac.seedMaps[currentSeedMapIndex];
       let seedMapProcessed = false;
@@ -30,11 +31,15 @@ export const solvePart2 = (async (): Promise<number> => {
         ) {
           seed = seed + seedMapLine.sourceRangeStart -
             seedMapLine.destinationRangeStart;
+          if (seedMapLine.rangeLength < lowestRangeLength) {
+            lowestRangeLength = seedMapLine.rangeLength;
+          }
           seedMapProcessed = true;
         }
       });
       currentSeedMapIndex--;
     }
+    console.log(currentLocation, ", ", seed);
     if (
       (seed >= almanac.seeds[0] &&
         seed <= almanac.seeds[0] + almanac.seeds[1] - 1) ||
@@ -43,7 +48,7 @@ export const solvePart2 = (async (): Promise<number> => {
     ) {
       seedFound = true;
     } else {
-      currentLocation++;
+      currentLocation += lowestRangeLength;
     }
   }
 
