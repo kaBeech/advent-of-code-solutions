@@ -3,21 +3,35 @@ import { Baldosa, MapaDeBaldosas } from "./tipos.ts";
 export default function (
   mapaDeBaldosas: MapaDeBaldosas,
   baldosa: Baldosa,
+  buscandoDeNúmerosDePiezas?: boolean,
 ): boolean {
   let baldosaEstaAdyacenteAUnSímbolo = false;
+  let baldosaEstaAdyacenteAUnNúmero = false;
   mapaDeBaldosas.forEach((filaDeBaldosas) => {
     filaDeBaldosas.forEach((baldosaComprobada) => {
-      if (
+      const baldosaComprobadaEstaAdyacenteALaBaldosa =
         Math.abs(baldosaComprobada.coordinadas.x - baldosa.coordinadas.x) <=
           1 &&
         Math.abs(baldosaComprobada.coordinadas.y - baldosa.coordinadas.y) <=
-          1 &&
-        baldosaComprobada.valor === ("X")
-      ) {
-        baldosaEstaAdyacenteAUnSímbolo = true;
+          1;
+      if (baldosaComprobadaEstaAdyacenteALaBaldosa) {
+        if (
+          baldosaComprobada.valor === ("X" || "*")
+        ) {
+          baldosaEstaAdyacenteAUnSímbolo = true;
+        }
+        if (
+          !isNaN(+baldosaComprobada.valor)
+        ) {
+          baldosaEstaAdyacenteAUnNúmero = true;
+        }
       }
     });
   });
 
-  return baldosaEstaAdyacenteAUnSímbolo;
+  if (buscandoDeNúmerosDePiezas) {
+    return baldosaEstaAdyacenteAUnNúmero;
+  } else {
+    return baldosaEstaAdyacenteAUnSímbolo;
+  }
 }
