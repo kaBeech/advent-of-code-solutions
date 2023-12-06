@@ -23,20 +23,30 @@ export const solvePart2 = (async (): Promise<number> => {
       let seedMapProcessed = false;
 
       currentSeedMap.forEach((seedMapLine) => {
+        const rangeEnd = seedMapLine.destinationRangeStart +
+          seedMapLine.rangeLength;
         if (
-          seed >= seedMapLine.destinationRangeStart &&
           seed <
-            seedMapLine.destinationRangeStart + seedMapLine.rangeLength &&
+            rangeEnd &&
           !seedMapProcessed
         ) {
-          seed = seed + seedMapLine.sourceRangeStart -
-            seedMapLine.destinationRangeStart;
-          const distanceFromRangeEnd = seedMapLine.destinationRangeStart +
-            seedMapLine.rangeLength - seed;
-          if (distanceFromRangeEnd < lowestRangeLength) {
-            lowestRangeLength = distanceFromRangeEnd;
+          if (
+            seedMapLine.destinationRangeStart - seed > 0 &&
+            seedMapLine.destinationRangeStart - seed < lowestRangeLength
+          ) {
+            lowestRangeLength = seedMapLine.destinationRangeStart - seed;
           }
-          seedMapProcessed = true;
+          if (
+            seed >= seedMapLine.destinationRangeStart
+          ) {
+            const distanceFromRangeEnd = rangeEnd - seed;
+            seed = seed + seedMapLine.sourceRangeStart -
+              seedMapLine.destinationRangeStart;
+            if (distanceFromRangeEnd < lowestRangeLength) {
+              lowestRangeLength = distanceFromRangeEnd;
+            }
+            seedMapProcessed = true;
+          }
         }
       });
       currentSeedMapIndex--;
