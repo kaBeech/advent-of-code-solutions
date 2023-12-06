@@ -1,8 +1,6 @@
-import { XYCoordinates } from "../../tools/commonTypes.ts";
-
-export interface Elf {
-  id: number;
-  coordinates: XYCoordinates;
+export interface Almanac {
+  seeds: number[];
+  seedMaps: SeedMap[];
 }
 
-export type ElfMap = Elf[];
+export type SeedMap = string[];
