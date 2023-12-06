@@ -1,16 +1,23 @@
-import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { ElfMap } from "./types.ts";
+import {
+  convertMultiLineFileToArray,
+  convertMultiParagraphFileToArray,
+} from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { Almanac } from "./types.ts";
 
-export const parseInput = async (): Promise<ElfMap> => {
-  const elfMap: ElfMap = [];
-  const playerMapString: string[] = await convertMultiLineFileToArray(
-    "./challengeInput.txt",
+export const parseInput = async (): Promise<Almanac> => {
+  const almanacString: string[][] = await convertMultiParagraphFileToArray(
+    "./testInput.txt",
   );
-  playerMapString.forEach((rawPlayer, index) => {
-    elfMap.push({
-      id: index,
-      coordinates: { x: parseInt(rawPlayer), y: index },
-    });
-  });
-  return elfMap;
+  console.log(almanacString);
+  const almanac: Almanac = {
+    seeds: almanacString.shift()![0].trim().split(`:`)[1].split(` `).map((
+      seed,
+    ) => parseInt(seed)),
+    seedMaps: almanacString,
+  };
+  console.log(almanac);
+  return {
+    seeds: almanacString[0].map((seed) => parseInt(seed)),
+    seedMaps: almanacString,
+  };
 };
