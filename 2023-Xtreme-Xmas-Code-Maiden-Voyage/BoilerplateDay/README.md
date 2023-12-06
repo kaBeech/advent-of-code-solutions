@@ -37,3 +37,5 @@ X
 ### Notes
 
 This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+
+### Retrospective
