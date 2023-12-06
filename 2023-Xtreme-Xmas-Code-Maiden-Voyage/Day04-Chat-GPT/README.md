@@ -1,18 +1,14 @@
-# Day X
+# Day 4
 
 ## Xtreme Xmas Code Link
 
-https://www.xtremexmascode.com/game/public/13/day/X/
+https://www.xtremexmascode.com/game/public/13/day/4/
 
 ### Challenge Modifier
 
-Part 1: ""
+"Your challenge is to write a program to complete today's puzzle using ChatGPT (the free, GPT-3.5 version) exclusively (no editing Chat's responses - you must edit your prompts!)"
 
-This is where we put notes for Part 1's Challenge Modifier!
-
-Part 2: ""
-
-This is where we put notes for Part 2's Challenge Modifier!
+Haha, nice.
 
 ### Points Earned
 
@@ -37,5 +33,3 @@ X
 ### Notes
 
 This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
-
-### Retrospective
