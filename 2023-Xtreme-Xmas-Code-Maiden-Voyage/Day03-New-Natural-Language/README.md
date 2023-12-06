@@ -16,24 +16,30 @@ Ay, ¡gracias a Dios!
 
 ### Points Earned
 
-X
+0
 
 ### Rerolls
 
-Part 1: X
+Part 1: 1
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 2
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+To run these apps, enter `deno run --allow-read solucionaParte[1-2].ts` from within this directory
+
+### Retrospective
+
+Finally, a simple challenge!
+
+This was pretty straightforward. The biggest difficulty I had was misspelling words in Spanish 😅
