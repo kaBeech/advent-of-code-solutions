@@ -847,3 +847,91 @@ input_str = file.read()
 result = process_input_from_file()
 print(result)
 In this version, when processing a scratchcard, it makes copies of scratchcards[i+j] instead of making copies of the same scratchcard to add to the bonus_scratchcards array.
+
+User
+Thanks Chat! Now please give me the same program, but written in TypeScript with Deno
+
+ChatGPT
+Certainly! Here's an equivalent TypeScript program using Deno:
+
+typescript
+Copy code
+async function processInputFromFile(filename: string = "challengeInput.txt"): Promise<number> {
+// Read input from file
+const inputStr: string = await Deno.readTextFile(filename);
+
+// Split input into lines
+const lines: string[] = inputStr.trim().split('\n');
+
+// Declare arrays
+const scratchcards: any[] = [];
+const bonusScratchcards: any[] = [];
+
+for (const line of lines) {
+// Extract card_id (number before the colon)
+const [cardIdStr, restOfLine] = line.split(':');
+const scratchcardId: number = parseInt(cardIdStr.split(' ').pop() || '');
+
+    // Extract winning_numbers and my_numbers
+    const winningNumbers: number[] = restOfLine.split('|')[0].split(' ').map(Number);
+    const myNumbers: number[] = restOfLine.split('|')[1].split(' ').map(Number);
+
+    // Calculate shared_numbers
+    const sharedNumbers: number = [...new Set(winningNumbers.filter(num => myNumbers.includes(num)))].length;
+
+    // Create scratchcard
+    const scratchcard: any = {
+      id: scratchcardId,
+      sharedNumbers,
+      winningNumbers,
+      myNumbers
+    };
+    scratchcards.push(scratchcard);
+
+}
+
+// Process scratchcards
+const originalScratchcardsCount: number = scratchcards.length;
+for (let i = 0; i < originalScratchcardsCount; i++) {
+const scratchcard = scratchcards[i];
+for (let j = 1; j <= scratchcard.sharedNumbers; j++) {
+// Add copies of scratchcards[i + j] to bonusScratchcards
+const newScratchcard = { ...scratchcards[i + j] };
+bonusScratchcards.push(newScratchcard);
+}
+}
+
+// Process scratchcards an additional time for each bonusScratchcard with the same id
+for (const bonusScratchcard of bonusScratchcards) {
+const scratchcardId = bonusScratchcard.id;
+for (let i = 0; i < originalScratchcardsCount; i++) {
+if (scratchcards[i].id === scratchcardId) {
+// Process the scratchcard an additional time
+const scratchcard = scratchcards[i];
+for (let j = 1; j <= scratchcard.sharedNumbers; j++) {
+// Add copies of scratchcards[i + j] to bonusScratchcards
+const newScratchcard = { ...scratchcards[i + j] };
+bonusScratchcards.push(newScratchcard);
+}
+}
+}
+}
+
+// Return the total number of scratchcards
+return scratchcards.length + bonusScratchcards.length;
+}
+
+// Call the function to process input from the file
+const result = await processInputFromFile();
+console.log(result);
+Please make sure to have Deno installed on your machine. You can run this script using the following command:
+
+bash
+Copy code
+deno run --allow-read your-script-filename.ts
+This script assumes Deno version 1.0.0 or later. If you encounter any permission issues, you may need to grant additional permissions using the --unstable flag.
+
+User
+Thanks Chat! Have a great night!
+ChatGPT
+You're welcome! If you have more questions in the future, feel free to ask. Have a wonderful night!

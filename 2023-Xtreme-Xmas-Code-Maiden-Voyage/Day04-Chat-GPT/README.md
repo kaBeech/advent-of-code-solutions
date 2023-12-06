@@ -12,9 +12,9 @@ Haha, nice
 
 ### Evidence
 
-[Part 1's Chat Log](https://chat.openai.com/share/34886ffd-e26a-4df9-8512-459287460907)
+[Part 1's Chat Log](https://chat.openai.com/share/cce907a5-3ac0-4167-8406-59f0f4d4f4c9)
 
-[Part 2's Chat Log](https://chat.openai.com/share/dda6f08c-5758-492f-8b7e-6867a2d69759)
+[Part 2's Chat Log](https://chat.openai.com/share/dcebcac1-7aa1-4a7a-9de9-e63aebd8c9bf)
 
 ### Points Earned
 

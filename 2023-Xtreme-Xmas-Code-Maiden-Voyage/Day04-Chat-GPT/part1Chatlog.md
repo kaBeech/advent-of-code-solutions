@@ -270,3 +270,8 @@ result = calculate_points_from_file(file_path)
 if result is not None:
 print(f"Total Points: {result}")
 Now, the program calculates line_points as 2 \*\* (len(shared_numbers) - 1) and sets it to 0 if there are no numbers in shared_numbers.
+
+User
+Thanks Chat! Have a great night!
+ChatGPT
+You're welcome! If you have any more questions in the future, feel free to ask. Have a great night too!
