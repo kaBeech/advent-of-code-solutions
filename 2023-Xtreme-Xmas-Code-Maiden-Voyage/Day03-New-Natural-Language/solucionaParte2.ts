@@ -12,8 +12,8 @@ export const solucionaParte2 = (async (): Promise<number> => {
         // Hace nada
       } else {
         sumaDeRelaciónesDeEngranajes += obteneRelaciónesDeEngranajes(
+          mapaDeBaldosas,
           baldosa,
-          filaDeBaldosas,
         );
       }
     });
