@@ -5,13 +5,14 @@ import { Almanac, SeedMap, SeedMapLine } from "./types.ts";
 
 export const parseInputPart2 = async (): Promise<Almanac> => {
   const almanacRaw: string[][] = await convertMultiParagraphFileToArray(
-    "./testInput.txt",
+    "./challengeInput.txt",
   );
   let rawSeedData = almanacRaw.shift()![0].trim().split(`:`)[1].split(` `);
   rawSeedData = rawSeedData.filter((data) => !isNaN(+data) && data !== ``);
   const seeds: number[] = [];
   let i = +rawSeedData[0];
   while (i <= +rawSeedData[0] + +rawSeedData[1]) {
+    console.log(i);
     seeds.push(i);
     i++;
   }
