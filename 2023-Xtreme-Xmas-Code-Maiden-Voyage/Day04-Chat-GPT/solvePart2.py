@@ -32,8 +32,8 @@ def process_input_from_file(filename="challengeInput.txt"):
     for i in range(original_scratchcards_count):
         scratchcard = scratchcards[i]
         for j in range(1, scratchcard['shared_numbers'] + 1):
-            # Add copies of scratchcards to bonus_scratchcards
-            new_scratchcard = scratchcard.copy()
+            # Add copies of scratchcards[i+j] to bonus_scratchcards
+            new_scratchcard = scratchcards[i + j].copy()
             bonus_scratchcards.append(new_scratchcard)
 
     # Process scratchcards an additional time for each bonus_scratchcard with the same id
@@ -44,8 +44,8 @@ def process_input_from_file(filename="challengeInput.txt"):
                 # Process the scratchcard an additional time
                 scratchcard = scratchcards[i]
                 for j in range(1, scratchcard['shared_numbers'] + 1):
-                    # Add copies of scratchcards to bonus_scratchcards
-                    new_scratchcard = scratchcard.copy()
+                    # Add copies of scratchcards[i+j] to bonus_scratchcards
+                    new_scratchcard = scratchcards[i + j].copy()
                     bonus_scratchcards.append(new_scratchcard)
 
     # Return the total number of scratchcards
