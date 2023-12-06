@@ -11,12 +11,12 @@ export const parseInputPart2 = async (): Promise<Almanac> => {
   rawSeedData = rawSeedData.filter((data) => !isNaN(+data) && data !== ``);
   const seeds: number[] = [];
   let i = +rawSeedData[0];
-  while (i <= +rawSeedData[1]) {
+  while (i <= +rawSeedData[0] + +rawSeedData[1]) {
     seeds.push(i);
     i++;
   }
   i = +rawSeedData[2];
-  while (i <= +rawSeedData[3]) {
+  while (i <= +rawSeedData[2] + +rawSeedData[3]) {
     seeds.push(i);
     i++;
   }
