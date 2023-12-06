@@ -39,7 +39,6 @@ export const solvePart2 = (async (): Promise<number> => {
       });
       currentSeedMapIndex--;
     }
-    console.log(currentLocation, ", ", seed);
     if (
       (seed >= almanac.seeds[0] &&
         seed <= almanac.seeds[0] + almanac.seeds[1] - 1) ||
