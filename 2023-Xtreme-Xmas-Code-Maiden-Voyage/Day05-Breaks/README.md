@@ -6,7 +6,7 @@ https://www.xtremexmascode.com/game/public/13/day/5/
 
 ### Challenge Modifier
 
-Aww yeah! I'm gonna start by taking a break from this whole project for a while and go do some chores!
+Aww yeah! I'm gonna start by taking a break to get some food!
 
 ### Points Earned
 
