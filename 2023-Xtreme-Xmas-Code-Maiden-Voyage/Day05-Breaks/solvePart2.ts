@@ -60,7 +60,7 @@ export const solvePart2 = (async (): Promise<number> => {
     ) {
       seedFound = true;
     } else {
-      currentLocation++;
+      currentLocation += lowestRangeLength;
     }
   }
 
