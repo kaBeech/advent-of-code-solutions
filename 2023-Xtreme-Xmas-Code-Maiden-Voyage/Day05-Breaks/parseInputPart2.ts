@@ -3,7 +3,7 @@ import {
 } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { Almanac, SeedMap, SeedMapLine } from "./types.ts";
 
-export const parseInput = async (): Promise<Almanac> => {
+export const parseInputPart2 = async (): Promise<Almanac> => {
   const almanacRaw: string[][] = await convertMultiParagraphFileToArray(
     "./testInput.txt",
   );
