@@ -8,6 +8,10 @@ https://www.xtremexmascode.com/game/public/13/day/5/
 
 Aww yeah! I'm gonna start by taking a break to get some food!
 
+### Evidence
+
+Number of Breaks: 1
+
 ### Points Earned
 
 X
