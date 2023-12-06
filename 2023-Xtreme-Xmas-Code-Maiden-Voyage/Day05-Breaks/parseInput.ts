@@ -5,20 +5,20 @@ import {
 import { Almanac } from "./types.ts";
 
 export const parseInput = async (): Promise<Almanac> => {
-  const almanacString: string[][] = await convertMultiParagraphFileToArray(
+  const almanacRaw: string[][] = await convertMultiParagraphFileToArray(
     "./testInput.txt",
   );
-  console.log(almanacString);
+  console.log(almanacRaw);
   const almanac: Almanac = {
-    seeds: almanacString.shift()![0].trim().split(`:`)[1].split(` `).map((
+    seeds: almanacRaw.shift()![0].trim().split(`:`)[1].split(` `).map((
       seed,
     ) => parseInt(seed)),
-    seedMaps: almanacString,
+    seedMaps: almanacRaw,
   };
   almanac.seeds = almanac.seeds.filter((seed) => !isNaN(seed));
   console.log(almanac);
   return {
-    seeds: almanacString[0].map((seed) => parseInt(seed)),
-    seedMaps: almanacString,
+    seeds: almanacRaw[0].map((seed) => parseInt(seed)),
+    seedMaps: almanacRaw,
   };
 };
