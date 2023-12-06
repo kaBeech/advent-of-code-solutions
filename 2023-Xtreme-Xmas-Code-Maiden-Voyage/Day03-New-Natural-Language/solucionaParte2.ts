@@ -8,9 +8,7 @@ export const solucionaParte2 = (async (): Promise<number> => {
 
   mapaDeBaldosas.forEach((filaDeBaldosas) => {
     filaDeBaldosas.forEach((baldosa) => {
-      if (baldosa.valor !== "*") {
-        // Hace nada
-      } else {
+      if (baldosa.valor === "*") {
         sumaDeRelaciónesDeEngranajes += obteneRelaciónesDeEngranajes(
           mapaDeBaldosas,
           baldosa,
