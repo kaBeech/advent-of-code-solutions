@@ -8,6 +8,7 @@ def process_input_from_file(filename="challengeInput.txt"):
 
     # Declare arrays
     scratchcards = []
+    bonus_scratchcards = []
 
     for line in lines:
         # Extract card_id (number before the colon)
@@ -31,12 +32,12 @@ def process_input_from_file(filename="challengeInput.txt"):
     for i in range(original_scratchcards_count):
         scratchcard = scratchcards[i]
         for j in range(1, scratchcard['shared_numbers'] + 1):
-            # Add copies of scratchcards with sequential id's
-            new_scratchcard = scratchcards[i + j].copy()
-            scratchcards.append(new_scratchcard)
+            # Add copies of scratchcards to bonus_scratchcards
+            new_scratchcard = scratchcard.copy()
+            bonus_scratchcards.append(new_scratchcard)
 
     # Return the total number of scratchcards
-    return len(scratchcards)
+    return len(scratchcards) + len(bonus_scratchcards)
 
 
 # Call the function to process input from the file
