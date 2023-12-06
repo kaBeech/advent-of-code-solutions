@@ -31,14 +31,17 @@ export const solvePart2 = (async (): Promise<number> => {
         ) {
           seed = seed + seedMapLine.sourceRangeStart -
             seedMapLine.destinationRangeStart;
-          if (seedMapLine.rangeLength < lowestRangeLength) {
-            lowestRangeLength = seedMapLine.rangeLength;
+          const distanceFromRangeEnd = seedMapLine.destinationRangeStart +
+            seedMapLine.rangeLength - seed;
+          if (distanceFromRangeEnd < lowestRangeLength) {
+            lowestRangeLength = distanceFromRangeEnd;
           }
           seedMapProcessed = true;
         }
       });
       currentSeedMapIndex--;
     }
+    console.log(currentLocation, ", ", seed, ", ", lowestRangeLength);
     if (
       (seed >= almanac.seeds[0] &&
         seed <= almanac.seeds[0] + almanac.seeds[1] - 1) ||
@@ -47,7 +50,7 @@ export const solvePart2 = (async (): Promise<number> => {
     ) {
       seedFound = true;
     } else {
-      currentLocation += lowestRangeLength;
+      currentLocation++;
     }
   }
 
