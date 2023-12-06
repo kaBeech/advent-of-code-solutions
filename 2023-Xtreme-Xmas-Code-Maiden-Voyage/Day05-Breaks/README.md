@@ -6,6 +6,8 @@ https://www.xtremexmascode.com/game/public/13/day/5/
 
 ### Challenge Modifier
 
+"Your challenge is to write a program to complete today's puzzle while taking a 3-minute (minimum) breaks every 20 minutes"
+
 Aww yeah! I'm gonna start by taking a break to get some food!
 
 ### Evidence
