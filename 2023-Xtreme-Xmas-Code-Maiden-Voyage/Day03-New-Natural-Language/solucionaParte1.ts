@@ -12,6 +12,7 @@ const obteneNúmeroDePieza = (
   while (!isNaN(+baldosaAnterior.valor)) {
     númeroDePieza = `${baldosaAnterior.valor}` +
       númeroDePieza;
+    baldosaAnterior.agregadaALaSuma = true;
     if (filaDeBaldosas[baldosaAnterior.coordinadas.x - 1]) {
       baldosaAnterior = filaDeBaldosas[baldosaAnterior.coordinadas.x - 1];
     } else {
@@ -21,6 +22,7 @@ const obteneNúmeroDePieza = (
   while (!isNaN(+baldosaSiguiente.valor)) {
     númeroDePieza = númeroDePieza +
       `${baldosaSiguiente.valor}`;
+    baldosaSiguiente.agregadaALaSuma = true;
     if (filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1]) {
       baldosaSiguiente = filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1];
     } else {
