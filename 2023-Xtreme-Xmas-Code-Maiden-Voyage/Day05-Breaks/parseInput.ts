@@ -7,7 +7,6 @@ export const parseInput = async (): Promise<Almanac> => {
   const almanacRaw: string[][] = await convertMultiParagraphFileToArray(
     "./testInput.txt",
   );
-  console.log(almanacRaw);
   const almanac: Almanac = {
     seeds: almanacRaw.shift()![0].trim().split(`:`)[1].split(` `).map((
       seed,
