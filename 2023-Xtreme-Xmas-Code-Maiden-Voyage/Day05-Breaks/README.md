@@ -40,7 +40,7 @@ That was pretty fun!
 
 Funny note - in Part 2 I lazily hard-coded the seed ranges for the test input, intending to come back later to code them properly for the challenge input. When I finished my main code, I had forgotten about adjusting the seed ranges and just ran the program. While I was waiting for it to finish, I got bored and decided to optimize my algorithm.
 
-The funny part is that if I had coded the seed ranges properly from the start, my non-optimized code would have actually gotten the the correct answer before I got bored waiting to it to finish and decided to optimize it!
+The funny part is that if I had coded the seed ranges properly from the start, my non-optimized code would have actually gotten the the correct answer before I got bored waiting for it to finish and decided to optimize it!
 
 For what it's worth, my non-optimized code would have gotten the correct answer in a little over 24.2 million cycles. My optimized code got the correct answer in 2 cycles 😎
 
