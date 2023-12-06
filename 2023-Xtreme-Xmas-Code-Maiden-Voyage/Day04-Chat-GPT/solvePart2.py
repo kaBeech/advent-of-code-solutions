@@ -8,7 +8,6 @@ def process_input_from_file(filename="challengeInput.txt"):
 
     # Declare arrays
     scratchcards = []
-    bonus_scratchcards = []
 
     for line in lines:
         # Extract card_id (number before the colon)
@@ -19,8 +18,11 @@ def process_input_from_file(filename="challengeInput.txt"):
         winning_numbers = list(map(int, rest_of_line.split('|')[0].split()))
         my_numbers = list(map(int, rest_of_line.split('|')[1].split()))
 
+        # Calculate shared_numbers
+        shared_numbers = len(set(winning_numbers) & set(my_numbers))
+
         # Create scratchcard
-        scratchcard = {'id': scratchcard_id, 'shared_numbers': 0,
+        scratchcard = {'id': scratchcard_id, 'shared_numbers': shared_numbers,
                        'winning_numbers': winning_numbers, 'my_numbers': my_numbers}
         scratchcards.append(scratchcard)
 
