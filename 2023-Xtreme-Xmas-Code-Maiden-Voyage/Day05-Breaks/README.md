@@ -12,7 +12,7 @@ Aww yeah! I'm gonna start by taking a break to get some food!
 
 ### Evidence
 
-Number of Breaks: 6
+Number of Breaks: 7
 
 ### Points Earned
 
