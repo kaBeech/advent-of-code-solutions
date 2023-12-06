@@ -1,15 +1,14 @@
 import { parseInput } from "./parseInput.ts";
-import selectElfNumber42 from "./selectElfNumber42.ts";
-import { Elf, ElfMap } from "./types.ts";
+import { Almanac } from "./types.ts";
 
-export const solvePart1 = (async (): Promise<Elf> => {
-  const elfMap: ElfMap = await parseInput();
+export const solvePart1 = (async (): Promise<number> => {
+  const almanac: Almanac = await parseInput();
 
-  const elfNumber42 = selectElfNumber42(
-    elfMap,
+  const result: number = 0;
+
+  console.log(
+    `Part 1: The lowest location number that corresponds to any of the initial seed numbers is ${result}`,
   );
 
-  console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
-
-  return elfNumber42;
+  return result;
 })();
