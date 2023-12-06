@@ -7,14 +7,17 @@ export const solvePart1 = (async (): Promise<number> => {
 
   almanac.seeds.forEach((seed) => {
     almanac.seedMaps.forEach((seedMap) => {
+      let seedMapProcessed = false;
       seedMap.forEach((seedMapLine) => {
         console.log(seed, seedMapLine);
         if (
           seed >= seedMapLine.sourceRangeStart &&
-          seed < seedMapLine.sourceRangeStart + seedMapLine.rangeLength
+          seed < seedMapLine.sourceRangeStart + seedMapLine.rangeLength &&
+          !seedMapProcessed
         ) {
           seed = seed + seedMapLine.destinationRangeStart -
             seedMapLine.sourceRangeStart;
+          seedMapProcessed = true;
         }
       });
     });
