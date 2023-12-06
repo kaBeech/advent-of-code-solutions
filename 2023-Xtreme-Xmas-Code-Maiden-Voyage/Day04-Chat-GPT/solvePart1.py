@@ -24,7 +24,10 @@ def calculate_points_from_file(file_path):
             shared_numbers = list(set(winning_numbers) & set(my_numbers))
 
             # Calculate line points
-            line_points = 2 ** len(shared_numbers)
+            if len(shared_numbers) > 0:
+                line_points = 2 ** (len(shared_numbers) - 1)
+            else:
+                line_points = 0
 
             # Add line points to total points
             total_points += line_points
