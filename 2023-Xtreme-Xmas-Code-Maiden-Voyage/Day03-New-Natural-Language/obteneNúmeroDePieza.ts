@@ -11,7 +11,7 @@ export default function (baldosa: Baldosa, filaDeBaldosas: Baldosa[]): number {
     if (filaDeBaldosas[baldosaAnterior.coordinadas.x - 1]) {
       baldosaAnterior = filaDeBaldosas[baldosaAnterior.coordinadas.x - 1];
     } else {
-      baldosaAnterior.valor = ".";
+      break;
     }
   }
   while (!isNaN(+baldosaSiguiente.valor)) {
@@ -21,7 +21,7 @@ export default function (baldosa: Baldosa, filaDeBaldosas: Baldosa[]): number {
     if (filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1]) {
       baldosaSiguiente = filaDeBaldosas[baldosaSiguiente.coordinadas.x + 1];
     } else {
-      baldosaSiguiente.valor = ".";
+      break;
     }
   }
   return +númeroDePieza;
