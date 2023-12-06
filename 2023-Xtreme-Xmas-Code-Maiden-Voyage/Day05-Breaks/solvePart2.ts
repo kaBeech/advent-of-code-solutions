@@ -12,7 +12,6 @@ export const solvePart2 = (async (): Promise<number> => {
     }
   });
 
-  const magicNumber = 69;
   let seedFound = false;
   let currentLocation = 0;
   while (currentLocation < lowestDestinationRangeStart && !seedFound) {
@@ -36,10 +35,16 @@ export const solvePart2 = (async (): Promise<number> => {
       });
       currentSeedMapIndex--;
     }
-    if (seed === magicNumber) {
+    if (
+      (seed >= almanac.seeds[0] &&
+        seed <= almanac.seeds[0] + almanac.seeds[1] - 1) ||
+      (seed >= almanac.seeds[2] &&
+        seed <= almanac.seeds[2] + almanac.seeds[3] - 1)
+    ) {
       seedFound = true;
+    } else {
+      currentLocation++;
     }
-    currentLocation++;
   }
 
   const closestLocation = currentLocation;
