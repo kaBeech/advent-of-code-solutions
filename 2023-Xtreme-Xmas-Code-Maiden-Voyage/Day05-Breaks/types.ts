@@ -3,6 +3,11 @@ export interface Almanac {
   seedMaps: SeedMap[];
 }
 
+export interface AlmanacPart2 {
+  seeds: number[][];
+  seedMaps: SeedMap[];
+}
+
 export interface SeedMapLine {
   sourceRangeStart: number;
   destinationRangeStart: number;
