@@ -16,18 +16,18 @@ export default function (
           1;
       if (
         baldosaComprobadaEstaAdyacenteALaBaldosa &&
-        !baldosaComprobada.agregadaALaSuma
+        baldosaComprobada.agregadaALaSuma === false &&
+        !isNaN(+baldosaComprobada.valor)
       ) {
         númerosAdyacentes++;
-        relacióneDeEngranajes *= obteneNúmeroDePieza(
+        const númeroDePieza = obteneNúmeroDePieza(
           baldosaComprobada,
           filaDeBaldosas,
         );
+        relacióneDeEngranajes *= númeroDePieza;
       }
     });
   });
-
-  console.log(relacióneDeEngranajes);
 
   if (númerosAdyacentes === 2) {
     return relacióneDeEngranajes;
