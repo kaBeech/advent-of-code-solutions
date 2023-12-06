@@ -13,8 +13,8 @@ def calculate_points_from_file(file_path):
 
         # Process each line
         for line in lines:
-            # Remove everything before the semicolon
-            line = line.split(';')[-1].strip()
+            # Remove everything before the colon
+            line = line.split(':')[-1].strip()
 
             # Split the line into winning and my numbers
             winning_numbers, my_numbers = map(lambda x: list(map(int, x.split('|'))), line.split())
