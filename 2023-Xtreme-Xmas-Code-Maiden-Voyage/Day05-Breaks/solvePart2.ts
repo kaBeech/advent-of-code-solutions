@@ -1,15 +1,34 @@
-import { parseInput } from "./parseInput.ts";
-import selectElfNumber24 from "./selectElfNumber24.ts";
-import { Elf, ElfMap } from "./types.ts";
+import { parseInputPart2 } from "./parseInputPart2.ts";
+import { Almanac } from "./types.ts";
 
-export const solvePart2 = (async (): Promise<Elf> => {
-  const elfMap: ElfMap = await parseInput();
+export const solvePart2 = (async (): Promise<number> => {
+  const almanac: Almanac = await parseInputPart2();
+  const locations: number[] = [];
 
-  const elfNumber24 = selectElfNumber24(
-    elfMap,
+  almanac.seeds.forEach((seed) => {
+    almanac.seedMaps.forEach((seedMap) => {
+      let seedMapProcessed = false;
+      seedMap.forEach((seedMapLine) => {
+        if (
+          seed >= seedMapLine.sourceRangeStart &&
+          seed < seedMapLine.sourceRangeStart + seedMapLine.rangeLength &&
+          !seedMapProcessed
+        ) {
+          seed = seed + seedMapLine.destinationRangeStart -
+            seedMapLine.sourceRangeStart;
+          seedMapProcessed = true;
+        }
+      });
+    });
+    locations.push(seed);
+  });
+
+  // console.log(locations);
+
+  const closestLocation: number = Math.min(...locations);
+  console.log(
+    `Part 1: The lowest location number that corresponds to any of the initial seed numbers is ${closestLocation}`,
   );
 
-  console.log(`Part 2: Elf Number 24 is ${JSON.stringify(elfNumber24)}`);
-
-  return elfNumber24;
+  return closestLocation;
 })();
