@@ -4,7 +4,7 @@ import { Baldosa, MapaDeBaldosas, ValorDeBaldosa } from "./tipos.ts";
 export const analizaEntrada = async (): Promise<MapaDeBaldosas> => {
   const mapaDeBaldosasCruda: string[][] =
     await converteArchivoDeVariasLíneasADobleFormación(
-      "./entradaDePrueba.txt",
+      `./entradaDelDesafío.txt`,
     );
   const mapaDeBaldosas: MapaDeBaldosas = [];
   mapaDeBaldosasCruda.forEach((filaDeMapaDeBaldosasCrudas, coordinadaY) => {
