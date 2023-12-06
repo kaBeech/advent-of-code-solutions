@@ -3,9 +3,27 @@ import { Almanac } from "./types.ts";
 
 export const solvePart1 = (async (): Promise<number> => {
   const almanac: Almanac = await parseInput();
+  const locations: number[] = [];
+
+  almanac.seeds.forEach((seed) => {
+    almanac.seedMaps.forEach((seedMap) => {
+      seedMap.forEach((seedMapLine) => {
+        console.log(seed, seedMapLine);
+        if (
+          seed >= seedMapLine.sourceRangeStart &&
+          seed < seedMapLine.sourceRangeStart + seedMapLine.rangeLength
+        ) {
+          seed = seed + seedMapLine.destinationRangeStart -
+            seedMapLine.sourceRangeStart;
+        }
+      });
+    });
+    locations.push(seed);
+  });
+
+  console.log(locations);
 
   const result: number = 0;
-
   console.log(
     `Part 1: The lowest location number that corresponds to any of the initial seed numbers is ${result}`,
   );
