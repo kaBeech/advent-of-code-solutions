@@ -23,11 +23,9 @@ export const solvePart2 = (async (): Promise<number> => {
     locations.push(seed);
   });
 
-  // console.log(locations);
-
   const closestLocation: number = Math.min(...locations);
   console.log(
-    `Part 1: The lowest location number that corresponds to any of the initial seed numbers is ${closestLocation}`,
+    `Part 2: The lowest location number that corresponds to any of the initial seed numbers is ${closestLocation}`,
   );
 
   return closestLocation;
