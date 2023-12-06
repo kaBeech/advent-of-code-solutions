@@ -27,10 +27,12 @@ def process_input_from_file(filename="challengeInput.txt"):
         scratchcards.append(scratchcard)
 
     # Process scratchcards
-    for scratchcard in scratchcards:
-        for i in range(scratchcard['shared_numbers']):
-            # Add copies of scratchcards with the same id
-            new_scratchcard = scratchcards[scratchcard['id'] - 1].copy()
+    original_scratchcards_count = len(scratchcards)
+    for i in range(original_scratchcards_count):
+        scratchcard = scratchcards[i]
+        for j in range(1, scratchcard['shared_numbers'] + 1):
+            # Add copies of scratchcards with sequential id's
+            new_scratchcard = scratchcards[i + j].copy()
             scratchcards.append(new_scratchcard)
 
     # Return the total number of scratchcards
