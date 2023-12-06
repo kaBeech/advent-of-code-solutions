@@ -3,7 +3,7 @@ interface CoordinadasXY {
   y: number;
 }
 
-export type ValorDeBaldosa = number | "X" | ".";
+export type ValorDeBaldosa = number | "X" | "." | "*";
 
 export interface Baldosa {
   valor: ValorDeBaldosa;
