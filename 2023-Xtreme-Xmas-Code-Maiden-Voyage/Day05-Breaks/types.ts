@@ -3,4 +3,10 @@ export interface Almanac {
   seedMaps: SeedMap[];
 }
 
-export type SeedMap = string[];
+export interface SeedMapLine {
+  sourceRangeStart: number;
+  destinationRangeStart: number;
+  rangeLength: number;
+}
+
+export type SeedMap = SeedMapLine[];
