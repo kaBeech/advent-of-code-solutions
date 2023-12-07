@@ -10,6 +10,8 @@ https://www.xtremexmascode.com/game/public/13/day/6/
 
 OK, let's give this a shot!
 
+...wait. That's my Challenge Input? I could probably just do this by hand...
+
 ### Points Earned
 
 X
