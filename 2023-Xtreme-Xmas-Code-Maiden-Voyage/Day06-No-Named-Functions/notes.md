@@ -7,6 +7,7 @@ https://adventofcode.com/2023/day/6
 D = Distance
 T = Time
 X = Milliseconds holding button
+N = number of options to beat the best time
 
 D = X • (T - X)
 D = T • X - X^2
@@ -20,6 +21,17 @@ D = -(X^2) + T • X
 
 X = (-T - Math.absolute(sqrt(T^2 - 4 • -1 • -D))) / 2 • -1
 
+<!-- Calculate the number of options to beat the best time -->
+
+N = T - (Math.floor(X) • 2) - 1
+
 <!-- Calculate solution -->
 
-Solution = T - (X • 2)
+Solution = N[1] • N[2] • N[3] • N[4]
+
+## Solutions
+
+N[1] =
+N[2] =
+N[3] =
+N[4] =
