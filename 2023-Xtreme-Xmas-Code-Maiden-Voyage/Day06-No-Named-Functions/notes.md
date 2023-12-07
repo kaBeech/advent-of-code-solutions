@@ -19,7 +19,7 @@ D = -(X^2) + T • X
 
 <!-- Use the Quadratic Formula -->
 
-X = (-T - Math.absolute(sqrt(T^2 - 4 • -1 • -D))) / 2 • -1
+X = (-T - sqrt(T^2 - 4 • -1 • -D)) / 2 • -1
 
 <!-- Calculate the number of options to beat the best time -->
 
