@@ -1,17 +1,17 @@
 import { Race } from "./types.ts";
 
 export default (function (): number {
-  const testRaces: Race[] = [
-    { time: 71530, distance: 940200 },
-  ];
-
-  // const challengeRaces: Race[] = [
-  //   { time: 45988373, distance: 295173412781210 },
+  // const testRaces: Race[] = [
+  //   { time: 71530, distance: 940200 },
   // ];
+
+  const challengeRaces: Race[] = [
+    { time: 45988373, distance: 295173412781210 },
+  ];
 
   const numbersOfWaysToWin: number[] = [];
 
-  testRaces.forEach((race) => {
+  challengeRaces.forEach((race) => {
     const minimumTimeToNotWinTheRace =
       (-race.time + Math.sqrt(race.time ** 2 - -4 * -race.distance)) /
       -2;
