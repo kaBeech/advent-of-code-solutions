@@ -12,6 +12,8 @@ OK, let's give this a shot!
 
 ...wait. That's my Challenge Input? I could probably just do this by hand...
 
+Confirmed! But the challenge does say to write a program to do it so...
+
 ### Points Earned
 
 X
