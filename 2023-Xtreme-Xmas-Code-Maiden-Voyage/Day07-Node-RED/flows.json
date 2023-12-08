@@ -1,0 +1,95 @@
+[
+    {
+        "id": "6e437d92aec9fd7d",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4816c943cdd39e1a",
+        "type": "function",
+        "z": "6e437d92aec9fd7d",
+        "name": "parseInput()",
+        "func": "const handsData = msg.payload.split('\\n')\nconsole.log(msg.payload);\nconst test = [];\nhandsData.forEach((hand) => {\n    hand = hand.split(` `);\n    hand = {\n        cards: hand[0],\n        bid: hand[1],\n    }\n    test.push(hand);\n});\nmsg.payload = test;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "8c404e12c471eb99"
+            ]
+        ]
+    },
+    {
+        "id": "d57dc5e0c3924213",
+        "type": "inject",
+        "z": "6e437d92aec9fd7d",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Start!",
+        "payloadType": "global",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "72f954038f0b19fe"
+            ]
+        ]
+    },
+    {
+        "id": "72f954038f0b19fe",
+        "type": "template",
+        "z": "6e437d92aec9fd7d",
+        "name": "testInput",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483",
+        "output": "str",
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "4816c943cdd39e1a"
+            ]
+        ]
+    },
+    {
+        "id": "8c404e12c471eb99",
+        "type": "debug",
+        "z": "6e437d92aec9fd7d",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 380,
+        "wires": []
+    }
+]
