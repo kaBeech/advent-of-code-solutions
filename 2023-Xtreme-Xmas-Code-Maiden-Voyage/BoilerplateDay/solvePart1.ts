@@ -2,7 +2,7 @@ import { parseInput } from "./parseInput.ts";
 import selectElfNumber42 from "./selectElfNumber42.ts";
 import { Elf, ElfMap } from "./types.ts";
 
-export const solvePart1 = (async (): Promise<Elf> => {
+export default (async function (): Promise<Elf> {
   const elfMap: ElfMap = await parseInput();
 
   const elfNumber42 = selectElfNumber42(
