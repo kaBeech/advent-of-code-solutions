@@ -55,6 +55,7 @@ export default (async function (): Promise<string[]> {
   const stepsSpentSurveying = totalStepsArray.length;
 
   const periodicNodes: PeriodicNode[] = [];
+  const harmonizedNodes: PeriodicNode[] = [];
 
   for (const currentInstruction of currentInstructions) {
     let distanceFromNextEndingNode = currentInstruction
@@ -69,11 +70,15 @@ export default (async function (): Promise<string[]> {
       currentInstruction.nextEndingNode?.id,
       period,
     );
-    periodicNodes.push({
+    const periodicNode = {
       endingNodeId: currentInstruction.nextEndingNode!.id,
       period,
       distanceFromNextEndingNode,
-    });
+    };
+    periodicNodes.push(periodicNode);
+    if (periodicNode.distanceFromNextEndingNode === 0) {
+      harmonizedNodes.push(periodicNode);
+    }
   }
 
   console.log(
