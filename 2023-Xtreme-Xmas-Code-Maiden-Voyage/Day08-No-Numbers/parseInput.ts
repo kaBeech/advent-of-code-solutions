@@ -3,7 +3,7 @@ import { Maps } from "./types.ts";
 
 export const parseInput = async (): Promise<Maps> => {
   const mapsRaw: string[][] = await convertMultiParagraphFileToArray(
-    "./challengeInput.dat",
+    "./testInputPart2.dat",
   );
   const maps: Maps = { directions: mapsRaw[0][0], instructions: [] };
   for (const instruction of mapsRaw[1]) {
