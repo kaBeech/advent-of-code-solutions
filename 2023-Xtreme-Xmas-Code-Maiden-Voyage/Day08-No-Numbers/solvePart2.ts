@@ -63,7 +63,7 @@ export default (async function (): Promise<string[]> {
     }
     totalStepsArray.push(`Step!`);
     currentInstructions = newInstructions;
-    console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
+    // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     if (!nonEndInstructionFound) {
       endReached = true;
     }
@@ -72,7 +72,7 @@ export default (async function (): Promise<string[]> {
   // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
 
   console.log(
-    `Part 1: The number of steps it takes to reach "ZZZ" is: ${
+    `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${
       JSON.stringify(totalStepsArray.length)
     }`,
   );
