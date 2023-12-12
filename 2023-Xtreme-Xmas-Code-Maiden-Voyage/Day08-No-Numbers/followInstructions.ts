@@ -59,11 +59,6 @@ export default (
         currentInstruction.lastEndingNode.nextEndingNode = currentInstruction;
         currentInstruction.lastEndingNode.distanceFromNextEndingNode =
           distanceFromLastEndingNode;
-        console.log(
-          currentInstruction.lastEndingNode.distanceFromNextEndingNode,
-          currentInstruction.id,
-          currentInstruction.lastEndingNode.id,
-        );
       } else if (
         currentInstruction.lastEndingNode &&
         currentInstruction.lastEndingNode.nextEndingNode
@@ -74,7 +69,6 @@ export default (
       currentInstruction.distanceFromLastEndingNode = 0;
     }
     newInstructions.push(currentInstruction);
-    // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
   }
   return {
     newInstructions,

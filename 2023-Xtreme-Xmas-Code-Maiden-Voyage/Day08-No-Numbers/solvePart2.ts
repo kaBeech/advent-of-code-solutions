@@ -20,7 +20,6 @@ export default (async function (): Promise<string[]> {
   let surveyedEndingNodePathLoops: Instruction[] = [];
 
   while (surveyedEndingNodePathLoops.length < 6) {
-    // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     let nonEndInstructionFound = false;
 
     const directionData = processDirectionData(
@@ -48,13 +47,25 @@ export default (async function (): Promise<string[]> {
       instructionsResults.surveyedEndingNodePathLoops;
     totalStepsArray.push(`Step!`);
 
-    // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     if (!nonEndInstructionFound) {
       endReached = true;
     }
-    // console.log(JSON.stringify(totalStepsArray.length));
   }
-  // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
+
+  for (const currentInstruction of currentInstructions) {
+    let distanceFromNextEndingNode =
+      currentInstruction.distanceFromNextEndingNode;
+    let periodDistance = currentInstruction.nextEndingNode
+      ?.distanceFromNextEndingNode;
+    if (distanceFromNextEndingNode === periodDistance) {
+      distanceFromNextEndingNode = 0;
+    }
+    console.log(
+      distanceFromNextEndingNode,
+      currentInstruction.nextEndingNode?.id,
+      periodDistance,
+    );
+  }
 
   console.log(
     `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${
