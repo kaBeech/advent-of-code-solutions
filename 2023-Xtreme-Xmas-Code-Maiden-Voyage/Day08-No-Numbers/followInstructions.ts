@@ -42,9 +42,13 @@ export default (
         currentInstruction.lastEndingNode &&
         !currentInstruction.lastEndingNode.nextEndingNode
       ) {
+        distanceFromLastEndingNode!++;
         currentInstruction.lastEndingNode.nextEndingNode = currentInstruction;
         currentInstruction.lastEndingNode.distanceFromNextEndingNode =
-          currentInstruction.distanceFromLastEndingNode;
+          distanceFromLastEndingNode;
+        console.log(
+          currentInstruction.lastEndingNode.distanceFromNextEndingNode,
+        );
       }
       currentInstruction.lastEndingNode = currentInstruction;
       currentInstruction.distanceFromLastEndingNode = 0;
