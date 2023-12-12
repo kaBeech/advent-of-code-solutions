@@ -1,3 +1,4 @@
+import followInstruction from "./followInstruction.ts";
 import { parseInput } from "./parseInput.ts";
 import { Instruction, Maps } from "./types.ts";
 
@@ -22,6 +23,7 @@ export default (async function (): Promise<string[]> {
       directionsReservoir.push(currentDirection);
     }
     currentInstruction = followInstruction(
+      maps.instructions,
       currentInstruction,
       currentDirection,
     )!;
