@@ -1,5 +1,5 @@
 import { parseInput } from "./parseInput.ts";
-import { Instruction, Maps } from "./types.ts";
+import { Instruction, Maps, PeriodicNode } from "./types.ts";
 import processDirectionData from "./processDirectionData.ts";
 import followInstructions from "./followInstructions.ts";
 
@@ -53,12 +53,6 @@ export default (async function (): Promise<string[]> {
   }
 
   const stepsSpentSurveying = totalStepsArray.length;
-
-  interface PeriodicNode {
-    endingNodeId: string;
-    period: number;
-    distanceFromNextEndingNode: number;
-  }
 
   const periodicNodes: PeriodicNode[] = [];
 
