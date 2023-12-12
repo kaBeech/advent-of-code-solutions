@@ -64,9 +64,35 @@ export default (async function (): Promise<string[]> {
     harmonizedNodes,
   );
 
+  let stepsTotal = stepsSpentSurveying + harmonizedNodes[0].period;
+
+  while (harmonizedNodes.length < 2) {
+    let stepsTaken = harmonizedNodes[0].period;
+    stepsTotal += stepsTaken;
+    periodicNodes.forEach((periodicNode) => {
+      console.log(periodicNode);
+      const distanceToSubtract = stepsTaken;
+      periodicNode.distanceFromNextEndingNode -= distanceToSubtract;
+      if (
+        periodicNode.distanceFromNextEndingNode % distanceToSubtract === 0 &&
+        !harmonizedNodes.includes(periodicNode)
+      ) {
+        harmonizedNodes.push(periodicNode);
+        console.log(
+          periodicNode.distanceFromNextEndingNode,
+          distanceToSubtract,
+        );
+      } else {while (
+          periodicNode.distanceFromNextEndingNode < 0
+        ) {
+          periodicNode.distanceFromNextEndingNode += periodicNode.period;
+        }}
+    });
+  }
+
   console.log(
     `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${
-      JSON.stringify(totalStepsArray.length)
+      JSON.stringify(stepsTotal)
     }`,
   );
 
