@@ -3,27 +3,34 @@ export default (
   directions: string[],
   directionsReservoir: string[],
 ) => {
+  const processedDirections = directions.slice();
+  const processedDirectionsReservoir = directionsReservoir.slice();
   let currentDirection: string;
   if (reservoirInUse) {
     // This checks whether directionsReservoir is empty without using any numbers
-    if (directionsReservoir == false) {
+    if (processedDirectionsReservoir == false) {
       reservoirInUse = false;
-      currentDirection = directions.shift()!;
-      directionsReservoir.push(currentDirection);
+      currentDirection = processedDirections.shift()!;
+      processedDirectionsReservoir.push(currentDirection);
     } else {
-      currentDirection = directionsReservoir.shift()!;
-      directions.push(currentDirection);
+      currentDirection = processedDirectionsReservoir.shift()!;
+      processedDirections.push(currentDirection);
     }
   } else {
     // This checks whether directions is empty without using any numbers
-    if (directions == false) {
+    if (processedDirections == false) {
       reservoirInUse = true;
-      currentDirection = directionsReservoir.shift()!;
-      directions.push(currentDirection);
+      currentDirection = processedDirectionsReservoir.shift()!;
+      processedDirections.push(currentDirection);
     } else {
-      currentDirection = directions.shift()!;
-      directionsReservoir.push(currentDirection);
+      currentDirection = processedDirections.shift()!;
+      processedDirectionsReservoir.push(currentDirection);
     }
   }
-  return { currentDirection, reservoirInUse, directions, directionsReservoir };
+  return {
+    currentDirection,
+    reservoirInUse,
+    processedDirections,
+    processedDirectionsReservoir,
+  };
 };

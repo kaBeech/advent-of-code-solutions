@@ -29,10 +29,9 @@ export default (async function (): Promise<string[]> {
       directionsReservoir,
     );
 
-    // Evaluate whether these are necessary
     reservoirInUse = directionData.reservoirInUse;
-    directions = directionData.directions;
-    directionsReservoir = directionData.directionsReservoir;
+    directions = directionData.processedDirections;
+    directionsReservoir = directionData.processedDirectionsReservoir;
     const currentDirection = directionData.currentDirection;
 
     const instructionsResults = followInstructions(
