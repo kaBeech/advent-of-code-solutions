@@ -7,7 +7,6 @@ export default (async function (): Promise<string[]> {
   const start = maps.instructions.find((instruction: Instruction) =>
     instruction.id === `AAA`
   )!;
-
   const directions = maps.directions.split(``);
   const directionsReservoir = [];
   const totalStepsArray = [];
@@ -15,7 +14,7 @@ export default (async function (): Promise<string[]> {
 
   while (currentInstruction.id !== `ZZZ`) {
     let currentDirection: string;
-    if (!directions) {
+    if (directions == false) {
       currentDirection = directionsReservoir.shift()!;
       directions.push(currentDirection);
     } else {
