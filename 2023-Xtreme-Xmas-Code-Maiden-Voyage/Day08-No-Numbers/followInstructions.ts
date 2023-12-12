@@ -6,6 +6,7 @@ export default (
   currentDirection: string,
   currentInstructions: Instruction[],
   maps: Maps,
+  endingNodePathLoopsSurveyed: number,
   nonEndInstructionFound: boolean,
 ) => {
   const newInstructions: Instruction[] = [];
@@ -48,7 +49,10 @@ export default (
           distanceFromLastEndingNode;
         console.log(
           currentInstruction.lastEndingNode.distanceFromNextEndingNode,
+          currentInstruction.id,
+          currentInstruction.lastEndingNode.id,
         );
+        endingNodePathLoopsSurveyed++;
       }
       currentInstruction.lastEndingNode = currentInstruction;
       currentInstruction.distanceFromLastEndingNode = 0;
@@ -56,5 +60,9 @@ export default (
     newInstructions.push(currentInstruction);
     // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
   }
-  return { newInstructions, nonEndInstructionFound };
+  return {
+    newInstructions,
+    nonEndInstructionFound,
+    endingNodePathLoopsSurveyed,
+  };
 };

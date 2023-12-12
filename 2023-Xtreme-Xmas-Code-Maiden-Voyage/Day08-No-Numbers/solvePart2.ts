@@ -17,6 +17,7 @@ export default (async function (): Promise<string[]> {
   let currentInstructions = startingInstructions;
   let reservoirInUse = false;
   let endReached = false;
+  let endingNodePathLoopsSurveyed = 0;
 
   while (!endReached) {
     // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
@@ -38,11 +39,14 @@ export default (async function (): Promise<string[]> {
       currentDirection,
       currentInstructions,
       maps,
+      endingNodePathLoopsSurveyed,
       nonEndInstructionFound,
     );
 
     currentInstructions = instructionsResults.newInstructions;
     nonEndInstructionFound = instructionsResults.nonEndInstructionFound;
+    endingNodePathLoopsSurveyed =
+      instructionsResults.endingNodePathLoopsSurveyed;
     totalStepsArray.push(`Step!`);
 
     // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
