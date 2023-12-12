@@ -14,49 +14,62 @@ export default (async function (): Promise<string[]> {
   const directions = maps.directions.split(``);
   const directionsReservoir = [];
   const totalStepsArray = [];
-  const currentInstructions = startingInstructions;
+  let currentInstructions = startingInstructions;
   let reservoirInUse = false;
   let endReached = false;
 
   while (!endReached) {
+    // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     let nonEndInstructionFound = false;
-    for (let currentInstruction of currentInstructions) {
-      if (getLastChar(currentInstruction.id) !== `Z`) {
-        nonEndInstructionFound = true;
-      }
-      let currentDirection: string;
-      if (reservoirInUse) {
-        // This checks whether directionsReservoir is empty without using any numbers
-        if (directionsReservoir == false) {
-          reservoirInUse = false;
-          currentDirection = directions.shift()!;
-          directionsReservoir.push(currentDirection);
-        } else {
-          currentDirection = directionsReservoir.shift()!;
-          directions.push(currentDirection);
-        }
+    let currentDirection: string;
+    if (reservoirInUse) {
+      // This checks whether directionsReservoir is empty without using any numbers
+      if (directionsReservoir == false) {
+        reservoirInUse = false;
+        currentDirection = directions.shift()!;
+        directionsReservoir.push(currentDirection);
       } else {
-        // This checks whether directions is empty without using any numbers
-        if (directions == false) {
-          reservoirInUse = true;
-          currentDirection = directionsReservoir.shift()!;
-          directions.push(currentDirection);
-        } else {
-          currentDirection = directions.shift()!;
-          directionsReservoir.push(currentDirection);
-        }
+        currentDirection = directionsReservoir.shift()!;
+        directions.push(currentDirection);
       }
+    } else {
+      // This checks whether directions is empty without using any numbers
+      if (directions == false) {
+        reservoirInUse = true;
+        currentDirection = directionsReservoir.shift()!;
+        directions.push(currentDirection);
+      } else {
+        currentDirection = directions.shift()!;
+        directionsReservoir.push(currentDirection);
+      }
+    }
+    const newInstructions = [];
+    for (let currentInstruction of currentInstructions) {
+      // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
+      // console.log(
+      //   `last char: ${getLastChar(currentInstruction.id)}`,
+      //   currentDirection,
+      // );
       currentInstruction = followInstruction(
         maps.instructions,
         currentInstruction,
         currentDirection,
       )!;
+      if (getLastChar(currentInstruction.id) !== `Z`) {
+        nonEndInstructionFound = true;
+      }
+      newInstructions.push(currentInstruction);
+      // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
     }
     totalStepsArray.push(`Step!`);
+    currentInstructions = newInstructions;
+    console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     if (!nonEndInstructionFound) {
       endReached = true;
     }
+    // console.log(JSON.stringify(totalStepsArray.length));
   }
+  // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
 
   console.log(
     `Part 1: The number of steps it takes to reach "ZZZ" is: ${
