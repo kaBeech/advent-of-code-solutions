@@ -127,7 +127,7 @@
     "libs": [],
     "x": 470,
     "y": 380,
-    "wires": [["11b73459cc851270"]]
+    "wires": [["11b73459cc851270", "24de0dc3e6d07a5d"]]
   },
   {
     "id": "11b73459cc851270",
@@ -144,6 +144,39 @@
     "statusType": "auto",
     "x": 660,
     "y": 380,
+    "wires": []
+  },
+  {
+    "id": "24de0dc3e6d07a5d",
+    "type": "function",
+    "z": "6e437d92aec9fd7d",
+    "name": "calculateWinnings()",
+    "func": "const hands = msg.payload;\n\nlet totalWinnings = 0;\n\nlet winningsMultiplier = 1;\n\nfor (const hand of hands) {\n    const handWinnings = hand.bid * winningsMultiplier;\n    totalWinnings += handWinnings\n    winningsMultiplier += 1;\n}\n\nmsg.payload = totalWinnings;\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 450,
+    "y": 460,
+    "wires": [["5d2a117421024c5c"]]
+  },
+  {
+    "id": "5d2a117421024c5c",
+    "type": "debug",
+    "z": "6e437d92aec9fd7d",
+    "name": "Total Winnings",
+    "active": true,
+    "tosidebar": true,
+    "console": true,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 670,
+    "y": 460,
     "wires": []
   }
 ]
