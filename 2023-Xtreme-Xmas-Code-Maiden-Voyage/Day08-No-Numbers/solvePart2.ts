@@ -2,6 +2,7 @@ import { parseInput } from "./parseInput.ts";
 import { Instruction, Maps, PeriodicNode } from "./types.ts";
 import processDirectionData from "./processDirectionData.ts";
 import followInstructions from "./followInstructions.ts";
+import initializePeriodicNodes from "./initializePeriodicNodes.ts";
 
 export default (async function (): Promise<string[]> {
   const maps: Maps = await parseInput();
@@ -54,32 +55,14 @@ export default (async function (): Promise<string[]> {
 
   const stepsSpentSurveying = totalStepsArray.length;
 
-  const periodicNodes: PeriodicNode[] = [];
-  const harmonizedNodes: PeriodicNode[] = [];
+  const { periodicNodes, harmonizedNodes } = initializePeriodicNodes(
+    currentInstructions,
+  );
 
-  for (const currentInstruction of currentInstructions) {
-    let distanceFromNextEndingNode = currentInstruction
-      .distanceFromNextEndingNode!;
-    const period = currentInstruction.nextEndingNode!
-      .distanceFromNextEndingNode!;
-    if (distanceFromNextEndingNode === period) {
-      distanceFromNextEndingNode = 0;
-    }
-    console.log(
-      distanceFromNextEndingNode,
-      currentInstruction.nextEndingNode?.id,
-      period,
-    );
-    const periodicNode = {
-      endingNodeId: currentInstruction.nextEndingNode!.id,
-      period,
-      distanceFromNextEndingNode,
-    };
-    periodicNodes.push(periodicNode);
-    if (periodicNode.distanceFromNextEndingNode === 0) {
-      harmonizedNodes.push(periodicNode);
-    }
-  }
+  console.log(
+    periodicNodes,
+    harmonizedNodes,
+  );
 
   console.log(
     `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${
