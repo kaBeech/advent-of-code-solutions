@@ -52,19 +52,32 @@ export default (async function (): Promise<string[]> {
     }
   }
 
+  interface PeriodicNode {
+    endingNodeId: string;
+    period: number;
+    distanceFromNextEndingNode: number;
+  }
+
+  const periodicNodes: PeriodicNode[] = [];
+
   for (const currentInstruction of currentInstructions) {
-    let distanceFromNextEndingNode =
-      currentInstruction.distanceFromNextEndingNode;
-    let periodDistance = currentInstruction.nextEndingNode
-      ?.distanceFromNextEndingNode;
-    if (distanceFromNextEndingNode === periodDistance) {
+    let distanceFromNextEndingNode = currentInstruction
+      .distanceFromNextEndingNode!;
+    const period = currentInstruction.nextEndingNode!
+      .distanceFromNextEndingNode!;
+    if (distanceFromNextEndingNode === period) {
       distanceFromNextEndingNode = 0;
     }
     console.log(
       distanceFromNextEndingNode,
       currentInstruction.nextEndingNode?.id,
-      periodDistance,
+      period,
     );
+    periodicNodes.push({
+      endingNodeId: currentInstruction.nextEndingNode!.id,
+      period,
+      distanceFromNextEndingNode,
+    });
   }
 
   console.log(
