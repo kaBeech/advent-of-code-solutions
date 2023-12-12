@@ -50,6 +50,9 @@ export default (async function (): Promise<string[]> {
       //   `last char: ${getLastChar(currentInstruction.id)}`,
       //   currentDirection,
       // );
+      const lastEndingNode = currentInstruction.lastEndingNode;
+      let distanceFromLastEndingNode =
+        currentInstruction.distanceFromLastEndingNode;
       currentInstruction = followInstruction(
         maps.instructions,
         currentInstruction,
@@ -57,6 +60,25 @@ export default (async function (): Promise<string[]> {
       )!;
       if (getLastChar(currentInstruction.id) !== `Z`) {
         nonEndInstructionFound = true;
+        if (lastEndingNode) {
+          distanceFromLastEndingNode!++;
+          if (!currentInstruction.lastEndingNode) {
+            currentInstruction.lastEndingNode = lastEndingNode,
+              currentInstruction.distanceFromLastEndingNode =
+                distanceFromLastEndingNode;
+          }
+        }
+      } else {
+        if (
+          currentInstruction.lastEndingNode &&
+          !currentInstruction.lastEndingNode.nextEndingNode
+        ) {
+          currentInstruction.lastEndingNode.nextEndingNode = currentInstruction;
+          currentInstruction.lastEndingNode.distanceFromNextEndingNode =
+            currentInstruction.distanceFromLastEndingNode;
+        }
+        currentInstruction.lastEndingNode = currentInstruction;
+        currentInstruction.distanceFromLastEndingNode = 0;
       }
       newInstructions.push(currentInstruction);
       // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
