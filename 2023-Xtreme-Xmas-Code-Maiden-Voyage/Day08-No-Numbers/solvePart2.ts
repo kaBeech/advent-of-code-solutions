@@ -1,5 +1,5 @@
 import { parseInput } from "./parseInput.ts";
-import { Maps } from "./types.ts";
+import { Instruction, Maps } from "./types.ts";
 import processDirectionData from "./processDirectionData.ts";
 import followInstructions from "./followInstructions.ts";
 
@@ -17,9 +17,9 @@ export default (async function (): Promise<string[]> {
   let currentInstructions = startingInstructions;
   let reservoirInUse = false;
   let endReached = false;
-  let endingNodePathLoopsSurveyed = 0;
+  let surveyedEndingNodePathLoops: Instruction[] = [];
 
-  while (!endReached) {
+  while (surveyedEndingNodePathLoops.length < 6) {
     // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
     let nonEndInstructionFound = false;
 
@@ -38,14 +38,14 @@ export default (async function (): Promise<string[]> {
       currentDirection,
       currentInstructions,
       maps,
-      endingNodePathLoopsSurveyed,
+      surveyedEndingNodePathLoops,
       nonEndInstructionFound,
     );
 
     currentInstructions = instructionsResults.newInstructions;
     nonEndInstructionFound = instructionsResults.nonEndInstructionFound;
-    endingNodePathLoopsSurveyed =
-      instructionsResults.endingNodePathLoopsSurveyed;
+    surveyedEndingNodePathLoops =
+      instructionsResults.surveyedEndingNodePathLoops;
     totalStepsArray.push(`Step!`);
 
     // console.log(`Current instructions: ${JSON.stringify(currentInstructions)}`);
