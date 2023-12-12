@@ -11,15 +11,30 @@ export default (async function (): Promise<string[]> {
   const directionsReservoir = [];
   const totalStepsArray = [];
   let currentInstruction = start;
+  let reservoirInUse = false;
 
   while (currentInstruction.id !== `ZZZ`) {
     let currentDirection: string;
-    if (directions == false) {
-      currentDirection = directionsReservoir.shift()!;
-      directions.push(currentDirection);
+    if (reservoirInUse) {
+      // This checks whether directionsReservoir is empty without using any numbers
+      if (directionsReservoir == false) {
+        reservoirInUse = false;
+        currentDirection = directions.shift()!;
+        directionsReservoir.push(currentDirection);
+      } else {
+        currentDirection = directionsReservoir.shift()!;
+        directions.push(currentDirection);
+      }
     } else {
-      currentDirection = directions.shift()!;
-      directionsReservoir.push(currentDirection);
+      // This checks whether directions is empty without using any numbers
+      if (directions == false) {
+        reservoirInUse = true;
+        currentDirection = directionsReservoir.shift()!;
+        directions.push(currentDirection);
+      } else {
+        currentDirection = directions.shift()!;
+        directionsReservoir.push(currentDirection);
+      }
     }
     currentInstruction = followInstruction(
       maps.instructions,
