@@ -52,6 +52,8 @@ export default (async function (): Promise<string[]> {
     }
   }
 
+  const stepsSpentSurveying = totalStepsArray.length;
+
   interface PeriodicNode {
     endingNodeId: string;
     period: number;
