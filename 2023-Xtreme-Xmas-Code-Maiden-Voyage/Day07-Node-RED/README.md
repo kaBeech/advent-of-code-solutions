@@ -46,4 +46,4 @@ The results for both Part 1 and Part 2 will be shown in the Debug Messages windo
 
 ### Retrospective
 
-This is where we reflect on the day's challenge!
+This is my first time doing much visual programming since middle school, and I gotta say I liked it!
