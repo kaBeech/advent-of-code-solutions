@@ -30,8 +30,8 @@ export default (async function (): Promise<string[]> {
   }
 
   console.log(
-    `Part 1: The number of steps it takes to reach "ZZZ" is equal to the number of elements in this array: ${
-      JSON.stringify(totalStepsArray)
+    `Part 1: The number of steps it takes to reach "ZZZ" is: ${
+      JSON.stringify(totalStepsArray.length)
     }`,
   );
 
