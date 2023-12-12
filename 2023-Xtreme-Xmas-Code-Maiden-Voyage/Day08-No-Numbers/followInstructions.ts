@@ -21,6 +21,10 @@ export default (
     // deno-lint-ignore prefer-const
     let distanceFromLastEndingNode =
       currentInstruction.distanceFromLastEndingNode;
+    const nextEndingNode = currentInstruction.nextEndingNode;
+    // deno-lint-ignore prefer-const
+    let distanceFromNextEndingNode =
+      currentInstruction.distanceFromNextEndingNode;
     currentInstruction = followInstruction(
       maps.instructions,
       currentInstruction,
@@ -38,6 +42,14 @@ export default (
               distanceFromLastEndingNode;
         }
       }
+      if (nextEndingNode) {
+        distanceFromNextEndingNode!--;
+        if (!currentInstruction.nextEndingNode) {
+          currentInstruction.nextEndingNode = nextEndingNode,
+            currentInstruction.distanceFromNextEndingNode =
+              distanceFromNextEndingNode;
+        }
+      }
     } else {
       if (
         currentInstruction.lastEndingNode &&
@@ -52,6 +64,10 @@ export default (
           currentInstruction.id,
           currentInstruction.lastEndingNode.id,
         );
+      } else if (
+        currentInstruction.lastEndingNode &&
+        currentInstruction.lastEndingNode.nextEndingNode
+      ) {
         surveyedEndingNodePathLoops.push(currentInstruction.lastEndingNode);
       }
       currentInstruction.lastEndingNode = currentInstruction;
