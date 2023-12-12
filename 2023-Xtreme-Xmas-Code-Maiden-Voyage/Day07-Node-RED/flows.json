@@ -1,95 +1,149 @@
 [
-    {
-        "id": "6e437d92aec9fd7d",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "4816c943cdd39e1a",
-        "type": "function",
-        "z": "6e437d92aec9fd7d",
-        "name": "parseInput()",
-        "func": "const handsData = msg.payload.split('\\n')\nconsole.log(msg.payload);\nconst test = [];\nhandsData.forEach((hand) => {\n    hand = hand.split(` `);\n    hand = {\n        cards: hand[0],\n        bid: hand[1],\n    }\n    test.push(hand);\n});\nmsg.payload = test;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 300,
-        "wires": [
-            [
-                "8c404e12c471eb99"
-            ]
-        ]
-    },
-    {
-        "id": "d57dc5e0c3924213",
-        "type": "inject",
-        "z": "6e437d92aec9fd7d",
-        "name": "Start",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "Start!",
-        "payloadType": "global",
-        "x": 130,
-        "y": 220,
-        "wires": [
-            [
-                "72f954038f0b19fe"
-            ]
-        ]
-    },
-    {
-        "id": "72f954038f0b19fe",
-        "type": "template",
-        "z": "6e437d92aec9fd7d",
-        "name": "testInput",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483",
-        "output": "str",
-        "x": 320,
-        "y": 240,
-        "wires": [
-            [
-                "4816c943cdd39e1a"
-            ]
-        ]
-    },
-    {
-        "id": "8c404e12c471eb99",
-        "type": "debug",
-        "z": "6e437d92aec9fd7d",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 330,
-        "y": 380,
-        "wires": []
-    }
+  {
+    "id": "6e437d92aec9fd7d",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "4816c943cdd39e1a",
+    "type": "function",
+    "z": "6e437d92aec9fd7d",
+    "name": "parseInput()",
+    "func": "const handsData = msg.payload.split('\\n')\nconsole.log(msg.payload);\nconst hands = [];\nfor (let hand of handsData) {\n    hand = hand.split(` `);\n    hand = {\n        cards: hand[0],\n        bid: +hand[1],\n        handType: 0,\n    }\n    hands.push(hand);\n};\nmsg.payload = hands;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 220,
+    "wires": [["8c404e12c471eb99", "e022eec83e7ac268"]]
+  },
+  {
+    "id": "d57dc5e0c3924213",
+    "type": "inject",
+    "z": "6e437d92aec9fd7d",
+    "name": "Start",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "Start!",
+    "payloadType": "global",
+    "x": 130,
+    "y": 220,
+    "wires": [["72f954038f0b19fe"]]
+  },
+  {
+    "id": "72f954038f0b19fe",
+    "type": "template",
+    "z": "6e437d92aec9fd7d",
+    "name": "testInput",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "32T3K 765\nT55J5 684\nKK677 28\nKTJJT 220\nQQQJA 483",
+    "output": "str",
+    "x": 280,
+    "y": 220,
+    "wires": [["4816c943cdd39e1a"]]
+  },
+  {
+    "id": "8c404e12c471eb99",
+    "type": "debug",
+    "z": "6e437d92aec9fd7d",
+    "name": "Hands",
+    "active": true,
+    "tosidebar": true,
+    "console": true,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 640,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "e022eec83e7ac268",
+    "type": "function",
+    "z": "6e437d92aec9fd7d",
+    "name": "setHandType()",
+    "func": "const hands = msg.payload;\n\n// For reference: Hand Types = [1: High Card; 2: One Pair; 3: Two Pair; 4: Three Of A Kind; 5: Full House; 6: Four Of A Kind; 7: Five Of A Kind]\n\nfor (const hand of hands) {\n    const numbersOfCardOccurances = [];\n    for (let card of hand.cards) {\n        numbersOfCardOccurances.push((hand.cards.match(new RegExp(card, \"g\")) || []).length)\n    };\n    numbersOfCardOccurances.sort((a, b) => b - a);\n    let handType = 0;\n    switch (+numbersOfCardOccurances[0]) {\n        case 5:\n            handType = 7;\n            break;\n        case 4:\n            handType = 6;\n            break;\n        case 3:\n            if (numbersOfCardOccurances[3] === 2) {\n                handType = 5;\n            } else {\n                handType = 4;\n            }\n            break;\n        case 2:\n            if (numbersOfCardOccurances[3] === 2) {\n                handType = 3;\n            } else {\n                handType = 2;\n            }\n            break;\n        case 1:\n            handType = 1;\n            break;\n        default:\n            throw new Error(`Hand type unknown. Hand is: ${hand}`)\n    };\n    hand.handType = handType;\n}\n\nmsg.payload = hands;\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 460,
+    "y": 300,
+    "wires": [["ae453913fba18b7b", "60c42499c0c31d58"]]
+  },
+  {
+    "id": "ae453913fba18b7b",
+    "type": "debug",
+    "z": "6e437d92aec9fd7d",
+    "name": "HandTypes",
+    "active": true,
+    "tosidebar": true,
+    "console": true,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 660,
+    "y": 300,
+    "wires": []
+  },
+  {
+    "id": "60c42499c0c31d58",
+    "type": "function",
+    "z": "6e437d92aec9fd7d",
+    "name": "sortHands()",
+    "func": "const hands = msg.payload;\n\nconst cardOrder = `23456789TJQKA`;\n\nhands.sort((a, b) => {\n    let indexOfFirstNonMatchingCard = 0;\n    while (a.cards[indexOfFirstNonMatchingCard] === b.cards[indexOfFirstNonMatchingCard]) {\n        indexOfFirstNonMatchingCard += 1;\n    }\n    return cardOrder.indexOf(a.cards[indexOfFirstNonMatchingCard]) - cardOrder.indexOf(b.cards[indexOfFirstNonMatchingCard])\n});\n\nhands.sort((a, b) => a.handType - b.handType);\n\nmsg.payload = hands;\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 380,
+    "wires": [["11b73459cc851270"]]
+  },
+  {
+    "id": "11b73459cc851270",
+    "type": "debug",
+    "z": "6e437d92aec9fd7d",
+    "name": "Sorted Hands",
+    "active": true,
+    "tosidebar": true,
+    "console": true,
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "payload",
+    "statusType": "auto",
+    "x": 660,
+    "y": 380,
+    "wires": []
+  }
 ]
