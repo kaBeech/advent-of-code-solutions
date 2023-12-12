@@ -12,27 +12,37 @@ Ooh, cool!
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+If you have Docker, the easiest way to run Node-RED is by running `docker run -it -p 1880:1880 --name mynodered nodered/node-red`. Otherwise, follow your preferred [instructions here](https://nodered.org/docs/getting-started/local).
+
+Once the Node-RED server is running, head to `http://127.0.0.1:1880/` (or wherever you hosted the server).
+
+Once in the Node-RED application, right-click on an empty space on the grid, hover over `insert` in the menu that pops up, and click `Import` in the sub-menu that pops up. Then copy the code from `./flows.json` into the big empty space in the middle of the dialog box that pops up (or click `select a file to import` and find the file manually).
+
+That will show the flow with the program in it (you may need to click on another tab that says `Flow 1`). Click the big red `Deploy` button in the top right of the window to initialize the program.
+
+To run the test case, click the pale blue box to the left of the blue box that says `Test`. To run with the puzzle input, click the pale blue box to the left of the blue box that says `Solve`.
+
+The results for both Part 1 and Part 2 will be shown in the Debug Messages window. The button to bring up this window is likely below the big red `Deploy` button, right between the book icon and the gear icon.
 
 ### Retrospective
 
