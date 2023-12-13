@@ -1,6 +1,5 @@
 import { parseInput } from "./parseInput.ts";
-import { Maps, PeriodicNode } from "./types.ts";
-import initializePeriodicNodes from "./initializePeriodicNodes.ts";
+import { Maps } from "./types.ts";
 import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
 import getLeastCommonMultiple from "../../tools/mathFunctions/getLeastCommonMultiple.ts";
 
@@ -16,9 +15,7 @@ export default (async function (): Promise<number> {
   const periodicNodes = surveyEndingNodePathLoops(
     startingInstructions,
     maps,
-  ).sort((a, b) => {
-    return a.distanceFromNextEndingNode - b.distanceFromNextEndingNode;
-  });
+  );
 
   const periodicNodesPeriods: number[] = [];
 
