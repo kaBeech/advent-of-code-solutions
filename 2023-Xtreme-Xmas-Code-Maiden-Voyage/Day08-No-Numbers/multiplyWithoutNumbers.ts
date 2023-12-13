@@ -1,7 +1,9 @@
-export default (_x: string[], y: string[]) => {
+export default (x: string[], y: string[]) => {
   const product: string[] = [];
   for (const _element of y) {
-    product.concat(y);
+    for (const element of x) {
+      product.push(element);
+    }
   }
 
   return product;
