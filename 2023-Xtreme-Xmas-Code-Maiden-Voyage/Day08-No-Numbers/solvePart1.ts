@@ -1,5 +1,5 @@
 import followInstruction from "./followInstruction.ts";
-import { parseInput } from "./parseInput.ts";
+import parseInput from "./parseInput.ts";
 import { Instruction, Maps } from "./types.ts";
 
 export default (async function (): Promise<number> {
@@ -16,7 +16,6 @@ export default (async function (): Promise<number> {
   while (currentInstruction.id !== `ZZZ`) {
     let currentDirection: string;
     if (reservoirInUse) {
-      // This checks whether directionsReservoir is empty without using any numbers
       if (directionsReservoir.toString() === ``) {
         reservoirInUse = false;
         currentDirection = directions.shift()!;
@@ -26,7 +25,6 @@ export default (async function (): Promise<number> {
         directions.push(currentDirection);
       }
     } else {
-      // This checks whether directions is empty without using any numbers
       if (directions.toString() === ``) {
         reservoirInUse = true;
         currentDirection = directionsReservoir.shift()!;
