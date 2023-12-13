@@ -5,7 +5,7 @@ import { تاريخ, تقرير } from "./أنواع.ts";
 
 export default async (): Promise<تقرير> => {
   const تقرير_خام: string[][] = await convertMultiLineFileToDoubleArray(
-    "./مدخلات_صغيرة.dat",
+    "./مدخلات_كبيرة.dat",
     ` `,
   );
   const تقرير: تقرير = [];
