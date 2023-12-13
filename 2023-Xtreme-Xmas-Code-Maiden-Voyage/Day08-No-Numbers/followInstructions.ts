@@ -1,7 +1,7 @@
 import followInstruction from "./followInstruction.ts";
 import getLastChar from "./getLastChar.ts";
 import processDirectionData from "./processDirectionData.ts";
-import { Instruction, Maps } from "./types.ts";
+import { Instruction, Maps, PeriodicNode } from "./types.ts";
 
 export default (
   currentInstruction: Instruction,
@@ -11,7 +11,10 @@ export default (
   let directions = maps.directions.split(``);
   let directionsReservoir: string[] = [];
   let reservoirInUse = false;
-  let surveyedEndingNodePathLoop: Instruction | undefined = undefined;
+  let periodicNode: PeriodicNode | undefined = undefined;
+  let stepsTaken = 0;
+  let stepsToReachFirstTime = 0;
+  let stepsToReachSecondTime = 0;
 
   let nonEndInstructionFound = false;
 
@@ -26,7 +29,8 @@ export default (
   directionsReservoir = directionData.processedDirectionsReservoir;
   const currentDirection = directionData.currentDirection;
 
-  while (!surveyedEndingNodePathLoop) {
+  while (!periodicNode) {
+    stepsTaken++;
     const lastEndingNode = newInstruction.lastEndingNode;
     // deno-lint-ignore prefer-const
     let distanceFromLastEndingNode = newInstruction.distanceFromLastEndingNode;
@@ -59,26 +63,18 @@ export default (
         }
       }
     } else {
-      if (
-        newInstruction.lastEndingNode &&
-        !newInstruction.lastEndingNode.nextEndingNode
-      ) {
-        distanceFromLastEndingNode!++;
-        newInstruction.lastEndingNode.nextEndingNode = newInstruction;
-        newInstruction.lastEndingNode.distanceFromNextEndingNode =
-          distanceFromLastEndingNode;
-      } else if (
-        newInstruction.lastEndingNode &&
-        newInstruction.lastEndingNode.nextEndingNode
-      ) {
-        surveyedEndingNodePathLoop = newInstruction.lastEndingNode;
+      if (stepsToReachFirstTime === 0) {
+        stepsToReachFirstTime = stepsTaken;
+      } else {
+        stepsToReachSecondTime = stepsTaken;
+        periodicNode = {
+          endingNodeId: newInstruction.id,
+          period: stepsToReachSecondTime - stepsToReachFirstTime,
+          distanceFromNextEndingNode: stepsToReachFirstTime,
+        };
       }
-      newInstruction.lastEndingNode = newInstruction;
-      newInstruction.distanceFromLastEndingNode = 0;
     }
   }
-  return {
-    newInstruction,
-    surveyedEndingNodePathLoop,
-  };
+
+  return periodicNode;
 };
