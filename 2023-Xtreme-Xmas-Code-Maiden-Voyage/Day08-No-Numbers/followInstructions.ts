@@ -12,10 +12,10 @@ export default (
   let directionsReservoir: string[] = [];
   let reservoirInUse = false;
   let periodicNode: PeriodicNode | undefined = undefined;
-  const stepsTaken: string[] = [];
+  let stepsTaken = ``;
 
   while (!periodicNode) {
-    stepsTaken.push(`Step!`);
+    stepsTaken += `N`;
 
     const directionData = processDirectionData(
       reservoirInUse,
