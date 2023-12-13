@@ -13,7 +13,6 @@ const getLeastCommonMultipleOfTwoStrings = (x: string, y: string) => {
 export default (...inputNumbers: string[]) => {
   let leastCommonMultiple = inputNumbers.slice().shift()!;
   for (const n of inputNumbers) {
-    console.log(leastCommonMultiple.length, n.length);
     leastCommonMultiple = getLeastCommonMultipleOfTwoStrings(
       leastCommonMultiple,
       n,
