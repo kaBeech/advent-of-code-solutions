@@ -12,30 +12,34 @@ OK, let's give this a shot!
 
 ...wait. That's my Challenge Input? I could probably just do this by hand...
 
+Confirmed! But the challenge does say to write a program to do it so...
+
 ### Points Earned
 
-X
+0
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
-
-### Notes
-
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+2
 
 ### Retrospective
 
-This is where we add a retrospective
+XXC.23 Day 6: No Named Functions
+
+_This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
+
+Is this puzzle from my middle school homework?
+
+Challenge Modifier: "Your challenge is to write a program to complete today's puzzle without declaring any named functions"
