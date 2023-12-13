@@ -20,6 +20,15 @@ export default (async function (): Promise<تقرير> {
   const مجموع = مجموع_الاستقراءات(تقرير_التسلسلات_التاريخية);
 
   console.log(
+    مجموع.toString(),
+    `المستقرة`,
+    `البيانات`,
+    `مجموع`,
+    `:١`,
+    `الجزء`,
+  );
+
+  console.log(
     `Part 1: The sum of the extrapolated data is ${مجموع}`,
   );
 
