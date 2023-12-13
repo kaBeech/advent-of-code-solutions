@@ -16,19 +16,20 @@ export default (
   let stepsToReachFirstTime = 0;
   let stepsToReachSecondTime = 0;
 
-  const directionData = processDirectionData(
-    reservoirInUse,
-    directions,
-    directionsReservoir,
-  );
-
-  reservoirInUse = directionData.reservoirInUse;
-  directions = directionData.processedDirections;
-  directionsReservoir = directionData.processedDirectionsReservoir;
-  const currentDirection = directionData.currentDirection;
-
   while (!periodicNode) {
     stepsTaken++;
+
+    const directionData = processDirectionData(
+      reservoirInUse,
+      directions,
+      directionsReservoir,
+    );
+
+    reservoirInUse = directionData.reservoirInUse;
+    directions = directionData.processedDirections;
+    directionsReservoir = directionData.processedDirectionsReservoir;
+    const currentDirection = directionData.currentDirection;
+
     newInstruction = followInstruction(
       maps.instructions,
       newInstruction,
