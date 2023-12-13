@@ -10,7 +10,6 @@ export const parseInput = async (): Promise<Maps> => {
     instructions: [],
   };
   for (const instruction of mapsRaw.shift()!) {
-    console.log(instruction);
     const rawIdAndDirections = instruction.split(`=`);
     const id = rawIdAndDirections.shift()!.trim();
     const rawDirections = rawIdAndDirections.shift()!.trim().split(`,`);
