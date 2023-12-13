@@ -16,5 +16,6 @@ my $line = @lines[0];
 
 print("\n");
 print("\n");
-my $nth = substr($line, 0, 1);
-print($nth);
+my $testTile = substr($line, 0, 1);
+print($testTile);
+
