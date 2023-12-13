@@ -22,10 +22,6 @@ export default (async function (): Promise<number> {
 
   const periodicNodesPeriods: number[] = [];
 
-  console.log(
-    periodicNodes,
-  );
-
   for (const periodicNode of periodicNodes) {
     periodicNodesPeriods.push(periodicNode.period);
   }
