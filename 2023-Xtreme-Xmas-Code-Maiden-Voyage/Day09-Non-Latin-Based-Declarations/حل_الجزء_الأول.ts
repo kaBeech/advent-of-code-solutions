@@ -2,6 +2,7 @@ import تحليل_المدخلات from "./تحليل_المدخلات.ts";
 import { تسلسلات_تاريخية, تقرير } from "./أنواع.ts";
 import بناء_تسلسلات from "./بناء_تسلسلات.ts";
 import استقراء_تسلسل from "./استقراء_تسلسل.ts";
+import مجموع_الاستقراءات from "./مجموع_الاستقراءات.ts";
 
 export default (async function (): Promise<تقرير> {
   const تقرير: تقرير = await تحليل_المدخلات();
@@ -16,12 +17,10 @@ export default (async function (): Promise<تقرير> {
     تسلسلات_تاريخية = استقراء_تسلسل(تسلسلات_تاريخية);
   }
 
-  console.log(تقرير_التسلسلات_التاريخية);
+  const مجموع = مجموع_الاستقراءات(تقرير_التسلسلات_التاريخية);
 
   console.log(
-    `Part 1: The sum of the extrapolated data is ${
-      JSON.stringify(`ExtrapolatedSum`)
-    }`,
+    `Part 1: The sum of the extrapolated data is ${مجموع}`,
   );
 
   return تقرير;
