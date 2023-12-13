@@ -22,27 +22,29 @@ Sounds good!
 
 ### Points Earned
 
-X
+40
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 1
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 2
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+- Output for Part 1 is converted to a number for convenience (so you don't have to count the elements in the array)
+
+- If you have crazy high memory available, you may be able to make Part 2 work without numbers as well. Just use getLeastCommonMultipleWithoutNumbers() instead of getLeastCommonMultiple()
 
 ### Retrospective
 
