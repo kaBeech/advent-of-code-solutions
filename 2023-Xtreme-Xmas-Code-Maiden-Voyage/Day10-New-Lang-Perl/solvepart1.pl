@@ -2,6 +2,7 @@
 use v5.32;
 use strict;
 use warnings;
+use Switch;
 
 open(my $input,  "<",  "testInput.dat")  or die "Can't open testInput.dat: $!";
 
@@ -12,7 +13,8 @@ my %startingTile = (
     coordinates => [0,0],
     value => "S",
 );
-my @possibleStartingTileValues = ["|" , "-" , "7" , "F" , "J" , "L"];
+my $currentDirection = "^";
+my @possibleStartingTileValues = ("|" , "-" , "7" , "F" , "J" , "L");
 
 print("Hello, World!\n");
 
@@ -33,21 +35,54 @@ foreach (@rows) {
 my $startingX = $startingTile{"coordinates"}[0];
 my $startingY = $startingTile{"coordinates"}[1];
 my $neighborTileValue = substr($rows[$startingY - 1], $startingX, 1);
+
+
+
+
 sub checkNeighbor {
     for (@_) {
         if ($neighborTileValue eq $_) {
-            print("\n", $neighborTileValue);
+            switch ($currentDirection) {
+                case "^" {
+                }
+                case ">" {
+                    # my $index = 0;
+                    # my $count = scalar @possibleStartingTileValues;
+                    # $index++ until $possibleStartingTileValues[$index] eq $_ or $index==$count;
+                    # splice(@possibleStartingTileValues, $index, 1);
+                }
+                case "v" {
+                }
+                case "<" {
+                }
+            }
+            # if ($currentDirection eq ">") {
+            #         my $index = 0;
+            #         $index++ until $possibleStartingTileValues[$index] eq $_;
+            #         splice(@possibleStartingTileValues, $index, 1);
+            # }
+            print("\nTEST", $neighborTileValue, $currentDirection);
         }
     }
 }
 checkNeighbor( "|" , "7" , "F");
+
+$currentDirection = ">";
 $neighborTileValue = substr($rows[$startingY], $startingX + 1, 1);
 checkNeighbor( "-" , "7" , "J");
+
+$currentDirection = "v";
 $neighborTileValue = substr($rows[$startingY + 1], $startingX, 1);
 checkNeighbor( "|" , "J" , "L");
+
+$currentDirection = "<";
 $neighborTileValue = substr($rows[$startingY], $startingX - 1, 1);
 checkNeighbor( "-" , "F" , "L");
 
+print("\n");
+print(@possibleStartingTileValues);
+# my $test = $possibleStartingTileValues[2];
+# print($test); 
 print("\n");
 print("\n");
 my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
