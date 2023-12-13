@@ -12,8 +12,8 @@ Variables: `TileMap`: Tile[][], `Tile`: {coordinates: XYCoordinates, value: "S" 
 
 Function: getStartingPipeShape = (`Start`) =>
 
-1. If (`TileMap`[`Start`.y + 1][`Start`.x] === "|", "7", or "F") then filter out all possible values except ["|", "J", "L"]
-2. If (`TileMap`[`Start`.y - 1][`Start`.x] === "|", "J", or "L") then filter out all possible values except ["|", "7", "F"]
+1. If (`TileMap`[`Start`.y - 1][`Start`.x] === "|", "7", or "F") then filter out all possible values except ["|", "J", "L"]
+2. If (`TileMap`[`Start`.y + 1][`Start`.x] === "|", "J", or "L") then filter out all possible values except ["|", "7", "F"]
 3. If (`TileMap`[`Start`.y][`Start`.x + 1] === "-", "J", or "7") then filter out all possible values except ["-", "L", "F"]
 4. If (`TileMap`[`Start`.y][`Start`.x - 1] === "-", "L", or "F") then filter out all possible values except ["-", "J", "7"]
 5. Return the only remaining value
@@ -42,9 +42,9 @@ Function: surveyLoop = (`Start`) =>
    - case "L" : `CurrentDirection`: "<"
 2. While (`CurrentTile` !== `Start` || `LoopLength` === 0):
    - Switch `CurrentDirection`:
-     - case "^": `CurrentTile` = `TileMap`[`CurrentTile`.y + 1][`CurrentTile`.x]
+     - case "^": `CurrentTile` = `TileMap`[`CurrentTile`.y - 1][`CurrentTile`.x]
      - case ">": `CurrentTile` = `TileMap`[`CurrentTile`.y][`CurrentTile`.x + 1]
-     - case "v": `CurrentTile` = `TileMap`[`CurrentTile`.y - 1][`CurrentTile`.x]
+     - case "v": `CurrentTile` = `TileMap`[`CurrentTile`.y + 1][`CurrentTile`.x]
      - case "<": `CurrentTile` = `TileMap`[`CurrentTile`.y][`CurrentTile`.x - 1]
    - `CurrentDirection` = getCurrentDirection(`CurrentTile`, `CurrentDirection`)
    - `LoopLength` += 1
