@@ -1,15 +1,15 @@
-export interface Instruction {
+export interface TypeInstruction {
   id: string;
   l: string;
   r: string;
 }
 
-export interface Maps {
+export interface TypeMaps {
   directions: string;
-  instructions: Instruction[];
+  instructions: TypeInstruction[];
 }
 
-export interface PeriodicNode {
+export interface TypePeriodicNode {
   endingNodeId: string;
   period: string;
 }

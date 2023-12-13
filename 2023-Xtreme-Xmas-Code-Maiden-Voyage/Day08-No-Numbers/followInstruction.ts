@@ -1,8 +1,8 @@
-import { Instruction } from "./types.ts";
+import { TypeInstruction } from "./types.ts";
 
 export default (function (
-  instructions: Instruction[],
-  currentInstruction: Instruction,
+  instructions: TypeInstruction[],
+  currentInstruction: TypeInstruction,
   direction: string,
 ) {
   if (direction === `L`) {

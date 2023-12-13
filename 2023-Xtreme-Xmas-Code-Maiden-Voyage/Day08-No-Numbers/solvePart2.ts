@@ -1,14 +1,14 @@
 import parseInput from "./parseInput.ts";
-import { Maps } from "./types.ts";
+import { TypeMaps } from "./types.ts";
 import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
 import getLeastCommonMultiple from "../../tools/mathFunctions/getLeastCommonMultiple.ts";
 
 export default (async function (): Promise<number> {
-  const allTheMaps: Maps = await parseInput();
+  const allTheMaps: TypeMaps = await parseInput();
   const allTheMapsInstructionsCopy = allTheMaps.instructions.slice();
   const allTheMapsStartingInstructions = allTheMapsInstructionsCopy.filter(
-    (instruction) => {
-      const arrayOfIds = instruction.id.split(``);
+    (Typeinstruction) => {
+      const arrayOfIds = Typeinstruction.id.split(``);
       const arrayOfIdsLastChar = arrayOfIds.pop();
       return arrayOfIdsLastChar === `A`;
     },

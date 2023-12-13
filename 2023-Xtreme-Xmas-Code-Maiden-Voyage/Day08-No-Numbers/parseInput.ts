@@ -1,11 +1,11 @@
 import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { Maps } from "./types.ts";
+import { TypeMaps } from "./types.ts";
 
-export default async (): Promise<Maps> => {
+export default async (): Promise<TypeMaps> => {
   const aTinyArrayOfMaps: string[][] = await convertMultiParagraphFileToArray(
     "./challengeInput.dat",
   );
-  const aTinyArrayOfMapsProcessed: Maps = {
+  const aTinyArrayOfMapsProcessed: TypeMaps = {
     directions: aTinyArrayOfMaps.shift()!.shift()!,
     instructions: [],
   };

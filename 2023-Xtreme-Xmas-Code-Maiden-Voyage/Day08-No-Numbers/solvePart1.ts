@@ -1,10 +1,10 @@
 import followInstruction from "./followInstruction.ts";
 import parseInput from "./parseInput.ts";
-import { Instruction, Maps } from "./types.ts";
+import { TypeInstruction, TypeMaps } from "./types.ts";
 
 export default (async function (): Promise<number> {
-  const maps: Maps = await parseInput();
-  const start = maps.instructions.find((instruction: Instruction) =>
+  const maps: TypeMaps = await parseInput();
+  const start = maps.instructions.find((instruction: TypeInstruction) =>
     instruction.id === `AAA`
   )!;
   const directions = maps.directions.split(``);

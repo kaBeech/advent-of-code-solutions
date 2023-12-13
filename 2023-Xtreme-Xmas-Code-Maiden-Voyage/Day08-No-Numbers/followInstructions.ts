@@ -1,17 +1,17 @@
 import followInstruction from "./followInstruction.ts";
 import getLastChar from "./getLastChar.ts";
 import processDirectionData from "./processDirectionData.ts";
-import { Instruction, Maps, PeriodicNode } from "./types.ts";
+import { TypeInstruction, TypeMaps, TypePeriodicNode } from "./types.ts";
 
 export default (
-  currentInstruction: Instruction,
-  maps: Maps,
+  currentInstruction: TypeInstruction,
+  maps: TypeMaps,
 ) => {
   let currentlySelectedInstructionNew = currentInstruction;
   let directions = maps.directions.split(``);
   let directionsReservoir: string[] = [];
   let directionsReservoirInUse = false;
-  let divinedPeriodicNode: PeriodicNode | undefined = undefined;
+  let divinedPeriodicNode: TypePeriodicNode | undefined = undefined;
   let divinedStepsTaken = ``;
 
   while (!divinedPeriodicNode) {

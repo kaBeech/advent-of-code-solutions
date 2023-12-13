@@ -1,12 +1,12 @@
 import followInstructions from "./followInstructions.ts";
-import { Instruction, Maps, PeriodicNode } from "./types.ts";
+import { TypeInstruction, TypeMaps, TypePeriodicNode } from "./types.ts";
 
 export default (
-  startingInstructions: Instruction[],
-  maps: Maps,
+  startingInstructions: TypeInstruction[],
+  maps: TypeMaps,
 ) => {
   const currentInstructions = startingInstructions.slice();
-  const currentlyCompletelySurveyedEndingNodePathLoops: PeriodicNode[] = [];
+  const currentlyCompletelySurveyedEndingNodePathLoops: TypePeriodicNode[] = [];
 
   for (const currentlySelectedInstruction of currentInstructions) {
     currentlyCompletelySurveyedEndingNodePathLoops.push(followInstructions(
