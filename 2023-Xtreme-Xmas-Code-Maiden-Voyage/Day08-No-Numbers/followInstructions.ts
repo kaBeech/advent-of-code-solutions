@@ -1,78 +1,84 @@
 import followInstruction from "./followInstruction.ts";
 import getLastChar from "./getLastChar.ts";
+import processDirectionData from "./processDirectionData.ts";
 import { Instruction, Maps } from "./types.ts";
 
 export default (
-  currentDirection: string,
-  currentInstructions: Instruction[],
+  currentInstruction: Instruction,
   maps: Maps,
-  surveyedEndingNodePathLoops: Instruction[],
-  nonEndInstructionFound: boolean,
 ) => {
-  const newInstructions: Instruction[] = [];
+  let newInstruction = currentInstruction;
+  let directions = maps.directions.split(``);
+  let directionsReservoir: string[] = [];
+  let reservoirInUse = false;
+  let surveyedEndingNodePathLoop: Instruction | undefined = undefined;
 
-  for (let currentInstruction of currentInstructions) {
-    // console.log(`Current instruction: ${JSON.stringify(currentInstruction)}`);
-    // console.log(
-    //   `last char: ${getLastChar(currentInstruction.id)}`,
-    //   currentDirection,
-    // );
-    const lastEndingNode = currentInstruction.lastEndingNode;
+  let nonEndInstructionFound = false;
+
+  const directionData = processDirectionData(
+    reservoirInUse,
+    directions,
+    directionsReservoir,
+  );
+
+  reservoirInUse = directionData.reservoirInUse;
+  directions = directionData.processedDirections;
+  directionsReservoir = directionData.processedDirectionsReservoir;
+  const currentDirection = directionData.currentDirection;
+
+  while (!surveyedEndingNodePathLoop) {
+    const lastEndingNode = newInstruction.lastEndingNode;
     // deno-lint-ignore prefer-const
-    let distanceFromLastEndingNode =
-      currentInstruction.distanceFromLastEndingNode;
-    const nextEndingNode = currentInstruction.nextEndingNode;
+    let distanceFromLastEndingNode = newInstruction.distanceFromLastEndingNode;
+    const nextEndingNode = newInstruction.nextEndingNode;
     // deno-lint-ignore prefer-const
-    let distanceFromNextEndingNode =
-      currentInstruction.distanceFromNextEndingNode;
-    currentInstruction = followInstruction(
+    let distanceFromNextEndingNode = newInstruction.distanceFromNextEndingNode;
+    newInstruction = followInstruction(
       maps.instructions,
-      currentInstruction,
+      newInstruction,
       currentDirection,
     )!;
-    if (getLastChar(currentInstruction.id) !== `Z`) {
+    if (getLastChar(newInstruction.id) !== `Z`) {
       if (!nonEndInstructionFound) {
         nonEndInstructionFound = true;
       }
       if (lastEndingNode) {
         distanceFromLastEndingNode!++;
-        if (!currentInstruction.lastEndingNode) {
-          currentInstruction.lastEndingNode = lastEndingNode,
-            currentInstruction.distanceFromLastEndingNode =
+        if (!newInstruction.lastEndingNode) {
+          newInstruction.lastEndingNode = lastEndingNode,
+            newInstruction.distanceFromLastEndingNode =
               distanceFromLastEndingNode;
         }
       }
       if (nextEndingNode) {
         distanceFromNextEndingNode!--;
-        if (!currentInstruction.nextEndingNode) {
-          currentInstruction.nextEndingNode = nextEndingNode,
-            currentInstruction.distanceFromNextEndingNode =
+        if (!newInstruction.nextEndingNode) {
+          newInstruction.nextEndingNode = nextEndingNode,
+            newInstruction.distanceFromNextEndingNode =
               distanceFromNextEndingNode;
         }
       }
     } else {
       if (
-        currentInstruction.lastEndingNode &&
-        !currentInstruction.lastEndingNode.nextEndingNode
+        newInstruction.lastEndingNode &&
+        !newInstruction.lastEndingNode.nextEndingNode
       ) {
         distanceFromLastEndingNode!++;
-        currentInstruction.lastEndingNode.nextEndingNode = currentInstruction;
-        currentInstruction.lastEndingNode.distanceFromNextEndingNode =
+        newInstruction.lastEndingNode.nextEndingNode = newInstruction;
+        newInstruction.lastEndingNode.distanceFromNextEndingNode =
           distanceFromLastEndingNode;
       } else if (
-        currentInstruction.lastEndingNode &&
-        currentInstruction.lastEndingNode.nextEndingNode
+        newInstruction.lastEndingNode &&
+        newInstruction.lastEndingNode.nextEndingNode
       ) {
-        surveyedEndingNodePathLoops.push(currentInstruction.lastEndingNode);
+        surveyedEndingNodePathLoop = newInstruction.lastEndingNode;
       }
-      currentInstruction.lastEndingNode = currentInstruction;
-      currentInstruction.distanceFromLastEndingNode = 0;
+      newInstruction.lastEndingNode = newInstruction;
+      newInstruction.distanceFromLastEndingNode = 0;
     }
-    newInstructions.push(currentInstruction);
   }
   return {
-    newInstructions,
-    nonEndInstructionFound,
-    surveyedEndingNodePathLoops,
+    newInstruction,
+    surveyedEndingNodePathLoop,
   };
 };
