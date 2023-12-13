@@ -64,29 +64,54 @@ export default (async function (): Promise<string[]> {
     harmonizedNodes,
   );
 
-  let stepsTotal = stepsSpentSurveying + harmonizedNodes[0].period;
+  let stepsTotal = stepsSpentSurveying;
+  console.log(stepsTotal);
 
-  while (harmonizedNodes.length < 2) {
-    let stepsTaken = harmonizedNodes[0].period;
+  while (harmonizedNodes.length < 6) {
+    let stepsTaken = 1;
+    for (const harmonizedNode of harmonizedNodes) {
+      stepsTaken *= harmonizedNode.period;
+    }
     stepsTotal += stepsTaken;
     periodicNodes.forEach((periodicNode) => {
-      console.log(periodicNode);
+      // console.log(periodicNode);
       const distanceToSubtract = stepsTaken;
       periodicNode.distanceFromNextEndingNode -= distanceToSubtract;
-      if (
-        periodicNode.distanceFromNextEndingNode % distanceToSubtract === 0 &&
-        !harmonizedNodes.includes(periodicNode)
+
+      if (harmonizedNodes.includes(periodicNode)) {
+        periodicNode.distanceFromNextEndingNode += distanceToSubtract;
+      } else if (
+        periodicNode.distanceFromNextEndingNode % distanceToSubtract === 0
       ) {
         harmonizedNodes.push(periodicNode);
         console.log(
-          periodicNode.distanceFromNextEndingNode,
           distanceToSubtract,
+          stepsTotal,
+          periodicNodes,
         );
-      } else {while (
+      } else {
+        while (
           periodicNode.distanceFromNextEndingNode < 0
         ) {
           periodicNode.distanceFromNextEndingNode += periodicNode.period;
-        }}
+        }
+        if (
+          periodicNode.distanceFromNextEndingNode === 0
+        ) {
+          harmonizedNodes.push(periodicNode);
+          console.log(
+            distanceToSubtract,
+            stepsTotal,
+            periodicNodes,
+          );
+        }
+        // if (
+        //   periodicNode.endingNodeId === "BDZ" &&
+        //   !harmonizedNodes.includes(periodicNode)
+        // ) {
+        //   console.log("TEST!!!!", distanceToSubtract, periodicNode);
+        // }
+      }
     });
   }
 
