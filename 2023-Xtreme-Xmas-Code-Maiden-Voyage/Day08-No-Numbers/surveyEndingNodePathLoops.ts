@@ -3,14 +3,16 @@ import processDirectionData from "./processDirectionData.ts";
 import { Instruction, Maps } from "./types.ts";
 
 export default (
-  currentInstructions: Instruction[],
+  startingInstructions: Instruction[],
   maps: Maps,
 ) => {
+  const currentInstructions = startingInstructions.slice();
   const totalStepsArray: string[] = [];
   let directions = maps.directions.split(``);
   let directionsReservoir: string[] = [];
   let reservoirInUse = false;
   let surveyedEndingNodePathLoops: Instruction[] = [];
+
   while (surveyedEndingNodePathLoops.length < 6) {
     let nonEndInstructionFound = false;
 
