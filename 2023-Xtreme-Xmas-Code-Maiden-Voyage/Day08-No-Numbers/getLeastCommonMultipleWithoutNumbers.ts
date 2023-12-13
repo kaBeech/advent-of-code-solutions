@@ -1,5 +1,5 @@
 import divideWithoutNumbers from "./divideWithoutNumbers.ts";
-import { getGreatestCommonDenominatorWithoutNumbers } from "./getGreatestCommonDenominatorWithoutNumbers.ts";
+import getGreatestCommonDenominatorWithoutNumbers from "./getGreatestCommonDenominatorWithoutNumbers.ts";
 import multiplyWithoutNumbers from "./multiplyWithoutNumbers.ts";
 
 const getLeastCommonMultipleOfTwoArrays = (x: string[], y: string[]) => {
