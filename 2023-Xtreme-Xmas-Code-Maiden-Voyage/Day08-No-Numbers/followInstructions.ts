@@ -42,7 +42,18 @@ export default (
       newInstruction,
       currentDirection,
     )!;
-    if (getLastChar(newInstruction.id) !== `Z`) {
+    if (getLastChar(newInstruction.id) === `Z`) {
+      if (stepsToReachFirstTime === 0) {
+        stepsToReachFirstTime = stepsTaken;
+      } else {
+        stepsToReachSecondTime = stepsTaken;
+        periodicNode = {
+          endingNodeId: newInstruction.id,
+          period: stepsToReachSecondTime - stepsToReachFirstTime,
+          distanceFromNextEndingNode: stepsToReachFirstTime,
+        };
+      }
+    } else {
       if (!nonEndInstructionFound) {
         nonEndInstructionFound = true;
       }
@@ -61,17 +72,6 @@ export default (
             newInstruction.distanceFromNextEndingNode =
               distanceFromNextEndingNode;
         }
-      }
-    } else {
-      if (stepsToReachFirstTime === 0) {
-        stepsToReachFirstTime = stepsTaken;
-      } else {
-        stepsToReachSecondTime = stepsTaken;
-        periodicNode = {
-          endingNodeId: newInstruction.id,
-          period: stepsToReachSecondTime - stepsToReachFirstTime,
-          distanceFromNextEndingNode: stepsToReachFirstTime,
-        };
       }
     }
   }
