@@ -51,13 +51,16 @@ sub checkNeighbor {
         if ($neighborTileValue eq $_) {
             switch ($currentDirection) {
                 case "^" {
+                    removeImpossibleStartingValues("-", "F", "7");
                 }
                 case ">" {
-                    removeImpossibleStartingValues("|", "F", "L");
+                    removeImpossibleStartingValues("|", "J", "7");
                 }
                 case "v" {
+                    removeImpossibleStartingValues("-", "J", "L");
                 }
                 case "<" {
+                    removeImpossibleStartingValues("|", "F", "L");
                 }
             }
             print("\nTEST", $neighborTileValue, $currentDirection);
@@ -78,12 +81,14 @@ $currentDirection = "<";
 $neighborTileValue = substr($rows[$startingY], $startingX - 1, 1);
 checkNeighbor( "-" , "F" , "L");
 
+$startingTile{"value"} = $possibleStartingTileValues[0];
+
 print("\n");
-print(@possibleStartingTileValues);
+print("\n");
+print("\n");
+print($startingTile{"value"});
 # my $test = $possibleStartingTileValues[2];
 # print($test); 
-print("\n");
-print("\n");
 my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
 print($testTile);
 
