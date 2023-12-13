@@ -28,7 +28,7 @@ Function: extrapolateSequences = (`HistorySequences`) =>
 
 ---
 
-Function: getExtrapolatedSum = (`HistorySequences`) =>
+Function: getExtrapolatedSum = (`HistorySequences`[]) =>
 
-1. For each `Sequence`:
-   - `ExtrapolatedSum` += `Sequence`[-1]
+1. For each `HistorySequences`:
+   - `ExtrapolatedSum` += `HistorySequences`[0][-1]
