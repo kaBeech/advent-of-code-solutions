@@ -11,6 +11,6 @@ export interface Maps {
 
 export interface PeriodicNode {
   endingNodeId: string;
-  period: number;
-  distanceFromNextEndingNode: number;
+  period: string[];
+  distanceFromNextEndingNode: string[];
 }
