@@ -1,7 +1,7 @@
 import { parseInput } from "./parseInput.ts";
 import { Maps } from "./types.ts";
 import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
-import getLeastCommonMultiple from "../../tools/mathFunctions/getLeastCommonMultiple.ts";
+import getLeastCommonMultipleWithoutNumbers from "./getLeastCommonMultipleWithoutNumbers.ts";
 
 export default (async function (): Promise<number> {
   const maps: Maps = await parseInput();
@@ -17,21 +17,19 @@ export default (async function (): Promise<number> {
     maps,
   );
 
-  const periodicNodesPeriods: number[] = [];
+  const periodicNodesPeriods: string[][] = [];
 
   for (const periodicNode of periodicNodes) {
     periodicNodesPeriods.push(periodicNode.period);
   }
 
-  const numberOfStepsUntilHarmony = getLeastCommonMultiple(
+  const numberOfStepsUntilHarmony = getLeastCommonMultipleWithoutNumbers(
     ...periodicNodesPeriods,
   );
 
   console.log(
-    `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${
-      JSON.stringify(numberOfStepsUntilHarmony)
-    }`,
+    `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${numberOfStepsUntilHarmony.length}`,
   );
 
-  return numberOfStepsUntilHarmony;
+  return numberOfStepsUntilHarmony.length;
 })();
