@@ -44,7 +44,7 @@ Part 2: 2
 
 - Output for Part 1 is converted to a number for convenience (so you don't have to count the elements in the array)
 
-- If you have crazy high memory available, you may be able to make Part 2 work without numbers as well. Just use getLeastCommonMultipleWithoutNumbers() instead of getLeastCommonMultiple()
+- If you have crazy high memory available, you may be able to make Part 2 work without numbers as well. Just use getLeastCommonMultipleWithoutNumbers() instead of getLeastCommonMultiple() and update numbers to strings
 
 ### Retrospective
 

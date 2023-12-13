@@ -5,7 +5,7 @@ import getLeastCommonMultiple from "../../tools/mathFunctions/getLeastCommonMult
 
 // If you have crazy high memory available, you may be able to make Part 2 work
 // without numbers as well. Just use getLeastCommonMultipleWithoutNumbers() instead
-// of getLeastCommonMultiple()
+// of getLeastCommonMultiple() and update numbers to strings
 
 export default (async function (): Promise<number> {
   const allTheMaps: TypeMaps = await parseInput();
