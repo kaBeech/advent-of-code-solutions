@@ -1,45 +1,19 @@
 import followInstructions from "./followInstructions.ts";
-import processDirectionData from "./processDirectionData.ts";
-import { Instruction, Maps } from "./types.ts";
+import { Instruction, Maps, PeriodicNode } from "./types.ts";
 
 export default (
   startingInstructions: Instruction[],
   maps: Maps,
 ) => {
   const currentInstructions = startingInstructions.slice();
-  const totalStepsArray: string[] = [];
-  let directions = maps.directions.split(``);
-  let directionsReservoir: string[] = [];
-  let reservoirInUse = false;
-  let surveyedEndingNodePathLoops: Instruction[] = [];
+  const surveyedEndingNodePathLoops: PeriodicNode[] = [];
 
-  while (surveyedEndingNodePathLoops.length < 6) {
-    let nonEndInstructionFound = false;
-
-    const directionData = processDirectionData(
-      reservoirInUse,
-      directions,
-      directionsReservoir,
-    );
-
-    reservoirInUse = directionData.reservoirInUse;
-    directions = directionData.processedDirections;
-    directionsReservoir = directionData.processedDirectionsReservoir;
-    const currentDirection = directionData.currentDirection;
-
-    const instructionsResults = followInstructions(
-      currentDirection,
-      currentInstructions,
+  for (const currentInstruction of currentInstructions) {
+    surveyedEndingNodePathLoops.push(followInstructions(
+      currentInstruction,
       maps,
-      surveyedEndingNodePathLoops,
-      nonEndInstructionFound,
-    );
-
-    currentInstructions = instructionsResults.newInstructions;
-    nonEndInstructionFound = instructionsResults.nonEndInstructionFound;
-    surveyedEndingNodePathLoops =
-      instructionsResults.surveyedEndingNodePathLoops;
-    totalStepsArray.push(`Step!`);
+    ));
   }
-  return { totalStepsArray, currentInstructions };
+
+  return surveyedEndingNodePathLoops;
 };
