@@ -12,12 +12,10 @@ export default (
   let directionsReservoir: string[] = [];
   let reservoirInUse = false;
   let periodicNode: PeriodicNode | undefined = undefined;
-  let stepsTaken = 0;
-  let stepsToReachFirstTime = 0;
-  let stepsToReachSecondTime = 0;
+  const stepsTaken: string[] = [];
 
   while (!periodicNode) {
-    stepsTaken++;
+    stepsTaken.push(`Step!`);
 
     const directionData = processDirectionData(
       reservoirInUse,
@@ -36,16 +34,10 @@ export default (
       currentDirection,
     )!;
     if (getLastChar(newInstruction.id) === `Z`) {
-      if (stepsToReachFirstTime === 0) {
-        stepsToReachFirstTime = stepsTaken;
-      } else {
-        stepsToReachSecondTime = stepsTaken;
-        periodicNode = {
-          endingNodeId: newInstruction.id,
-          period: stepsToReachSecondTime - stepsToReachFirstTime,
-          distanceFromNextEndingNode: stepsToReachFirstTime,
-        };
-      }
+      periodicNode = {
+        endingNodeId: newInstruction.id,
+        period: stepsTaken,
+      };
     }
   }
 
