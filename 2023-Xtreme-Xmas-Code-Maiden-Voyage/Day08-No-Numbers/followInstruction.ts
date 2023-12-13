@@ -6,24 +6,24 @@ export default (function (
   direction: string,
 ) {
   if (direction === `L`) {
-    const nextInstruction = instructions.find((nextInstruction) =>
+    const fetchedInstruction = instructions.find((nextInstruction) =>
       nextInstruction.id === currentInstruction.l
     );
-    if (!nextInstruction) {
+    if (!fetchedInstruction) {
       throw new Error(
         `No instruction found with id ${currentInstruction.l} in instructions array`,
       );
     }
-    return nextInstruction;
+    return fetchedInstruction;
   } else if (direction === `R`) {
-    const nextInstruction = instructions.find((nextInstruction) =>
+    const fetchedInstruction = instructions.find((nextInstruction) =>
       nextInstruction.id === currentInstruction.r
     );
-    if (!nextInstruction) {
+    if (!fetchedInstruction) {
       throw new Error(
         `No instruction found with id ${currentInstruction.r} in instructions array`,
       );
     }
-    return nextInstruction;
+    return fetchedInstruction;
   } else throw new Error(`Direction must be R or L`);
 });

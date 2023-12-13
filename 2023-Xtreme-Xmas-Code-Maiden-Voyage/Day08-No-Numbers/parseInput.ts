@@ -1,27 +1,33 @@
 import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { Maps } from "./types.ts";
 
-export const parseInput = async (): Promise<Maps> => {
-  const mapsRaw: string[][] = await convertMultiParagraphFileToArray(
+export default async (): Promise<Maps> => {
+  const aTinyArrayOfMaps: string[][] = await convertMultiParagraphFileToArray(
     "./challengeInput.dat",
   );
-  const maps: Maps = {
-    directions: mapsRaw.shift()!.shift()!,
+  const aTinyArrayOfMapsProcessed: Maps = {
+    directions: aTinyArrayOfMaps.shift()!.shift()!,
     instructions: [],
   };
-  for (const instruction of mapsRaw.shift()!) {
-    const rawIdAndDirections = instruction.split(`=`);
-    const id = rawIdAndDirections.shift()!.trim();
-    const rawDirections = rawIdAndDirections.shift()!.trim().split(`,`);
-    const l = rawDirections.shift()!.trim().split(``);
-    l.shift();
-    const r: string[] = rawDirections.shift()!.trim().split(``);
-    r.pop();
-    maps.instructions.push({
-      id,
-      l: l.join(``),
-      r: r.join(``),
+  for (const aTinyInstruction of aTinyArrayOfMaps.shift()!) {
+    const aTinyInstructionDirectionsAndIdRaw = aTinyInstruction.split(`=`);
+    const aTinyInstructionDirectionsId = aTinyInstructionDirectionsAndIdRaw
+      .shift()!
+      .trim();
+    const aTinyInstructionDirectionsRaw = aTinyInstructionDirectionsAndIdRaw
+      .shift()!.trim().split(`,`);
+    const aTinyInstructionDirectionsStringL = aTinyInstructionDirectionsRaw
+      .shift()!.trim().split(``);
+    aTinyInstructionDirectionsStringL.shift();
+    const aTinyInstructionDirectionsStringR: string[] =
+      aTinyInstructionDirectionsRaw.shift()!.trim().split(``);
+    aTinyInstructionDirectionsStringR.pop();
+
+    aTinyArrayOfMapsProcessed.instructions.push({
+      id: aTinyInstructionDirectionsId,
+      l: aTinyInstructionDirectionsStringL.join(``),
+      r: aTinyInstructionDirectionsStringR.join(``),
     });
   }
-  return maps;
+  return aTinyArrayOfMapsProcessed;
 };

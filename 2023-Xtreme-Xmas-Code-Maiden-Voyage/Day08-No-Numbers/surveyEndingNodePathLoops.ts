@@ -6,14 +6,14 @@ export default (
   maps: Maps,
 ) => {
   const currentInstructions = startingInstructions.slice();
-  const surveyedEndingNodePathLoops: PeriodicNode[] = [];
+  const currentlyCompletelySurveyedEndingNodePathLoops: PeriodicNode[] = [];
 
-  for (const currentInstruction of currentInstructions) {
-    surveyedEndingNodePathLoops.push(followInstructions(
-      currentInstruction,
+  for (const currentlySelectedInstruction of currentInstructions) {
+    currentlyCompletelySurveyedEndingNodePathLoops.push(followInstructions(
+      currentlySelectedInstruction,
       maps,
     ));
   }
 
-  return surveyedEndingNodePathLoops;
+  return currentlyCompletelySurveyedEndingNodePathLoops;
 };

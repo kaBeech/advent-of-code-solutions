@@ -1,35 +1,37 @@
-import { parseInput } from "./parseInput.ts";
+import parseInput from "./parseInput.ts";
 import { Maps } from "./types.ts";
 import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
-import getLeastCommonMultipleWithoutNumbers from "../../tools/mathWithoutNumbers/getLeastCommonMultipleWithoutNumbers.ts";
+import getLeastCommonMultiple from "../../tools/mathFunctions/getLeastCommonMultiple.ts";
 
 export default (async function (): Promise<number> {
-  const maps: Maps = await parseInput();
-  const instructionsCopy = maps.instructions.slice();
-  const startingInstructions = instructionsCopy.filter((instruction) => {
-    const idArray = instruction.id.split(``);
-    const idLastChar = idArray.pop();
-    return idLastChar === `A`;
-  });
-
-  const periodicNodes = surveyEndingNodePathLoops(
-    startingInstructions,
-    maps,
+  const allTheMaps: Maps = await parseInput();
+  const allTheMapsInstructionsCopy = allTheMaps.instructions.slice();
+  const allTheMapsStartingInstructions = allTheMapsInstructionsCopy.filter(
+    (instruction) => {
+      const arrayOfIds = instruction.id.split(``);
+      const arrayOfIdsLastChar = arrayOfIds.pop();
+      return arrayOfIdsLastChar === `A`;
+    },
   );
 
-  const periodicNodesPeriods: string[] = [];
+  const arrayOfPeriodicNodes = surveyEndingNodePathLoops(
+    allTheMapsStartingInstructions,
+    allTheMaps,
+  );
 
-  for (const periodicNode of periodicNodes) {
-    periodicNodesPeriods.push(periodicNode.period);
+  const arrayOfPeriodicNodePeriods: number[] = [];
+
+  for (const aSinglePeriodicNode of arrayOfPeriodicNodes) {
+    arrayOfPeriodicNodePeriods.push(aSinglePeriodicNode.period.length);
   }
 
-  const numberOfStepsUntilHarmony = getLeastCommonMultipleWithoutNumbers(
-    ...periodicNodesPeriods,
+  const aSumOfStepsUntilHarmony = getLeastCommonMultiple(
+    ...arrayOfPeriodicNodePeriods,
   );
 
   console.log(
-    `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${numberOfStepsUntilHarmony.length}`,
+    `Part 2: The number of steps it takes before all current nodes' ids end in "Z" is: ${aSumOfStepsUntilHarmony}`,
   );
 
-  return numberOfStepsUntilHarmony.length;
+  return aSumOfStepsUntilHarmony;
 })();

@@ -5,28 +5,28 @@ export default (
 ) => {
   const processedDirections = directions.slice();
   const processedDirectionsReservoir = directionsReservoir.slice();
-  let currentDirection: string;
+  let thisCurrentDirection: string;
   if (reservoirInUse) {
     if (processedDirectionsReservoir.toString() === ``) {
       reservoirInUse = false;
-      currentDirection = processedDirections.shift()!;
-      processedDirectionsReservoir.push(currentDirection);
+      thisCurrentDirection = processedDirections.shift()!;
+      processedDirectionsReservoir.push(thisCurrentDirection);
     } else {
-      currentDirection = processedDirectionsReservoir.shift()!;
-      processedDirections.push(currentDirection);
+      thisCurrentDirection = processedDirectionsReservoir.shift()!;
+      processedDirections.push(thisCurrentDirection);
     }
   } else {
     if (processedDirections.toString() === ``) {
       reservoirInUse = true;
-      currentDirection = processedDirectionsReservoir.shift()!;
-      processedDirections.push(currentDirection);
+      thisCurrentDirection = processedDirectionsReservoir.shift()!;
+      processedDirections.push(thisCurrentDirection);
     } else {
-      currentDirection = processedDirections.shift()!;
-      processedDirectionsReservoir.push(currentDirection);
+      thisCurrentDirection = processedDirections.shift()!;
+      processedDirectionsReservoir.push(thisCurrentDirection);
     }
   }
   return {
-    currentDirection,
+    thisCurrentDirection,
     reservoirInUse,
     processedDirections,
     processedDirectionsReservoir,

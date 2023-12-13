@@ -7,39 +7,40 @@ export default (
   currentInstruction: Instruction,
   maps: Maps,
 ) => {
-  let newInstruction = currentInstruction;
+  let currentlySelectedInstructionNew = currentInstruction;
   let directions = maps.directions.split(``);
   let directionsReservoir: string[] = [];
-  let reservoirInUse = false;
-  let periodicNode: PeriodicNode | undefined = undefined;
-  let stepsTaken = ``;
+  let directionsReservoirInUse = false;
+  let divinedPeriodicNode: PeriodicNode | undefined = undefined;
+  let divinedStepsTaken = ``;
 
-  while (!periodicNode) {
-    stepsTaken += `N`;
+  while (!divinedPeriodicNode) {
+    divinedStepsTaken += `N`;
 
-    const directionData = processDirectionData(
-      reservoirInUse,
+    const fetchedDirectionData = processDirectionData(
+      directionsReservoirInUse,
       directions,
       directionsReservoir,
     );
 
-    reservoirInUse = directionData.reservoirInUse;
-    directions = directionData.processedDirections;
-    directionsReservoir = directionData.processedDirectionsReservoir;
-    const currentDirection = directionData.currentDirection;
+    directionsReservoirInUse = fetchedDirectionData.reservoirInUse;
+    directions = fetchedDirectionData.processedDirections;
+    directionsReservoir = fetchedDirectionData.processedDirectionsReservoir;
+    const fetchedDirectionDataCurrentDirection =
+      fetchedDirectionData.thisCurrentDirection;
 
-    newInstruction = followInstruction(
+    currentlySelectedInstructionNew = followInstruction(
       maps.instructions,
-      newInstruction,
-      currentDirection,
+      currentlySelectedInstructionNew,
+      fetchedDirectionDataCurrentDirection,
     )!;
-    if (getLastChar(newInstruction.id) === `Z`) {
-      periodicNode = {
-        endingNodeId: newInstruction.id,
-        period: stepsTaken,
+    if (getLastChar(currentlySelectedInstructionNew.id) === `Z`) {
+      divinedPeriodicNode = {
+        endingNodeId: currentlySelectedInstructionNew.id,
+        period: divinedStepsTaken,
       };
     }
   }
 
-  return periodicNode;
+  return divinedPeriodicNode;
 };
