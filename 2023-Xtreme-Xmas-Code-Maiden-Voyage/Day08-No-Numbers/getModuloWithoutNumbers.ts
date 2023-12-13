@@ -1,13 +1,14 @@
-export default (numerator: string[], denominator: string[]): string[] => {
-  let modulo: string[] = [];
-  const xCopy = numerator.slice();
-  let lastElement: string | undefined = `initialize`;
-  while (lastElement) {
-    modulo = [];
+import { subtractOneWithoutNumbers } from "./subtractWithoutNumbers.ts";
+
+export default (numerator: string, denominator: string): string => {
+  let modulo = ``;
+  let xCopy = numerator;
+  while (xCopy !== ``) {
+    modulo = ``;
     for (const _element of denominator) {
-      lastElement = xCopy.pop();
-      if (lastElement) {
-        modulo.push(lastElement);
+      xCopy = subtractOneWithoutNumbers(xCopy);
+      if (xCopy !== ``) {
+        modulo += `N`;
       }
     }
   }

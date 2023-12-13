@@ -1,8 +1,8 @@
-export default (x: string[], y: string[]) => {
-  const product: string[] = [];
+export default (x: string, y: string) => {
+  let product = "";
   for (const _element of y) {
     for (const element of x) {
-      product.push(element);
+      product += element;
     }
   }
 

@@ -1,18 +1,19 @@
-export default (x: string[], y: string[]) => {
-  const xCopy = x.slice();
-  const quotient: string[] = [];
-  const remainder: string[] = [];
-  let lastElement: string | undefined = undefined;
-  while (remainder.toString() === `` && xCopy.toString() !== ``) {
+import { subtractOneWithoutNumbers } from "./subtractWithoutNumbers.ts";
+
+export default (x: string, y: string) => {
+  let xCopy = x;
+  let quotient = ``;
+  let remainder = ``;
+  while (xCopy !== ``) {
     for (const _element of y) {
-      lastElement = xCopy.pop();
-      if (lastElement !== undefined) {
-        remainder.push(lastElement);
+      if (xCopy !== ``) {
+        xCopy = subtractOneWithoutNumbers(xCopy);
+        remainder += `N`;
       }
     }
-    if (lastElement !== undefined) {
-      quotient.push(`N`);
-      remainder.length = 0;
+    if (xCopy !== ``) {
+      quotient += `N`;
+      remainder = ``;
     }
   }
 
