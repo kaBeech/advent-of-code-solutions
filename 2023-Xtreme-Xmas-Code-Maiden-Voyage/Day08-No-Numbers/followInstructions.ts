@@ -16,8 +16,6 @@ export default (
   let stepsToReachFirstTime = 0;
   let stepsToReachSecondTime = 0;
 
-  let nonEndInstructionFound = false;
-
   const directionData = processDirectionData(
     reservoirInUse,
     directions,
@@ -31,12 +29,6 @@ export default (
 
   while (!periodicNode) {
     stepsTaken++;
-    const lastEndingNode = newInstruction.lastEndingNode;
-    // deno-lint-ignore prefer-const
-    let distanceFromLastEndingNode = newInstruction.distanceFromLastEndingNode;
-    const nextEndingNode = newInstruction.nextEndingNode;
-    // deno-lint-ignore prefer-const
-    let distanceFromNextEndingNode = newInstruction.distanceFromNextEndingNode;
     newInstruction = followInstruction(
       maps.instructions,
       newInstruction,
@@ -52,26 +44,6 @@ export default (
           period: stepsToReachSecondTime - stepsToReachFirstTime,
           distanceFromNextEndingNode: stepsToReachFirstTime,
         };
-      }
-    } else {
-      if (!nonEndInstructionFound) {
-        nonEndInstructionFound = true;
-      }
-      if (lastEndingNode) {
-        distanceFromLastEndingNode!++;
-        if (!newInstruction.lastEndingNode) {
-          newInstruction.lastEndingNode = lastEndingNode,
-            newInstruction.distanceFromLastEndingNode =
-              distanceFromLastEndingNode;
-        }
-      }
-      if (nextEndingNode) {
-        distanceFromNextEndingNode!--;
-        if (!newInstruction.nextEndingNode) {
-          newInstruction.nextEndingNode = nextEndingNode,
-            newInstruction.distanceFromNextEndingNode =
-              distanceFromNextEndingNode;
-        }
       }
     }
   }
