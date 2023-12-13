@@ -37,7 +37,14 @@ my $startingY = $startingTile{"coordinates"}[1];
 my $neighborTileValue = substr($rows[$startingY - 1], $startingX, 1);
 
 
-
+sub removeImpossibleStartingValues {
+    for (@_) {
+        my $index = 0;
+        my $count = scalar @possibleStartingTileValues;
+        $index++ until $possibleStartingTileValues[$index] eq $_ or $index==$count;
+        splice(@possibleStartingTileValues, $index, 1);
+    }
+}
 
 sub checkNeighbor {
     for (@_) {
@@ -46,21 +53,13 @@ sub checkNeighbor {
                 case "^" {
                 }
                 case ">" {
-                    # my $index = 0;
-                    # my $count = scalar @possibleStartingTileValues;
-                    # $index++ until $possibleStartingTileValues[$index] eq $_ or $index==$count;
-                    # splice(@possibleStartingTileValues, $index, 1);
+                    removeImpossibleStartingValues("|", "F", "L");
                 }
                 case "v" {
                 }
                 case "<" {
                 }
             }
-            # if ($currentDirection eq ">") {
-            #         my $index = 0;
-            #         $index++ until $possibleStartingTileValues[$index] eq $_;
-            #         splice(@possibleStartingTileValues, $index, 1);
-            # }
             print("\nTEST", $neighborTileValue, $currentDirection);
         }
     }
