@@ -6,9 +6,7 @@ If you're interested, [I also built a mod to add a bonus layer of randomized cha
 
 ## Individual Years
 
-This started as a repo for my work on the 2022 challenges, but has since been updated to include earlier changes
-
-Note that the years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
+Note that these years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
 
 ### 2023-Xtreme-Xmas-Code-Maiden-Voyage
 
