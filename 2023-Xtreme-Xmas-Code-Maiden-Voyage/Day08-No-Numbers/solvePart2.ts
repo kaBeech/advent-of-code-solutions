@@ -1,8 +1,7 @@
 import { parseInput } from "./parseInput.ts";
-import { Instruction, Maps, PeriodicNode } from "./types.ts";
-import processDirectionData from "./processDirectionData.ts";
-import followInstructions from "./followInstructions.ts";
+import { Maps } from "./types.ts";
 import initializePeriodicNodes from "./initializePeriodicNodes.ts";
+import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
 
 export default (async function (): Promise<string[]> {
   const maps: Maps = await parseInput();
@@ -12,46 +11,11 @@ export default (async function (): Promise<string[]> {
     const idLastChar = idArray.pop();
     return idLastChar === `A`;
   });
-  let directions = maps.directions.split(``);
-  let directionsReservoir: string[] = [];
-  const totalStepsArray: string[] = [];
-  let currentInstructions = startingInstructions;
-  let reservoirInUse = false;
-  let endReached = false;
-  let surveyedEndingNodePathLoops: Instruction[] = [];
 
-  while (surveyedEndingNodePathLoops.length < 6) {
-    let nonEndInstructionFound = false;
-
-    const directionData = processDirectionData(
-      reservoirInUse,
-      directions,
-      directionsReservoir,
-    );
-
-    reservoirInUse = directionData.reservoirInUse;
-    directions = directionData.processedDirections;
-    directionsReservoir = directionData.processedDirectionsReservoir;
-    const currentDirection = directionData.currentDirection;
-
-    const instructionsResults = followInstructions(
-      currentDirection,
-      currentInstructions,
-      maps,
-      surveyedEndingNodePathLoops,
-      nonEndInstructionFound,
-    );
-
-    currentInstructions = instructionsResults.newInstructions;
-    nonEndInstructionFound = instructionsResults.nonEndInstructionFound;
-    surveyedEndingNodePathLoops =
-      instructionsResults.surveyedEndingNodePathLoops;
-    totalStepsArray.push(`Step!`);
-
-    if (!nonEndInstructionFound) {
-      endReached = true;
-    }
-  }
+  const { totalStepsArray, currentInstructions } = surveyEndingNodePathLoops(
+    startingInstructions,
+    maps,
+  );
 
   const stepsSpentSurveying = totalStepsArray.length;
 
@@ -69,11 +33,14 @@ export default (async function (): Promise<string[]> {
 
   while (harmonizedNodes.length < 6) {
     let stepsTaken = 1;
+
     for (const harmonizedNode of harmonizedNodes) {
       stepsTaken *= harmonizedNode.period;
     }
+
     stepsTotal += stepsTaken;
-    periodicNodes.forEach((periodicNode) => {
+
+    for (const periodicNode of periodicNodes) {
       // console.log(periodicNode);
       const distanceToSubtract = stepsTaken;
       periodicNode.distanceFromNextEndingNode -= distanceToSubtract;
@@ -95,6 +62,7 @@ export default (async function (): Promise<string[]> {
         ) {
           periodicNode.distanceFromNextEndingNode += periodicNode.period;
         }
+
         if (
           periodicNode.distanceFromNextEndingNode === 0
         ) {
@@ -112,7 +80,7 @@ export default (async function (): Promise<string[]> {
         //   console.log("TEST!!!!", distanceToSubtract, periodicNode);
         // }
       }
-    });
+    }
   }
 
   console.log(
