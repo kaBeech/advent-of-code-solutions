@@ -1,15 +1,27 @@
-import { parseInput } from "./parseInput.ts";
-import selectElfNumber42 from "./selectElfNumber42.ts";
-import { Elf, ElfMap } from "./types.ts";
+import تحليل_المدخلات from "./تحليل_المدخلات.ts";
+import { تسلسلات_تاريخية, تقرير } from "./أنواع.ts";
+import بناء_تسلسلات from "./بناء_تسلسلات.ts";
+import استقراء_تسلسل from "./استقراء_تسلسل.ts";
+import مجموع_الاستقراءات from "./مجموع_الاستقراءات.ts";
 
-export default (async function (): Promise<Elf> {
-  const elfMap: ElfMap = await parseInput();
+export default (async function (): Promise<تقرير> {
+  const تقرير: تقرير = await تحليل_المدخلات();
 
-  const elfNumber42 = selectElfNumber42(
-    elfMap,
+  const تقرير_التسلسلات_التاريخية: تسلسلات_تاريخية[] = [];
+
+  for (const تاريخ of تقرير) {
+    تقرير_التسلسلات_التاريخية.push(بناء_تسلسلات(تاريخ));
+  }
+
+  for (let تسلسلات_تاريخية of تقرير_التسلسلات_التاريخية) {
+    تسلسلات_تاريخية = استقراء_تسلسل(تسلسلات_تاريخية);
+  }
+
+  const مجموع = مجموع_الاستقراءات(تقرير_التسلسلات_التاريخية);
+
+  console.log(
+    `Part 2: The sum of the backwards-extrapolated data is ${مجموع}`,
   );
 
-  console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
-
-  return elfNumber42;
+  return تقرير;
 })();
