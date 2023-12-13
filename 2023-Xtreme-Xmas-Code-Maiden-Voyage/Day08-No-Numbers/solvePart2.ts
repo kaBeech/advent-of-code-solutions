@@ -17,7 +17,7 @@ export default (async function (): Promise<number> {
     maps,
   );
 
-  const periodicNodesPeriods: string[][] = [];
+  const periodicNodesPeriods: string[] = [];
 
   for (const periodicNode of periodicNodes) {
     periodicNodesPeriods.push(periodicNode.period);
