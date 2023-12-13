@@ -17,5 +17,4 @@ export interface PeriodicNode {
   endingNodeId: string;
   period: number;
   distanceFromNextEndingNode: number;
-  cyclesSinceLastHarmonization: number;
 }
