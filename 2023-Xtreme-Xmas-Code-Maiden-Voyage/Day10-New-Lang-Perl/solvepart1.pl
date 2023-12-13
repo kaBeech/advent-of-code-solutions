@@ -7,19 +7,20 @@ open(my $input,  "<",  "testInput.dat")  or die "Can't open testInput.dat: $!";
 
 my @values = ["|" , "-" , "7" , "F" , "J" , "L"];
 my @directions = ["^" , ">" , "v" , "<"];
-my @lines = <$input>;
+my @rows = <$input>;
 my %startingTile = (
     coordinates => [0,0],
     value => "S",
 );
+my @possibleStartingTileValues = ["|" , "-" , "7" , "F" , "J" , "L"];
 
 print("Hello, World!\n");
 
-print(@lines);
+print(@rows);
 
 # Find the starting tile
 my $i = 0;
-foreach (@lines) {
+foreach (@rows) {
     if (index($_, "S") != -1) {
         $startingTile{"coordinates"} = [index($_, "S"), $i];
     }
@@ -28,6 +29,6 @@ foreach (@lines) {
 
 print("\n");
 print("\n");
-my $testTile = substr($lines[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
+my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
 print($testTile);
 
