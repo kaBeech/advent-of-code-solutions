@@ -1,7 +1,7 @@
 import { parseInput } from "./parseInput.ts";
 import { Maps } from "./types.ts";
 import surveyEndingNodePathLoops from "./surveyEndingNodePathLoops.ts";
-import getLeastCommonMultipleWithoutNumbers from "./getLeastCommonMultipleWithoutNumbers.ts";
+import getLeastCommonMultipleWithoutNumbers from "../../tools/mathWithoutNumbers/getLeastCommonMultipleWithoutNumbers.ts";
 
 export default (async function (): Promise<number> {
   const maps: Maps = await parseInput();
