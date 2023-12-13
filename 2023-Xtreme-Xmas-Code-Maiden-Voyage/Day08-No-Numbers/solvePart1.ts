@@ -2,14 +2,14 @@ import followInstruction from "./followInstruction.ts";
 import { parseInput } from "./parseInput.ts";
 import { Instruction, Maps } from "./types.ts";
 
-export default (async function (): Promise<string[]> {
+export default (async function (): Promise<number> {
   const maps: Maps = await parseInput();
   const start = maps.instructions.find((instruction: Instruction) =>
     instruction.id === `AAA`
   )!;
   const directions = maps.directions.split(``);
-  const directionsReservoir = [];
-  const totalStepsArray = [];
+  const directionsReservoir: string[] = [];
+  const totalStepsArray: string[] = [];
   let currentInstruction = start;
   let reservoirInUse = false;
 
@@ -17,7 +17,7 @@ export default (async function (): Promise<string[]> {
     let currentDirection: string;
     if (reservoirInUse) {
       // This checks whether directionsReservoir is empty without using any numbers
-      if (directionsReservoir == false) {
+      if (directionsReservoir.toString() === ``) {
         reservoirInUse = false;
         currentDirection = directions.shift()!;
         directionsReservoir.push(currentDirection);
@@ -27,7 +27,7 @@ export default (async function (): Promise<string[]> {
       }
     } else {
       // This checks whether directions is empty without using any numbers
-      if (directions == false) {
+      if (directions.toString() === ``) {
         reservoirInUse = true;
         currentDirection = directionsReservoir.shift()!;
         directions.push(currentDirection);
@@ -41,7 +41,7 @@ export default (async function (): Promise<string[]> {
       currentInstruction,
       currentDirection,
     )!;
-    totalStepsArray.push(`Step!`);
+    totalStepsArray.push(`N`);
   }
 
   console.log(
@@ -50,5 +50,5 @@ export default (async function (): Promise<string[]> {
     }`,
   );
 
-  return totalStepsArray;
+  return totalStepsArray.length;
 })();
