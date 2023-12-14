@@ -1,6 +1,6 @@
 $map = Array.new
 
-File.foreach('testInput.dat') { |row|
+File.foreach('challengeInput.dat') { |row|
   puts row
   
   $processedRow = Array.new
@@ -76,18 +76,18 @@ $galaxies.each { |galaxy|
     $xDistanceBetweenGalaxies = (galaxy[1] - unprocessedGalaxy[1]).abs
     $emptyRows.each { |emptyRow|
       if galaxy[1] < emptyRow and unprocessedGalaxy[1] > emptyRow
-        $yDistanceBetweenGalaxies += 99
+        $yDistanceBetweenGalaxies += 999999
       end
       if galaxy[1] > emptyRow and unprocessedGalaxy[1] < emptyRow
-        $yDistanceBetweenGalaxies += 99
+        $yDistanceBetweenGalaxies += 999999
       end
     }
     $emptyColumns.each { |emptyColumn|
       if galaxy[0] < emptyColumn and unprocessedGalaxy[0] > emptyColumn
-        $xDistanceBetweenGalaxies += 99
+        $xDistanceBetweenGalaxies += 999999
       end
       if galaxy[0] > emptyColumn and unprocessedGalaxy[0] < emptyColumn
-        $xDistanceBetweenGalaxies += 99
+        $xDistanceBetweenGalaxies += 999999
       end
     }
     $distanceBetweenGalaxies = $yDistanceBetweenGalaxies + $xDistanceBetweenGalaxies
