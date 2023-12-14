@@ -159,13 +159,112 @@ sub moveAlongLoop {
     setCurrentDirection();
 }
 
+my %loopTiles = (
+    $loopLength => {
+        x => $currentCoordinates[0][0],
+        y => $currentCoordinates[0][1],
+        value => $currentTileValue,
+    }
+);
+
 # Map the loop
 until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $currentCoordinates[0][1] == $startingTile{"coordinates"}[1] and $loopLength > 0) {
     moveAlongLoop();
     $loopLength += 1;
+    $loopTiles{$loopLength} = {
+        x => $currentCoordinates[0][0],
+        y => $currentCoordinates[0][1],
+        value => $currentTileValue,
+    }
 }
 
-my $stepsToReachOppositeSideOfLoop = $loopLength / 2;
+print($loopTiles{0}{"value"}, "\n");
 
-print("\nPart 1: The number of steps it takes to reach the opposite side of the loop is: ", $stepsToReachOppositeSideOfLoop) 
+my $tilesInsideLoop = 0;
+my $numberOfBordersCrossed = 0;
+my $borderEncounteredFromSouth = 0;
+my $borderEncounteredFromNorth = 0;
+my $i = 0;
+
+sub processSouthgoingBorderTile {
+    if ($borderEncounteredFromSouth) {
+        $borderEncounteredFromSouth = 0;
+    } else {
+        $borderEncounteredFromSouth = 1;
+    }
+    if ($borderEncounteredFromNorth) {
+        $numberOfBordersCrossed += 1;
+        $borderEncounteredFromNorth = 0;
+        $borderEncounteredFromSouth = 0;
+    }
+}
+
+sub processNorthgoingBorderTile {
+    if ($borderEncounteredFromNorth) {
+        $borderEncounteredFromNorth = 0;
+    } else {
+        $borderEncounteredFromNorth = 1;
+    }
+    if ($borderEncounteredFromSouth) {
+        $numberOfBordersCrossed += 1;
+        $borderEncounteredFromNorth = 0;
+        $borderEncounteredFromSouth = 0;
+    }
+}
+
+my $tileKeyFound = 0;
+sub findLoopTileKey {
+    my ($x, $y) = @_;
+
+    $tileKeyFound = 0;
+    for my $key (keys %loopTiles) {
+        if ($loopTiles{$key}{x} == $x && $loopTiles{$key}{y} == $y) {
+            $tileKeyFound = 1;
+            return $key;
+        } 
+    }
+
+    return 0;
+}
+
+
+# Find tiles inside the loop
+foreach (@rows) {
+    $numberOfBordersCrossed = 0;
+    $borderEncounteredFromSouth = 0;
+    $borderEncounteredFromNorth = 0;
+    print($i, "   ", $tilesInsideLoop, "\n");
+    for (my $j = 0; $j < length($_); $j++) {
+        my $currentLoopTileKey = findLoopTileKey($j, $i);
+        if (!$tileKeyFound) {
+            if ($numberOfBordersCrossed % 2 == 1) {
+                $tilesInsideLoop += 1;
+            }
+        } else {
+            switch ($loopTiles{$currentLoopTileKey}{"value"}) {
+                case "|" {
+                    $numberOfBordersCrossed += 1;
+                }
+                case "-" {
+                    # Do nothing
+                }
+                case "7" {
+                    processSouthgoingBorderTile();
+                }
+                case "F" {
+                    processSouthgoingBorderTile();
+                }
+                case "J" {
+                    processNorthgoingBorderTile();
+                }
+                case "L" {
+                    processNorthgoingBorderTile();
+                }
+            }
+        }
+    }
+    $i += 1;
+}
+
+print("\nPart 2: The number of tiles inside the loop is: ", $tilesInsideLoop) 
 
