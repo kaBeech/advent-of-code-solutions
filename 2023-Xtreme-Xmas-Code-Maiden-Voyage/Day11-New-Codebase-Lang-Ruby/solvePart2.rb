@@ -16,7 +16,7 @@ $verticallyExpandedMap = Array.new
 $map.each { |row|
   $verticallyExpandedMap.push(row)
   if row.all? { |c| c == '.'}
-    3.times do
+    9.times do
       $verticallyExpandedMap.push(row)
     end
   end
@@ -37,7 +37,7 @@ $flippedFullyExpandedMap = Array.new
 $flippedVerticallyExpandedMap.each { |row|
   $flippedFullyExpandedMap.push(row)
   if row.all? { |c| c == '.'}
-    3.times do
+    9.times do
       $flippedFullyExpandedMap.push(row)
     end
   end
@@ -81,4 +81,4 @@ $galaxies.each { |galaxy|
   }
 }
 
-puts $totalDistanceBetweenAllGalaxies
+puts "Part 1: The total distance between all galaxies is: " + $totalDistanceBetweenAllGalaxies.to_s
