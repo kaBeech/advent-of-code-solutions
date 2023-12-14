@@ -20,6 +20,17 @@ export default (async function (): Promise<تقرير> {
   const مجموع = مجموع_الاستقراءات_إلى_الوراء(تقرير_التسلسلات_التاريخية);
 
   console.log(
+    مجموع.toString(),
+    `الوراء`,
+    `إلى`,
+    `المستقرة`,
+    `البيانات`,
+    `مجموع`,
+    `:٢`,
+    `الجزء`,
+  );
+
+  console.log(
     `Part 2: The sum of the backwards-extrapolated data is ${مجموع}`,
   );
 
