@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Switch;
 
-open(my $input,  "<",  "challengeInput.dat")  or die "Can't open challengeInput.dat: $!";
+open(my $input,  "<",  "testInput3.dat")  or die "Can't open challengeInput.dat: $!";
 
 my @values = ["|" , "-" , "7" , "F" , "J" , "L"];
 my @directions = ["^" , ">" , "v" , "<"];
@@ -212,25 +212,31 @@ sub processNorthgoingBorderTile {
     }
 }
 
+my $tileKeyFound = 0;
 sub findLoopTileKey {
     my ($x, $y) = @_;
 
+    $tileKeyFound = 0;
     for my $key (keys %loopTiles) {
         if ($loopTiles{$key}{x} == $x && $loopTiles{$key}{y} == $y) {
+            $tileKeyFound = 1;
             return $key;
-        }
+        } 
     }
 
-    return undef;
+    return 0;
 }
 
 
 # Find tiles inside the loop
 foreach (@rows) {
+    $numberOfBordersCrossed = 0;
+    $borderEncounteredFromSouth = 0;
+    $borderEncounteredFromNorth = 0;
     print($i, "   ", $tilesInsideLoop, "\n");
     for (my $j = 0; $j < length($_); $j++) {
         my $currentLoopTileKey = findLoopTileKey($j, $i);
-        if (!$currentLoopTileKey) {
+        if (!$tileKeyFound) {
             if ($numberOfBordersCrossed % 2 == 1) {
                 $tilesInsideLoop += 1;
             }
