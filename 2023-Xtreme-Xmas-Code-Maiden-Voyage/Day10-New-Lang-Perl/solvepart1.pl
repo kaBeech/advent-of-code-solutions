@@ -9,13 +9,14 @@ open(my $input,  "<",  "testInput.dat")  or die "Can't open testInput.dat: $!";
 my @values = ["|" , "-" , "7" , "F" , "J" , "L"];
 my @directions = ["^" , ">" , "v" , "<"];
 my @rows = <$input>;
+my $loopLength = 0;
 my %startingTile = (
     coordinates => [0,0],
     value => "S",
 );
 my $currentDirection = "^";
 my $currentTileValue = "S";
-my $currentCoordinates = [0,0];
+my @currentCoordinates = [0,0];
 my @possibleStartingTileValues = ("|" , "-" , "7" , "F" , "J" , "L");
 
 print("Hello, World!\n");
@@ -31,7 +32,7 @@ foreach (@rows) {
     $i += 1;
 }
 
-    print(substr($rows[$startingTile{"coordinates"}[1] - 1], $startingTile{"coordinates"}[0], 1));
+# print(substr($rows[$startingTile{"coordinates"}[1] - 1], $startingTile{"coordinates"}[0], 1));
 
 # Find the starting tile's value
 my $startingX = $startingTile{"coordinates"}[0];
@@ -65,7 +66,6 @@ sub checkNeighbor {
                     removeImpossibleStartingValues("|", "F", "L");
                 }
             }
-            print("\nTEST", $neighborTileValue, $currentDirection);
         }
     }
 }
@@ -85,7 +85,8 @@ checkNeighbor( "-" , "F" , "L");
 
 $startingTile{"value"} = $possibleStartingTileValues[0];
 $currentTileValue = $startingTile{"value"};
-$currentCoordinates = $startingTile{"coordinates"};
+$currentCoordinates[0][0] = $startingTile{"coordinates"}[0];
+$currentCoordinates[0][1] = $startingTile{"coordinates"}[1];
 
 # Set starting direction
 sub setCurrentDirection {
@@ -134,8 +135,37 @@ sub setCurrentDirection {
         }
     }
 }
+    print("\nTEST", $currentDirection, $currentTileValue);
 
 setCurrentDirection();
+    # print("\nTEST", $currentDirection, $currentTileValue);
+
+sub moveAlongLoop {
+    switch ($currentDirection) {
+        case "^" {
+            $currentCoordinates[0][1] -= 1;
+        }
+        case ">" {
+            $currentCoordinates[0][0] += 1;
+        }
+        case "v" {
+            $currentCoordinates[0][1] += 1;
+        }
+        case "<" {
+            $currentCoordinates[0][0] -= 1;
+        }
+    }
+    $currentTileValue = substr($rows[$currentCoordinates[0][1]], $currentCoordinates[0][0], 1);
+    if ($currentTileValue eq "S") {
+        $currentTileValue = $startingTile{"value"};
+    }
+    setCurrentDirection();
+}
+
+until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $currentCoordinates[0][1] == $startingTile{"coordinates"}[1] and $loopLength > 0) {
+    moveAlongLoop();
+    $loopLength += 1;
+}
 
 print("\n");
 print("\n");
@@ -143,8 +173,10 @@ print("\n");
 print($startingTile{"value"});
 print("\n");
 print($currentDirection);
+print("\n");
+print($loopLength);
 # my $test = $possibleStartingTileValues[2];
 # print($test); 
-my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
-print($testTile);
+# my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
+# print($testTile);
 
