@@ -212,35 +212,49 @@ sub processNorthgoingBorderTile {
     }
 }
 
+sub findLoopTileKey {
+    my ($x, $y) = @_;
+
+    for my $key (keys %loopTiles) {
+        if ($loopTiles{$key}{x} == $x && $loopTiles{$key}{y} == $y) {
+            return $key;
+        }
+    }
+
+    return undef;
+}
+
+
 foreach (@rows) {
+    print($i, "   ", $tilesInsideLoop, "\n");
     for (my $j = 0; $j < length($_); $j++) {
-        # my $currentLoopTile = (selectLoopTile with x == $j and y == $i);
-        # if ($currentLoopTile doesnt exist) {
-        #     if ($numberOfBordersCrossed % 2 == 1) {
-        #         $tilesInsideLoop += 1;
-        #     }
-        # } else {
-        #     switch ($currentLoopTile{"value"}) {
-        #         case "|" {
-        #             $numberOfBordersCrossed += 1;
-        #         }
-        #         case "-" {
-        #             # Do nothing
-        #         }
-        #         case "7" {
-        #             processSouthgoingBorderTile();
-        #         }
-        #         case "F" {
-        #             processSouthgoingBorderTile();
-        #         }
-        #         case "J" {
-        #             processNorthgoingBorderTile();
-        #         }
-        #         case "L" {
-        #             processNorthgoingBorderTile();
-        #         }
-        #     }
-        # }
+        my $currentLoopTileKey = findLoopTileKey($j, $i);
+        if (!$currentLoopTileKey) {
+            if ($numberOfBordersCrossed % 2 == 1) {
+                $tilesInsideLoop += 1;
+            }
+        } else {
+            switch ($loopTiles{$currentLoopTileKey}{"value"}) {
+                case "|" {
+                    $numberOfBordersCrossed += 1;
+                }
+                case "-" {
+                    # Do nothing
+                }
+                case "7" {
+                    processSouthgoingBorderTile();
+                }
+                case "F" {
+                    processSouthgoingBorderTile();
+                }
+                case "J" {
+                    processNorthgoingBorderTile();
+                }
+                case "L" {
+                    processNorthgoingBorderTile();
+                }
+            }
+        }
     }
     $i += 1;
 }
