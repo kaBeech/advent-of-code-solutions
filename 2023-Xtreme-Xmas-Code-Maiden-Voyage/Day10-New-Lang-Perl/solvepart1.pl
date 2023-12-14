@@ -14,6 +14,8 @@ my %startingTile = (
     value => "S",
 );
 my $currentDirection = "^";
+my $currentTileValue = "S";
+my $currentCoordinates = [0,0];
 my @possibleStartingTileValues = ("|" , "-" , "7" , "F" , "J" , "L");
 
 print("Hello, World!\n");
@@ -82,11 +84,65 @@ $neighborTileValue = substr($rows[$startingY], $startingX - 1, 1);
 checkNeighbor( "-" , "F" , "L");
 
 $startingTile{"value"} = $possibleStartingTileValues[0];
+$currentTileValue = $startingTile{"value"};
+$currentCoordinates = $startingTile{"coordinates"};
+
+# Set starting direction
+sub setCurrentDirection {
+    switch ($currentTileValue) {
+        case "|" {
+            if ($currentDirection eq "^") {
+                $currentDirection = "^"
+            } else {
+                $currentDirection = "v"
+            }
+        }
+        case "F" {
+            if ($currentDirection eq "^") {
+                $currentDirection = ">"
+            } else {
+                $currentDirection = "v"
+            }
+        }
+        case "-" {
+            if ($currentDirection eq ">") {
+                $currentDirection = ">"
+            } else {
+                $currentDirection = "<"
+            }
+        }
+        case "7" {
+            if ($currentDirection eq "^") {
+                $currentDirection = "<"
+            } else {
+                $currentDirection = "v"
+            }
+        }
+        case "J" {
+            if ($currentDirection eq ">") {
+                $currentDirection = "^"
+            } else {
+                $currentDirection = "<"
+            }
+        }
+        case "L" {
+            if ($currentDirection eq "<") {
+                $currentDirection = "^"
+            } else {
+                $currentDirection = ">"
+            }
+        }
+    }
+}
+
+setCurrentDirection();
 
 print("\n");
 print("\n");
 print("\n");
 print($startingTile{"value"});
+print("\n");
+print($currentDirection);
 # my $test = $possibleStartingTileValues[2];
 # print($test); 
 my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
