@@ -12,25 +12,29 @@ Sweet! Let's do Perl!
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
+
+- To run the program for Part 1, run `perl solvePart1.pl` from this directory
+
+- To run the program for Part 2, run `perl solvePart2.pl` from this directory
 
 ### Retrospective
 

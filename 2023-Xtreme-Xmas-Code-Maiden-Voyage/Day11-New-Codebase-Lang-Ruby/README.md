@@ -33,6 +33,7 @@ Part 2: 0
 ### Notes
 
 - To run the program for Part 1, run `ruby solvePart1.rb` from this directory
+
 - To run the program for Part 2, run `ruby solvePart2.rb` from this directory
 
 ### Retrospective
