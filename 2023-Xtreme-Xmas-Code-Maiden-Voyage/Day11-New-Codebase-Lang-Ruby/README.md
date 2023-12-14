@@ -12,27 +12,28 @@ Let's do Ruby!
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+- To run the program for Part 1, run `ruby solvePart1.rb` from this directory
+- To run the program for Part 2, run `ruby solvePart2.rb` from this directory
 
 ### Retrospective
 
