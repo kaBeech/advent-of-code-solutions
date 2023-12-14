@@ -77,4 +77,4 @@ $galaxies.each { |galaxy|
   }
 }
 
-puts $totalDistanceBetweenAllGalaxies
+puts "Part 1: The total distance between all galaxies is: " + $totalDistanceBetweenAllGalaxies.to_s
