@@ -159,11 +159,25 @@ sub moveAlongLoop {
     setCurrentDirection();
 }
 
+my %loopTiles = (
+    $loopLength => {
+        x => $currentCoordinates[0][0],
+        y => $currentCoordinates[0][1],
+        value => $currentTileValue,
+    }
+);
+
 until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $currentCoordinates[0][1] == $startingTile{"coordinates"}[1] and $loopLength > 0) {
     moveAlongLoop();
     $loopLength += 1;
+    $loopTiles{$loopLength} = {
+        x => $currentCoordinates[0][0],
+        y => $currentCoordinates[0][1],
+        value => $currentTileValue,
+    }
 }
 
+print($loopTiles{0}{"y"}, "\n");
 my $stepsToReachOppositeSideOfLoop = $loopLength / 2;
 
 print("\nPart 1: The number of steps it takes to reach the opposite side of the loop is: ", $stepsToReachOppositeSideOfLoop) 
