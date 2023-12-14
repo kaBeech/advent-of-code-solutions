@@ -177,8 +177,73 @@ until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $current
     }
 }
 
-print($loopTiles{0}{"y"}, "\n");
-my $stepsToReachOppositeSideOfLoop = $loopLength / 2;
+print($loopTiles{0}{"value"}, "\n");
 
-print("\nPart 1: The number of steps it takes to reach the opposite side of the loop is: ", $stepsToReachOppositeSideOfLoop) 
+# Find tiles inside the loop
+my $tilesInsideLoop = 0;
+my $numberOfBordersCrossed = 0;
+my $borderEncounteredFromSouth = 0;
+my $borderEncounteredFromNorth = 0;
+my $i = 0;
+
+sub processSouthgoingBorderTile {
+    if ($borderEncounteredFromSouth) {
+        $borderEncounteredFromSouth = 0;
+    } else {
+        $borderEncounteredFromSouth = 1;
+    }
+    if ($borderEncounteredFromNorth) {
+        $numberOfBordersCrossed += 1;
+        $borderEncounteredFromNorth = 0;
+        $borderEncounteredFromSouth = 0;
+    }
+}
+
+sub processNorthgoingBorderTile {
+    if ($borderEncounteredFromNorth) {
+        $borderEncounteredFromNorth = 0;
+    } else {
+        $borderEncounteredFromNorth = 1;
+    }
+    if ($borderEncounteredFromSouth) {
+        $numberOfBordersCrossed += 1;
+        $borderEncounteredFromNorth = 0;
+        $borderEncounteredFromSouth = 0;
+    }
+}
+
+foreach (@rows) {
+    for (my $j = 0; $j < length($_); $j++) {
+        # my $currentLoopTile = (selectLoopTile with x == $j and y == $i);
+        # if ($currentLoopTile doesnt exist) {
+        #     if ($numberOfBordersCrossed % 2 == 1) {
+        #         $tilesInsideLoop += 1;
+        #     }
+        # } else {
+        #     switch ($currentLoopTile{"value"}) {
+        #         case "|" {
+        #             $numberOfBordersCrossed += 1;
+        #         }
+        #         case "-" {
+        #             # Do nothing
+        #         }
+        #         case "7" {
+        #             processSouthgoingBorderTile();
+        #         }
+        #         case "F" {
+        #             processSouthgoingBorderTile();
+        #         }
+        #         case "J" {
+        #             processNorthgoingBorderTile();
+        #         }
+        #         case "L" {
+        #             processNorthgoingBorderTile();
+        #         }
+        #     }
+        # }
+    }
+    $i += 1;
+}
+
+print("\nPart 2: The number of tiles inside the loop is: ", $tilesInsideLoop) 
 
