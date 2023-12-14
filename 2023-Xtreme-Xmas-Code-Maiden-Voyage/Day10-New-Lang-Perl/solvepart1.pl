@@ -32,7 +32,6 @@ foreach (@rows) {
     $i += 1;
 }
 
-# print(substr($rows[$startingTile{"coordinates"}[1] - 1], $startingTile{"coordinates"}[0], 1));
 
 # Find the starting tile's value
 my $startingX = $startingTile{"coordinates"}[0];
@@ -135,10 +134,8 @@ sub setCurrentDirection {
         }
     }
 }
-    print("\nTEST", $currentDirection, $currentTileValue);
 
 setCurrentDirection();
-    # print("\nTEST", $currentDirection, $currentTileValue);
 
 sub moveAlongLoop {
     switch ($currentDirection) {
@@ -167,16 +164,7 @@ until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $current
     $loopLength += 1;
 }
 
-print("\n");
-print("\n");
-print("\n");
-print($startingTile{"value"});
-print("\n");
-print($currentDirection);
-print("\n");
-print($loopLength);
-# my $test = $possibleStartingTileValues[2];
-# print($test); 
-# my $testTile = substr($rows[$startingTile{"coordinates"}[1]], $startingTile{"coordinates"}[0], 1);
-# print($testTile);
+my $stepsToReachOppositeSideOfLoop = $loopLength / 2;
+
+print("\nPart 1: The number of steps it takes to reach the opposite side of the loop is: ", $stepsToReachOppositeSideOfLoop) 
 
