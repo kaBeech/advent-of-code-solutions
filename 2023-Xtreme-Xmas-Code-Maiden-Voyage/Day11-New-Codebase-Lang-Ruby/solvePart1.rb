@@ -67,4 +67,14 @@ $fullyExpandedMap.each { |row|
   $y += 1
 }
 
-# puts $map[1][7]
+$totalDistanceBetweenAllGalaxies = 0
+$unprocessedGalaxies = $galaxies.dup
+$galaxies.each { |galaxy|
+  $unprocessedGalaxies.delete(galaxy)
+  $unprocessedGalaxies.each { |unprocessedGalaxy|
+    $distanceBetweenGalaxies = (galaxy[0] - unprocessedGalaxy[0]).abs + (galaxy[1] - unprocessedGalaxy[1]).abs
+    $totalDistanceBetweenAllGalaxies += $distanceBetweenGalaxies
+  }
+}
+
+puts $totalDistanceBetweenAllGalaxies
