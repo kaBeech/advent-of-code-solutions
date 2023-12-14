@@ -54,4 +54,17 @@ $fullyExpandedMap.each { |row|
   puts row.join
 }
 
+$galaxies = Array.new
+$y = 0
+$fullyExpandedMap.each { |row|
+  $x = 0
+  row.each { |c|
+    if c == '#'
+      $galaxies.push([$x, $y])
+    end
+    $x += 1
+  }
+  $y += 1
+}
+
 # puts $map[1][7]
