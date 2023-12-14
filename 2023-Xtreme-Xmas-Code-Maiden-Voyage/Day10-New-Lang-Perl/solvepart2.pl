@@ -167,6 +167,7 @@ my %loopTiles = (
     }
 );
 
+# Map the loop
 until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $currentCoordinates[0][1] == $startingTile{"coordinates"}[1] and $loopLength > 0) {
     moveAlongLoop();
     $loopLength += 1;
@@ -179,7 +180,6 @@ until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $current
 
 print($loopTiles{0}{"value"}, "\n");
 
-# Find tiles inside the loop
 my $tilesInsideLoop = 0;
 my $numberOfBordersCrossed = 0;
 my $borderEncounteredFromSouth = 0;
@@ -225,6 +225,7 @@ sub findLoopTileKey {
 }
 
 
+# Find tiles inside the loop
 foreach (@rows) {
     print($i, "   ", $tilesInsideLoop, "\n");
     for (my $j = 0; $j < length($_); $j++) {

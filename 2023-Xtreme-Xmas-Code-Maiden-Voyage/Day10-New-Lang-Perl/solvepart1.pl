@@ -159,6 +159,7 @@ sub moveAlongLoop {
     setCurrentDirection();
 }
 
+# Map the loop
 until ($currentCoordinates[0][0] == $startingTile{"coordinates"}[0] and $currentCoordinates[0][1] == $startingTile{"coordinates"}[1] and $loopLength > 0) {
     moveAlongLoop();
     $loopLength += 1;
