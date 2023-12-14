@@ -12,16 +12,15 @@ File.foreach('testInput.dat') { |row|
   $map.push($processedRow)
 }
 
-$i = 0
-$expandedMap = Array.new
+$verticallyExpandedMap = Array.new
 $map.each { |row|
-  $expandedMap.push(row)
+  $verticallyExpandedMap.push(row)
   if row.all? { |c| c == '.'}
-    $expandedMap.push(row)
+    $verticallyExpandedMap.push(row)
   end
 }
 
-$expandedMap.each { |row|
+$verticallyExpandedMap.each { |row|
   puts row.join
 }
 
