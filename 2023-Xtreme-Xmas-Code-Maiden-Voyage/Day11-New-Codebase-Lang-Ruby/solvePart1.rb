@@ -1,6 +1,6 @@
 $map = Array.new
 
-File.foreach('testInput.dat') { |row|
+File.foreach('challengeInput.dat') { |row|
   puts row
   
   $processedRow = Array.new
