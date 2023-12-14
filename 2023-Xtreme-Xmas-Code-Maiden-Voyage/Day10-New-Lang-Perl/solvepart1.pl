@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Switch;
 
-open(my $input,  "<",  "testInput.dat")  or die "Can't open testInput.dat: $!";
+open(my $input,  "<",  "challengeInput.dat")  or die "Can't open challengeInput.dat: $!";
 
 my @values = ["|" , "-" , "7" , "F" , "J" , "L"];
 my @directions = ["^" , ">" , "v" , "<"];
