@@ -20,7 +20,37 @@ $map.each { |row|
   end
 }
 
-$verticallyExpandedMap.each { |row|
+$flippedVerticallyExpandedMap = Array.new
+$i = 0
+while $i < $verticallyExpandedMap[0].length do
+  $flippedColumn = Array.new
+  $verticallyExpandedMap.each { |row|
+    $flippedColumn.push(row[$i])
+  }
+  $flippedVerticallyExpandedMap.push($flippedColumn)
+  $i += 1
+end
+
+$flippedFullyExpandedMap = Array.new
+$flippedVerticallyExpandedMap.each { |row|
+  $flippedFullyExpandedMap.push(row)
+  if row.all? { |c| c == '.'}
+    $flippedFullyExpandedMap.push(row)
+  end
+}
+
+$fullyExpandedMap = Array.new
+$i = 0
+while $i < $flippedFullyExpandedMap[0].length do
+  $row = Array.new
+  $flippedFullyExpandedMap.each { |flippedColumn|
+    $row.push(flippedColumn[$i])
+  }
+  $fullyExpandedMap.push($row)
+  $i += 1
+end
+
+$fullyExpandedMap.each { |row|
   puts row.join
 }
 
