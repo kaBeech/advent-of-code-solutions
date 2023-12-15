@@ -141,7 +141,7 @@ def find_number_of_possible_arrangements(record):
 
     for item in items:
         if item.placement_status == "unplaced":
-            temporarily_place_item(item, box)
+            place_item_temporarily(item, box)
             number_of_possible_arrangements += find_number_of_possible_arrangements(record)
             unplace_temporarily_placed_item(item, box)
 
