@@ -94,7 +94,7 @@ def find_potential_sequences(length, box):
     current_sequence = []
 
     for box_section in box:
-        if box_section.contains == "empty" or box_section.contains == "buffer material":
+        if box_section.contains == "empty" or box_section.contains == "unknown":
             current_sequence.append(box_section)
         else:
             current_sequence = []
