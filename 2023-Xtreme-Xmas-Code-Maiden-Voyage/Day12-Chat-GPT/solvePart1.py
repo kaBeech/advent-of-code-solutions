@@ -1,158 +1,163 @@
-class Spring:
-    def __init__(self, id, operational_status, group_known):
+class BoxSection:
+    def __init__(self, id, contains, originally_unknown):
         self.id = id
-        self.operational_status = operational_status
-        self.group_known = group_known
+        self.contains = contains
+        self.originally_unknown = originally_unknown
 
-class SpringGroup:
-    def __init__(self, id, length, found):
+class Item:
+    def __init__(self, id, length, placement_status):
         self.id = id
         self.length = length
-        self.found = found
+        self.placement_status = placement_status
 
-class SpringRowRecord:
-    def __init__(self, spring_map, damaged_spring_groups_record):
-        self.spring_map = spring_map
-        self.damaged_spring_groups_record = damaged_spring_groups_record
+class BoxAndItemsRecord:
+    def __init__(self, box, items):
+        self.box = box
+        self.items = items
 
 def parse_input(input_string):
     rows = input_string.strip().split('\n')
-    spring_rows = []
+    box_and_items_records = []
 
     for row in rows:
-        spring_data = row.split()
+        box_data, items_list = row.split()
 
-        # Parse spring_map
-        spring_map = []
-        for i, char in enumerate(spring_data[0]):
+        # Parse box
+        box_sections = []
+        for i, char in enumerate(box_data):
             if char == '.':
-                spring_map.append(Spring(i, "operational", True))
+                box_sections.append(BoxSection(i, "buffer material", False))
             elif char == '#':
-                spring_map.append(Spring(i, "damaged", False))
+                box_sections.append(BoxSection(i, "empty", False))
             elif char == '?':
-                spring_map.append(Spring(i, "unknown", False))
+                box_sections.append(BoxSection(i, "unknown", True))
 
-        # Parse damaged_spring_groups_record
-        damaged_spring_groups_record = []
-        groups = spring_data[1].split(',')
-        for i, length_str in enumerate(groups):
-            length = int(length_str)
-            damaged_spring_groups_record.append(SpringGroup(i, length, False))
+        # Parse items
+        items_data = items_list.split(',')
+        items = [Item(i, int(length), "unplaced") for i, length in enumerate(items_data)]
 
-        spring_row_record = SpringRowRecord(spring_map, damaged_spring_groups_record)
-        spring_rows.append(spring_row_record)
+        box_and_items_record = BoxAndItemsRecord(box_sections, items)
+        box_and_items_records.append(box_and_items_record)
 
-    return spring_rows
+    return box_and_items_records
 
 def read_input_from_file(filename):
     with open(filename, 'r') as file:
         return file.read()
 
-def assign_spring_group(spring_group, springs):
-    spring_group.found = True
-    for spring in springs:
-        spring.group_known = True
-        spring.operational_status = "damaged"
+def place_item_permanently(item, box, sequence):
+    item.placement_status = "permanently placed"
+    for box_section in sequence:
+        box_section.contains = item.id
 
-        # Check and set adjacent springs' operational_status
-        for adjacent_spring in get_adjacent_springs(spring, springs):
-            if adjacent_spring.operational_status == "unknown":
-                adjacent_spring.operational_status = "operational"
+    for adjacent_section in get_adjacent_sections(sequence, box):
+        if adjacent_section.contains == "unknown":
+            adjacent_section.contains = "buffer material"
 
-def get_adjacent_springs(target_spring, springs):
-    adjacent_springs = []
-    for spring in springs:
-        if spring.id == target_spring.id - 1 or spring.id == target_spring.id + 1:
-            adjacent_springs.append(spring)
-    return adjacent_springs
+def place_item_temporarily(item, box, sequence):
+    item.placement_status = "temporarily placed"
+    for box_section in sequence:
+        box_section.contains = item.id
 
-def find_unambiguous_string_groups(row_record):
-    spring_map = row_record.spring_map
-    damaged_spring_groups_record = row_record.damaged_spring_groups_record
+    for adjacent_section in get_adjacent_sections(sequence, box):
+        if adjacent_section.contains == "unknown":
+            adjacent_section.contains = "buffer material"
 
-    while any(not spring.group_known for spring in spring_map):
-        for group in damaged_spring_groups_record:
-            if not group.found:
-                potential_sequences = find_potential_sequences(group.length, spring_map)
+def unplace_temporarily_placed_item(item, box, sequence):
+    item.placement_status = "unplaced"
+    for box_section in sequence:
+        if box_section.originally_unknown:
+            box_section.contains = "unknown"
+        else:
+            box_section.contains = "empty"
 
-                for sequence in potential_sequences:
-                    assign_spring_group(group, sequence)
-                    break  # Only assign to the first valid sequence
+    for adjacent_section in get_adjacent_sections(sequence, box):
+        if adjacent_section.originally_unknown:
+            adjacent_section.contains = "unknown"
 
-def find_potential_sequences(length, spring_map):
+def get_adjacent_sections(sequence, box):
+    adjacent_sections = []
+    for box_section in sequence:
+        left_adjacent = box_section.id - 1
+        right_adjacent = box_section.id + 1
+
+        if left_adjacent >= 0:
+            adjacent_sections.append(box[left_adjacent])
+
+        if right_adjacent < len(box):
+            adjacent_sections.append(box[right_adjacent])
+
+    return adjacent_sections
+
+def find_potential_sequences(length, box):
     potential_sequences = []
     current_sequence = []
 
-    for spring in spring_map:
-        if spring.operational_status == "damaged":
-            current_sequence.append(spring)
-        elif spring.operational_status == "unknown":
-            current_sequence.append(spring)
-            if len(current_sequence) == length:
-                potential_sequences.append(current_sequence)
-                current_sequence = []
+    for box_section in box:
+        if box_section.contains == "empty" or box_section.contains == "buffer material":
+            current_sequence.append(box_section)
         else:
+            current_sequence = []
+
+        if len(current_sequence) == length:
+            potential_sequences.append(current_sequence)
             current_sequence = []
 
     return potential_sequences
 
-def find_number_of_possible_arrangements(row_record):
-    spring_map = row_record.spring_map
-    damaged_spring_groups_record = row_record.damaged_spring_groups_record
-
-    placed_groups = [False] * len(damaged_spring_groups_record)
-    possible_arrangements = 0
+def place_items_in_unambiguous_placements(record):
+    box = record.box
+    items = record.items
 
     while True:
-        place_group_index = find_unplaced_group(placed_groups)
-        if place_group_index is None:
-            break  # All groups placed, exit loop
+        unplaced_items = [item for item in items if item.placement_status == "unplaced"]
+        if not unplaced_items:
+            break
 
-        placed_groups[place_group_index] = True
-        possible_arrangements += 1
+        selected_item = max(unplaced_items, key=lambda x: x.length)
 
-        # Place the group and check for additional arrangements
-        while place_group_index > 0 and placed_groups[place_group_index - 1]:
-            place_group_index -= 1
-            possible_arrangements += 1
+        potential_sequences = find_potential_sequences(selected_item.length, box)
 
-        # Unplace the group
-        placed_groups[place_group_index] = False
+        if len(potential_sequences) == 1:
+            place_item_permanently(selected_item, box, potential_sequences[0])
+        elif len(potential_sequences) > 1:
+            same_length_items = [item for item in items if item.length == selected_item.length and item.placement_status == "unplaced"]
 
-        # Check if the group can be placed in the next sequence
-        if place_group_index < len(damaged_spring_groups_record) - 1:
-            placed_groups[place_group_index + 1] = True
+            if len(potential_sequences) == len(same_length_items):
+                for item, sequence in zip(same_length_items, potential_sequences):
+                    place_item_permanently(item, box, sequence)
 
-    return possible_arrangements
+    return record
 
-def find_unplaced_group(placed_groups):
-    for i, placed in enumerate(placed_groups):
-        if not placed:
-            return i
-    return None
+def find_number_of_possible_arrangements(record):
+    box = record.box
+    items = record.items
+
+    number_of_possible_arrangements = 0
+
+    if all(item.placement_status == "permanently placed" for item in items):
+        return 1
+
+    for item in items:
+        if item.placement_status == "unplaced":
+            temporarily_place_item(item, box)
+            number_of_possible_arrangements += find_number_of_possible_arrangements(record)
+            unplace_temporarily_placed_item(item, box)
+
+    return number_of_possible_arrangements
 
 def main():
-    possible_arrangements = 0
+    total_number_of_possible_arrangements = 0
 
     file_input = read_input_from_file("testInput.dat")
-    parsed_rows = parse_input(file_input)
+    parsed_records = parse_input(file_input)
 
-    while True:
-        for row_record in parsed_rows:
-            find_unambiguous_string_groups(row_record)
+    for record in parsed_records:
+        place_items_in_unambiguous_placements(record)
+        total_number_of_possible_arrangements += find_number_of_possible_arrangements(record)
 
-        # Check if any changes occurred in the springs' found status
-        if any(not spring.group_known for row_record in parsed_rows for spring in row_record.spring_map):
-            continue
-
-        break
-
-    # Find the number of possible arrangements after all unambiguous strings are found
-    for row_record in parsed_rows:
-        possible_arrangements += find_number_of_possible_arrangements(row_record)
-
-    print(f"Part 1: The number of possible arrangements is {possible_arrangements}")
-    return possible_arrangements
+    print(f"Part 1: The number of possible arrangements is {total_number_of_possible_arrangements}")
+    return total_number_of_possible_arrangements
 
 if __name__ == "__main__":
     main()
