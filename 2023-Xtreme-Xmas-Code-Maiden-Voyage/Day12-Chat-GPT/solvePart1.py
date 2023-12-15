@@ -94,14 +94,15 @@ def find_potential_sequences(length, box):
     current_sequence = []
 
     for box_section in box:
-        if box_section.contains == "empty" or box_section.contains == "unknown":
-            current_sequence.append(box_section)
+        for box_section in box:
+            if box_section.contains == "empty" or box_section.contains == "unknown":
+                current_sequence.append(box_section)
 
-            if len(current_sequence) == length:
-                potential_sequences.append(current_sequence)
-                break  # Add only the first potential sequence
-        else:
-            current_sequence = []
+                if len(current_sequence) == length:
+                    potential_sequences.append(current_sequence)
+                    break  # Add only the first potential sequence
+            else:
+                current_sequence = []
 
     return potential_sequences
 
