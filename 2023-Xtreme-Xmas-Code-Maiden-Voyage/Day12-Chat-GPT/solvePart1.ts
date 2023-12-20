@@ -149,30 +149,47 @@ function findPotentialSequences(
     ) {
       currentSequence.push(boxSection1);
 
-      for (const boxSection2 of box) {
-        if (
-          boxSection2.id > boxSection1.id && !sequenceBroken &&
-          (boxSection2.contains === "empty" ||
-            boxSection2.contains === "unknown")
-        ) {
-          currentSequence.push(boxSection2);
+      if (currentSequence.length === length) {
+        const adjacentSections = getAdjacentSections(currentSequence, box);
+        const adjacentUnknownOrBuffer = adjacentSections.every(
+          (adjacentSection) =>
+            adjacentSection.contains === "unknown" ||
+            adjacentSection.contains === "buffer material",
+        );
 
-          if (currentSequence.length === length) {
-            const adjacentSections = getAdjacentSections(currentSequence, box);
-            const adjacentUnknownOrBuffer = adjacentSections.every(
-              (adjacentSection) =>
-                adjacentSection.contains === "unknown" ||
-                adjacentSection.contains === "buffer material",
-            );
+        if (adjacentUnknownOrBuffer) {
+          potentialSequences.push(currentSequence);
+        }
+      } else {
+        console.log(true);
+        for (const boxSection2 of box) {
+          if (
+            boxSection2.id > boxSection1.id && !sequenceBroken &&
+            (boxSection2.contains === "empty" ||
+              boxSection2.contains === "unknown")
+          ) {
+            currentSequence.push(boxSection2);
 
-            if (adjacentUnknownOrBuffer) {
-              potentialSequences.push(currentSequence);
+            if (currentSequence.length === length) {
+              const adjacentSections = getAdjacentSections(
+                currentSequence,
+                box,
+              );
+              const adjacentUnknownOrBuffer = adjacentSections.every(
+                (adjacentSection) =>
+                  adjacentSection.contains === "unknown" ||
+                  adjacentSection.contains === "buffer material",
+              );
+
+              if (adjacentUnknownOrBuffer) {
+                potentialSequences.push(currentSequence);
+              }
+
+              sequenceBroken = true;
             }
-
+          } else if (boxSection2.id > boxSection1.id) {
             sequenceBroken = true;
           }
-        } else if (boxSection2.id > boxSection1.id) {
-          sequenceBroken = true;
         }
       }
     }
