@@ -277,7 +277,13 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
     item.placement_status === "unplaced"
   );
 
-  const lowestIdUnplacedItem = unplacedItems.reduce((minItem, currentItem) =>
+  let lowestIdUnplacedItem: Item;
+
+  if (unplacedItems.length === 0) {
+    return 0;
+  }
+
+  lowestIdUnplacedItem = unplacedItems.reduce((minItem, currentItem) =>
     currentItem.id < minItem.id ? currentItem : minItem
   );
 
