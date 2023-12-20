@@ -181,39 +181,45 @@ function placeItemsInUnambiguousPlacements(
   while (itemPlacedThisSequence) {
     itemPlacedThisSequence = false;
 
-    const unplacedItems = items.filter((item) =>
-      item.placement_status === "unplaced"
-    );
-
-    if (unplacedItems.length === 0) {
-      break;
-    }
-
-    const selectedItem = unplacedItems.reduce((maxItem, currentItem) =>
-      currentItem.length > maxItem.length ? currentItem : maxItem
-    );
-
-    const potentialSequences = findPotentialSequences(selectedItem.length, box);
-
-    if (potentialSequences.length === 1) {
-      placeItemPermanently(selectedItem, box, potentialSequences[0]);
-      itemPlacedThisSequence = true;
-    } else if (potentialSequences.length > 1) {
-      const sameLengthItems = items.filter(
-        (item) =>
-          item.length === selectedItem.length &&
-          item.placement_status === "unplaced",
+    for (let i = 0; i < items.length; i++) {
+      const unplacedItems = items.filter((item) =>
+        item.placement_status === "unplaced"
       );
 
-      if (potentialSequences.length === sameLengthItems.length) {
-        for (
-          const [item, sequence] of sameLengthItems.map((
-            item,
-            index,
-          ) => [item, potentialSequences[index]])
-        ) {
-          placeItemPermanently(item, box, sequence);
-          itemPlacedThisSequence = true;
+      if (unplacedItems.length === 0) {
+        break;
+      }
+
+      const selectedItem = unplacedItems.reduce((maxItem, currentItem) =>
+        currentItem.length > maxItem.length ? currentItem : maxItem
+      );
+
+      const potentialSequences = findPotentialSequences(
+        selectedItem.length,
+        box,
+      )
+        .filter((sequence) => sequence.length > 0);
+
+      if (potentialSequences.length === 1) {
+        placeItemPermanently(selectedItem, box, potentialSequences[0]);
+        itemPlacedThisSequence = true;
+      } else if (potentialSequences.length > 1) {
+        const sameLengthItems = items.filter(
+          (item) =>
+            item.length === selectedItem.length &&
+            item.placement_status === "unplaced",
+        );
+
+        if (potentialSequences.length === sameLengthItems.length) {
+          for (
+            const [item, sequence] of sameLengthItems.map((
+              item,
+              index,
+            ) => [item, potentialSequences[index]])
+          ) {
+            placeItemPermanently(item, box, sequence);
+            itemPlacedThisSequence = true;
+          }
         }
       }
     }
