@@ -211,13 +211,16 @@ function placeItemsInUnambiguousPlacements(
         );
 
         if (potentialSequences.length === sameLengthItems.length) {
-          for (
-            const [item, sequence] of sameLengthItems.map((
-              item,
-              index,
-            ) => [item, potentialSequences[index]])
-          ) {
-            placeItemPermanently(item, box, sequence);
+          for (let i = 0; i < sameLengthItems.length; i++) {
+            const itemPlacement = {
+              item: sameLengthItems[i],
+              sequence: potentialSequences[i],
+            };
+            placeItemPermanently(
+              itemPlacement.item,
+              box,
+              itemPlacement.sequence,
+            );
             itemPlacedThisSequence = true;
           }
         }
