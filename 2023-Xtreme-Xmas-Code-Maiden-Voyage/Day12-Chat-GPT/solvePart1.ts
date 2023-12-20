@@ -139,21 +139,31 @@ function findPotentialSequences(
   box: BoxSection[],
 ): BoxSection[][] {
   const potentialSequences: BoxSection[][] = [];
-  let currentSequence: BoxSection[] = [];
 
   for (const boxSection1 of box) {
-    for (const boxSection2 of box) {
-      if (
-        boxSection2.contains === "empty" || boxSection2.contains === "unknown"
-      ) {
-        currentSequence.push(boxSection2);
+    const currentSequence: BoxSection[] = [];
+    let sequenceBroken = false;
 
-        if (currentSequence.length === length) {
-          potentialSequences.push(currentSequence);
-          break; // Add only the first potential sequence
+    if (
+      boxSection1.contains === "empty" || boxSection1.contains === "unknown"
+    ) {
+      currentSequence.push(boxSection1);
+
+      for (const boxSection2 of box) {
+        if (
+          boxSection2.contains === "empty" || boxSection2.contains === "unknown"
+        ) {
+          currentSequence.push(boxSection2);
+
+          if (currentSequence.length === length) {
+            potentialSequences.push(currentSequence);
+            sequenceBroken = true;
+            break;
+          }
+        } else {
+          sequenceBroken = true;
+          break;
         }
-      } else {
-        currentSequence = [];
       }
     }
   }
