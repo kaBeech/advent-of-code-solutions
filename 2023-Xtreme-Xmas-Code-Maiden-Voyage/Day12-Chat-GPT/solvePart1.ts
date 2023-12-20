@@ -171,7 +171,7 @@ function findPotentialSequences(
 
             sequenceBroken = true;
           }
-        } else {
+        } else if (boxSection2.id > boxSection1.id) {
           sequenceBroken = true;
         }
       }
