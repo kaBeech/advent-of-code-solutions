@@ -241,33 +241,34 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
     item.placement_status === "unplaced"
   );
 
-  for (const item of unplacedItems) {
-    const potentialSequences = findPotentialSequences(item.length, box);
+  const lowestIdUnplacedItem = unplacedItems.reduce((minItem, currentItem) =>
+    currentItem.id < minItem.id ? currentItem : minItem
+  );
 
-    for (const sequence of potentialSequences) {
-      const hasLowerIdInEarlierSequence = potentialSequences
-        .slice(0, potentialSequences.indexOf(sequence))
-        .some((otherSequence) =>
-          otherSequence.some((otherBoxSection) =>
-            otherBoxSection.contains < item.id
-          )
-        );
+  const potentialSequences = findPotentialSequences(
+    lowestIdUnplacedItem.length,
+    box,
+  );
 
-      const hasHigherIdInLaterSequence = potentialSequences
-        .slice(potentialSequences.indexOf(sequence) + 1)
-        .some((otherSequence) =>
-          otherSequence.some((otherBoxSection) =>
-            otherBoxSection.contains > item.id
-          )
-        );
+  for (const sequence of potentialSequences) {
+    const hasLowerIdInEarlierSequence = box.some(
+      (boxSection) =>
+        boxSection.contains !== "empty" &&
+        parseInt(boxSection.contains) > lowestIdUnplacedItem.id &&
+        box.indexOf(boxSection) < box.indexOf(sequence[0]),
+    );
 
-      if (!hasLowerIdInEarlierSequence && !hasHigherIdInLaterSequence) {
-        placeItemTemporarily(item, box, sequence);
-        numberOfPossibleArrangements += findNumberOfPossibleArrangements(
-          record,
-        );
-        unplaceTemporarilyPlacedItem(item, box, sequence);
-      }
+    const hasHigherIdInLaterSequence = box.some(
+      (boxSection) =>
+        boxSection.contains !== "empty" &&
+        parseInt(boxSection.contains) < lowestIdUnplacedItem.id &&
+        box.indexOf(boxSection) > box.indexOf(sequence[0]),
+    );
+
+    if (!hasLowerIdInEarlierSequence && !hasHigherIdInLaterSequence) {
+      placeItemTemporarily(lowestIdUnplacedItem, box, sequence);
+      numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
+      unplaceTemporarilyPlacedItem(lowestIdUnplacedItem, box, sequence);
     }
   }
 
