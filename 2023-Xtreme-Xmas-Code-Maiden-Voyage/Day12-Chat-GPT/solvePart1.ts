@@ -161,7 +161,6 @@ function findPotentialSequences(
           potentialSequences.push(currentSequence);
         }
       } else {
-        console.log(true);
         for (const boxSection2 of box) {
           if (
             boxSection2.id > boxSection1.id && !sequenceBroken &&
