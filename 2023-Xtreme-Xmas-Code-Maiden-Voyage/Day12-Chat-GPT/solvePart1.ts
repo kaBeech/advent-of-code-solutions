@@ -141,12 +141,12 @@ function findPotentialSequences(
   const potentialSequences: BoxSection[][] = [];
   let currentSequence: BoxSection[] = [];
 
-  for (const boxSection of box) {
-    for (const boxSection of box) {
+  for (const boxSection1 of box) {
+    for (const boxSection2 of box) {
       if (
-        boxSection.contains === "empty" || boxSection.contains === "unknown"
+        boxSection2.contains === "empty" || boxSection2.contains === "unknown"
       ) {
-        currentSequence.push(boxSection);
+        currentSequence.push(boxSection2);
 
         if (currentSequence.length === length) {
           potentialSequences.push(currentSequence);
