@@ -237,12 +237,14 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
     return 1;
   }
 
-  for (const item of items) {
-    if (item.placement_status === "unplaced") {
-      placeItemTemporarily(item, box);
-      numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
-      unplaceTemporarilyPlacedItem(item, box);
-    }
+  const unplacedItems = items.filter((item) =>
+    item.placement_status === "unplaced"
+  );
+
+  for (const item of unplacedItems) {
+    placeItemTemporarily(item, box);
+    numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
+    unplaceTemporarilyPlacedItem(item, box);
   }
 
   return numberOfPossibleArrangements;
