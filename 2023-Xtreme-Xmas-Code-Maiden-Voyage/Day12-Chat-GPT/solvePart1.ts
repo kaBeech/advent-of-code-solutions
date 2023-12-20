@@ -245,9 +245,29 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
     const potentialSequences = findPotentialSequences(item.length, box);
 
     for (const sequence of potentialSequences) {
-      placeItemTemporarily(item, box, sequence);
-      numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
-      unplaceTemporarilyPlacedItem(item, box, sequence);
+      const hasLowerIdInEarlierSequence = potentialSequences
+        .slice(0, potentialSequences.indexOf(sequence))
+        .some((otherSequence) =>
+          otherSequence.some((otherBoxSection) =>
+            otherBoxSection.contains < item.id
+          )
+        );
+
+      const hasHigherIdInLaterSequence = potentialSequences
+        .slice(potentialSequences.indexOf(sequence) + 1)
+        .some((otherSequence) =>
+          otherSequence.some((otherBoxSection) =>
+            otherBoxSection.contains > item.id
+          )
+        );
+
+      if (!hasLowerIdInEarlierSequence && !hasHigherIdInLaterSequence) {
+        placeItemTemporarily(item, box, sequence);
+        numberOfPossibleArrangements += findNumberOfPossibleArrangements(
+          record,
+        );
+        unplaceTemporarilyPlacedItem(item, box, sequence);
+      }
     }
   }
 
