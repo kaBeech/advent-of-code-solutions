@@ -156,7 +156,17 @@ function findPotentialSequences(
           currentSequence.push(boxSection2);
 
           if (currentSequence.length === length) {
-            potentialSequences.push(currentSequence);
+            const adjacentSections = getAdjacentSections(currentSequence, box);
+            const adjacentUnknownOrBuffer = adjacentSections.every(
+              (adjacentSection) =>
+                adjacentSection.contains === "unknown" ||
+                adjacentSection.contains === "buffer material",
+            );
+
+            if (adjacentUnknownOrBuffer) {
+              potentialSequences.push(currentSequence);
+            }
+
             sequenceBroken = true;
             break;
           }
