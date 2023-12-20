@@ -128,18 +128,17 @@ function getAdjacentSections(
   sequence: BoxSection[],
   box: BoxSection[],
 ): BoxSection[] {
+  const leftAdjacent = sequence[0].id - 1;
+  const rightAdjacent = sequence[sequence.length - 1].id + 1;
+
   const adjacentSections: BoxSection[] = [];
-  for (const boxSection of sequence) {
-    const leftAdjacent = boxSection.id - 1;
-    const rightAdjacent = boxSection.id + 1;
 
-    if (leftAdjacent >= 0) {
-      adjacentSections.push(box[leftAdjacent]);
-    }
+  if (leftAdjacent >= 0) {
+    adjacentSections.push(box[leftAdjacent]);
+  }
 
-    if (rightAdjacent < box.length) {
-      adjacentSections.push(box[rightAdjacent]);
-    }
+  if (rightAdjacent < box.length) {
+    adjacentSections.push(box[rightAdjacent]);
   }
 
   return adjacentSections;
