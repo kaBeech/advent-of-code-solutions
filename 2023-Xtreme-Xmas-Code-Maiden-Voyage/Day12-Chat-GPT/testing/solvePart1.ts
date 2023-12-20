@@ -1,3 +1,5 @@
+// GOOD
+
 import { findNumberOfPossibleArrangements } from "./findNumberOfPossibleArrangements.ts";
 import { parseInput } from "./parseInput.ts";
 import { placeItemsInUnambiguousPlacements } from "./placeItemsInUnambiguousPlacements.ts";
@@ -9,14 +11,16 @@ function readInputFromFile(filename: string): string {
 function main(): number {
   let totalNumberOfPossibleArrangements = 0;
 
-  const fileInput = readInputFromFile("testInput.dat");
+  const fileInput = readInputFromFile("challengeInput.dat");
   const parsedRecords = parseInput(fileInput);
 
   for (const record of parsedRecords) {
     placeItemsInUnambiguousPlacements(record);
-    totalNumberOfPossibleArrangements += findNumberOfPossibleArrangements(
+    const numberOfPossibleArrangements = findNumberOfPossibleArrangements(
       record,
     );
+    console.log(numberOfPossibleArrangements);
+    totalNumberOfPossibleArrangements += numberOfPossibleArrangements;
   }
 
   console.log(

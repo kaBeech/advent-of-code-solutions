@@ -1,3 +1,5 @@
+// SEEMS GOOD
+
 import { BoxAndItemsRecord, BoxSection, Item } from "./types.ts";
 
 export function parseInput(inputString: string): BoxAndItemsRecord[] {
@@ -12,21 +14,38 @@ export function parseInput(inputString: string): BoxAndItemsRecord[] {
     for (let i = 0; i < boxData.length; i++) {
       const char = boxData[i];
       if (char === ".") {
-        boxSections.push(new BoxSection(i, "buffer material", false));
+        boxSections.push({
+          id: i,
+          contains: "buffer material",
+          originally_unknown: false,
+        });
       } else if (char === "#") {
-        boxSections.push(new BoxSection(i, "empty", false));
+        boxSections.push({
+          id: i,
+          contains: "empty",
+          originally_unknown: false,
+        });
       } else if (char === "?") {
-        boxSections.push(new BoxSection(i, "unknown", true));
+        boxSections.push({
+          id: i,
+          contains: "unknown",
+          originally_unknown: true,
+        });
       }
     }
 
     // Parse items
     const itemsData = itemsList.split(",");
-    const items: Item[] = itemsData.map((length, i) =>
-      new Item(i, parseInt(length), "unplaced")
-    );
+    const items: Item[] = itemsData.map((length, i) => ({
+      id: i,
+      length: parseInt(length),
+      placement_status: "unplaced",
+    }));
 
-    const boxAndItemsRecord = new BoxAndItemsRecord(boxSections, items);
+    const boxAndItemsRecord = {
+      box: boxSections,
+      items: items,
+    };
     boxAndItemsRecords.push(boxAndItemsRecord);
   }
 
