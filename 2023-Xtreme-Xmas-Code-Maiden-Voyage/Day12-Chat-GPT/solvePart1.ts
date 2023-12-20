@@ -227,7 +227,13 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
 
   let numberOfPossibleArrangements = 0;
 
-  if (items.every((item) => item.placement_status === "permanently placed")) {
+  if (
+    items.every((item) =>
+      item.placement_status === "permanently placed" ||
+      item.placement_status === "temporarily placed"
+    ) &&
+    box.every((boxSection) => boxSection.contains !== "empty")
+  ) {
     return 1;
   }
 
