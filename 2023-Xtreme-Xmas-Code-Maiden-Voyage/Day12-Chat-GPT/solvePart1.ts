@@ -176,11 +176,15 @@ function placeItemsInUnambiguousPlacements(
 ): BoxAndItemsRecord {
   const box = record.box;
   const items = record.items;
+  let itemPlacedThisSequence = true;
 
-  while (true) {
+  while (itemPlacedThisSequence) {
+    itemPlacedThisSequence = false;
+
     const unplacedItems = items.filter((item) =>
       item.placement_status === "unplaced"
     );
+
     if (unplacedItems.length === 0) {
       break;
     }
@@ -193,6 +197,7 @@ function placeItemsInUnambiguousPlacements(
 
     if (potentialSequences.length === 1) {
       placeItemPermanently(selectedItem, box, potentialSequences[0]);
+      itemPlacedThisSequence = true;
     } else if (potentialSequences.length > 1) {
       const sameLengthItems = items.filter(
         (item) =>
@@ -208,6 +213,7 @@ function placeItemsInUnambiguousPlacements(
           ) => [item, potentialSequences[index]])
         ) {
           placeItemPermanently(item, box, sequence);
+          itemPlacedThisSequence = true;
         }
       }
     }
