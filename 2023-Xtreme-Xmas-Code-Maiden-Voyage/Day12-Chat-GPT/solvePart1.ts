@@ -314,7 +314,7 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
 function main(): number {
   let totalNumberOfPossibleArrangements = 0;
 
-  const fileInput = readInputFromFile("testInput.dat");
+  const fileInput = readInputFromFile("challengeInput.dat");
   const parsedRecords = parseInput(fileInput);
 
   for (const record of parsedRecords) {
