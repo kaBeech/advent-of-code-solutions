@@ -242,9 +242,13 @@ function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
   );
 
   for (const item of unplacedItems) {
-    placeItemTemporarily(item, box);
-    numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
-    unplaceTemporarilyPlacedItem(item, box);
+    const potentialSequences = findPotentialSequences(item.length, box);
+
+    for (const sequence of potentialSequences) {
+      placeItemTemporarily(item, box, sequence);
+      numberOfPossibleArrangements += findNumberOfPossibleArrangements(record);
+      unplaceTemporarilyPlacedItem(item, box, sequence);
+    }
   }
 
   return numberOfPossibleArrangements;
