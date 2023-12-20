@@ -257,33 +257,33 @@ function placeItemsInUnambiguousPlacements(
   return record;
 }
 
-function findNumberOfPossibleArrangements(record: BoxAndItemsRecord): number {
-  const box = record.box;
-  const items = record.items;
-
-  let numberOfPossibleArrangements = 0;
-
+function findNumberOfPossibleArrangements(
+  record: BoxAndItemsRecord,
+): number {
   if (
-    items.every((item) =>
+    record.items.every((item) =>
       item.placement_status === "permanently placed" ||
       item.placement_status === "temporarily placed"
     ) &&
-    box.every((boxSection) => boxSection.contains !== "empty")
+    record.box.every((boxSection) => boxSection.contains !== "empty")
   ) {
     return 1;
   }
 
-  const unplacedItems = items.filter((item) =>
-    item.placement_status === "unplaced"
-  );
+  let numberOfPossibleArrangements = 0;
 
-  let lowestIdUnplacedItem: Item;
+  const box = record.box;
+  const items = record.items;
+
+  const unplacedItems = items.filter(
+    (item) => item.placement_status === "unplaced",
+  );
 
   if (unplacedItems.length === 0) {
     return 0;
   }
 
-  lowestIdUnplacedItem = unplacedItems.reduce((minItem, currentItem) =>
+  const lowestIdUnplacedItem = unplacedItems.reduce((minItem, currentItem) =>
     currentItem.id < minItem.id ? currentItem : minItem
   );
 
