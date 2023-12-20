@@ -151,7 +151,9 @@ function findPotentialSequences(
 
       for (const boxSection2 of box) {
         if (
-          boxSection2.contains === "empty" || boxSection2.contains === "unknown"
+          boxSection2.id > boxSection1.id && !sequenceBroken &&
+          (boxSection2.contains === "empty" ||
+            boxSection2.contains === "unknown")
         ) {
           currentSequence.push(boxSection2);
 
@@ -168,11 +170,9 @@ function findPotentialSequences(
             }
 
             sequenceBroken = true;
-            break;
           }
         } else {
           sequenceBroken = true;
-          break;
         }
       }
     }
