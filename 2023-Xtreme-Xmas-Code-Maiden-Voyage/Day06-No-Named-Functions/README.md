@@ -12,7 +12,7 @@ OK, let's give this a shot!
 
 ...wait. That's my Challenge Input? I could probably just do this by hand...
 
-Confirmed! But the challenge does say to write a program to do it so...
+Confirmed! But the challenge does say to write a program to do it, so...
 
 ### Points Earned
 
@@ -54,7 +54,7 @@ So in the spirit of the challenge, I solved the puzzle not only without declarin
 
 I then realized that I wrote the challenge to specify that I had to write a program to complete the puzzle, so I went back and wrote a program that did so.
 
-Part 2 may be challenging if you're approaching the problem from a software development/more direct modeling perspective (due to increasing the computational load of, for example, brute forcing the answer), but in terms of solving it with algebra the change was trivial.
+Part 2 may be challenging if you're approaching the problem from a more direct modeling perspective (due to increasing the computational load of, for example, brute forcing the answer), but in terms of solving it with algebra the change was trivial.
 
 Which I suppose goes to show: anyone who said you'll never use middle/high school math in the real world may be working too hard at their "real job!"
 
