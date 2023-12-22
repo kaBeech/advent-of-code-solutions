@@ -38,4 +38,25 @@ Part 2: 0
 
 ### Retrospective
 
-This is where we reflect on the day's challenge!
+XXC.23 Day 11: New Codebase Language (Ruby)
+
+_This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Challenge Modifier "Your challenge is to write a program to complete today's puzzle in a programming language not yet used in this codebase"
+
+...
+
+Thanks for joining me on this journey! If you'd like to see today's puzzle, it's over at Advent of Code. If you'd like to see my puzzle solutions, my source code is available on GitHub. And if you'd also like to give my mod a try, head over to Xtreme Xmas Code. Links to all three are in the comments!
+
+🎄 Happy holidays everyone! 🎄
+
+#### Links
+
+This game at Xtreme Xmas Code: https://shorturl.at/mo056
+
+My solution's code on GitHub: https://shorturl.at/oszFJ
+
+Today's puzzle on Advent of Code: https://shorturl.at/vwBJL
+
