@@ -40,7 +40,7 @@ To execute these programs, run these commands from within the terminal:
 
 ### Retrospective
 
-XXC.23 Day 9: Non-Latin Language
+XXC.23 Day 9: Non-Latin-based Language (Arabic)
 
 _This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
 
