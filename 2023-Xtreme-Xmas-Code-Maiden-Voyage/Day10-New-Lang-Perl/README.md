@@ -38,7 +38,7 @@ Part 2: 0
 
 ### Retrospective
 
-XXC.23 Day 11: New Language (Perl)
+XXC.23 Day 10: New Language (Perl)
 
 _This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
 
@@ -52,7 +52,7 @@ Plus, we've been riding a camel in previous days' puzzles, so Perl seems appropr
 
 My prior experience with Perl mostly consisted of remembering Randall Munroe mention it in xkcd strips. I also used it one time to compile a compiler for the Chef esoteric language (now there's an intense language!)
 
-This challenge wasn't too hard, Perl seems just fine as a language. I do like its cute syntax choices, like declaring variables with 'my' and telling processes to 'die' to exit loops.
+This challenge wasn't too hard, Perl seems just fine as a language. I do like its cute syntax choices, like declaring variables with 'my' and telling processes to 'die' to handle errors.
 
 Not much more to say this time!
 
@@ -61,6 +61,8 @@ Thanks for joining me on this journey! If you'd like to see today's puzzle, it's
 🎄 Happy holidays everyone! 🎄
 
 #### Links
+
+Perl on xkcd: https://xkcd.com/224/
 
 This game at Xtreme Xmas Code: https://shorturl.at/mo056
 
