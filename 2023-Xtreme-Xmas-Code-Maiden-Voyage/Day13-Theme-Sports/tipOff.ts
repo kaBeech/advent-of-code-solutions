@@ -5,7 +5,7 @@ import { FieldSetups } from "./playbook.ts";
 
 export default async (): Promise<FieldSetups> => {
   const fieldSetups: FieldSetups = await convertMultiParagraphFileToArray(
-    "./tournament.dat",
+    "./scrimmage.dat",
   );
   return fieldSetups;
 };
