@@ -1,4 +1,5 @@
 import gainPossession from "./gainPossession.ts";
+import rebound from "./rebound.ts";
 
 export default (fieldSetup: string[]): number => {
   const defensiveReboundPosition = rebound(fieldSetup);
