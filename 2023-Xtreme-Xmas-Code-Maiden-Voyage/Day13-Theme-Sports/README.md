@@ -34,7 +34,7 @@ X
 
 ### Retrospective
 
-XXC.23 Day 10: Sports Themed Declarations
+XXC.23 Day 13: Sports Themed Declarations
 
 _This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
 
