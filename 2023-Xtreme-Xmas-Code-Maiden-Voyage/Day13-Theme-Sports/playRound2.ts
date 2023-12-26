@@ -11,7 +11,7 @@ export default (async function (): Promise<number> {
   }
 
   console.log(
-    `Part 1: The total of our notes summary is: ${JSON.stringify(finalScore)}`,
+    `Part 2: The total of our notes summary is: ${JSON.stringify(finalScore)}`,
   );
 
   return finalScore;
