@@ -1,3 +1,5 @@
+import gainPossession from "./gainPossession.ts";
+
 export default (fieldSetup: string[]): number => {
   const defensiveReboundPosition = rebound(fieldSetup);
   if (defensiveReboundPosition !== 0) {
