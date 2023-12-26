@@ -17,6 +17,7 @@ export default (fieldSetup: FieldSetup): number => {
           openingFound = true;
         } else {
           reboundDenied = true;
+          openingFound = false;
         }
       }
       yardline1 -= 1;
