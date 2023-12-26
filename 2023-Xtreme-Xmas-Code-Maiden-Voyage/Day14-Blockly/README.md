@@ -10,6 +10,24 @@ https://www.xtremexmascode.com/game/public/13/day/14/
 
 Cool!
 
+...
+
+Actually, I wasn't super fond of working with Blockly. For one thing, I had to actually use node, and until this point I hadn't had to install a node_modules folder.
+
+Additionally, the tools to work within Blockly weren't intuitive for me and the documentation was sparse. When I finally figured out how to print text to the screen, it was in a non-monospaced font that was hard to visualize the input with. I briefly looked into changing that, but it looked like more trouble than it was worth
+
+When I started Blockly back up, the page refused to load! After 10-15 minutes of fruitless troubleshooting, I decided to reroll:
+
+"Your challenge is to write a program to complete today's puzzle using a random selection from the Visual Programming Box: PANE
+
+Awwww yeah!!
+
+PANE is very cool! But it isn't built to the point where it's practical (or maybe possible) to use for these types of challenges. I'm sadly removing it from the standard modifiers list and replacing it with micro:bit, which is built on Blockly, but will work on my computer without crashing:
+
+"Your challenge is to write a program to complete today's puzzle using a random selection from the Visual Programming Box: micro:bit"
+
+Let's do it!
+
 ### Points Earned
 
 X
