@@ -23,14 +23,10 @@ export default (fieldSetup: FieldSetup): number => {
       yardline1 -= 1;
       yardline2 += 1;
     }
-    if (reboundDenied) {
-      openingFound = true;
-    }
     reboundPosition += 1;
+    if (openingFound) {
+      return reboundPosition;
+    }
   }
-  if (openingFound) {
-    return reboundPosition;
-  } else {
-    return 0;
-  }
+  return 0;
 };
