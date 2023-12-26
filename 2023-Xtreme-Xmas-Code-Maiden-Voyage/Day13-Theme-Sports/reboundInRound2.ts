@@ -1,3 +1,4 @@
+import findOpening from "./findOpening.ts";
 import { FieldSetup } from "./playbook.ts";
 
 export default (fieldSetup: FieldSetup): number => {
