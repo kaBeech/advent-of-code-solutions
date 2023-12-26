@@ -8,6 +8,7 @@ export default (fieldSetup: FieldSetup): FieldSetup => {
     for (const defensiveYardline of fieldSetup) {
       offensiveYardline += defensiveYardline[i];
     }
+    offensiveFieldSetup.push(offensiveYardline);
   }
 
   return offensiveFieldSetup;
