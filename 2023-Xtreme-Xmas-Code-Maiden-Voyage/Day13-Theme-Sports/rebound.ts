@@ -1,22 +1,27 @@
 import { FieldSetup } from "./playbook.ts";
 
 export default (fieldSetup: FieldSetup): number => {
-  let i = 0;
-  for (const _yardline of fieldSetup) {
-    let line1 = i;
-    let line2 = i + 1;
-    let reboundMade = true;
-    while (line1 >= 0 && line2 < fieldSetup.length) {
-      if (line1 !== line2) {
-        reboundMade = false;
+  let reboundPosition = 0;
+  let reboundMade = false;
+  while (reboundPosition < fieldSetup.length - 1 && !reboundMade) {
+    let reboundDenied = false;
+    let yardline1 = reboundPosition;
+    let yardline2 = reboundPosition + 1;
+    while (yardline1 >= 0 && yardline2 < fieldSetup.length && !reboundDenied) {
+      if (fieldSetup[yardline1] !== fieldSetup[yardline2]) {
+        reboundDenied = true;
       }
-      line1 -= 1;
-      line2 += 1;
+      yardline1 -= 1;
+      yardline2 += 1;
     }
-    if (reboundMade) {
-      return i + 1;
+    if (!reboundDenied) {
+      reboundMade = true;
     }
-    i += 1;
+    reboundPosition += 1;
   }
-  return 0;
+  if (reboundMade) {
+    return reboundPosition;
+  } else {
+    return 0;
+  }
 };
