@@ -2,7 +2,7 @@ runHASHAlgorithmOnChar currentValue nextCharacter = (currentValue + fromEnum nex
 
 exampleHASHString = "HASH"
 
-testHASHAlgorithm startingValue = foldl runHASHAlgorithmOnChar 0 exampleHASHString
+runHASHAlgorithm hashString = foldl runHASHAlgorithmOnChar 0 hashString
 
 splitStringOn delimiter string = case dropWhile delimiter string of
   "" -> []
