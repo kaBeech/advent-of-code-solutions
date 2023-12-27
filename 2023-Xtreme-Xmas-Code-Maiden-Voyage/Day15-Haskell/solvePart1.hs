@@ -1,5 +1,5 @@
 main = do
-  input <- readFile "testInput.dat"
+  input <- readFile "challengeInput.dat"
   print (solvePart1 input)
 
 solvePart1 hashedInput = sum (getHASHedValues hashedInput)
