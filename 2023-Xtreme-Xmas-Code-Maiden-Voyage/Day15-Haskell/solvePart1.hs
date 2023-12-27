@@ -14,4 +14,4 @@ splitStringOn delimiter string = case dropWhile delimiter string of
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
 
-getSumOfHASHedValues hashedInput = sum (getHASHedValues hashedInput)
+solvePart1 hashedInput = sum (getHASHedValues hashedInput)
