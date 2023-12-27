@@ -2,6 +2,10 @@ main = do
   input <- readFile "testInput.dat"
   print (solvePart2 input)
 
+parseStep step = splitStringOn (== '=') (filter (/= '-') step)
+
+--
+
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
