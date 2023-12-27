@@ -32,6 +32,10 @@ You know what? After further reflection, I'm gonna remove the Blockly Challenge 
 
 I'm removing the Scratch Challenge Modifier too. The micro:bit one is useful enough to solve at least Part 1 of this puzzle, but I played around with Scratch a little and it's limited enough that even doing that was beyond tedious.
 
+### Code Link
+
+[Code at micro:bit](https://makecode.microbit.org/S41204-04793-52652-20477)
+
 ### Points Earned
 
 X
@@ -72,8 +76,10 @@ Thanks for joining me on this journey! If you'd like to see today's puzzle, it's
 
 #### Links
 
+My solution's code at micro:bit: https://makecode.microbit.org/S41204-04793-52652-20477
+
 This game at Xtreme Xmas Code: https://shorturl.at/mo056
 
-My solution's code on GitHub:
+My solution's code notes on GitHub:
 
 Today's puzzle on Advent of Code:
