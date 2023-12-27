@@ -1,6 +1,6 @@
-exampleHASHString = "HASH"
-
-testInput = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
+main = do
+  input <- readFile "testInput.dat"
+  print (solvePart1 input)
 
 solvePart1 hashedInput = sum (getHASHedValues hashedInput)
 
@@ -15,7 +15,3 @@ splitStringOn delimiter string = case dropWhile delimiter string of
   string' -> element : splitStringOn delimiter string''
     where
       (element, string'') = break delimiter string'
-
-main = do
-  input <- readFile "testInput.dat"
-  print (solvePart1 input)
