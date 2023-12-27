@@ -4,6 +4,8 @@ main = do
 
 parseStep step = splitStringOn (== '=') (filter (/= '-') step)
 
+parseSteps puzzleInput = map parseStep (splitStringOn (== ',') puzzleInput)
+
 --
 
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
