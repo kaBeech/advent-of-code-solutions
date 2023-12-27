@@ -3,3 +3,9 @@ runHASHAlgorithmOnChar currentValue nextCharacter = (currentValue + fromEnum nex
 exampleHASHString = "HASH"
 
 testHASHAlgorithm startingValue = foldl runHASHAlgorithmOnChar 0 exampleHASHString
+
+splitStringOn delimiter string = case dropWhile delimiter string of
+  "" -> []
+  string' -> element : splitStringOn delimiter string''
+    where
+      (element, string'') = break delimiter string'
