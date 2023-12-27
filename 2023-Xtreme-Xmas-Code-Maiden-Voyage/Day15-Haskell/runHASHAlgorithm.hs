@@ -13,3 +13,5 @@ splitStringOn delimiter string = case dropWhile delimiter string of
       (element, string'') = break delimiter string'
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
+
+getSumOfHASHedValues hashedInput = sum (getHASHedValues hashedInput)
