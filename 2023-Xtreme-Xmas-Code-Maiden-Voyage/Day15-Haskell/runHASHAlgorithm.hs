@@ -7,6 +7,6 @@
 runHASHAlgorithmOnChar currentValue nextCharacter = (currentValue + fromEnum nextCharacter) * 17 `mod` 256
 
 -- exampleHASH = [72, 65, 83, 72]
-exampleHASH = ['r', 'n', '=', '1']
+exampleHASH = "rn=1"
 
 testHASHAlgorithm startingValue = foldl runHASHAlgorithmOnChar 0 exampleHASH
