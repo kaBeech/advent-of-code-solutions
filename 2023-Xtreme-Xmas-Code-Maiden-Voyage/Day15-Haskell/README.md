@@ -38,7 +38,7 @@ XXC.23 Day 15: Haskell (New Language)
 
 _This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
 
-Learn me a Haskell!
+I CAN HAS SKILL
 
 "Your challenge is to write a program to complete today's puzzle in a programming language you've never used before"
 
