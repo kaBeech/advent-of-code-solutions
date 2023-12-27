@@ -8,6 +8,11 @@ parseStep step = splitStringOn (== '=') (filter (/= '-') step)
 
 parseSteps puzzleInput = map parseStep (splitStringOn (== ',') puzzleInput)
 
+-- boxesSeen = "qp"
+
+-- filter out duplicate steps
+filterSteps remainingSteps boxesSeen = filter (\x -> head x == boxesSeen) remainingSteps
+
 --
 
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
