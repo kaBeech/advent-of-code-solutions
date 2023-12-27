@@ -2,7 +2,7 @@ main = do
   input <- readFile "challengeInput.dat"
   print (solvePart1 input)
 
-solvePart1 hashedInput = sum (getHASHedValues hashedInput)
+solvePart1 puzzleInput = sum (getHASHedValues puzzleInput)
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
 
