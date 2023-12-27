@@ -1,10 +1,10 @@
-getASCIICode = fromEnum
+-- getASCIICode = fromEnum
 
-multiplyBy17 x = x * 17
+-- multiplyBy17 x = x * 17
 
-modulo256 x = x `mod` 256
+-- modulo256 x = x `mod` 256
 
-runHASHAlgorithmOnChar currentValue nextCharacter = modulo256 (multiplyBy17 (currentValue + getASCIICode nextCharacter))
+runHASHAlgorithmOnChar currentValue nextCharacter = (currentValue + fromEnum nextCharacter) * 17 `mod` 256
 
 -- exampleHASH = [72, 65, 83, 72]
 exampleHASH = ['r', 'n', '=', '1']
