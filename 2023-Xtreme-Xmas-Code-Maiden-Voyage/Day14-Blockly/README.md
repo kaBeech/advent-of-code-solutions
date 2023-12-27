@@ -28,6 +28,10 @@ PANE is very cool! But it isn't built to the point where it's practical (or mayb
 
 Let's do it!
 
+You know what? After further reflection, I'm gonna remove the Blockly Challenge Modifier. Too much crashing and too much effort to make a way to save and share your work.
+
+I'm removing the Scratch Challenge Modifier too. The micro:bit one is useful enough to solve at least Part 1 of this puzzle, but I played around with Scratch a little and it's limited enough that even doing that was beyond tedious.
+
 ### Points Earned
 
 X
