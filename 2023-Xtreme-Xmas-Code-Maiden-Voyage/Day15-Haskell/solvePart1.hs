@@ -15,3 +15,7 @@ splitStringOn delimiter string = case dropWhile delimiter string of
   string' -> element : splitStringOn delimiter string''
     where
       (element, string'') = break delimiter string'
+
+main = do
+  input <- readFile "testInput.dat"
+  print (solvePart1 input)
