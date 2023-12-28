@@ -7,16 +7,25 @@ interface PossibleArrangementsRecord {
 const checkIfRoomForItem = (
   box: string,
   itemLength: number,
+  boxIndex: number,
 ) => {
-  if (box.length < itemLength) {
+  if (box.length - boxIndex < itemLength) {
     return false;
   }
 
-  for (let i = 0; i < itemLength; i++) {
+  let i = boxIndex;
+
+  while (i < itemLength + boxIndex) {
     if (box[i] === ".") {
       return false;
     }
+    i += 1;
   }
+
+  if (box[i] === "#") {
+    return false;
+  }
+
   return true;
 };
 
@@ -60,7 +69,7 @@ const getPossibleArrangements = (
 
   let cachedResult = 0;
   if (
-    checkIfRoomForItem(box, items[0])
+    checkIfRoomForItem(box, items[0], boxIndex)
   ) {
     const newBox = box;
     let newBoxIndex = boxIndex;
