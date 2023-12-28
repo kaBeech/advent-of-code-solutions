@@ -25,6 +25,7 @@ export const getPossibleArrangements = (
   items: number[],
   boxIndex: number,
 ) => {
+  console.log("started");
   if (
     items.length === 0
   ) {
@@ -57,28 +58,34 @@ export const getPossibleArrangements = (
       .possibleArrangements;
   }
 
-  let currentItem = items[0];
   let cachedResult = 0;
   if (
-    checkIfRoomForItem(box, currentItem)
+    checkIfRoomForItem(box, items[0])
   ) {
+    let newBox = box;
+    let newBoxIndex = boxIndex;
+    const newItems = items.slice();
+    let currentItem = newItems[0];
     while (currentItem > 0) {
       currentItem -= 1;
-      box = box.slice(1);
-      boxIndex += 1;
+      newBox = newBox.slice(1);
+      newBoxIndex += 1;
     }
-    box = box.slice(1);
-    boxIndex += 1;
-    items.shift();
+    newBox = newBox.slice(1);
+    newBoxIndex += 1;
+    console.count();
+    newItems.shift();
     cachedResult += getPossibleArrangements(
-      box,
-      items,
-      boxIndex,
+      newBox,
+      newItems,
+      newBoxIndex,
     );
-  } else if (box[boxIndex] === "?") {
+  }
+
+  if (box[boxIndex] === "?") {
     box = box.slice(1);
     boxIndex += 1;
-    cachedResult = getPossibleArrangements(box, items, boxIndex);
+    cachedResult += getPossibleArrangements(box, items, boxIndex);
   }
 
   cache.push({
