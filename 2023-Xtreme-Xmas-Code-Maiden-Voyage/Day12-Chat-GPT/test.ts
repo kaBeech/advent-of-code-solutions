@@ -14,6 +14,20 @@ const countEmptyBoxSections = (box: BoxSection[]) => {
   return box.filter((boxSection) => boxSection.contains === "empty").length;
 };
 
+const checkIfRoomForItem = (
+  box: BoxSection[],
+  boxIndex: number,
+  item: Item,
+) => {
+  for (let i = 0; i < item.length; i++) {
+    const boxSection = box[boxIndex + i];
+    if (boxSection.contains !== "empty" && boxSection.contains !== "unknown") {
+      return false;
+    }
+  }
+  return true;
+};
+
 const getPossibleArrangements = (
   record: BoxAndItemsRecord,
   boxIndex: number,
