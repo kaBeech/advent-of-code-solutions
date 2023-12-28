@@ -23,6 +23,9 @@ const getPossibleArrangements = (
     countUnplacedItems(record.items) === 0
   ) {
     if (countEmptyBoxSections(record.box) === 0) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 };
