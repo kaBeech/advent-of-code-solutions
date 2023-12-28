@@ -36,8 +36,6 @@ const getPossibleArrangements = (
   items: number[],
   boxIndex: number,
 ) => {
-  console.log("started");
-
   if (
     items.length === 0
   ) {
@@ -80,7 +78,6 @@ const getPossibleArrangements = (
       newBoxIndex += 1;
     }
     newBoxIndex += 1;
-    console.count();
     newItems.shift();
     cachedResult += getPossibleArrangements(
       newBox,
