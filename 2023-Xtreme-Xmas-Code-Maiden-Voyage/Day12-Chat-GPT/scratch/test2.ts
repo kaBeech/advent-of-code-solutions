@@ -87,8 +87,7 @@ const getPossibleArrangements = (
   }
 
   if (box[boxIndex] === "?") {
-    boxIndex += 1;
-    cachedResult += getPossibleArrangements(box, items.slice(), boxIndex);
+    cachedResult += getPossibleArrangements(box, items.slice(), boxIndex + 1);
   }
 
   cache.push({
