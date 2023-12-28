@@ -37,4 +37,16 @@ const getPossibleArrangements = (
   if (boxIndex === record.box.length) {
     return 0;
   }
+  if (
+    cache.some((cacheItem) =>
+      cacheItem.boxIndex === boxIndex &&
+      cacheItem.numberOfUnplacedItems === countUnplacedItems(record.items)
+    )
+  ) {
+    return cache.find((cacheItem) =>
+      cacheItem.boxIndex === boxIndex &&
+      cacheItem.numberOfUnplacedItems === countUnplacedItems(record.items)
+    )!
+      .possibleArrangements;
+  }
 };
