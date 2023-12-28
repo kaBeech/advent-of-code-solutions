@@ -4,31 +4,6 @@ interface PossibleArrangementsRecord {
   possibleArrangements: number;
 }
 
-const checkIfRoomForItem = (
-  box: string,
-  itemLength: number,
-  boxIndex: number,
-) => {
-  if (box.length - boxIndex < itemLength) {
-    return false;
-  }
-
-  let i = boxIndex;
-
-  while (i < itemLength + boxIndex) {
-    if (box[i] === ".") {
-      return false;
-    }
-    i += 1;
-  }
-
-  if (box[i] === "#") {
-    return false;
-  }
-
-  return true;
-};
-
 const getPossibleArrangements = (
   box: string,
   items: number[],
@@ -86,6 +61,31 @@ const getPossibleArrangements = (
   });
 
   return cachedResult;
+};
+
+const checkIfRoomForItem = (
+  box: string,
+  itemLength: number,
+  boxIndex: number,
+) => {
+  if (box.length - boxIndex < itemLength) {
+    return false;
+  }
+
+  let i = boxIndex;
+
+  while (i < itemLength + boxIndex) {
+    if (box[i] === ".") {
+      return false;
+    }
+    i += 1;
+  }
+
+  if (box[i] === "#") {
+    return false;
+  }
+
+  return true;
 };
 
 const placeItem = (box: string, items: number[], boxIndex: number) => {
