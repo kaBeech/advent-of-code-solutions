@@ -75,4 +75,7 @@ const getPossibleArrangements = (
       boxIndex + currentItem.length + 1,
     );
   }
+  if (record.box[boxIndex].contains === "unknown") {
+    cachedResult = getPossibleArrangements(record, boxIndex + 1);
+  }
 };
