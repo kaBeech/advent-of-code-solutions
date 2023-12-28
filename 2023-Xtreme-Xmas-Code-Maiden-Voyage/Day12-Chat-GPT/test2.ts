@@ -18,14 +18,13 @@ const checkIfRoomForItem = (
 
 const cache: PossibleArrangementsRecord[] = [];
 
-export const duck = "quack";
-
-export const getPossibleArrangements = (
+const getPossibleArrangements = (
   box: string,
   items: number[],
   boxIndex: number,
 ) => {
   console.log("started");
+
   if (
     items.length === 0
   ) {
@@ -35,6 +34,7 @@ export const getPossibleArrangements = (
       return 1;
     }
   }
+
   while (
     box.length > 0 &&
     box[0] === "."
@@ -42,9 +42,11 @@ export const getPossibleArrangements = (
     boxIndex += 1;
     box = box.slice(1);
   }
+
   if (box.length === 0) {
     return 0;
   }
+
   if (
     cache.some((cachedRecord) =>
       cachedRecord.boxIndex === boxIndex &&
@@ -96,3 +98,5 @@ export const getPossibleArrangements = (
 
   return cachedResult;
 };
+
+console.log(getPossibleArrangements("???", [2], 0));
