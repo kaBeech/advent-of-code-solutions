@@ -34,4 +34,7 @@ const getPossibleArrangements = (
   ) {
     boxIndex += 1;
   }
+  if (boxIndex === record.box.length) {
+    return 0;
+  }
 };
