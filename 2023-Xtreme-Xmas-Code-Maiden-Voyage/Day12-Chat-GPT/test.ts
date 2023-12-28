@@ -80,5 +80,11 @@ const getPossibleArrangements = (
     cachedResult = getPossibleArrangements(record, boxIndex + 1);
   }
 
+  cache.push({
+    boxIndex,
+    numberOfUnplacedItems: getUnplacedItems(record.items).length,
+    possibleArrangements: cachedResult,
+  });
+
   return cachedResult;
 };
