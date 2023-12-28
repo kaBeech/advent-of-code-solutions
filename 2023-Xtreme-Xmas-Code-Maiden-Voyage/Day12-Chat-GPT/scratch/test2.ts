@@ -29,7 +29,7 @@ const checkIfRoomForItem = (
   return true;
 };
 
-const cache: PossibleArrangementsRecord[] = [];
+let cache: PossibleArrangementsRecord[] = [];
 
 const getPossibleArrangements = (
   box: string,
@@ -98,3 +98,21 @@ const getPossibleArrangements = (
 
   return cachedResult;
 };
+
+console.log("Hello, World!");
+
+cache = [];
+console.log(getPossibleArrangements("???.###", [1, 1, 3], 0));
+cache = [];
+console.log(getPossibleArrangements(".??..??...?##.", [1, 1, 3], 0));
+cache = [];
+console.log(getPossibleArrangements("?#?#?#?#?#?#?#?", [1, 3, 1, 6], 0));
+cache = [];
+console.log(getPossibleArrangements("????.#...#...", [4, 1, 1], 0));
+cache = [];
+console.log(getPossibleArrangements("????.######..#####.", [1, 6, 5], 0));
+cache = [];
+console.log(getPossibleArrangements("?###????????", [3, 2, 1], 0));
+cache = [];
+console.log(getPossibleArrangements("??#???#?????.?", [5, 1, 1], 0));
+cache = [];
