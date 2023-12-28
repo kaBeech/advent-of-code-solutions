@@ -65,10 +65,14 @@ const getPossibleArrangements = (
   }
 
   const currentItem = getUnplacedItems(record.items)[0];
+  let cachedResult = 0;
   if (
     checkIfRoomForItem(record.box, boxIndex, currentItem)
   ) {
     currentItem.placement_status = "temporarily placed";
-    getPossibleArrangements(record, boxIndex + currentItem.length + 1);
+    cachedResult = getPossibleArrangements(
+      record,
+      boxIndex + currentItem.length + 1,
+    );
   }
 };
