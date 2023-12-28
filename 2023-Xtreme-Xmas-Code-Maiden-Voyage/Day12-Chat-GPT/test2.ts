@@ -82,7 +82,7 @@ export const getPossibleArrangements = (
     );
   }
 
-  if (box[boxIndex] === "?") {
+  if (box[0] === "?") {
     box = box.slice(1);
     boxIndex += 1;
     cachedResult += getPossibleArrangements(box, items, boxIndex);
