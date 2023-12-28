@@ -68,20 +68,10 @@ const getPossibleArrangements = (
   if (
     checkIfRoomForItem(box, items[0], boxIndex)
   ) {
-    const newBox = box;
-    let newBoxIndex = boxIndex;
-    const newItems = items.slice();
-    let currentItem = newItems[0];
-    while (currentItem > 0) {
-      currentItem -= 1;
-      newBoxIndex += 1;
-    }
-    newBoxIndex += 1;
-    newItems.shift();
-    cachedResult += getPossibleArrangements(
-      newBox,
-      newItems,
-      newBoxIndex,
+    cachedResult += placeItem(
+      box,
+      items,
+      boxIndex,
     );
   }
 
@@ -96,6 +86,17 @@ const getPossibleArrangements = (
   });
 
   return cachedResult;
+};
+
+const placeItem = (box: string, items: number[], boxIndex: number) => {
+  const newItems = items.slice();
+  boxIndex += newItems[0] + 1;
+  newItems.shift();
+  return getPossibleArrangements(
+    box,
+    newItems,
+    boxIndex,
+  );
 };
 
 console.log("Hello, World!");
