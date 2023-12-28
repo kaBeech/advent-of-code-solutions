@@ -32,22 +32,16 @@ const getPossibleArrangements = (
   if (
     items.length === 0
   ) {
-    if (box.includes("#")) {
-      return 0;
-    } else {
-      return 1;
-    }
+    return 1;
   }
 
   while (
-    box.length > 0 &&
-    box[0] === "."
+    box[boxIndex] === "."
   ) {
     boxIndex += 1;
-    box = box.slice(1);
   }
 
-  if (box.length === 0) {
+  if (box.length < boxIndex) {
     return 0;
   }
 
@@ -68,16 +62,14 @@ const getPossibleArrangements = (
   if (
     checkIfRoomForItem(box, items[0])
   ) {
-    let newBox = box;
+    const newBox = box;
     let newBoxIndex = boxIndex;
     const newItems = items.slice();
     let currentItem = newItems[0];
     while (currentItem > 0) {
       currentItem -= 1;
-      newBox = newBox.slice(1);
       newBoxIndex += 1;
     }
-    newBox = newBox.slice(1);
     newBoxIndex += 1;
     console.count();
     newItems.shift();
@@ -88,8 +80,7 @@ const getPossibleArrangements = (
     );
   }
 
-  if (box[0] === "?") {
-    box = box.slice(1);
+  if (box[boxIndex] === "?") {
     boxIndex += 1;
     cachedResult += getPossibleArrangements(box, items, boxIndex);
   }
