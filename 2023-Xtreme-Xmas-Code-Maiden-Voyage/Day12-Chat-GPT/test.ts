@@ -28,4 +28,10 @@ const getPossibleArrangements = (
       return 0;
     }
   }
+  while (
+    boxIndex < record.box.length && record.box[boxIndex].contains !== "empty" &&
+    record.box[boxIndex].contains !== "unknown"
+  ) {
+    boxIndex += 1;
+  }
 };
