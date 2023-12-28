@@ -6,8 +6,8 @@ interface PossibleArrangementsRecord {
   possibleArrangements: number;
 }
 
-const countUnplacedItems = (items: Item[]) => {
-  return items.filter((item) => item.placement_status === "unplaced").length;
+const getUnplacedItems = (items: Item[]) => {
+  return items.filter((item) => item.placement_status === "unplaced");
 };
 
 const countEmptyBoxSections = (box: BoxSection[]) => {
@@ -34,7 +34,7 @@ const getPossibleArrangements = (
 ) => {
   const cache: PossibleArrangementsRecord[] = [];
   if (
-    countUnplacedItems(record.items) === 0
+    getUnplacedItems(record.items).length === 0
   ) {
     if (countEmptyBoxSections(record.box) === 0) {
       return 1;
@@ -54,12 +54,12 @@ const getPossibleArrangements = (
   if (
     cache.some((cacheItem) =>
       cacheItem.boxIndex === boxIndex &&
-      cacheItem.numberOfUnplacedItems === countUnplacedItems(record.items)
+      cacheItem.numberOfUnplacedItems === getUnplacedItems(record.items).length
     )
   ) {
     return cache.find((cacheItem) =>
       cacheItem.boxIndex === boxIndex &&
-      cacheItem.numberOfUnplacedItems === countUnplacedItems(record.items)
+      cacheItem.numberOfUnplacedItems === getUnplacedItems(record.items).length
     )!
       .possibleArrangements;
   }
