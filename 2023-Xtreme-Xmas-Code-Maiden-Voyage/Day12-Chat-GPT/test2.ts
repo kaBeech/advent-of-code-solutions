@@ -8,6 +8,10 @@ const checkIfRoomForItem = (
   box: string,
   itemLength: number,
 ) => {
+  if (box.length < itemLength) {
+    return false;
+  }
+
   for (let i = 0; i < itemLength; i++) {
     if (box[i] === ".") {
       return false;
@@ -98,5 +102,3 @@ const getPossibleArrangements = (
 
   return cachedResult;
 };
-
-console.log(getPossibleArrangements("???", [2], 0));
