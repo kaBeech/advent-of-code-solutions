@@ -1,4 +1,8 @@
-import { BoxAndItemsRecord, BoxSection, Item } from "./solvePart2.ts";
+import {
+  BoxAndItemsRecord,
+  BoxSection,
+  Item,
+} from "../oldArchiveOfChatsWork/solvePart2.ts";
 
 interface PossibleArrangementsRecord {
   boxIndex: number;
