@@ -32,7 +32,7 @@ def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
     return possibleArrangements
 
 def checkIfItemCanFit(box, itemLength, boxIndex):
-    if boxIndex + itemLength >= len(box):
+    if boxIndex + itemLength > len(box):
         return False
 
     for i in range(boxIndex, boxIndex + itemLength):
