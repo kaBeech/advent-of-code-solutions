@@ -57,7 +57,16 @@ def placeItem(box, items, boxIndex, cache):
 def parseInputString(input_string):
     box, items_part = input_string.split()
     box = box.strip()
+
+    # Add 5 copies of the box to the box string
+    box *= 5
+
+    # Extract the items as an array of numbers by splitting on ','
     items = [int(item) for item in items_part.split(',')]
+
+    # Add 5 copies of the items to the items array
+    items *= 5
+
     return box, items
 
 def main():
