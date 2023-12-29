@@ -8,7 +8,11 @@ main = do
 
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
+-- Parse Steps --
+
 parseSteps = splitStringOn (== ',')
+
+-- Assemble Box --
 
 assembleBox steps = foldl processStep [] steps
 
@@ -27,6 +31,8 @@ replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens 
 addLensToBox box lens = box ++ [lens]
 
 checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
+
+-- HASH Algorithm --
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
 
