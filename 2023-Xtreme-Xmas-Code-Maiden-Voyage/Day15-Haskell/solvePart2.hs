@@ -1,3 +1,5 @@
+import Data.ByteString.Char8 (split)
+
 testInput = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
 
 main = do
@@ -26,6 +28,8 @@ processLens box lens = if checkIfBoxHasALensWithThisLabel box lens then replaceL
 addLensToBox box lens = box ++ [lens]
 
 removeLensFromBox box lens = filter (\x -> getLabel x /= getLabel lens) box
+
+isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
 
 checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
 
