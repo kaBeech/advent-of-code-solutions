@@ -79,7 +79,7 @@ def parseInputString(input_string):
 def main():
     totalPossibleArrangements = 0
 
-    with open("testInput.dat", "r") as file:
+    with open("challengeInput.dat", "r") as file:
         input_strings = file.readlines()
 
     for input_string in input_strings:
