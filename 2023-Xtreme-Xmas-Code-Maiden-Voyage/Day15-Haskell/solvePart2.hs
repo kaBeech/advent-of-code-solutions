@@ -6,6 +6,8 @@ main = do
   input <- readFile "testInput.dat"
   print (solvePart2 input)
 
+solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
+
 parseSteps = splitStringOn (== ',')
 
 getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
@@ -23,8 +25,6 @@ replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens 
 addLensToBox box lens = box ++ [lens]
 
 checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
-
-solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
 
