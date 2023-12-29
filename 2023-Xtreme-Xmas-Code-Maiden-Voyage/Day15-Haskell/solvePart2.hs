@@ -7,9 +7,17 @@ main = do
   input <- readFile "testInput.dat"
   print (solvePart2 input)
 
-solvePart2 = length
+solvePart2 puzzleInput = do
+  box <- assembleBox (parseSteps puzzleInput)
+  focusingPowerValues <- map (getFocusingPower box) [0 .. length box - 1]
+  return (sum focusingPowerValues)
 
 -- solvePart2 puzzleInput = sum (map getFocusingPower (assembleBox (parseSteps puzzleInput)))
+
+-- recursiveFunction box = if (all lenses in the box have labels with the same hashed value)
+-- then return (sum (getFocusingPower boxNumber lens slotIndex) of each lens in the box)
+-- else remove all the lenses with labels that have the same hash value as the first lens, and put them in a new box.
+-- then return (recursiveFunction theNewBox) + recursiveFunction theBoxWithTheLeftoverLenses)
 
 -- Parse Steps --
 
@@ -37,7 +45,11 @@ addLensToBox box lens = box ++ [lens]
 
 -- Get Focusing Power --
 
-getFocusingPower lens slotIndex = (runHASHAlgorithm (getLabel lens) + 1) * read (getFocalLength lens) * (slotIndex + 1)
+-- getPartialFocusingPower box boxNumber = sum (map (getFocusingPower box) boxNumber [0 .. length box - 1])
+
+getFocusingPower boxNumber lens slotIndex = (boxNumber + 1) * read (getFocalLength lens) * (slotIndex + 1)
+
+-- getFocusingPower lens slotIndex = (runHASHAlgorithm (getLabel lens) + 1) * read (getFocalLength lens) * (slotIndex + 1)
 
 getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
 
