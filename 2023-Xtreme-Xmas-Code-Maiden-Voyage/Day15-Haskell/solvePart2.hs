@@ -23,6 +23,8 @@ getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 --
 
+processStep box step = if isStepARemoveStep step then removeLensFromBox box step else processLens box step
+
 isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
 
 removeLensFromBox box lens = filter (\x -> getLabel x /= getLabel lens) box
