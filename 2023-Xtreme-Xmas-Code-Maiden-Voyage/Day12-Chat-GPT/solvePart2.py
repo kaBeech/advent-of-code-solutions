@@ -36,7 +36,7 @@ def checkIfItemCanFit(box, itemLength, boxIndex):
         return False
 
     for i in range(boxIndex, boxIndex + itemLength):
-        if box[i] == '#' or (box[i] == '?' and i != boxIndex + itemLength - 1):
+        if box[i] == '#':
             return False
 
     return True
