@@ -1,0 +1,1 @@
+modulo256 x = x `mod` 256
