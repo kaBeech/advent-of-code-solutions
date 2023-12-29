@@ -21,6 +21,10 @@ getHash step = splitStringOn (== '=') (filter (/= '-') step)
 
 --
 
+addLensToBox box lens = box ++ [lens]
+
+checkIfBoxHasALensWithThisLabel box lens = elem lens box
+
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
