@@ -6,7 +6,7 @@ main = do
 
 parseSteps = splitStringOn (== ',')
 
-getHash step = head (splitStringOn (== '=') (filter (/= '-') step))
+getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 -- parseStep step = splitStringOn (== '=') (filter (/= '-') step)
 
@@ -23,9 +23,9 @@ getHash step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 addLensToBox box lens = box ++ [lens]
 
-checkIfBoxHasALensWithThisLabel box lens = if filter (\x -> getHash x == getHash lens) box == [] then False else True
+checkIfBoxHasALensWithThisLabel box lens = if filter (\x -> getLabel x == getLabel lens) box == [] then False else True
 
-replaceLensInBox box lens = map (\x -> if getHash lens == getHash x then lens else x) box
+replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens else x) box
 
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
