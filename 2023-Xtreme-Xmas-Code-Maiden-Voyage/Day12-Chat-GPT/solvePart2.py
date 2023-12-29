@@ -39,6 +39,9 @@ def checkIfItemCanFit(box, itemLength, boxIndex):
         if box[i] == '.':
             return False
 
+    if boxIndex + itemLength < len(box) and box[boxIndex + itemLength] == '#':
+        return False
+
     return True
 
 def placeItem(box, items, boxIndex, cache):
