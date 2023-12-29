@@ -6,7 +6,7 @@ main = do
 
 parseSteps = splitStringOn (== ',')
 
-getHash step = splitStringOn (== '=') (filter (/= '-') step)
+getHash step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 -- parseStep step = splitStringOn (== '=') (filter (/= '-') step)
 
