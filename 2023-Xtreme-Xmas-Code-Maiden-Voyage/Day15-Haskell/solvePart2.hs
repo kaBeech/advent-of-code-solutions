@@ -25,6 +25,8 @@ processLens box lens = if checkIfBoxHasALensWithThisLabel box lens then replaceL
 
 addLensToBox box lens = box ++ [lens]
 
+removeLensFromBox box lens = filter (\x -> getLabel x /= getLabel lens) box
+
 checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
 
 replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens else x) box
