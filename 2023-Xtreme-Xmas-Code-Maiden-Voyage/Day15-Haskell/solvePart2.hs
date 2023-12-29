@@ -10,19 +10,6 @@ parseSteps = splitStringOn (== ',')
 
 getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
 
--- parseStep step = splitStringOn (== '=') (filter (/= '-') step)
-
--- parseSteps puzzleInput = map parseStep (splitStringOn (== ',') puzzleInput)
-
--- boxesSeen = "qp"
--- boxLenses = []
-
--- parsedSteps = parseSteps testInput
--- for (const step of parsedSteps) { if (!boxesSeen.contains(step[0])) { boxesSeen.push(step); if (step.length > 1) { boxLenses.push(step) } } }
--- filterSteps remainingSteps boxesSeen = filter (\x -> head x == boxesSeen) remainingSteps
-
---
-
 processStep box step = if isStepARemoveStep step then removeLensFromBox box step else processLens box step
 
 isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
