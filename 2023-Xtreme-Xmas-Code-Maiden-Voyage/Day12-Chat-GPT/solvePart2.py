@@ -4,18 +4,6 @@ class PossibleArrangementRecord:
         self.numberOfUnplacedItems = numberOfUnplacedItems
         self.possibleArrangements = possibleArrangements
 
-def parseInputString(input_string):
-    # Split the input string into box and items parts
-    box, items_part = input_string.split()
-
-    # Extract the box
-    box = box.strip()
-
-    # Extract the items as an array of numbers
-    items = [int(item) for item in items_part.split(',')]
-
-    return box, items
-
 def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
     if not items:
         return 1
@@ -61,3 +49,25 @@ def placeItem(box, items, boxIndex, cache):
     boxIndex += 1 + items_copy[0]
     items_copy.pop(0)
     return getNumberOfPossibleArrangements(box, items_copy, boxIndex, cache)
+
+def parseInputString(input_string):
+    box, items_part = input_string.split()
+    box = box.strip()
+    items = [int(item) for item in items_part.split(',')]
+    return box, items
+
+def main():
+    totalPossibleArrangements = 0
+
+    with open("testInput.dat", "r") as file:
+        input_strings = file.readlines()
+
+    for input_string in input_strings:
+        box, items = parseInputString(input_string)
+        arrangements = getNumberOfPossibleArrangements(box, items, 0, [])
+        totalPossibleArrangements += arrangements
+
+    return totalPossibleArrangements
+
+result = main()
+print("Total Possible Arrangements:", result)
