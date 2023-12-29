@@ -83,7 +83,7 @@ print("Hello, World!!")
 # ????.######..#####. 1,6,5
 # ?###???????? 3,2,1
 
-testResult = getNumberOfPossibleArrangements("?#?", [2], 0, [])
+testResult = getNumberOfPossibleArrangements("#?#", [1], 0, [])
 print(testResult)
 testResult = getNumberOfPossibleArrangements("???.###", [1,1,3], 0, [])
 print(testResult)
