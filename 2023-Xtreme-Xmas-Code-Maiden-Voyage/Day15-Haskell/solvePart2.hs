@@ -1,4 +1,5 @@
 import Data.ByteString.Char8 (split)
+import Data.Text.Array (run)
 
 testInput = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
 
@@ -31,6 +32,12 @@ checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel len
 replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens else x) box
 
 addLensToBox box lens = box ++ [lens]
+
+-- Get Focusing Power --
+
+getFocusingPower lens slotIndex = (runHASHAlgorithm (getLabel lens) + 1) * read (getFocalLength lens) * (slotIndex + 1)
+
+getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
 
 -- HASH Algorithm --
 
