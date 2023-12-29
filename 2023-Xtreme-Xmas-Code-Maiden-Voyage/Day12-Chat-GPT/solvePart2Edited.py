@@ -5,6 +5,7 @@ class PossibleArrangementRecord:
         self.possibleArrangements = possibleArrangements
 
 def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
+
     if not items:
         return 1
 
@@ -32,11 +33,16 @@ def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
     return possibleArrangements
 
 def checkIfItemCanFit(box, itemLength, boxIndex):
-    if boxIndex + itemLength >= len(box):
+    # 
+    if boxIndex + itemLength > len(box):
         return False
+# 
     for i in range(boxIndex, boxIndex + itemLength):
-        if box[i] == '#' or (box[i] == '?' and i != boxIndex + itemLength - 1):
+        if box[i] == '.':
             return False
+        
+    if len(box) > boxIndex + itemLength and box[boxIndex + itemLength] == '#':
+        return False
 
     return True
 
@@ -45,3 +51,28 @@ def placeItem(box, items, boxIndex, cache):
     boxIndex += 1 + items_copy[0]
     items_copy.pop(0)
     return getNumberOfPossibleArrangements(box, items_copy, boxIndex, cache)
+
+print("Hello, World!!")
+
+# ??? 1
+# ???.### 1,1,3
+# .??..??...?##. 1,1,3
+# ?#?#?#?#?#?#?#? 1,3,1,6
+# ????.#...#... 4,1,1
+# ????.######..#####. 1,6,5
+# ?###???????? 3,2,1
+
+testResult = getNumberOfPossibleArrangements("?#?", [2], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements("???.###", [1,1,3], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements(".??..??...?##.", [1,1,3], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements("?#?#?#?#?#?#?#?", [1,3,1,6], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements("????.#...#...", [4,1,1], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements("????.######..#####.", [1,6,5], 0, [])
+print(testResult)
+testResult = getNumberOfPossibleArrangements("?###????????", [3,2,1], 0, [])
+print(testResult)
