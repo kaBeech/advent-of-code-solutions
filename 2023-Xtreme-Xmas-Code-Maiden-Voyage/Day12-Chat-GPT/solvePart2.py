@@ -6,6 +6,10 @@ class PossibleArrangementRecord:
 
 def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
     if not items:
+        # Check if the current box section or any section after it is known to be empty
+        for i in range(boxIndex, len(box)):
+            if box[i] == '#':
+                return 0
         return 1
 
     while boxIndex < len(box) and box[boxIndex] == '.':
