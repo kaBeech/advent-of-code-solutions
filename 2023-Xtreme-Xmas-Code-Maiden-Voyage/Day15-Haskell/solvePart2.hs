@@ -10,6 +10,8 @@ solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
 parseSteps = splitStringOn (== ',')
 
+assembleBox steps = foldl processStep [] steps
+
 processStep box step = if isStepARemoveStep step then removeLensFromBox box step else processLens box step
 
 isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
