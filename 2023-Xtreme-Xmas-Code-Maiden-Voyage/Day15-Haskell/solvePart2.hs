@@ -1,5 +1,6 @@
 import Data.ByteString.Char8 (split)
 import Data.Text.Array (run)
+import Text.Parsec (parse)
 
 testInput = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"
 
@@ -25,6 +26,8 @@ parseSteps = splitStringOn (== ',')
 
 -- Assemble Box --
 
+-- convertBox steps = map (\x -> x + '=' + (runHASHAlgorithm (getLabel x))) steps
+
 assembleBox steps = foldl processStep [] steps
 
 processStep box step = if isStepARemoveStep step then removeLensFromBox box step else processLens box step
@@ -45,11 +48,7 @@ addLensToBox box lens = box ++ [lens]
 
 -- Get Focusing Power --
 
--- getPartialFocusingPower box boxNumber = sum (map (getFocusingPower box) boxNumber [0 .. length box - 1])
-
 getFocusingPower boxNumber lens slotIndex = (boxNumber + 1) * read (getFocalLength lens) * (slotIndex + 1)
-
--- getFocusingPower lens slotIndex = (runHASHAlgorithm (getLabel lens) + 1) * read (getFocalLength lens) * (slotIndex + 1)
 
 getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
 
