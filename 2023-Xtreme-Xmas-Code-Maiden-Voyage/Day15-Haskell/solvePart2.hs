@@ -23,7 +23,7 @@ getHash step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 addLensToBox box lens = box ++ [lens]
 
-checkIfBoxHasALensWithThisLabel box lens = elem lens box
+checkIfBoxHasALensWithThisLabel box lens = if filter (\x -> getHash x == getHash lens) box == [] then False else True
 
 replaceLensInBox box lens = map (\x -> if getHash lens == getHash x then lens else x) box
 
