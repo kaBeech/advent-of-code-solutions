@@ -7,7 +7,9 @@ main = do
   input <- readFile "testInput.dat"
   print (solvePart2 input)
 
-solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
+solvePart2 = length
+
+-- solvePart2 puzzleInput = sum (map getFocusingPower (assembleBox (parseSteps puzzleInput)))
 
 -- Parse Steps --
 
