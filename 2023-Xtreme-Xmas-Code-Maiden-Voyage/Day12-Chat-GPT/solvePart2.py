@@ -58,8 +58,15 @@ def parseInputString(input_string):
     box, items_part = input_string.split()
     box = box.strip()
 
+    # Add a '?' character to the end of the box
+    box += '?'
+
     # Add 5 copies of the box to the box string
     box *= 5
+
+    # Remove the final '?' character from the end of the box
+    if box[-1] == '?':
+        box = box[:-1]
 
     # Extract the items as an array of numbers by splitting on ','
     items = [int(item) for item in items_part.split(',')]
