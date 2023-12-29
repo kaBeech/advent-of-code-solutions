@@ -21,6 +21,8 @@ getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 --
 
+processLens box lens = if checkIfBoxHasALensWithThisLabel box lens then replaceLensInBox box lens else addLensToBox box lens
+
 addLensToBox box lens = box ++ [lens]
 
 checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
