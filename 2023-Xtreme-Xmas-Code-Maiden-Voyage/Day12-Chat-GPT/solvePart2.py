@@ -4,6 +4,18 @@ class PossibleArrangementRecord:
         self.numberOfUnplacedItems = numberOfUnplacedItems
         self.possibleArrangements = possibleArrangements
 
+def parseInputString(input_string):
+    # Split the input string into box and items parts
+    box, items_part = input_string.split()
+
+    # Extract the box
+    box = box.strip()
+
+    # Extract the items as an array of numbers
+    items = [int(item) for item in items_part.split(',')]
+
+    return box, items
+
 def getNumberOfPossibleArrangements(box, items, boxIndex, cache=[]):
     if not items:
         return 1
