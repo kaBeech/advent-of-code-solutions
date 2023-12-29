@@ -23,17 +23,17 @@ getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
 
 --
 
-processLens box lens = if checkIfBoxHasALensWithThisLabel box lens then replaceLensInBox box lens else addLensToBox box lens
-
-addLensToBox box lens = box ++ [lens]
+isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
 
 removeLensFromBox box lens = filter (\x -> getLabel x /= getLabel lens) box
 
-isStepARemoveStep step = length (splitStringOn (== '=') step) == 1
-
-checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
+processLens box lens = if checkIfBoxHasALensWithThisLabel box lens then replaceLensInBox box lens else addLensToBox box lens
 
 replaceLensInBox box lens = map (\x -> if getLabel lens == getLabel x then lens else x) box
+
+addLensToBox box lens = box ++ [lens]
+
+checkIfBoxHasALensWithThisLabel box lens = any (\x -> getLabel x == getLabel lens) box
 
 solvePart2 puzzleInput = sum (getHASHedValues puzzleInput)
 
