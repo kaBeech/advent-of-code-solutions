@@ -46,7 +46,7 @@ This challenge was a welcome reprieve from my struggles with Chat-GPT yesterday.
 
 This puzzle was pretty straightforward, but using metaphors unrelated to the original puzzle was a nice brain stretch.
 
-Again, not much more to say about this one!
+Again, not much more to say about this one! Check out previous days or stay tuned for upcoming posts! The next couple are definitely more exciting!
 
 Thanks for joining me on this journey! If you'd like to see today's puzzle, it's over at Advent of Code. If you'd like to see my puzzle solutions, my source code is available on GitHub. And if you'd also like to give my mod a try, head over to Xtreme Xmas Code. Links to all three are in the comments!
 
