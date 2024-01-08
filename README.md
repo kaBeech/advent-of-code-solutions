@@ -1,4 +1,4 @@
-# Advent-Of-Code
+# My Advent of Code Solutions
 
 Repository for my work on the [Advent Of Code challenges](https://adventofcode.com/)
 
