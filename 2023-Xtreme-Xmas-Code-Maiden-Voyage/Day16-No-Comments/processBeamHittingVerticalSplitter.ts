@@ -1,19 +1,16 @@
-import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
+import { CardinalDirection } from "../../tools/commonTypes.ts";
 import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
 import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
-import { Grid } from "./types.ts";
+import { Grid, Tile } from "./types.ts";
 
 export default (
   grid: Grid,
-  currentTileCoordinates: XYCoordinates,
+  currentTile: Tile,
   beamIsTravelingToThe: CardinalDirection,
 ) => {
-  const currentTile = grid[currentTileCoordinates.y][currentTileCoordinates.x];
+  currentTile.isFullyProcessed = true;
 
-  if (currentTile.isHalfProcessed) currentTile.isFullyProcessed = true;
-  else currentTile.isHalfProcessed = true;
-
-  const adjacentCoordinates = getAdjacentCoordinates(currentTileCoordinates);
+  const adjacentCoordinates = getAdjacentCoordinates(currentTile.coordinates);
 
   switch (beamIsTravelingToThe) {
     case `North`:

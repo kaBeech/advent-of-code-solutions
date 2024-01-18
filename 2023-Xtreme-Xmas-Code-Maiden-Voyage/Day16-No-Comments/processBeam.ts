@@ -21,35 +21,35 @@ export default (
     case `empty space`:
       processBeamInEmptySpace(
         grid,
-        currentTileCoordinates,
+        currentTile,
         beamIsTravelingToThe,
       );
       break;
     case `mirror slash`:
       processBeamHittingSlashMirror(
         grid,
-        currentTileCoordinates,
+        currentTile,
         beamIsTravelingToThe,
       );
       break;
     case `mirror backslash`:
       processBeamHittingBackslashMirror(
         grid,
-        currentTileCoordinates,
+        currentTile,
         beamIsTravelingToThe,
       );
       break;
     case "splitter vertical":
       processBeamHittingVerticalSplitter(
         grid,
-        currentTileCoordinates,
+        currentTile,
         beamIsTravelingToThe,
       );
       break;
     case "splitter horizontal":
       processBeamHittingHorizontalSplitter(
         grid,
-        currentTileCoordinates,
+        currentTile,
         beamIsTravelingToThe,
       );
       break;
