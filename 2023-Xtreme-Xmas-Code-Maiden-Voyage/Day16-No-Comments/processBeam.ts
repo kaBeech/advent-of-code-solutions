@@ -21,33 +21,37 @@ export const processBeam = (
   currentTile.energized = true;
 
   let nextTileCoordinates: XYCoordinates;
+  const adjacentCoordinatesNorth = {
+    x: currentTileCoordinates.x,
+    y: currentTileCoordinates.y - 1,
+  };
+  const adjacentCoordinatesEast = {
+    x: currentTileCoordinates.x + 1,
+    y: currentTileCoordinates.y,
+  };
+  const adjacentCoordinatesSouth = {
+    x: currentTileCoordinates.x,
+    y: currentTileCoordinates.y + 1,
+  };
+  const adjacentCoordinatesWest = {
+    x: currentTileCoordinates.x - 1,
+    y: currentTileCoordinates.y,
+  };
 
   switch (currentTile.contains) {
     case `empty space`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y - 1,
-          };
+          nextTileCoordinates = adjacentCoordinatesNorth;
           break;
         case `East`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x + 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesEast;
           break;
         case `South`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y + 1,
-          };
+          nextTileCoordinates = adjacentCoordinatesSouth;
           break;
         case `West`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x - 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesWest;
           break;
       }
       processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
@@ -55,32 +59,20 @@ export const processBeam = (
     case `mirror slash`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x + 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesEast;
           beamIsTravelingToThe = `East`;
           break;
         case `East`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y + 1,
-          };
-          beamIsTravelingToThe = `South`;
+          nextTileCoordinates = adjacentCoordinatesNorth;
+          beamIsTravelingToThe = `North`;
           break;
         case `South`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x - 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesWest;
           beamIsTravelingToThe = `West`;
           break;
         case `West`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y - 1,
-          };
-          beamIsTravelingToThe = `North`;
+          nextTileCoordinates = adjacentCoordinatesSouth;
+          beamIsTravelingToThe = `South`;
           break;
       }
       processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
@@ -88,31 +80,19 @@ export const processBeam = (
     case `mirror backslash`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x - 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesWest;
           beamIsTravelingToThe = `West`;
           break;
         case `East`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y + 1,
-          };
+          nextTileCoordinates = adjacentCoordinatesSouth;
           beamIsTravelingToThe = `South`;
           break;
         case `South`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x + 1,
-            y: currentTileCoordinates.y,
-          };
+          nextTileCoordinates = adjacentCoordinatesEast;
           beamIsTravelingToThe = `East`;
           break;
         case `West`:
-          nextTileCoordinates = {
-            x: currentTileCoordinates.x,
-            y: currentTileCoordinates.y - 1,
-          };
+          nextTileCoordinates = adjacentCoordinatesNorth;
           beamIsTravelingToThe = `North`;
           break;
       }
