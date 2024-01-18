@@ -5,7 +5,7 @@ export const parseInput = async (): Promise<Grid> => {
   const contraption: Grid = [];
   const inputAsDoubleArray: string[][] =
     await convertMultiLineFileToDoubleArray(
-      "./challengeInput.dat",
+      "./testInput.dat",
     );
   let yCoordinate = 0;
   for (const rawRow of inputAsDoubleArray) {
