@@ -7,9 +7,15 @@ export default (
   startingTileCoordinates: XYCoordinates,
   startingDirection: CardinalDirection,
 ): number => {
-  processBeam(contraption, startingTileCoordinates, startingDirection);
+  const contraptionCopy = contraption.map((row) =>
+    row.map((tile) => ({ ...tile }))
+  );
 
-  const energizedTiles = contraption.flat().filter((tile) => tile.isEnergized);
+  processBeam(contraptionCopy, startingTileCoordinates, startingDirection);
+
+  const energizedTiles = contraptionCopy.flat().filter((tile) =>
+    tile.isEnergized
+  );
 
   const totalNumberOfEnergizedTiles = energizedTiles.length;
 
