@@ -1,6 +1,7 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
 import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
+import processBeamInEmptySpace from "./processBeamInEmptySpace.ts";
 import { Grid } from "./types.ts";
 
 export default (
@@ -16,36 +17,11 @@ export default (
 
   switch (currentTile.contains) {
     case `empty space`:
-      switch (beamIsTravelingToThe) {
-        case `North`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.north,
-            beamIsTravelingToThe,
-          );
-          break;
-        case `East`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.east,
-            beamIsTravelingToThe,
-          );
-          break;
-        case `South`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.south,
-            beamIsTravelingToThe,
-          );
-          break;
-        case `West`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.west,
-            beamIsTravelingToThe,
-          );
-          break;
-      }
+      processBeamInEmptySpace(
+        grid,
+        currentTileCoordinates,
+        beamIsTravelingToThe,
+      );
       break;
     case `mirror slash`:
       switch (beamIsTravelingToThe) {
