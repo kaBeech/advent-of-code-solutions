@@ -36,6 +36,8 @@ export const parseInput = async (): Promise<Grid> => {
         coordinates: { x: xCoordinate, y: yCoordinate },
         contains: tileContains,
         isEnergized: false,
+        isHalfProcessed: false,
+        isFullyProcessed: false,
       });
       xCoordinate += 1;
     }
