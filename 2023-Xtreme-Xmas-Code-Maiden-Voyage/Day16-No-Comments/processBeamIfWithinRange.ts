@@ -1,5 +1,5 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
-import { processBeam } from "./processBeam.ts";
+import processBeam from "./processBeam.ts";
 import { Grid } from "./types.ts";
 
 export default (

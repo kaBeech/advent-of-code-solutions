@@ -3,7 +3,7 @@ import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
 import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
 import { Grid } from "./types.ts";
 
-export const processBeam = (
+export default (
   grid: Grid,
   currentTileCoordinates: XYCoordinates,
   beamIsTravelingToThe: CardinalDirection,
