@@ -12,4 +12,4 @@ export interface Tile {
   energized: boolean;
 }
 
-export type Grid = Tile[];
+export type Grid = Tile[][];
