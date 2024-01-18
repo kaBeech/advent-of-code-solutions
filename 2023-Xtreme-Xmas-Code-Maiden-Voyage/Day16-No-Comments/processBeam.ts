@@ -1,6 +1,16 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import { Grid } from "./types.ts";
 
+const processBeamIfWithinRange = (
+  grid: Grid,
+  currentTileCoordinates: XYCoordinates,
+  beamIsTravelingToThe: CardinalDirection,
+) => {
+  if (currentTileCoordinates.x >= 0 && currentTileCoordinates.y >= 0) {
+    processBeam(grid, currentTileCoordinates, beamIsTravelingToThe);
+  }
+};
+
 export const processBeam = (
   grid: Grid,
   currentTileCoordinates: XYCoordinates,
@@ -40,9 +50,7 @@ export const processBeam = (
           };
           break;
       }
-      if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
-        processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
-      }
+      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
     case `mirror slash`:
       switch (beamIsTravelingToThe) {
@@ -75,9 +83,7 @@ export const processBeam = (
           beamIsTravelingToThe = `North`;
           break;
       }
-      if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
-        processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
-      }
+      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
     case `mirror backslash`:
       switch (beamIsTravelingToThe) {
@@ -110,9 +116,7 @@ export const processBeam = (
           beamIsTravelingToThe = `North`;
           break;
       }
-      if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
-        processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
-      }
+      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
   }
 };
