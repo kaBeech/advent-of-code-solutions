@@ -26,7 +26,10 @@ interface XYCoordinates {
   y: number;
 }
 
+type CardinalDirection = `North` | `East` | `South` | `West`;
+
 export type {
+  CardinalDirection,
   ModalBoolean,
   Operator,
   SingleDigitInteger,
