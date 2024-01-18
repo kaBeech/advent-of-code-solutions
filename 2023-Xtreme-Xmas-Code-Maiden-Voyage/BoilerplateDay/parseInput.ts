@@ -4,7 +4,7 @@ import { ElfMap } from "./types.ts";
 export const parseInput = async (): Promise<ElfMap> => {
   const elfMap: ElfMap = [];
   const playerMapString: string[] = await convertMultiLineFileToArray(
-    "./challengeInput.txt",
+    "./challengeInput.dat",
   );
   playerMapString.forEach((rawPlayer, index) => {
     elfMap.push({
