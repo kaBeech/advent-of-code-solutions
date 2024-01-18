@@ -24,9 +24,10 @@ export default (
         beamIsTravelingToThe,
       );
       break;
-    case "East" || "West":
-      processBeamIfWithinRange(grid, adjacentCoordinates.north, "North");
-      processBeamIfWithinRange(grid, adjacentCoordinates.south, "South");
+    case `East`:
+    case `West`:
+      processBeamIfWithinRange(grid, adjacentCoordinates.north, `North`);
+      processBeamIfWithinRange(grid, adjacentCoordinates.south, `South`);
       break;
   }
 };
