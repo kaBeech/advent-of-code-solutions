@@ -134,5 +134,27 @@ export const processBeam = (
           break;
       }
       break;
+    case "splitter vertical":
+      switch (beamIsTravelingToThe) {
+        case `North`:
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesNorth,
+            beamIsTravelingToThe,
+          );
+          break;
+        case `South`:
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesSouth,
+            beamIsTravelingToThe,
+          );
+          break;
+        case "East" || "West":
+          processBeamIfWithinRange(grid, adjacentCoordinatesNorth, "North");
+          processBeamIfWithinRange(grid, adjacentCoordinatesSouth, "South");
+          break;
+      }
+      break;
   }
 };
