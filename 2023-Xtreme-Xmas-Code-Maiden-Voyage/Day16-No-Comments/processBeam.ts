@@ -1,6 +1,7 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
 import processBeamHittingBackslashMirror from "./processBeamHittingBackslashMirror.ts";
+import processBeamHittingHorizontalSplitter from "./processBeamHittingHorizontalSplitter.ts";
 import processBeamHittingSlashMirror from "./processBeamHittingSlashMirror.ts";
 import processBeamHittingVerticalSplitter from "./processBeamHittingVerticalSplitter.ts";
 import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
@@ -48,26 +49,11 @@ export default (
       );
       break;
     case "splitter horizontal":
-      switch (beamIsTravelingToThe) {
-        case `East`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.east,
-            beamIsTravelingToThe,
-          );
-          break;
-        case `West`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.west,
-            beamIsTravelingToThe,
-          );
-          break;
-        case "North" || "South":
-          processBeamIfWithinRange(grid, adjacentCoordinates.east, "East");
-          processBeamIfWithinRange(grid, adjacentCoordinates.west, "West");
-          break;
-      }
+      processBeamHittingHorizontalSplitter(
+        grid,
+        currentTileCoordinates,
+        beamIsTravelingToThe,
+      );
       break;
   }
 };
