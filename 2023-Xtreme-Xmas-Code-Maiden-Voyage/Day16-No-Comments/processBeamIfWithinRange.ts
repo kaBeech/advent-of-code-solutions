@@ -7,7 +7,11 @@ export default (
   currentTileCoordinates: XYCoordinates,
   beamIsTravelingToThe: CardinalDirection,
 ) => {
-  if (currentTileCoordinates.x >= 0 && currentTileCoordinates.y >= 0) {
+  if (
+    currentTileCoordinates.x >= 0 && currentTileCoordinates.y >= 0 &&
+    currentTileCoordinates.x < grid[0].length &&
+    currentTileCoordinates.y < grid.length
+  ) {
     processBeam(grid, currentTileCoordinates, beamIsTravelingToThe);
   }
 };
