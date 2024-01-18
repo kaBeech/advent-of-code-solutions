@@ -7,10 +7,11 @@ export default (async function (): Promise<number> {
 
   processBeam(contraption, { x: 0, y: 0 }, "East");
 
-  const totalEnergizedTiles =
-    contraption.flat().filter((tile) => tile.isEnergized).length;
+  const energizedTiles = contraption.flat().filter((tile) => tile.isEnergized);
 
-  console.log(`Part 1: ${totalEnergizedTiles} tiles are energized.`);
+  const totalNumberOfEnergizedTiles = energizedTiles.length;
 
-  return totalEnergizedTiles;
+  console.log(`Part 1: ${totalNumberOfEnergizedTiles} tiles are energized.`);
+
+  return totalNumberOfEnergizedTiles;
 })();
