@@ -1,7 +1,6 @@
 import { XYCoordinates } from "../../tools/commonTypes.ts";
 
 export interface Tile {
-  id: number;
   coordinates: XYCoordinates;
   contains:
     | `empty space`
