@@ -8,7 +8,7 @@ export interface Tile {
     | `mirror backslash`
     | `splitter vertical`
     | `splitter horizontal`;
-  energized: boolean;
+  isEnergized: boolean;
 }
 
 export type Grid = Tile[][];

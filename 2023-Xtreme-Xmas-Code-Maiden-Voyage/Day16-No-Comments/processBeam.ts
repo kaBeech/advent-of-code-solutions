@@ -13,7 +13,7 @@ export default (
 ) => {
   const currentTile = grid[currentTileCoordinates.y][currentTileCoordinates.x];
 
-  currentTile.energized = true;
+  currentTile.isEnergized = true;
 
   switch (currentTile.contains) {
     case `empty space`:
