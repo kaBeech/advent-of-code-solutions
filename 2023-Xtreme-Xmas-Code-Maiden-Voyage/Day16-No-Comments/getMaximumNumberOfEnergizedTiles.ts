@@ -12,17 +12,16 @@ export default (
       { x: 0, y: i },
       `East`,
     );
-    if (numberOfEastgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
-      maximumNumberOfEnergizedTiles = numberOfEastgoingEnergizedTiles;
-    }
     const numberOfWestgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: contraption.length - 1, y: i },
       `West`,
     );
-    if (numberOfWestgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
-      maximumNumberOfEnergizedTiles = numberOfWestgoingEnergizedTiles;
-    }
+    maximumNumberOfEnergizedTiles = Math.max(
+      maximumNumberOfEnergizedTiles,
+      numberOfEastgoingEnergizedTiles,
+      numberOfWestgoingEnergizedTiles,
+    );
   }
 
   for (let i = 0; i < contraption[0].length; i += 1) {
@@ -31,17 +30,17 @@ export default (
       { x: i, y: 0 },
       `South`,
     );
-    if (numberOfNorthgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
-      maximumNumberOfEnergizedTiles = numberOfNorthgoingEnergizedTiles;
-    }
     const numberOfSouthgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: i, y: contraption[0].length - 1 },
       `North`,
     );
-    if (numberOfSouthgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
-      maximumNumberOfEnergizedTiles = numberOfSouthgoingEnergizedTiles;
-    }
+    maximumNumberOfEnergizedTiles = Math.max(
+      maximumNumberOfEnergizedTiles,
+      numberOfNorthgoingEnergizedTiles,
+      numberOfSouthgoingEnergizedTiles,
+    );
   }
+
   return maximumNumberOfEnergizedTiles;
 };
