@@ -8,9 +8,6 @@ export default (
   currentTile: Tile,
   beamIsTravelingToThe: CardinalDirection,
 ) => {
-  if (currentTile.isHalfProcessed) currentTile.isFullyProcessed = true;
-  else currentTile.isHalfProcessed = true;
-
   const adjacentCoordinates = getAdjacentCoordinates(currentTile.coordinates);
   switch (beamIsTravelingToThe) {
     case `North`:
