@@ -1,10 +1,8 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
-import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
 import processBeamHittingBackslashMirror from "./processBeamHittingBackslashMirror.ts";
 import processBeamHittingHorizontalSplitter from "./processBeamHittingHorizontalSplitter.ts";
 import processBeamHittingSlashMirror from "./processBeamHittingSlashMirror.ts";
 import processBeamHittingVerticalSplitter from "./processBeamHittingVerticalSplitter.ts";
-import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
 import processBeamInEmptySpace from "./processBeamInEmptySpace.ts";
 import { Grid } from "./types.ts";
 
@@ -16,8 +14,6 @@ export default (
   const currentTile = grid[currentTileCoordinates.y][currentTileCoordinates.x];
 
   currentTile.energized = true;
-
-  const adjacentCoordinates = getAdjacentCoordinates(currentTileCoordinates);
 
   switch (currentTile.contains) {
     case `empty space`:
