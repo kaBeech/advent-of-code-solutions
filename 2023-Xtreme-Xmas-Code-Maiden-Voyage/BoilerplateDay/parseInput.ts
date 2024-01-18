@@ -1,7 +1,7 @@
 import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { ElfMap } from "./types.ts";
 
-export const parseInput = async (): Promise<ElfMap> => {
+export default async (): Promise<ElfMap> => {
   const elfMap: ElfMap = [];
   const playerMapString: string[] = await convertMultiLineFileToArray(
     "./challengeInput.dat",
