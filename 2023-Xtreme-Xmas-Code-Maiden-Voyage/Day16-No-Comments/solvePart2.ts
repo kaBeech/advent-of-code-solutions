@@ -11,7 +11,7 @@ export default (async function (): Promise<number> {
     const numberOfEastgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: 0, y: i },
-      "East",
+      `East`,
     );
     if (numberOfEastgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
       maximumNumberOfEnergizedTiles = numberOfEastgoingEnergizedTiles;
@@ -19,7 +19,7 @@ export default (async function (): Promise<number> {
     const numberOfWestgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: contraption.length - 1, y: i },
-      "West",
+      `West`,
     );
     if (numberOfWestgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
       maximumNumberOfEnergizedTiles = numberOfWestgoingEnergizedTiles;
@@ -30,7 +30,7 @@ export default (async function (): Promise<number> {
     const numberOfNorthgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: i, y: 0 },
-      "North",
+      `South`,
     );
     if (numberOfNorthgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
       maximumNumberOfEnergizedTiles = numberOfNorthgoingEnergizedTiles;
@@ -38,7 +38,7 @@ export default (async function (): Promise<number> {
     const numberOfSouthgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: i, y: contraption[0].length - 1 },
-      "South",
+      `North`,
     );
     if (numberOfSouthgoingEnergizedTiles > maximumNumberOfEnergizedTiles) {
       maximumNumberOfEnergizedTiles = numberOfSouthgoingEnergizedTiles;
