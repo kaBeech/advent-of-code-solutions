@@ -9,6 +9,8 @@ export interface Tile {
     | `splitter vertical`
     | `splitter horizontal`;
   isEnergized: boolean;
+  isHalfProcessed: boolean;
+  isFullyProcessed: boolean;
 }
 
 export type Grid = Tile[][];

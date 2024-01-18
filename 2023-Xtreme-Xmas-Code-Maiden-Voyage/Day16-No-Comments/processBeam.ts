@@ -13,7 +13,7 @@ export default (
 ) => {
   const currentTile = grid[currentTileCoordinates.y][currentTileCoordinates.x];
 
-  if (currentTile.isEnergized) return;
+  if (currentTile.isFullyProcessed) return;
 
   currentTile.isEnergized = true;
 

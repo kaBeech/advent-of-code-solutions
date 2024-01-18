@@ -8,7 +8,13 @@ export default (
   currentTileCoordinates: XYCoordinates,
   beamIsTravelingToThe: CardinalDirection,
 ) => {
+  const currentTile = grid[currentTileCoordinates.y][currentTileCoordinates.x];
+
+  if (currentTile.isHalfProcessed) currentTile.isFullyProcessed = true;
+  else currentTile.isHalfProcessed = true;
+
   const adjacentCoordinates = getAdjacentCoordinates(currentTileCoordinates);
+
   switch (beamIsTravelingToThe) {
     case `East`:
       processBeamIfWithinRange(
