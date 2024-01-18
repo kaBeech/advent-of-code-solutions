@@ -42,7 +42,77 @@ export const processBeam = (
       }
       if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
         processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
-        break;
       }
+      break;
+    case `mirror slash`:
+      switch (beamIsTravelingToThe) {
+        case `North`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x + 1,
+            y: currentTileCoordinates.y,
+          };
+          beamIsTravelingToThe = `East`;
+          break;
+        case `East`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x,
+            y: currentTileCoordinates.y + 1,
+          };
+          beamIsTravelingToThe = `South`;
+          break;
+        case `South`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x - 1,
+            y: currentTileCoordinates.y,
+          };
+          beamIsTravelingToThe = `West`;
+          break;
+        case `West`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x,
+            y: currentTileCoordinates.y - 1,
+          };
+          beamIsTravelingToThe = `North`;
+          break;
+      }
+      if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
+        processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
+      }
+      break;
+    case `mirror backslash`:
+      switch (beamIsTravelingToThe) {
+        case `North`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x - 1,
+            y: currentTileCoordinates.y,
+          };
+          beamIsTravelingToThe = `West`;
+          break;
+        case `East`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x,
+            y: currentTileCoordinates.y + 1,
+          };
+          beamIsTravelingToThe = `South`;
+          break;
+        case `South`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x + 1,
+            y: currentTileCoordinates.y,
+          };
+          beamIsTravelingToThe = `East`;
+          break;
+        case `West`:
+          nextTileCoordinates = {
+            x: currentTileCoordinates.x,
+            y: currentTileCoordinates.y - 1,
+          };
+          beamIsTravelingToThe = `North`;
+          break;
+      }
+      if (nextTileCoordinates.x >= 0 && nextTileCoordinates.y >= 0) {
+        processBeam(grid, nextTileCoordinates, beamIsTravelingToThe);
+      }
+      break;
   }
 };
