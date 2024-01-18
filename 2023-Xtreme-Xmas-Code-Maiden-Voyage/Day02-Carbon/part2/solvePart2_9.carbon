@@ -2,7 +2,7 @@ package ExplorerTest api;
 
 class Game {
   var number: i32;
-  // Hardcode gameStringLength into gameChars declation because I'm having  
+  // Hardcode gameStringLength into gameChars declaration because I'm having  
   // difficulty getting Carbon to recognize the integer 
   var gameChars: [String; 160];
   var currentGameCharIndex: i32;
@@ -185,7 +185,7 @@ fn CheckCurrentGameCharForCubeValue(game: Game) -> CubeValue {
 
 fn Main() -> i32 {
   let gameStringLength: i32 = 160;
-  // Hardcode gameStringLength and numberOfGames into rawGames declation because I'm having  
+  // Hardcode gameStringLength and numberOfGames into rawGames declaration because I'm having  
   // difficulty getting Carbon to recognize the integer
   let numberOfGames: i32 = 10;
   // Replace this test input with the contents of the parsedInput9.txt file created by the parseInput.ts program, like so:
