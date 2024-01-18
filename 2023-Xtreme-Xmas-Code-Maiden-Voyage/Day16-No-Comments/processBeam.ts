@@ -20,7 +20,6 @@ export const processBeam = (
 
   currentTile.energized = true;
 
-  let nextTileCoordinates: XYCoordinates;
   const adjacentCoordinatesNorth = {
     x: currentTileCoordinates.x,
     y: currentTileCoordinates.y - 1,
@@ -42,61 +41,98 @@ export const processBeam = (
     case `empty space`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = adjacentCoordinatesNorth;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesNorth,
+            beamIsTravelingToThe,
+          );
           break;
         case `East`:
-          nextTileCoordinates = adjacentCoordinatesEast;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesEast,
+            beamIsTravelingToThe,
+          );
           break;
         case `South`:
-          nextTileCoordinates = adjacentCoordinatesSouth;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesSouth,
+            beamIsTravelingToThe,
+          );
           break;
         case `West`:
-          nextTileCoordinates = adjacentCoordinatesWest;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesWest,
+            beamIsTravelingToThe,
+          );
           break;
       }
-      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
     case `mirror slash`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = adjacentCoordinatesEast;
-          beamIsTravelingToThe = `East`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesEast,
+            `East`,
+          );
           break;
         case `East`:
-          nextTileCoordinates = adjacentCoordinatesNorth;
-          beamIsTravelingToThe = `North`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesNorth,
+            `North`,
+          );
           break;
         case `South`:
-          nextTileCoordinates = adjacentCoordinatesWest;
-          beamIsTravelingToThe = `West`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesWest,
+            `West`,
+          );
           break;
         case `West`:
-          nextTileCoordinates = adjacentCoordinatesSouth;
-          beamIsTravelingToThe = `South`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesSouth,
+            `South`,
+          );
           break;
       }
-      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
     case `mirror backslash`:
       switch (beamIsTravelingToThe) {
         case `North`:
-          nextTileCoordinates = adjacentCoordinatesWest;
-          beamIsTravelingToThe = `West`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesWest,
+            `West`,
+          );
           break;
         case `East`:
-          nextTileCoordinates = adjacentCoordinatesSouth;
-          beamIsTravelingToThe = `South`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesSouth,
+            `South`,
+          );
           break;
         case `South`:
-          nextTileCoordinates = adjacentCoordinatesEast;
-          beamIsTravelingToThe = `East`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesEast,
+            `East`,
+          );
           break;
         case `West`:
-          nextTileCoordinates = adjacentCoordinatesNorth;
-          beamIsTravelingToThe = `North`;
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesNorth,
+            `North`,
+          );
           break;
       }
-      processBeamIfWithinRange(grid, nextTileCoordinates, beamIsTravelingToThe);
       break;
   }
 };
