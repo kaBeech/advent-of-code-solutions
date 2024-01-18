@@ -11,6 +11,28 @@ const processBeamIfWithinRange = (
   }
 };
 
+const getAdjacentCoordinates = (currentTileCoordinates: XYCoordinates) => {
+  const adjacentCoordinates = {
+    north: {
+      x: currentTileCoordinates.x,
+      y: currentTileCoordinates.y - 1,
+    },
+    east: {
+      x: currentTileCoordinates.x + 1,
+      y: currentTileCoordinates.y,
+    },
+    south: {
+      x: currentTileCoordinates.x,
+      y: currentTileCoordinates.y + 1,
+    },
+    west: {
+      x: currentTileCoordinates.x - 1,
+      y: currentTileCoordinates.y,
+    },
+  };
+  return adjacentCoordinates;
+};
+
 export const processBeam = (
   grid: Grid,
   currentTileCoordinates: XYCoordinates,
@@ -20,22 +42,7 @@ export const processBeam = (
 
   currentTile.energized = true;
 
-  const adjacentCoordinatesNorth = {
-    x: currentTileCoordinates.x,
-    y: currentTileCoordinates.y - 1,
-  };
-  const adjacentCoordinatesEast = {
-    x: currentTileCoordinates.x + 1,
-    y: currentTileCoordinates.y,
-  };
-  const adjacentCoordinatesSouth = {
-    x: currentTileCoordinates.x,
-    y: currentTileCoordinates.y + 1,
-  };
-  const adjacentCoordinatesWest = {
-    x: currentTileCoordinates.x - 1,
-    y: currentTileCoordinates.y,
-  };
+  const adjacentCoordinates = getAdjacentCoordinates(currentTileCoordinates);
 
   switch (currentTile.contains) {
     case `empty space`:
@@ -43,28 +50,28 @@ export const processBeam = (
         case `North`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesNorth,
+            adjacentCoordinates.north,
             beamIsTravelingToThe,
           );
           break;
         case `East`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesEast,
+            adjacentCoordinates.east,
             beamIsTravelingToThe,
           );
           break;
         case `South`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesSouth,
+            adjacentCoordinates.south,
             beamIsTravelingToThe,
           );
           break;
         case `West`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesWest,
+            adjacentCoordinates.west,
             beamIsTravelingToThe,
           );
           break;
@@ -75,28 +82,28 @@ export const processBeam = (
         case `North`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesEast,
+            adjacentCoordinates.east,
             `East`,
           );
           break;
         case `East`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesNorth,
+            adjacentCoordinates.north,
             `North`,
           );
           break;
         case `South`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesWest,
+            adjacentCoordinates.west,
             `West`,
           );
           break;
         case `West`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesSouth,
+            adjacentCoordinates.south,
             `South`,
           );
           break;
@@ -107,28 +114,28 @@ export const processBeam = (
         case `North`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesWest,
+            adjacentCoordinates.west,
             `West`,
           );
           break;
         case `East`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesSouth,
+            adjacentCoordinates.south,
             `South`,
           );
           break;
         case `South`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesEast,
+            adjacentCoordinates.east,
             `East`,
           );
           break;
         case `West`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesNorth,
+            adjacentCoordinates.north,
             `North`,
           );
           break;
@@ -139,20 +146,20 @@ export const processBeam = (
         case `North`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesNorth,
+            adjacentCoordinates.north,
             beamIsTravelingToThe,
           );
           break;
         case `South`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesSouth,
+            adjacentCoordinates.south,
             beamIsTravelingToThe,
           );
           break;
         case "East" || "West":
-          processBeamIfWithinRange(grid, adjacentCoordinatesNorth, "North");
-          processBeamIfWithinRange(grid, adjacentCoordinatesSouth, "South");
+          processBeamIfWithinRange(grid, adjacentCoordinates.north, "North");
+          processBeamIfWithinRange(grid, adjacentCoordinates.south, "South");
           break;
       }
       break;
@@ -161,20 +168,20 @@ export const processBeam = (
         case `East`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesEast,
+            adjacentCoordinates.east,
             beamIsTravelingToThe,
           );
           break;
         case `West`:
           processBeamIfWithinRange(
             grid,
-            adjacentCoordinatesWest,
+            adjacentCoordinates.west,
             beamIsTravelingToThe,
           );
           break;
         case "North" || "South":
-          processBeamIfWithinRange(grid, adjacentCoordinatesEast, "East");
-          processBeamIfWithinRange(grid, adjacentCoordinatesWest, "West");
+          processBeamIfWithinRange(grid, adjacentCoordinates.east, "East");
+          processBeamIfWithinRange(grid, adjacentCoordinates.west, "West");
           break;
       }
       break;
