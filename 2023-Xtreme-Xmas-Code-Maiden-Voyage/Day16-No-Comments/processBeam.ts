@@ -1,16 +1,7 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
+import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
 import { Grid } from "./types.ts";
-
-const processBeamIfWithinRange = (
-  grid: Grid,
-  currentTileCoordinates: XYCoordinates,
-  beamIsTravelingToThe: CardinalDirection,
-) => {
-  if (currentTileCoordinates.x >= 0 && currentTileCoordinates.y >= 0) {
-    processBeam(grid, currentTileCoordinates, beamIsTravelingToThe);
-  }
-};
 
 export const processBeam = (
   grid: Grid,
