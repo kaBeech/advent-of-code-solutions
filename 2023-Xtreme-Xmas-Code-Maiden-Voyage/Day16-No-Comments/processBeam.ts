@@ -156,5 +156,27 @@ export const processBeam = (
           break;
       }
       break;
+    case "splitter horizontal":
+      switch (beamIsTravelingToThe) {
+        case `East`:
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesEast,
+            beamIsTravelingToThe,
+          );
+          break;
+        case `West`:
+          processBeamIfWithinRange(
+            grid,
+            adjacentCoordinatesWest,
+            beamIsTravelingToThe,
+          );
+          break;
+        case "North" || "South":
+          processBeamIfWithinRange(grid, adjacentCoordinatesEast, "East");
+          processBeamIfWithinRange(grid, adjacentCoordinatesWest, "West");
+          break;
+      }
+      break;
   }
 };
