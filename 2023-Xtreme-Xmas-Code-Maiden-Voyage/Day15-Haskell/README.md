@@ -40,7 +40,7 @@ _This post is an entry documenting my journey working through the Advent of Code
 
 I CAN HAS SKILL
 
-"Your challenge is to write a program to complete today's puzzle in a programming language you've never used before"
+Challenge Modifier: "Your challenge is to write a program to complete today's puzzle in a programming language you've never used before"
 
 ...
 

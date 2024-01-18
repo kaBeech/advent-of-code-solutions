@@ -1,0 +1,13 @@
+# Puzzle Inputs
+challengeInput.dat
+challengeInput.txt
+parsedInput.txt
+parsedInput*.txt
+parsedInput.dat
+parsedInput*.dat
+part1_withInputs/
+part2_withInputs/
+entradaDelDesafío.txt
+entradaDelDesafío.dat
+مدخلات_كبيرة.dat
+tournament.dat

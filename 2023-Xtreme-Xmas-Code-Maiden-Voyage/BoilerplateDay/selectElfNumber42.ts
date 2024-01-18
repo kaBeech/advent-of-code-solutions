@@ -1,8 +1,8 @@
 import { Elf, ElfMap } from "./types.ts";
 
-export default function (
+export default (
   elfMap: ElfMap,
-): Elf {
+): Elf => {
   const elfNumber42 = elfMap.find((elf) => elf.id === 42)!;
   return elfNumber42;
-}
+};
