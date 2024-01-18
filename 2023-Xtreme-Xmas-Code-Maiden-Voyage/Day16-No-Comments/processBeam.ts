@@ -1,5 +1,6 @@
 import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import getAdjacentCoordinates from "./getAdjacentCoordinates.ts";
+import processBeamHittingMirrorBackslash from "./processBeamHittingMirrorBackslash.ts";
 import processBeamHittingMirrorSlash from "./processBeamHittingMirrorSlash.ts";
 import processBeamIfWithinRange from "./processBeamIfWithinRange.ts";
 import processBeamInEmptySpace from "./processBeamInEmptySpace.ts";
@@ -32,36 +33,11 @@ export default (
       );
       break;
     case `mirror backslash`:
-      switch (beamIsTravelingToThe) {
-        case `North`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.west,
-            `West`,
-          );
-          break;
-        case `East`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.south,
-            `South`,
-          );
-          break;
-        case `South`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.east,
-            `East`,
-          );
-          break;
-        case `West`:
-          processBeamIfWithinRange(
-            grid,
-            adjacentCoordinates.north,
-            `North`,
-          );
-          break;
-      }
+      processBeamHittingMirrorBackslash(
+        grid,
+        currentTileCoordinates,
+        beamIsTravelingToThe,
+      );
       break;
     case "splitter vertical":
       switch (beamIsTravelingToThe) {
