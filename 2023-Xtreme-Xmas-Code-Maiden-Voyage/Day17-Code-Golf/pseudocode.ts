@@ -96,8 +96,11 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       const prospectiveNeighborDistance = currentNode.distanceFromLavaPool +
         neighbor.heatLoss;
       if (
-        prospectiveNeighborDistance <
-          neighbor.distanceFromLavaPool && straightLine.length < 4
+        (prospectiveNeighborDistance <
+            neighbor.distanceFromLavaPool && straightLine.length < 4) ||
+        (prospectiveNeighborDistance ===
+            neighbor.distanceFromLavaPool &&
+          straightLine.length < neighbor.straightLine.length)
       ) {
         neighbor.distanceFromLavaPool = prospectiveNeighborDistance;
         neighbor.straightLine = straightLine;
