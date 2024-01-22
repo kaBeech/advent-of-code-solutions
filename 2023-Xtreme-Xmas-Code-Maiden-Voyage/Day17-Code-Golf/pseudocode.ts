@@ -1,6 +1,7 @@
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
 interface CityBlock {
+  visited: boolean;
   heatLoss: number;
   distanceFromLavaPool: number;
   coordinates: {
@@ -19,13 +20,10 @@ const parseInput = async (): Promise<CityBlock[][]> => {
     const cityRow: CityBlock[] = [];
     let x = 0;
     for (const rawCityBlock of rawCityRow) {
-      let distanceFromLavaPool = Infinity;
-      if (x === 0 && y === 0) {
-        distanceFromLavaPool = 0;
-      }
       cityRow.push({
+        visited: false,
         heatLoss: parseInt(rawCityBlock),
-        distanceFromLavaPool,
+        distanceFromLavaPool: Infinity,
         coordinates: { x, y },
       });
       x++;
@@ -38,6 +36,8 @@ const parseInput = async (): Promise<CityBlock[][]> => {
 
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
+  let currentNode = cityMap[0][0];
+  currentNode.distanceFromLavaPool = 0;
   return 0;
 };
 
