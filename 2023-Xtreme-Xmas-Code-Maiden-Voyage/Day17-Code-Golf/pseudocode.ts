@@ -1,6 +1,6 @@
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
-export interface CityBlock {
+interface CityBlock {
   heatLoss: number;
   distanceFromLavaPool: number;
   coordinates: {
@@ -9,7 +9,7 @@ export interface CityBlock {
   };
 }
 
-export const parseInput = async (): Promise<CityBlock[][]> => {
+const parseInput = async (): Promise<CityBlock[][]> => {
   const cityMap: CityBlock[][] = [];
   const cityMapString = await convertMultiLineFileToDoubleArray(
     "./testInput.dat",
@@ -35,3 +35,18 @@ export const parseInput = async (): Promise<CityBlock[][]> => {
   }
   return cityMap;
 };
+
+const pseudoSolvePart1 = async (): Promise<number> => {
+  const cityMap = await parseInput();
+  return 0;
+};
+
+export default (function (): Promise<number> {
+  const lowestPossibleHeatLoss = pseudoSolvePart1();
+
+  console.log(
+    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
+  );
+
+  return lowestPossibleHeatLoss;
+})();
