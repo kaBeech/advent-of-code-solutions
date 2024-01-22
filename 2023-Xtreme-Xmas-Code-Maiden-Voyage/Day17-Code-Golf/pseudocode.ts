@@ -36,9 +36,30 @@ const parseInput = async (): Promise<CityBlock[][]> => {
 
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
-  let currentNode = cityMap[0][0];
+  const lavaPool = cityMap[0][0];
+  const machinePartsFactory =
+    cityMap[cityMap.length - 1][cityMap[0].length - 1];
+  let currentNode = lavaPool;
   currentNode.distanceFromLavaPool = 0;
-  return 0;
+  const unvisitedBlocks = cityMap.flat();
+  while (!machinePartsFactory.visited) {
+    const unvisitedNeighbors = unvisitedBlocks.filter((cityBlock) =>
+      cityBlock.coordinates.y - currentNode.coordinates.y <= 1 &&
+      cityBlock.coordinates.x - currentNode.coordinates.x <= 1
+    );
+    for (const neighbor of unvisitedNeighbors) {
+      neighbor.distanceFromLavaPool = Math.min(
+        neighbor.distanceFromLavaPool,
+        currentNode.distanceFromLavaPool + neighbor.heatLoss,
+      );
+    }
+    currentNode.visited = true;
+    unvisitedBlocks.splice(unvisitedBlocks.indexOf(currentNode), 1);
+    currentNode = unvisitedBlocks.reduce((a, b) =>
+      a.distanceFromLavaPool < b.distanceFromLavaPool ? a : b
+    );
+  }
+  return machinePartsFactory.distanceFromLavaPool;
 };
 
 export default (function (): Promise<number> {
