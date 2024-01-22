@@ -93,12 +93,13 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     );
     for (const neighbor of unvisitedNeighbors) {
       const straightLine = calculateStraightLine(currentNode, neighbor);
+      const prospectiveNeighborDistance = currentNode.distanceFromLavaPool +
+        neighbor.heatLoss;
       if (
-        currentNode.distanceFromLavaPool + neighbor.heatLoss <
+        prospectiveNeighborDistance <
           neighbor.distanceFromLavaPool && straightLine.length < 4
       ) {
-        neighbor.distanceFromLavaPool = currentNode.distanceFromLavaPool +
-          neighbor.heatLoss;
+        neighbor.distanceFromLavaPool = prospectiveNeighborDistance;
         neighbor.straightLine = straightLine;
         neighbor.visitedCoordinates = currentNode.visitedCoordinates.concat(
           currentNode.coordinates,
