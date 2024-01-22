@@ -4,6 +4,7 @@ interface CityBlock {
   visited: boolean;
   heatLoss: number;
   distanceFromLavaPool: number;
+  straightLine: string;
   coordinates: {
     x: number;
     y: number;
@@ -24,6 +25,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
         visited: false,
         heatLoss: parseInt(rawCityBlock),
         distanceFromLavaPool: Infinity,
+        straightLine: "",
         coordinates: { x, y },
       });
       x++;
@@ -32,6 +34,26 @@ const parseInput = async (): Promise<CityBlock[][]> => {
     y++;
   }
   return cityMap;
+};
+
+const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
+  let straightLine = currentNode.straightLine;
+  let currentDirection = "";
+  if (neighbor.coordinates.y < currentNode.coordinates.y) {
+    currentDirection = "N";
+  } else if (neighbor.coordinates.x > currentNode.coordinates.x) {
+    currentDirection = "E";
+  } else if (neighbor.coordinates.y > currentNode.coordinates.y) {
+    currentDirection = "S";
+  } else {
+    currentDirection = "W";
+  }
+  if (currentDirection === straightLine[0]) {
+    straightLine += currentDirection;
+  } else {
+    straightLine = currentDirection;
+  }
+  return straightLine;
 };
 
 const pseudoSolvePart1 = async (): Promise<number> => {
@@ -48,10 +70,14 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       cityBlock.coordinates.x - currentNode.coordinates.x <= 1
     );
     for (const neighbor of unvisitedNeighbors) {
-      neighbor.distanceFromLavaPool = Math.min(
-        neighbor.distanceFromLavaPool,
-        currentNode.distanceFromLavaPool + neighbor.heatLoss,
-      );
+      if (
+        currentNode.distanceFromLavaPool + neighbor.heatLoss <
+          neighbor.distanceFromLavaPool
+      ) {
+        neighbor.distanceFromLavaPool = currentNode.distanceFromLavaPool +
+          neighbor.heatLoss;
+        neighbor.straightLine = calculateStraightLine(currentNode, neighbor);
+      }
     }
     currentNode.visited = true;
     unvisitedBlocks.splice(unvisitedBlocks.indexOf(currentNode), 1);
