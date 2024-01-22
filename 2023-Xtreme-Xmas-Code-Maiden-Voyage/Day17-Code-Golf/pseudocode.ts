@@ -19,9 +19,13 @@ export const parseInput = async (): Promise<CityBlock[][]> => {
     const cityRow: CityBlock[] = [];
     let x = 0;
     for (const rawCityBlock of rawCityRow) {
+      let distanceFromLavaPool = Infinity;
+      if (x === 0 && y === 0) {
+        distanceFromLavaPool = 0;
+      }
       cityRow.push({
         heatLoss: parseInt(rawCityBlock),
-        distanceFromLavaPool: Infinity,
+        distanceFromLavaPool,
         coordinates: { x, y },
       });
       x++;
