@@ -41,6 +41,24 @@ const parseInput = async (): Promise<CityBlock[][]> => {
   return cityMap;
 };
 
+const getNeighbors = (currentNode: CityBlock, cityMap: CityBlock[][]) => {
+  const neighbors: CityBlock[] = [];
+  const { x, y } = currentNode.coordinates;
+  if (y > 0) {
+    neighbors.push(cityMap[y - 1][x]);
+  }
+  if (x < cityMap[0].length - 1) {
+    neighbors.push(cityMap[y][x + 1]);
+  }
+  if (y < cityMap.length - 1) {
+    neighbors.push(cityMap[y + 1][x]);
+  }
+  if (x > 0) {
+    neighbors.push(cityMap[y][x - 1]);
+  }
+  return neighbors;
+};
+
 const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
   let straightLine = currentNode.straightLine;
   let currentDirection = "";
@@ -70,9 +88,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   currentNode.distanceFromLavaPool = 0;
   const unvisitedBlocks = cityMap.flat();
   while (!machinePartsFactory.visited) {
-    const unvisitedNeighbors = unvisitedBlocks.filter((cityBlock) =>
-      cityBlock.coordinates.y - currentNode.coordinates.y <= 1 &&
-      cityBlock.coordinates.x - currentNode.coordinates.x <= 1
+    const unvisitedNeighbors = getNeighbors(currentNode, cityMap).filter(
+      (neighbor) => !neighbor.visited,
     );
     for (const neighbor of unvisitedNeighbors) {
       const straightLine = calculateStraightLine(currentNode, neighbor);
