@@ -59,15 +59,18 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       a.distanceFromLavaPool < b.distanceFromLavaPool ? a : b
     );
   }
-  return machinePartsFactory.distanceFromLavaPool;
-};
 
-export default (function (): Promise<number> {
-  const lowestPossibleHeatLoss = pseudoSolvePart1();
+  const lowestPossibleHeatLoss = machinePartsFactory.distanceFromLavaPool;
 
   console.log(
     `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
   );
 
   return lowestPossibleHeatLoss;
+};
+
+export default (function (): Promise<number> {
+  const result = pseudoSolvePart1();
+
+  return result;
 })();
