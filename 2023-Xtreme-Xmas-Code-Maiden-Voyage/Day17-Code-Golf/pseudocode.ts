@@ -1,18 +1,28 @@
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
-interface CityBlock {
-  visited: boolean;
-  heatLoss: number;
+interface Route {
   distanceFromLavaPool: number;
   straightLine: string;
-  coordinates: {
-    x: number;
-    y: number;
-  };
   path: {
     x: number;
     y: number;
   }[];
+}
+
+interface CityBlock {
+  visited: boolean;
+  heatLoss: number;
+  shortestRoute: Route;
+  routesByDirection: {
+    N: Route;
+    E: Route;
+    S: Route;
+    W: Route;
+  };
+  coordinates: {
+    x: number;
+    y: number;
+  };
 }
 
 const parseInput = async (): Promise<CityBlock[][]> => {
@@ -28,10 +38,34 @@ const parseInput = async (): Promise<CityBlock[][]> => {
       cityRow.push({
         visited: false,
         heatLoss: +rawCityBlock,
-        distanceFromLavaPool: Infinity,
-        straightLine: "",
+        shortestRoute: {
+          distanceFromLavaPool: Infinity,
+          straightLine: "",
+          path: [],
+        },
+        routesByDirection: {
+          N: {
+            distanceFromLavaPool: Infinity,
+            straightLine: "",
+            path: [],
+          },
+          E: {
+            distanceFromLavaPool: Infinity,
+            straightLine: "",
+            path: [],
+          },
+          S: {
+            distanceFromLavaPool: Infinity,
+            straightLine: "",
+            path: [],
+          },
+          W: {
+            distanceFromLavaPool: Infinity,
+            straightLine: "",
+            path: [],
+          },
+        },
         coordinates: { x, y },
-        path: [],
       });
       x++;
     }
@@ -60,7 +94,7 @@ const getNeighbors = (currentNode: CityBlock, cityMap: CityBlock[][]) => {
 };
 
 const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
-  let straightLine = currentNode.straightLine;
+  let straightLine = currentNode.shortestRoute.straightLine;
   let currentDirection = "";
   if (neighbor.coordinates.y < currentNode.coordinates.y) {
     currentDirection = "N";
@@ -85,40 +119,70 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
   let currentNode = lavaPool;
-  currentNode.distanceFromLavaPool = 0;
-  const unvisitedBlocks = cityMap.flat();
+  currentNode.shortestRoute.distanceFromLavaPool = 0;
+  const nodesToVisit: CityBlock[] = [];
   while (!machinePartsFactory.visited) {
     const unvisitedNeighbors = getNeighbors(currentNode, cityMap).filter(
       (neighbor) => !neighbor.visited,
     );
     for (const neighbor of unvisitedNeighbors) {
+      let comparedDistance: number;
       const straightLine = calculateStraightLine(currentNode, neighbor);
-      const prospectiveNeighborDistance = currentNode.distanceFromLavaPool +
+      const prospectiveNeighborDistance =
+        currentNode.shortestRoute.distanceFromLavaPool +
         neighbor.heatLoss;
-      if (
-        (prospectiveNeighborDistance <
-            neighbor.distanceFromLavaPool && straightLine.length < 4) ||
-        (prospectiveNeighborDistance ===
-            neighbor.distanceFromLavaPool &&
-          straightLine.length < neighbor.straightLine.length)
-      ) {
-        neighbor.distanceFromLavaPool = prospectiveNeighborDistance;
-        neighbor.straightLine = straightLine;
-        neighbor.path = currentNode.path.concat(
-          currentNode.coordinates,
-        );
+      switch (straightLine[0]) {
+        case "N":
+          comparedDistance = neighbor.routesByDirection.N.distanceFromLavaPool;
+          if (
+            (prospectiveNeighborDistance <
+                comparedDistance && straightLine.length < 4) ||
+            (prospectiveNeighborDistance ===
+                comparedDistance &&
+              straightLine.length <
+                neighbor.routesByDirection.N.straightLine.length)
+          ) {
+            neighbor.routesByDirection.N.distanceFromLavaPool =
+              prospectiveNeighborDistance;
+            neighbor.routesByDirection.N.straightLine = straightLine;
+            neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
+              .concat(
+                currentNode.coordinates,
+              );
+            if (
+              prospectiveNeighborDistance <
+                neighbor.shortestRoute.distanceFromLavaPool
+            ) {
+              neighbor.shortestRoute = neighbor.routesByDirection.N;
+            }
+          }
+          break;
+        case "E":
+          // comparedDistance = neighbor.distancesByDirection.E;
+          break;
+        case "S":
+          // comparedDistance = neighbor.distancesByDirection.S;
+          break;
+        case "W":
+          // comparedDistance = neighbor.distancesByDirection.W;
+          break;
+        default:
+          throw new Error("Invalid direction");
       }
     }
     currentNode.visited = true;
-    unvisitedBlocks.splice(unvisitedBlocks.indexOf(currentNode), 1);
-    currentNode = unvisitedBlocks.reduce((a, b) =>
-      a.distanceFromLavaPool < b.distanceFromLavaPool ? a : b
+    currentNode = nodesToVisit.reduce((a, b) =>
+      a.shortestRoute.distanceFromLavaPool <
+          b.shortestRoute.distanceFromLavaPool
+        ? a
+        : b
     );
   }
 
-  const lowestPossibleHeatLoss = machinePartsFactory.distanceFromLavaPool;
+  const lowestPossibleHeatLoss =
+    machinePartsFactory.shortestRoute.distanceFromLavaPool;
 
-  console.log(machinePartsFactory.path);
+  console.log(machinePartsFactory.shortestRoute.path);
 
   console.log(
     `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
