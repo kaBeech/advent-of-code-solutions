@@ -44,7 +44,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     const neighbors = getNeighbors(currentNode, cityMap);
     for (const rawNeighbor of neighbors) {
       const neighbor = rawNeighbor.block;
-      const straightLine = calculateStraightLine(currentNode.block, neighbor);
+      const straightLine = calculateStraightLine(currentNode, neighbor);
       switch (straightLine[0]) {
         case "N":
           compareDistance(
@@ -193,14 +193,14 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   return neighbors;
 };
 
-const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
-  let straightLine = currentNode.shortestRoute.straightLine;
+const calculateStraightLine = (currentNode: Node, neighbor: CityBlock) => {
+  let straightLine = currentNode.route.straightLine;
   let currentDirection = "";
-  if (neighbor.coordinates.y < currentNode.coordinates.y) {
+  if (neighbor.coordinates.y < currentNode.block.coordinates.y) {
     currentDirection = "N";
-  } else if (neighbor.coordinates.x > currentNode.coordinates.x) {
+  } else if (neighbor.coordinates.x > currentNode.block.coordinates.x) {
     currentDirection = "E";
-  } else if (neighbor.coordinates.y > currentNode.coordinates.y) {
+  } else if (neighbor.coordinates.y > currentNode.block.coordinates.y) {
     currentDirection = "S";
   } else {
     currentDirection = "W";
