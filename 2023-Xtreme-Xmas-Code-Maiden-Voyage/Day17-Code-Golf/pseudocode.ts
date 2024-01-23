@@ -10,7 +10,6 @@ interface Route {
 }
 
 interface CityBlock {
-  visited: boolean;
   heatLoss: number;
   shortestRoute: Route;
   routesByDirection: {
@@ -36,7 +35,6 @@ const parseInput = async (): Promise<CityBlock[][]> => {
     let x = 0;
     for (const rawCityBlock of rawCityRow) {
       cityRow.push({
-        visited: false,
         heatLoss: +rawCityBlock,
         shortestRoute: {
           distanceFromLavaPool: Infinity,
@@ -125,8 +123,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
   let currentNode = lavaPool;
   currentNode.shortestRoute.distanceFromLavaPool = 0;
-  const nodesToVisit: CityBlock[] = [];
-  while (!machinePartsFactory.visited) {
+  const nodesToVisit = getNeighbors(currentNode, cityMap);
+  while (nodesToVisit.length > 0) {
     const neighbors = getNeighbors(currentNode, cityMap);
     for (const neighbor of neighbors) {
       let comparedDistance: number;
@@ -173,7 +171,6 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           throw new Error("Invalid direction");
       }
     }
-    currentNode.visited = true;
     currentNode = nodesToVisit.reduce((a, b) =>
       a.shortestRoute.distanceFromLavaPool <
           b.shortestRoute.distanceFromLavaPool
