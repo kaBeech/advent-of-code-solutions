@@ -53,6 +53,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
             neighbor.routesByDirection.N,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
             nodesToVisit,
+            straightLine,
           );
           break;
         case "E":
@@ -62,6 +63,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
             neighbor.routesByDirection.E,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
             nodesToVisit,
+            straightLine,
           );
           break;
         case "S":
@@ -71,6 +73,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
             neighbor.routesByDirection.S,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
             nodesToVisit,
+            straightLine,
           );
           break;
         case "W":
@@ -80,6 +83,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
             neighbor.routesByDirection.W,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
             nodesToVisit,
+            straightLine,
           );
           break;
         default:
@@ -219,26 +223,27 @@ const compareDistance = (
   comparedRoute: Route,
   shortestRouteDistance: number,
   nodesToVisit: Node[],
+  straightLine: string,
 ) => {
   const prospectiveNeighborDistance = currentNode.route.distanceFromLavaPool +
     neighbor.heatLoss;
   const comparedDistance = comparedRoute.distanceFromLavaPool;
-  console.log(
-    `prospectiveNeighborDistance: ${prospectiveNeighborDistance}, comparedDistance: ${comparedDistance}`,
-  );
+  // console.log(
+  //   `prospectiveNeighborDistance: ${prospectiveNeighborDistance}, comparedDistance: ${comparedDistance}`,
+  // );
   if (
     prospectiveNeighborDistance <
           shortestRouteDistance &&
       (prospectiveNeighborDistance <
           comparedDistance &&
-        currentNode.route.straightLine.length < 4) ||
+        straightLine.length < 4) ||
     (prospectiveNeighborDistance ===
         comparedDistance &&
-      currentNode.route.straightLine.length <
+      straightLine.length <
         comparedRoute.straightLine.length)
   ) {
     comparedRoute.distanceFromLavaPool = prospectiveNeighborDistance;
-    comparedRoute.straightLine = currentNode.route.straightLine;
+    comparedRoute.straightLine = straightLine;
     comparedRoute.path = currentNode.route.path
       .concat(
         currentNode.block.coordinates,
