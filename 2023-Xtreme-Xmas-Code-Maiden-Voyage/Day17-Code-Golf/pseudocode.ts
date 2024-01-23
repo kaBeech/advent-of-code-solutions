@@ -78,16 +78,21 @@ const parseInput = async (): Promise<CityBlock[][]> => {
 const getNeighbors = (currentNode: CityBlock, cityMap: CityBlock[][]) => {
   const neighbors: CityBlock[] = [];
   const { x, y } = currentNode.coordinates;
-  if (y > 0) {
+  if (y > 0 && currentNode.shortestRoute.straightLine[0] !== "S") {
     neighbors.push(cityMap[y - 1][x]);
   }
-  if (x < cityMap[0].length - 1) {
+  if (
+    x < cityMap[0].length - 1 &&
+    currentNode.shortestRoute.straightLine[0] !== "W"
+  ) {
     neighbors.push(cityMap[y][x + 1]);
   }
-  if (y < cityMap.length - 1) {
+  if (
+    y < cityMap.length - 1 && currentNode.shortestRoute.straightLine[0] !== "N"
+  ) {
     neighbors.push(cityMap[y + 1][x]);
   }
-  if (x > 0) {
+  if (x > 0 && currentNode.shortestRoute.straightLine[0] !== "E") {
     neighbors.push(cityMap[y][x - 1]);
   }
   return neighbors;
@@ -122,10 +127,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   currentNode.shortestRoute.distanceFromLavaPool = 0;
   const nodesToVisit: CityBlock[] = [];
   while (!machinePartsFactory.visited) {
-    const unvisitedNeighbors = getNeighbors(currentNode, cityMap).filter(
-      (neighbor) => !neighbor.visited,
-    );
-    for (const neighbor of unvisitedNeighbors) {
+    const neighbors = getNeighbors(currentNode, cityMap);
+    for (const neighbor of neighbors) {
       let comparedDistance: number;
       const straightLine = calculateStraightLine(currentNode, neighbor);
       const prospectiveNeighborDistance =
