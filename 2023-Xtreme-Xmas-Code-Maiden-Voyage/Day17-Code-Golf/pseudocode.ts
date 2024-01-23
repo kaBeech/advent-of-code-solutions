@@ -24,42 +24,6 @@ interface CityBlock {
   };
 }
 
-const compareDistance = (
-  currentNode: CityBlock,
-  neighbor: CityBlock,
-  route: Route,
-  shortestRouteDistance: number,
-) => {
-  const prospectiveNeighborDistance =
-    currentNode.shortestRoute.distanceFromLavaPool +
-    neighbor.heatLoss;
-  const comparedDistance = route.distanceFromLavaPool;
-  if (
-    comparedDistance <
-          shortestRouteDistance &&
-      (prospectiveNeighborDistance <
-          comparedDistance &&
-        currentNode.shortestRoute.straightLine.length < 4) ||
-    (prospectiveNeighborDistance ===
-        comparedDistance &&
-      currentNode.shortestRoute.straightLine.length <
-        route.straightLine.length)
-  ) {
-    route.distanceFromLavaPool = prospectiveNeighborDistance;
-    route.straightLine = currentNode.shortestRoute.straightLine;
-    route.path = currentNode.shortestRoute.path
-      .concat(
-        currentNode.coordinates,
-      );
-    if (
-      prospectiveNeighborDistance <
-        neighbor.shortestRoute.distanceFromLavaPool
-    ) {
-      neighbor.shortestRoute = route;
-    }
-  }
-};
-
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
   const lavaPool = cityMap[0][0];
@@ -219,6 +183,42 @@ const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
     straightLine = currentDirection;
   }
   return straightLine;
+};
+
+const compareDistance = (
+  currentNode: CityBlock,
+  neighbor: CityBlock,
+  route: Route,
+  shortestRouteDistance: number,
+) => {
+  const prospectiveNeighborDistance =
+    currentNode.shortestRoute.distanceFromLavaPool +
+    neighbor.heatLoss;
+  const comparedDistance = route.distanceFromLavaPool;
+  if (
+    comparedDistance <
+          shortestRouteDistance &&
+      (prospectiveNeighborDistance <
+          comparedDistance &&
+        currentNode.shortestRoute.straightLine.length < 4) ||
+    (prospectiveNeighborDistance ===
+        comparedDistance &&
+      currentNode.shortestRoute.straightLine.length <
+        route.straightLine.length)
+  ) {
+    route.distanceFromLavaPool = prospectiveNeighborDistance;
+    route.straightLine = currentNode.shortestRoute.straightLine;
+    route.path = currentNode.shortestRoute.path
+      .concat(
+        currentNode.coordinates,
+      );
+    if (
+      prospectiveNeighborDistance <
+        neighbor.shortestRoute.distanceFromLavaPool
+    ) {
+      neighbor.shortestRoute = route;
+    }
+  }
 };
 
 export default (function (): Promise<number> {
