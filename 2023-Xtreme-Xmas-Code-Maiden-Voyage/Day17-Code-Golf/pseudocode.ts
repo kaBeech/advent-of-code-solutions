@@ -9,7 +9,7 @@ interface CityBlock {
     x: number;
     y: number;
   };
-  visitedCoordinates: {
+  path: {
     x: number;
     y: number;
   }[];
@@ -31,7 +31,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
         distanceFromLavaPool: Infinity,
         straightLine: "",
         coordinates: { x, y },
-        visitedCoordinates: [],
+        path: [],
       });
       x++;
     }
@@ -104,7 +104,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       ) {
         neighbor.distanceFromLavaPool = prospectiveNeighborDistance;
         neighbor.straightLine = straightLine;
-        neighbor.visitedCoordinates = currentNode.visitedCoordinates.concat(
+        neighbor.path = currentNode.path.concat(
           currentNode.coordinates,
         );
       }
@@ -118,7 +118,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 
   const lowestPossibleHeatLoss = machinePartsFactory.distanceFromLavaPool;
 
-  console.log(machinePartsFactory.visitedCoordinates);
+  console.log(machinePartsFactory.path);
 
   console.log(
     `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
