@@ -223,14 +223,14 @@ const compareDistance = (
   // );
   if (
     prospectiveNeighborDistance <
-          shortestRouteDistance &&
-      (prospectiveNeighborDistance <
+      shortestRouteDistance &&
+    straightLine.length < 4 &&
+    (prospectiveNeighborDistance <
+        comparedDistance ||
+      (prospectiveNeighborDistance ===
           comparedDistance &&
-        straightLine.length < 4) ||
-    (prospectiveNeighborDistance ===
-        comparedDistance &&
-      straightLine.length <
-        comparedRoute.straightLine.length)
+        straightLine.length <
+          comparedRoute.straightLine.length))
   ) {
     comparedRoute.distanceFromLavaPool = prospectiveNeighborDistance;
     comparedRoute.straightLine = straightLine;
