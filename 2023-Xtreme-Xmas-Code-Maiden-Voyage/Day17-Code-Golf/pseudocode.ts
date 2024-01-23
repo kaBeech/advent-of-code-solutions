@@ -34,13 +34,12 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  let currentNode: Node = {
+  const nodesToVisit = [{
     block: lavaPool,
     route: { distanceFromLavaPool: 0, straightLine: "", path: [] },
-  };
-  currentNode.route.distanceFromLavaPool = 0;
-  const nodesToVisit = getNeighbors(currentNode, cityMap);
+  }];
   while (nodesToVisit.length > 0) {
+    const currentNode = nodesToVisit.shift()!;
     const neighbors = getNeighbors(currentNode, cityMap);
     for (const rawNeighbor of neighbors) {
       const neighbor = rawNeighbor.block;
@@ -89,15 +88,6 @@ const pseudoSolvePart1 = async (): Promise<number> => {
         default:
           throw new Error("Invalid direction");
       }
-    }
-    nodesToVisit.splice(nodesToVisit.indexOf(currentNode), 1);
-    if (nodesToVisit.length > 0) {
-      currentNode = nodesToVisit.reduce((a, b) =>
-        a.block.shortestRoute.distanceFromLavaPool <
-            b.block.shortestRoute.distanceFromLavaPool
-          ? a
-          : b
-      );
     }
   }
 
