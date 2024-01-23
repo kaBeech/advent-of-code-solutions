@@ -48,47 +48,53 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       switch (straightLine[0]) {
         case "N":
           compareDistance(
-            currentNode.block,
+            currentNode,
             neighbor,
             neighbor.routesByDirection.N,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
+            nodesToVisit,
           );
           break;
         case "E":
           compareDistance(
-            currentNode.block,
+            currentNode,
             neighbor,
             neighbor.routesByDirection.E,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
+            nodesToVisit,
           );
           break;
         case "S":
           compareDistance(
-            currentNode.block,
+            currentNode,
             neighbor,
             neighbor.routesByDirection.S,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
+            nodesToVisit,
           );
           break;
         case "W":
           compareDistance(
-            currentNode.block,
+            currentNode,
             neighbor,
             neighbor.routesByDirection.W,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
+            nodesToVisit,
           );
           break;
         default:
           throw new Error("Invalid direction");
       }
     }
-
-    currentNode = nodesToVisit.reduce((a, b) =>
-      a.block.shortestRoute.distanceFromLavaPool <
-          b.block.shortestRoute.distanceFromLavaPool
-        ? a
-        : b
-    );
+    nodesToVisit.splice(nodesToVisit.indexOf(currentNode), 1);
+    if (nodesToVisit.length > 0) {
+      currentNode = nodesToVisit.reduce((a, b) =>
+        a.block.shortestRoute.distanceFromLavaPool <
+            b.block.shortestRoute.distanceFromLavaPool
+          ? a
+          : b
+      );
+    }
   }
 
   const lowestPossibleHeatLoss =
@@ -208,39 +214,47 @@ const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
 };
 
 const compareDistance = (
-  currentNode: CityBlock,
+  currentNode: Node,
   neighbor: CityBlock,
-  route: Route,
+  comparedRoute: Route,
   shortestRouteDistance: number,
+  nodesToVisit: Node[],
 ) => {
-  const prospectiveNeighborDistance =
-    currentNode.shortestRoute.distanceFromLavaPool +
+  const prospectiveNeighborDistance = currentNode.route.distanceFromLavaPool +
     neighbor.heatLoss;
-  const comparedDistance = route.distanceFromLavaPool;
+  const comparedDistance = comparedRoute.distanceFromLavaPool;
+  console.log(
+    `prospectiveNeighborDistance: ${prospectiveNeighborDistance}, comparedDistance: ${comparedDistance}`,
+  );
   if (
-    comparedDistance <
+    prospectiveNeighborDistance <
           shortestRouteDistance &&
       (prospectiveNeighborDistance <
           comparedDistance &&
-        currentNode.shortestRoute.straightLine.length < 4) ||
+        currentNode.route.straightLine.length < 4) ||
     (prospectiveNeighborDistance ===
         comparedDistance &&
-      currentNode.shortestRoute.straightLine.length <
-        route.straightLine.length)
+      currentNode.route.straightLine.length <
+        comparedRoute.straightLine.length)
   ) {
-    route.distanceFromLavaPool = prospectiveNeighborDistance;
-    route.straightLine = currentNode.shortestRoute.straightLine;
-    route.path = currentNode.shortestRoute.path
+    comparedRoute.distanceFromLavaPool = prospectiveNeighborDistance;
+    comparedRoute.straightLine = currentNode.route.straightLine;
+    comparedRoute.path = currentNode.route.path
       .concat(
-        currentNode.coordinates,
+        currentNode.block.coordinates,
       );
     if (
-      prospectiveNeighborDistance <
+      prospectiveNeighborDistance <=
         neighbor.shortestRoute.distanceFromLavaPool
     ) {
-      neighbor.shortestRoute = route;
+      neighbor.shortestRoute = comparedRoute;
     }
+    nodesToVisit.push({
+      block: neighbor,
+      route: comparedRoute,
+    });
   }
+  return nodesToVisit;
 };
 
 export default (function (): Promise<number> {
