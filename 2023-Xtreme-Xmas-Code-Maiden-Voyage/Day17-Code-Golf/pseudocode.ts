@@ -136,25 +136,30 @@ const pseudoSolvePart1 = async (): Promise<number> => {
         case "N":
           comparedDistance = neighbor.routesByDirection.N.distanceFromLavaPool;
           if (
-            (prospectiveNeighborDistance <
-                comparedDistance && straightLine.length < 4) ||
-            (prospectiveNeighborDistance ===
-                comparedDistance &&
-              straightLine.length <
-                neighbor.routesByDirection.N.straightLine.length)
+            comparedDistance <
+              machinePartsFactory.shortestRoute.distanceFromLavaPool
           ) {
-            neighbor.routesByDirection.N.distanceFromLavaPool =
-              prospectiveNeighborDistance;
-            neighbor.routesByDirection.N.straightLine = straightLine;
-            neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
-              .concat(
-                currentNode.coordinates,
-              );
             if (
-              prospectiveNeighborDistance <
-                neighbor.shortestRoute.distanceFromLavaPool
+              (prospectiveNeighborDistance <
+                  comparedDistance && straightLine.length < 4) ||
+              (prospectiveNeighborDistance ===
+                  comparedDistance &&
+                straightLine.length <
+                  neighbor.routesByDirection.N.straightLine.length)
             ) {
-              neighbor.shortestRoute = neighbor.routesByDirection.N;
+              neighbor.routesByDirection.N.distanceFromLavaPool =
+                prospectiveNeighborDistance;
+              neighbor.routesByDirection.N.straightLine = straightLine;
+              neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
+                .concat(
+                  currentNode.coordinates,
+                );
+              if (
+                prospectiveNeighborDistance <
+                  neighbor.shortestRoute.distanceFromLavaPool
+              ) {
+                neighbor.shortestRoute = neighbor.routesByDirection.N;
+              }
             }
           }
           break;
