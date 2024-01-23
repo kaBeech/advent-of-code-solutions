@@ -24,6 +24,86 @@ interface CityBlock {
   };
 }
 
+const pseudoSolvePart1 = async (): Promise<number> => {
+  const cityMap = await parseInput();
+  const lavaPool = cityMap[0][0];
+  const machinePartsFactory =
+    cityMap[cityMap.length - 1][cityMap[0].length - 1];
+  let currentNode = lavaPool;
+  currentNode.shortestRoute.distanceFromLavaPool = 0;
+  const nodesToVisit = getNeighbors(currentNode, cityMap);
+  while (nodesToVisit.length > 0) {
+    const neighbors = getNeighbors(currentNode, cityMap);
+    for (const neighbor of neighbors) {
+      let comparedDistance: number;
+      const straightLine = calculateStraightLine(currentNode, neighbor);
+      const prospectiveNeighborDistance =
+        currentNode.shortestRoute.distanceFromLavaPool +
+        neighbor.heatLoss;
+      switch (straightLine[0]) {
+        case "N":
+          comparedDistance = neighbor.routesByDirection.N.distanceFromLavaPool;
+          if (
+            comparedDistance <
+              machinePartsFactory.shortestRoute.distanceFromLavaPool
+          ) {
+            if (
+              (prospectiveNeighborDistance <
+                  comparedDistance && straightLine.length < 4) ||
+              (prospectiveNeighborDistance ===
+                  comparedDistance &&
+                straightLine.length <
+                  neighbor.routesByDirection.N.straightLine.length)
+            ) {
+              neighbor.routesByDirection.N.distanceFromLavaPool =
+                prospectiveNeighborDistance;
+              neighbor.routesByDirection.N.straightLine = straightLine;
+              neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
+                .concat(
+                  currentNode.coordinates,
+                );
+              if (
+                prospectiveNeighborDistance <
+                  neighbor.shortestRoute.distanceFromLavaPool
+              ) {
+                neighbor.shortestRoute = neighbor.routesByDirection.N;
+              }
+            }
+          }
+          break;
+        case "E":
+          // comparedDistance = neighbor.distancesByDirection.E;
+          break;
+        case "S":
+          // comparedDistance = neighbor.distancesByDirection.S;
+          break;
+        case "W":
+          // comparedDistance = neighbor.distancesByDirection.W;
+          break;
+        default:
+          throw new Error("Invalid direction");
+      }
+    }
+    currentNode = nodesToVisit.reduce((a, b) =>
+      a.shortestRoute.distanceFromLavaPool <
+          b.shortestRoute.distanceFromLavaPool
+        ? a
+        : b
+    );
+  }
+
+  const lowestPossibleHeatLoss =
+    machinePartsFactory.shortestRoute.distanceFromLavaPool;
+
+  console.log(machinePartsFactory.shortestRoute.path);
+
+  console.log(
+    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
+  );
+
+  return lowestPossibleHeatLoss;
+};
+
 const parseInput = async (): Promise<CityBlock[][]> => {
   const cityMap: CityBlock[][] = [];
   const cityMapString = await convertMultiLineFileToDoubleArray(
@@ -114,86 +194,6 @@ const calculateStraightLine = (currentNode: CityBlock, neighbor: CityBlock) => {
     straightLine = currentDirection;
   }
   return straightLine;
-};
-
-const pseudoSolvePart1 = async (): Promise<number> => {
-  const cityMap = await parseInput();
-  const lavaPool = cityMap[0][0];
-  const machinePartsFactory =
-    cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  let currentNode = lavaPool;
-  currentNode.shortestRoute.distanceFromLavaPool = 0;
-  const nodesToVisit = getNeighbors(currentNode, cityMap);
-  while (nodesToVisit.length > 0) {
-    const neighbors = getNeighbors(currentNode, cityMap);
-    for (const neighbor of neighbors) {
-      let comparedDistance: number;
-      const straightLine = calculateStraightLine(currentNode, neighbor);
-      const prospectiveNeighborDistance =
-        currentNode.shortestRoute.distanceFromLavaPool +
-        neighbor.heatLoss;
-      switch (straightLine[0]) {
-        case "N":
-          comparedDistance = neighbor.routesByDirection.N.distanceFromLavaPool;
-          if (
-            comparedDistance <
-              machinePartsFactory.shortestRoute.distanceFromLavaPool
-          ) {
-            if (
-              (prospectiveNeighborDistance <
-                  comparedDistance && straightLine.length < 4) ||
-              (prospectiveNeighborDistance ===
-                  comparedDistance &&
-                straightLine.length <
-                  neighbor.routesByDirection.N.straightLine.length)
-            ) {
-              neighbor.routesByDirection.N.distanceFromLavaPool =
-                prospectiveNeighborDistance;
-              neighbor.routesByDirection.N.straightLine = straightLine;
-              neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
-                .concat(
-                  currentNode.coordinates,
-                );
-              if (
-                prospectiveNeighborDistance <
-                  neighbor.shortestRoute.distanceFromLavaPool
-              ) {
-                neighbor.shortestRoute = neighbor.routesByDirection.N;
-              }
-            }
-          }
-          break;
-        case "E":
-          // comparedDistance = neighbor.distancesByDirection.E;
-          break;
-        case "S":
-          // comparedDistance = neighbor.distancesByDirection.S;
-          break;
-        case "W":
-          // comparedDistance = neighbor.distancesByDirection.W;
-          break;
-        default:
-          throw new Error("Invalid direction");
-      }
-    }
-    currentNode = nodesToVisit.reduce((a, b) =>
-      a.shortestRoute.distanceFromLavaPool <
-          b.shortestRoute.distanceFromLavaPool
-        ? a
-        : b
-    );
-  }
-
-  const lowestPossibleHeatLoss =
-    machinePartsFactory.shortestRoute.distanceFromLavaPool;
-
-  console.log(machinePartsFactory.shortestRoute.path);
-
-  console.log(
-    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
-  );
-
-  return lowestPossibleHeatLoss;
 };
 
 export default (function (): Promise<number> {
