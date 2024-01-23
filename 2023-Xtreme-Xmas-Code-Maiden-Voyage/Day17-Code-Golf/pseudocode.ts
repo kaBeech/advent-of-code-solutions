@@ -46,7 +46,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       const straightLine = calculateStraightLine(currentNode, neighbor);
       switch (straightLine[0]) {
         case "N":
-          compareDistance(
+          neighbor.routesByDirection.N = compareDistance(
             currentNode,
             neighbor,
             neighbor.routesByDirection.N,
@@ -56,7 +56,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           );
           break;
         case "E":
-          compareDistance(
+          neighbor.routesByDirection.E = compareDistance(
             currentNode,
             neighbor,
             neighbor.routesByDirection.E,
@@ -66,7 +66,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           );
           break;
         case "S":
-          compareDistance(
+          neighbor.routesByDirection.S = compareDistance(
             currentNode,
             neighbor,
             neighbor.routesByDirection.S,
@@ -76,7 +76,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           );
           break;
         case "W":
-          compareDistance(
+          neighbor.routesByDirection.W = compareDistance(
             currentNode,
             neighbor,
             neighbor.routesByDirection.W,
@@ -249,7 +249,7 @@ const compareDistance = (
       route: comparedRoute,
     });
   }
-  return nodesToVisit;
+  return comparedRoute;
 };
 
 export default (function (): Promise<number> {
