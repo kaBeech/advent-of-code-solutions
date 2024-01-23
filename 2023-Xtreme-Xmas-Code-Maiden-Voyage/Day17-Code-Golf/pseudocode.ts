@@ -24,6 +24,42 @@ interface CityBlock {
   };
 }
 
+const compareDistance = (
+  currentNode: CityBlock,
+  neighbor: CityBlock,
+  route: Route,
+  shortestRouteDistance: number,
+) => {
+  const prospectiveNeighborDistance =
+    currentNode.shortestRoute.distanceFromLavaPool +
+    neighbor.heatLoss;
+  const comparedDistance = route.distanceFromLavaPool;
+  if (
+    comparedDistance <
+          shortestRouteDistance &&
+      (prospectiveNeighborDistance <
+          comparedDistance &&
+        currentNode.shortestRoute.straightLine.length < 4) ||
+    (prospectiveNeighborDistance ===
+        comparedDistance &&
+      currentNode.shortestRoute.straightLine.length <
+        route.straightLine.length)
+  ) {
+    route.distanceFromLavaPool = prospectiveNeighborDistance;
+    route.straightLine = currentNode.shortestRoute.straightLine;
+    route.path = currentNode.shortestRoute.path
+      .concat(
+        currentNode.coordinates,
+      );
+    if (
+      prospectiveNeighborDistance <
+        neighbor.shortestRoute.distanceFromLavaPool
+    ) {
+      neighbor.shortestRoute = route;
+    }
+  }
+};
+
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
   const lavaPool = cityMap[0][0];
@@ -35,50 +71,39 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   while (nodesToVisit.length > 0) {
     const neighbors = getNeighbors(currentNode, cityMap);
     for (const neighbor of neighbors) {
-      let comparedDistance: number;
       const straightLine = calculateStraightLine(currentNode, neighbor);
-      const prospectiveNeighborDistance =
-        currentNode.shortestRoute.distanceFromLavaPool +
-        neighbor.heatLoss;
       switch (straightLine[0]) {
         case "N":
-          comparedDistance = neighbor.routesByDirection.N.distanceFromLavaPool;
-          if (
-            comparedDistance <
-              machinePartsFactory.shortestRoute.distanceFromLavaPool
-          ) {
-            if (
-              (prospectiveNeighborDistance <
-                  comparedDistance && straightLine.length < 4) ||
-              (prospectiveNeighborDistance ===
-                  comparedDistance &&
-                straightLine.length <
-                  neighbor.routesByDirection.N.straightLine.length)
-            ) {
-              neighbor.routesByDirection.N.distanceFromLavaPool =
-                prospectiveNeighborDistance;
-              neighbor.routesByDirection.N.straightLine = straightLine;
-              neighbor.routesByDirection.N.path = currentNode.shortestRoute.path
-                .concat(
-                  currentNode.coordinates,
-                );
-              if (
-                prospectiveNeighborDistance <
-                  neighbor.shortestRoute.distanceFromLavaPool
-              ) {
-                neighbor.shortestRoute = neighbor.routesByDirection.N;
-              }
-            }
-          }
+          compareDistance(
+            currentNode,
+            neighbor,
+            neighbor.routesByDirection.N,
+            machinePartsFactory.shortestRoute.distanceFromLavaPool,
+          );
           break;
         case "E":
-          // comparedDistance = neighbor.distancesByDirection.E;
+          compareDistance(
+            currentNode,
+            neighbor,
+            neighbor.routesByDirection.E,
+            machinePartsFactory.shortestRoute.distanceFromLavaPool,
+          );
           break;
         case "S":
-          // comparedDistance = neighbor.distancesByDirection.S;
+          compareDistance(
+            currentNode,
+            neighbor,
+            neighbor.routesByDirection.S,
+            machinePartsFactory.shortestRoute.distanceFromLavaPool,
+          );
           break;
         case "W":
-          // comparedDistance = neighbor.distancesByDirection.W;
+          compareDistance(
+            currentNode,
+            neighbor,
+            neighbor.routesByDirection.W,
+            machinePartsFactory.shortestRoute.distanceFromLavaPool,
+          );
           break;
         default:
           throw new Error("Invalid direction");
