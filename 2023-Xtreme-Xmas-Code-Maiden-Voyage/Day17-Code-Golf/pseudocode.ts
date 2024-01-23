@@ -24,22 +24,31 @@ interface CityBlock {
   };
 }
 
+interface Node {
+  block: CityBlock;
+  route: Route;
+}
+
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
   const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  let currentNode = lavaPool;
-  currentNode.shortestRoute.distanceFromLavaPool = 0;
+  let currentNode: Node = {
+    block: lavaPool,
+    route: { distanceFromLavaPool: 0, straightLine: "", path: [] },
+  };
+  currentNode.route.distanceFromLavaPool = 0;
   const nodesToVisit = getNeighbors(currentNode, cityMap);
   while (nodesToVisit.length > 0) {
     const neighbors = getNeighbors(currentNode, cityMap);
-    for (const neighbor of neighbors) {
-      const straightLine = calculateStraightLine(currentNode, neighbor);
+    for (const rawNeighbor of neighbors) {
+      const neighbor = rawNeighbor.block;
+      const straightLine = calculateStraightLine(currentNode.block, neighbor);
       switch (straightLine[0]) {
         case "N":
           compareDistance(
-            currentNode,
+            currentNode.block,
             neighbor,
             neighbor.routesByDirection.N,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
@@ -47,7 +56,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           break;
         case "E":
           compareDistance(
-            currentNode,
+            currentNode.block,
             neighbor,
             neighbor.routesByDirection.E,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
@@ -55,7 +64,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           break;
         case "S":
           compareDistance(
-            currentNode,
+            currentNode.block,
             neighbor,
             neighbor.routesByDirection.S,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
@@ -63,7 +72,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           break;
         case "W":
           compareDistance(
-            currentNode,
+            currentNode.block,
             neighbor,
             neighbor.routesByDirection.W,
             machinePartsFactory.shortestRoute.distanceFromLavaPool,
@@ -73,9 +82,10 @@ const pseudoSolvePart1 = async (): Promise<number> => {
           throw new Error("Invalid direction");
       }
     }
+
     currentNode = nodesToVisit.reduce((a, b) =>
-      a.shortestRoute.distanceFromLavaPool <
-          b.shortestRoute.distanceFromLavaPool
+      a.block.shortestRoute.distanceFromLavaPool <
+          b.block.shortestRoute.distanceFromLavaPool
         ? a
         : b
     );
@@ -142,25 +152,37 @@ const parseInput = async (): Promise<CityBlock[][]> => {
   return cityMap;
 };
 
-const getNeighbors = (currentNode: CityBlock, cityMap: CityBlock[][]) => {
-  const neighbors: CityBlock[] = [];
-  const { x, y } = currentNode.coordinates;
-  if (y > 0 && currentNode.shortestRoute.straightLine[0] !== "S") {
-    neighbors.push(cityMap[y - 1][x]);
+const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
+  const neighbors: Node[] = [];
+  const { x, y } = currentNode.block.coordinates;
+  if (y > 0 && currentNode.route.straightLine[0] !== "S") {
+    neighbors.push({
+      block: cityMap[y - 1][x],
+      route: cityMap[y - 1][x].routesByDirection.N,
+    });
   }
   if (
     x < cityMap[0].length - 1 &&
-    currentNode.shortestRoute.straightLine[0] !== "W"
+    currentNode.route.straightLine[0] !== "W"
   ) {
-    neighbors.push(cityMap[y][x + 1]);
+    neighbors.push({
+      block: cityMap[y][x + 1],
+      route: cityMap[y][x + 1].routesByDirection.E,
+    });
   }
   if (
-    y < cityMap.length - 1 && currentNode.shortestRoute.straightLine[0] !== "N"
+    y < cityMap.length - 1 && currentNode.route.straightLine[0] !== "N"
   ) {
-    neighbors.push(cityMap[y + 1][x]);
+    neighbors.push({
+      block: cityMap[y + 1][x],
+      route: cityMap[y + 1][x].routesByDirection.S,
+    });
   }
-  if (x > 0 && currentNode.shortestRoute.straightLine[0] !== "E") {
-    neighbors.push(cityMap[y][x - 1]);
+  if (x > 0 && currentNode.route.straightLine[0] !== "E") {
+    neighbors.push({
+      block: cityMap[y][x - 1],
+      route: cityMap[y][x - 1].routesByDirection.W,
+    });
   }
   return neighbors;
 };
