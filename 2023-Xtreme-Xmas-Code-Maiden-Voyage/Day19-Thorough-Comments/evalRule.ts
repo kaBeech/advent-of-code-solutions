@@ -5,6 +5,7 @@ export default (
   part: Part,
   rule: Rule,
 ): boolean => {
+  // Evaluate whether the part passes the rule based on which category we're evaluating.
   switch (rule.category) {
     case `x`:
       if (evalRuleByCategory(part.x, rule)) {
