@@ -9,14 +9,13 @@ export default async (): Promise<ParsedInput> => {
   const workflows: Workflow[] = [];
   const parts: Part[] = [];
 
-  for (let rawWorkflow of rawWorkflows) {
+  for (const rawWorkflow of rawWorkflows) {
     let splitWorkflow = rawWorkflow.split("{");
     const workflowName = rawWorkflow.split("{")[0];
     splitWorkflow = splitWorkflow[1].slice(0, -1).split(",");
-    const endDestination = splitWorkflow.pop();
+    const endDestination = splitWorkflow.pop()!;
     const rules: Rule[] = [];
-    const rawRules = rawWorkflow.split(" ").slice(2);
-    for (let rawRule of splitWorkflow) {
+    for (const rawRule of splitWorkflow) {
       const rule: Rule = {
         category: rawRule[0] as `x` | `m` | `a` | `s`,
         comparison: rawRule[1] as `>` | `<`,
@@ -24,6 +23,11 @@ export default async (): Promise<ParsedInput> => {
       };
       rules.push(rule);
     }
+    workflows.push({
+      name: workflowName,
+      rules,
+      endDestination,
+    });
   }
 
   for (let rawPart of rawParts) {
