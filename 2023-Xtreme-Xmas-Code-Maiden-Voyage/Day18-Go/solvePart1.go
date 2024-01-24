@@ -27,30 +27,21 @@ func check(e error) {
     }
 }
 
-func extractFirstNumberFromString(input string) (int) {
-	regex := regexp.MustCompile(`(\d+)`)
-
-	match := regex.FindStringSubmatch(input)
-
-	if len(match) < 2 {
-		return 0
-	}
-
-	// Convert the string to an integer
-	matchedNumber, err := strconv.Atoi(match[1])
-	if err != nil {
-		return 0
-	}
-
-	return matchedNumber
-}
-
-
 func main() {
     fmt.Println("Part 1: The lagoon can hold", solvePart1(), "cubic meters of lava.")
 }
 
 func solvePart1() int {
+	path, perimeterLength := tracePath()
+
+	numberOfInteriorLagoonTiles := getAreaUsingShoelaceFormula(path)
+
+	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles + perimeterLength / 2 + 1
+	
+	return numberOfLagoonTiles
+}
+
+func tracePath() ([]XYCoordinates, int) {
 	var path []XYCoordinates = []XYCoordinates{
 		XYCoordinates{0, 0},
 	}
@@ -82,8 +73,28 @@ func solvePart1() int {
 		}
 		path = append(path, currentCoordinates)
 	}
+	return path, perimeterLength
+}
 
-	// Use the shoelace formula to find the number of interior lagoon tiles
+func extractFirstNumberFromString(input string) (int) {
+	regex := regexp.MustCompile(`(\d+)`)
+
+	match := regex.FindStringSubmatch(input)
+
+	if len(match) < 2 {
+		return 0
+	}
+
+	// Convert the string to an integer
+	matchedNumber, err := strconv.Atoi(match[1])
+	if err != nil {
+		return 0
+	}
+
+	return matchedNumber
+}
+
+func getAreaUsingShoelaceFormula(path []XYCoordinates) int {
 	var sum1 int = 0
 	var sum2 int = 0
 	for i := range path {
@@ -92,12 +103,9 @@ func solvePart1() int {
 			sum2 += path[i].y * path[i+1].x
 		}
 	}
-	var numberOfInteriorLagoonTiles int = (sum1 - sum2) / 2
-	if numberOfInteriorLagoonTiles < 0 {
-		numberOfInteriorLagoonTiles = -numberOfInteriorLagoonTiles
+	var area int = (sum1 - sum2) / 2
+	if area < 0 {
+		area = -area
 	}
-
-	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles + perimeterLength / 2 + 1
-	
-	return numberOfLagoonTiles
+	return area
 }
