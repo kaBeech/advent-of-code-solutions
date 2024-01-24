@@ -10,8 +10,11 @@ export default async (): Promise<ParsedInput> => {
   const parts: Part[] = [];
 
   for (let rawWorkflow of rawWorkflows) {
-    const splitWorkflow = rawWorkflow.split("{");
+    let splitWorkflow = rawWorkflow.split("{");
     const workflowName = rawWorkflow.split("{")[0];
+    splitWorkflow = splitWorkflow[1].slice(0, -1).split(",");
+    const endDestination = splitWorkflow.pop();
+    const rules = splitWorkflow;
   }
 
   for (let rawPart of rawParts) {
