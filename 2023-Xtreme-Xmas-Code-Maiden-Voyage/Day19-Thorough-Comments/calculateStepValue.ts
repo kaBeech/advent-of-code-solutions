@@ -13,10 +13,16 @@ export default (
       stepValue = 4000 - part[category];
     } else {
       stepValue = value - part[category];
+      if (stepValue < 1) {
+        stepValue = 1;
+      }
     }
   } else {
     if (comparison === `>`) {
       stepValue = value - part[category];
+      if (stepValue < 1) {
+        stepValue = 1;
+      }
     } else {
       stepValue = 4000 - part[category];
     }
