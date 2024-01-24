@@ -34,19 +34,19 @@ func solvePart1() int {
 	}
 
 	// Trace the path given by the directions for the lagoon walls
+	var currentCoordinates XYCoordinates = path[len(path)-1]
 	for _, direction := range directions {
-		var newCoordinates XYCoordinates = path[len(path)-1]
 		switch direction[0] {
 			case 'R':
-				newCoordinates.x += int(direction[2] - '0')
+				currentCoordinates.x += int(direction[2] - '0')
 			case 'L':
-				newCoordinates.x -= int(direction[2] - '0')
+				currentCoordinates.x -= int(direction[2] - '0')
 			case 'U':
-				newCoordinates.y += int(direction[2] - '0')
+				currentCoordinates.y += int(direction[2] - '0')
 			case 'D':
-				newCoordinates.y -= int(direction[2] - '0')
+				currentCoordinates.y -= int(direction[2] - '0')
 		}
-		path = append(path, newCoordinates)
+		path = append(path, currentCoordinates)
 	}	
 
 	// Find the minimum and maximum x and y values of the lagoon walls
