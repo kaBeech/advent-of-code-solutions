@@ -29,7 +29,7 @@ export default (async function (): Promise<number> {
   }
 
   console.log(
-    `Part 1: The sum of all rating numbers for all parts is ${sumTotal}`,
+    `Part 2: The number of distinct combinations of acceptable ratings is ${sumTotal}`,
   );
 
   return sumTotal;
