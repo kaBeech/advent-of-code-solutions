@@ -1,8 +1,10 @@
 export type Category = `x` | `m` | `a` | `s`;
 
+export type Comparison = `>` | `<`;
+
 export interface Rule {
   category: Category;
-  comparison: `>` | `<`;
+  comparison: Comparison;
   value: number;
   destination: string;
 }
