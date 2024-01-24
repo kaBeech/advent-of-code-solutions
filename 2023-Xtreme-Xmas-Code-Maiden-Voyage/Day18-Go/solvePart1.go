@@ -33,6 +33,7 @@ func solvePart1() int {
 		"U 2 (#7a21e3)",
 	}
 
+	// Trace the path given by the directions for the lagoon walls
 	for _, direction := range directions {
 		var newCoordinates XYCoordinates = path[len(path)-1]
 		switch direction[0] {
@@ -48,6 +49,7 @@ func solvePart1() int {
 		path = append(path, newCoordinates)
 	}	
 
+	// Find the minimum and maximum x and y values of the lagoon walls
 	var minX, maxX, minY, maxY int = 0, 0, 0, 0
 	for _, coordinates := range path {
 		if coordinates.x < minX {
