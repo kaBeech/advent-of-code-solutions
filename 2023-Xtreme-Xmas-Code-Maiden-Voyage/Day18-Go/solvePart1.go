@@ -63,11 +63,13 @@ func solvePart1() int {
 	buf := make([]byte, maxCapacity)
 	scanner.Buffer(buf, maxCapacity)
 
-	// Trace the path given by the directions for the lagoon walls
+	// Trace the path given by the directions for the lagoon walls 
 	var currentCoordinates XYCoordinates = path[len(path)-1]
+	var perimeterLength int = 0
 	for scanner.Scan() {
 		directionLine := scanner.Text()
 		var sideLength int = extractFirstNumberFromString(directionLine)
+		perimeterLength += sideLength
 		switch directionLine[0] {
 			case 'R':
 				currentCoordinates.x += sideLength
