@@ -1,26 +1,16 @@
 import evalRule from "./evalRule.ts";
-import { Part, Workflow } from "./types.ts";
+import evalWorkflow from "./evalWorkflow.ts";
+import processDestination from "./processDestination.ts";
+import { Part, Rule, Workflow } from "./types.ts";
 
 export default (
   part: Part,
   workflow: Workflow,
   workflows: Workflow[],
+  rule: Rule,
 ): boolean => {
-  for (const rule of workflow.rules) {
-    if (evalRule(part, rule)) {
-      switch (rule.destination) {
-        case `A`:
-          return true;
-        case `R`:
-          return false;
-        default:
-          return evalWorkflow(
-            part,
-            workflows.find((workflow) => workflow.name === rule.destination)!,
-            workflows,
-          );
-      }
-    }
+  if (evalRule(part, rule)) {
+    return processDestination(part, workflows, rule.destination);
   }
   return evalWorkflow(part, workflow, workflows);
 };
