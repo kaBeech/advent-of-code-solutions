@@ -41,7 +41,5 @@ export default async (): Promise<ParsedInput> => {
     parts.push(JSON.parse(rawPart));
   }
 
-  console.log(rawWorkflows, parts);
-
-  return input;
+  return { workflows, parts };
 };
