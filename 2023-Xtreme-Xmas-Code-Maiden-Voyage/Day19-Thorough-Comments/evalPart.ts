@@ -9,6 +9,7 @@ export default (
   workflows: Workflow[],
   rule: Rule,
 ): boolean => {
+  // If the part passes the rule's qualification, process the destination.
   if (evalRule(part, rule)) {
     return processDestination(part, workflows, rule.destination);
   }
