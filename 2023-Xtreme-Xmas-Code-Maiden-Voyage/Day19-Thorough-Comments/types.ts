@@ -4,3 +4,8 @@ export interface Part {
   a: number;
   s: number;
 }
+
+export interface ParsedInput {
+  workflows: string[];
+  parts: Part[];
+}
