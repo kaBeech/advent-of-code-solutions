@@ -3,6 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"regexp"
+	"strconv"
 	"os"
 )
 
@@ -25,6 +27,25 @@ func check(e error) {
     }
 }
 
+func extractFirstNumberFromString(input string) (int) {
+	regex := regexp.MustCompile(`(\d+)`)
+
+	match := regex.FindStringSubmatch(input)
+
+	if len(match) < 2 {
+		return 0
+	}
+
+	// Convert the string to an integer
+	matchedNumber, err := strconv.Atoi(match[1])
+	if err != nil {
+		return 0
+	}
+
+	return matchedNumber
+}
+
+
 func main() {
     fmt.Println("Part 1: The lagoon can hold", solvePart1(), "cubic meters of lava.")
 }
@@ -46,15 +67,16 @@ func solvePart1() int {
 	var currentCoordinates XYCoordinates = path[len(path)-1]
 	for scanner.Scan() {
 		directionLine := scanner.Text()
+		var sideLength int = extractFirstNumberFromString(directionLine)
 		switch directionLine[0] {
 			case 'R':
-				currentCoordinates.x += int(directionLine[2] - '0')
+				currentCoordinates.x += sideLength
 			case 'L':
-				currentCoordinates.x -= int(directionLine[2] - '0')
+				currentCoordinates.x -= sideLength
 			case 'U':
-				currentCoordinates.y += int(directionLine[2] - '0')
+				currentCoordinates.y += sideLength
 			case 'D':
-				currentCoordinates.y -= int(directionLine[2] - '0')
+				currentCoordinates.y -= sideLength
 		}
 		path = append(path, currentCoordinates)
 	}
@@ -149,6 +171,8 @@ func solvePart1() int {
 	// 		}
 	// 	}
 	// }
+
+	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles + perimeterLength / 2 + 1
 	
 	// // Count the number of interior lagoon tiles
 	// var numberOfLagoonTiles int = 0
@@ -202,8 +226,6 @@ func solvePart1() int {
 	// // 	}
 	// // 	fmt.Println()
 	// // }
-
-	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles + perimeterLength / 2 + 1
 	
 	return numberOfLagoonTiles
 }
