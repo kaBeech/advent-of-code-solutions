@@ -41,6 +41,20 @@ func solvePart1() int {
 	return numberOfLagoonTiles
 }
 
+
+func extractHexadecimalFromString(input string) (string) {
+	regex := regexp.MustCompile(`#([a-fA-F0-9]+)`)
+
+	match := regex.FindStringSubmatch(input)
+
+	if len(match) < 2 {
+		return ""
+	}
+	
+	return match[1]
+}
+	
+
 func tracePath() ([]XYCoordinates, int) {
 	var path []XYCoordinates = []XYCoordinates{
 		XYCoordinates{0, 0},
@@ -60,6 +74,8 @@ func tracePath() ([]XYCoordinates, int) {
 	for scanner.Scan() {
 		directionLine := scanner.Text()
 		var sideLength int = extractFirstNumberFromString(directionLine)
+		var hexaSideLength string = extractHexadecimalFromString(directionLine)
+		fmt.Println("sideLength:", sideLength, "hexaSideLength:", hexaSideLength)
 		perimeterLength += sideLength
 		switch directionLine[0] {
 			case 'R':
