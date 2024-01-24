@@ -4,6 +4,7 @@ export interface Rule {
   category: Category;
   comparison: `>` | `<`;
   value: number;
+  destination: string;
 }
 
 export interface Workflow {
