@@ -74,8 +74,10 @@ func tracePath() ([]XYCoordinates, int) {
 	for scanner.Scan() {
 		directionLine := scanner.Text()
 		var sideLength int = extractFirstNumberFromString(directionLine)
-		var hexaSideLength string = extractHexadecimalFromString(directionLine)
-		fmt.Println("sideLength:", sideLength, "hexaSideLength:", hexaSideLength)
+		var hexadecimalDirections string = extractHexadecimalFromString(directionLine)
+		var hexadecimalOrientation string = hexadecimalDirections[len(hexadecimalDirections) - 1 : len(hexadecimalDirections)]
+		var hexadecimalSideLength string = hexadecimalDirections[0 : len(hexadecimalDirections) - 1]
+		fmt.Println(hexadecimalOrientation, hexadecimalSideLength)
 		perimeterLength += sideLength
 		switch directionLine[0] {
 			case 'R':
