@@ -1,10 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 type XYCoordinates struct {
 	x int
 	y int
+}
+
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
 }
 
 func main() {
@@ -16,35 +26,28 @@ func solvePart1() int {
 		XYCoordinates{0, 0},
 	}
 
-	var directions []string = []string{
-		"R 6 (#70c710)",
-		"D 5 (#0dc571)",
-		"L 2 (#5713f0)",
-		"D 2 (#d2c081)",
-		"R 2 (#59c680)",
-		"D 2 (#411b91)",
-		"L 5 (#8ceee2)",
-		"U 2 (#caa173)",
-		"L 1 (#1b58a2)",
-		"U 2 (#caa171)",
-		"R 2 (#7807d2)",
-		"U 3 (#a77fa3)",
-		"L 2 (#015232)",
-		"U 2 (#7a21e3)",
-	}
+	// Read the directions from the input file
+	testInput, err := os.Open("testInput.dat")
+    check(err)
+    scanner := bufio.NewScanner(testInput)
+	const maxCapacity int = 24  // the highest number
+	buf := make([]byte, maxCapacity)
+	scanner.Buffer(buf, maxCapacity)
 
 	// Trace the path given by the directions for the lagoon walls
 	var currentCoordinates XYCoordinates = path[len(path)-1]
-	for _, direction := range directions {
-		switch direction[0] {
+	for scanner.Scan() {
+		directionLine := scanner.Text()
+		fmt.Println(directionLine)
+		switch directionLine[0] {
 			case 'R':
-				currentCoordinates.x += int(direction[2] - '0')
+				currentCoordinates.x += int(directionLine[2] - '0')
 			case 'L':
-				currentCoordinates.x -= int(direction[2] - '0')
+				currentCoordinates.x -= int(directionLine[2] - '0')
 			case 'U':
-				currentCoordinates.y += int(direction[2] - '0')
+				currentCoordinates.y += int(directionLine[2] - '0')
 			case 'D':
-				currentCoordinates.y -= int(direction[2] - '0')
+				currentCoordinates.y -= int(directionLine[2] - '0')
 		}
 		path = append(path, currentCoordinates)
 	}	
