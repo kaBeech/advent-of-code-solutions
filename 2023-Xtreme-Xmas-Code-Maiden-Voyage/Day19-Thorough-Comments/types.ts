@@ -1,5 +1,7 @@
+export type Category = `x` | `m` | `a` | `s`;
+
 export interface Rule {
-  category: `x` | `m` | `a` | `s`;
+  category: Category;
   comparison: `>` | `<`;
   value: number;
 }
