@@ -99,7 +99,6 @@ func solvePart1() int {
 	if numberOfInteriorLagoonTiles < 0 {
 		numberOfInteriorLagoonTiles = -numberOfInteriorLagoonTiles
 	}
-	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles
 
 	// // Create a two-dimensional array of booleans to represent the lagoon
 	// var lagoon [][]LagoonTile = make([][]LagoonTile, maxY+1)
@@ -203,6 +202,8 @@ func solvePart1() int {
 	// // 	}
 	// // 	fmt.Println()
 	// // }
+
+	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles + perimeterLength / 2 + 1
 	
 	return numberOfLagoonTiles
 }
