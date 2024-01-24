@@ -47,7 +47,7 @@ func tracePath() ([]XYCoordinates, int) {
 	}
 
 	// Read the directions from the input file
-	testInput, err := os.Open("challengeInput.dat")
+	testInput, err := os.Open("testInput.dat")
     check(err)
     scanner := bufio.NewScanner(testInput)
 	const maxCapacity int = 24  // the highest number
