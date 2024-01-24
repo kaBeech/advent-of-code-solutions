@@ -102,9 +102,10 @@ func solvePart1() int {
 					lagoon[yValue][x1].yWall = true
 					if yValue == y1 {
 						lagoon[yValue][x1].bottomCorner = true
-					}
-					if yValue == y2 {
+					} else if yValue == y2 {
 						lagoon[yValue][x1].topCorner = true
+					} else if lagoon[yValue][x1].xWall {
+						fmt.Println(lagoon[yValue][x1], x1, yValue)
 					}
 				}
 			} else {
@@ -113,9 +114,10 @@ func solvePart1() int {
 					lagoon[yValue][x1].yWall = true
 					if yValue == y1 {
 						lagoon[yValue][x1].topCorner = true
-					}
-					if yValue == y2 {
+					} else if yValue == y2 {
 						lagoon[yValue][x1].bottomCorner = true
+					} else if lagoon[yValue][x1].xWall {
+						fmt.Println(lagoon[yValue][x1], x1, yValue)
 					}
 				}
 			}
@@ -144,22 +146,25 @@ func solvePart1() int {
 			var currentLagoonTile LagoonTile = lagoon[yValue][xValue]
 			if currentLagoonTile.insideLagoon {
 				numberOfLagoonTiles++
-				if !currentLagoonTile.xWall {
-					interiorBoolean = !interiorBoolean
-				} else if yValue > 0 && yValue < len(lagoon) - 1 {
-					// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
-					// 	fmt.Println("Test")
-					// }
-					if currentLagoonTile.bottomCorner {
-						wallEnteredNorth = !wallEnteredNorth
-					}
-					if currentLagoonTile.topCorner {
-						wallEnteredSouth = !wallEnteredSouth
-					}
-					if wallEnteredNorth && wallEnteredSouth {
+				if currentLagoonTile.yWall {
+					if !currentLagoonTile.xWall {
 						interiorBoolean = !interiorBoolean
-						wallEnteredNorth = false
-						wallEnteredSouth = false
+					} else if yValue > 0 && yValue < len(lagoon) - 1 {
+						// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
+						// 	fmt.Println("Test")
+						// }
+						if currentLagoonTile.bottomCorner {
+							wallEnteredNorth = !wallEnteredNorth
+						} else if currentLagoonTile.topCorner {
+							wallEnteredSouth = !wallEnteredSouth
+						} else {
+							fmt.Println(currentLagoonTile, xValue, yValue)
+						}
+						if wallEnteredNorth && wallEnteredSouth {
+							interiorBoolean = !interiorBoolean
+							wallEnteredNorth = false
+							wallEnteredSouth = false
+						}
 					}
 				}
 			} else if interiorBoolean {
