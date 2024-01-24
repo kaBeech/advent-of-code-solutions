@@ -20,6 +20,12 @@ export interface Part {
   s: number;
 }
 
+export interface EvaluationResult {
+  category: Category;
+  value: number;
+  passes: boolean;
+}
+
 export interface ParsedInput {
   workflows: Workflow[];
   parts: Part[];
