@@ -9,7 +9,7 @@ export default (
 ): boolean => {
   for (const rule of workflow.rules) {
     if (evalRule(part, rule)) {
-      processDestination(part, workflows, rule.destination);
+      return processDestination(part, workflows, rule.destination);
     }
   }
   return processDestination(part, workflows, workflow.endDestination);
