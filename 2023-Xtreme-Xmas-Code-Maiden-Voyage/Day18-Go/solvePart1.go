@@ -76,5 +76,40 @@ func solvePart1() int {
 	minX = 0
 	minY = 0
 	fmt.Println(path)
+
+	// Create a two-dimensional array of booleans to represent the lagoon
+	var lagoon [][]bool = make([][]bool, maxY+1)
+	for i := range lagoon {
+		lagoon[i] = make([]bool, maxX+1)
+	}
+
+	// Trace the perimeter of the lagoon
+	for directionIndex := 0; directionIndex < len(path)-1; directionIndex++ {
+		var x1, x2, y1, y2 int = path[directionIndex].x, path[directionIndex+1].x, path[directionIndex].y, path[directionIndex+1].y
+		if x1 == x2 {
+			if y1 < y2 {
+				for yValue := y1; yValue <= y2; yValue++ {
+					lagoon[yValue][x1] = true
+				}
+			} else {
+				for yValue := y2; yValue <= y1; yValue++ {
+					lagoon[yValue][x1] = true
+				}
+			}
+		} else {
+			if x1 < x2 {
+				for xValue := x1; xValue <= x2; xValue++ {
+					lagoon[y1][xValue] = true
+				}
+			} else {
+				for xValue := x2; xValue <= x1; xValue++ {
+					lagoon[y1][xValue] = true
+				}
+			}
+		}
+	}
+	fmt.Println(lagoon)
+	
+
 	return 0
 }
