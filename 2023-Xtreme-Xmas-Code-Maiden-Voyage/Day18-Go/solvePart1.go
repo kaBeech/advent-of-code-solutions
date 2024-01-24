@@ -11,6 +11,11 @@ type XYCoordinates struct {
 	y int
 }
 
+type LagoonTile struct {
+	wall bool
+	yWall bool
+}
+
 func check(e error) {
     if e != nil {
         panic(e)
@@ -79,9 +84,9 @@ func solvePart1() int {
 	minY = 0
 
 	// Create a two-dimensional array of booleans to represent the lagoon
-	var lagoon [][]bool = make([][]bool, maxY+1)
+	var lagoon [][]LagoonTile = make([][]LagoonTile, maxY+1)
 	for i := range lagoon {
-		lagoon[i] = make([]bool, maxX+1)
+		lagoon[i] = make([]LagoonTile, maxX+1)
 	}
 
 	// Trace the perimeter of the lagoon
@@ -90,21 +95,21 @@ func solvePart1() int {
 		if x1 == x2 {
 			if y1 < y2 {
 				for yValue := y1; yValue <= y2; yValue++ {
-					lagoon[yValue][x1] = true
+					lagoon[yValue][x1].wall = true
 				}
 			} else {
 				for yValue := y2; yValue <= y1; yValue++ {
-					lagoon[yValue][x1] = true
+					lagoon[yValue][x1].wall = true
 				}
 			}
 		} else {
 			if x1 < x2 {
 				for xValue := x1; xValue <= x2; xValue++ {
-					lagoon[y1][xValue] = true
+					lagoon[y1][xValue].wall = true
 				}
 			} else {
 				for xValue := x2; xValue <= x1; xValue++ {
-					lagoon[y1][xValue] = true
+					lagoon[y1][xValue].wall = true
 				}
 			}
 		}
@@ -115,13 +120,13 @@ func solvePart1() int {
 	for yValue := 0; yValue < len(lagoon); yValue++ {
 		var interiorBoolean bool = false
 		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
-			if lagoon[yValue][xValue] {
+			if lagoon[yValue][xValue].wall {
 				numberOfLagoonTiles++
-				if xValue == 0 || !lagoon[yValue][xValue - 1] {
+				if xValue == 0 || !lagoon[yValue][xValue - 1].wall {
 					interiorBoolean = !interiorBoolean
 				}
 			} else if interiorBoolean {
-				// lagoon[yValue][xValue] = interiorBoolean
+				// lagoon[yValue][xValue].wall = interiorBoolean
 				numberOfLagoonTiles++
 			}
 		}
