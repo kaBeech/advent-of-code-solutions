@@ -2,7 +2,7 @@ import { convertMultiParagraphFileToArray } from "../../tools/conversionFunction
 import { Category, ParsedInput, Part, Rule, Workflow } from "./types.ts";
 
 export default async (): Promise<ParsedInput> => {
-  const input = await convertMultiParagraphFileToArray("./challengeInput.dat");
+  const input = await convertMultiParagraphFileToArray("./testInput.dat");
 
   const rawWorkflows = input[0];
   const rawParts = input[1];
