@@ -1,5 +1,5 @@
 import { convertMultiParagraphFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { ParsedInput, Part, Workflow } from "./types.ts";
+import { ParsedInput, Part, Rule, Workflow } from "./types.ts";
 
 export default async (): Promise<ParsedInput> => {
   const input = await convertMultiParagraphFileToArray("./testInput.dat");
@@ -14,7 +14,16 @@ export default async (): Promise<ParsedInput> => {
     const workflowName = rawWorkflow.split("{")[0];
     splitWorkflow = splitWorkflow[1].slice(0, -1).split(",");
     const endDestination = splitWorkflow.pop();
-    const rules = splitWorkflow;
+    const rules: Rule[] = [];
+    const rawRules = rawWorkflow.split(" ").slice(2);
+    for (let rawRule of splitWorkflow) {
+      const rule: Rule = {
+        category: rawRule[0] as `x` | `m` | `a` | `s`,
+        comparison: rawRule[1] as `>` | `<`,
+        value: +rawRule.slice(2),
+      };
+      rules.push(rule);
+    }
   }
 
   for (let rawPart of rawParts) {
