@@ -15,6 +15,8 @@ type LagoonTile struct {
 	wall bool
 	xWall bool
 	yWall bool
+	topCorner bool
+	bottomCorner bool
 }
 
 func check(e error) {
@@ -33,7 +35,7 @@ func solvePart1() int {
 	}
 
 	// Read the directions from the input file
-	testInput, err := os.Open("testInput.dat")
+	testInput, err := os.Open("challengeInput.dat")
     check(err)
     scanner := bufio.NewScanner(testInput)
 	const maxCapacity int = 24  // the highest number
@@ -98,11 +100,23 @@ func solvePart1() int {
 				for yValue := y1; yValue <= y2; yValue++ {
 					lagoon[yValue][x1].wall = true
 					lagoon[yValue][x1].yWall = true
+					if yValue == y1 {
+						lagoon[yValue][x1].bottomCorner = true
+					}
+					if yValue == y2 {
+						lagoon[yValue][x1].topCorner = true
+					}
 				}
 			} else {
 				for yValue := y2; yValue <= y1; yValue++ {
 					lagoon[yValue][x1].wall = true
 					lagoon[yValue][x1].yWall = true
+					if yValue == y1 {
+						lagoon[yValue][x1].topCorner = true
+					}
+					if yValue == y2 {
+						lagoon[yValue][x1].bottomCorner = true
+					}
 				}
 			}
 		} else {
@@ -132,14 +146,19 @@ func solvePart1() int {
 				if !lagoon[yValue][xValue].xWall {
 					interiorBoolean = !interiorBoolean
 				} else if yValue > 0 && yValue < len(lagoon) - 1 {
-					if lagoon[yValue + 1][xValue].yWall {
+					// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
+					// 	fmt.Println("Test")
+					// }
+					if lagoon[yValue][xValue].bottomCorner {
 						wallEnteredNorth = !wallEnteredNorth
 					}
-					if lagoon[yValue - 1][xValue].yWall {
+					if lagoon[yValue][xValue].topCorner {
 						wallEnteredSouth = !wallEnteredSouth
 					}
 					if wallEnteredNorth && wallEnteredSouth {
 						interiorBoolean = !interiorBoolean
+						wallEnteredNorth = false
+						wallEnteredSouth = false
 					}
 				}
 			} else if interiorBoolean {
@@ -148,6 +167,21 @@ func solvePart1() int {
 			}
 		}
 	}
+
+	// Print the lagoon
+	// for yValue := 0; yValue < len(lagoon) / 2; yValue++ {
+	// 	lagoon[yValue], lagoon[len(lagoon) - 1 - yValue] = lagoon[len(lagoon) - 1 - yValue], lagoon[yValue]
+	// }
+	// for _, row := range lagoon {
+	// 	for _, tile := range row {
+	// 		if tile.wall {
+	// 			fmt.Print("#")
+	// 		} else {
+	// 			fmt.Print(".")
+	// 		}
+	// 	}
+	// 	fmt.Println()
+	// }
 	
 	return numberOfLagoonTiles
 }
