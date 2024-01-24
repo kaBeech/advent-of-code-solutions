@@ -2,13 +2,13 @@ package main
 
 import "fmt"
 
-func main() {
-    fmt.Println("Part 1: The lagoon can hold", solvePart1(), "cubic meters of lava.")
-}
-
 type XYCoordinates struct {
 	x int
 	y int
+}
+
+func main() {
+    fmt.Println("Part 1: The lagoon can hold", solvePart1(), "cubic meters of lava.")
 }
 
 func solvePart1() int {
