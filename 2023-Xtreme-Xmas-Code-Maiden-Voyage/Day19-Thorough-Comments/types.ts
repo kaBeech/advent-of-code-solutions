@@ -3,6 +3,8 @@ export type Category = `x` | `m` | `a` | `s`;
 export type Comparison = `>` | `<`;
 
 export interface Rule {
+  workflowName: string;
+  index: number;
   category: Category;
   comparison: Comparison;
   value: number;

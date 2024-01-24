@@ -24,13 +24,17 @@ export default async (): Promise<ParsedInput> => {
       const rawRuleSplit = rawRule.split(":");
       const destination = rawRuleSplit[1];
       rawRule = rawRuleSplit[0];
-      // Add the resulting rule to the rules array.
-      rules.push({
+      // Construct the rule object.
+      const parsedRule = {
+        workflowName,
+        index: rules.length,
         category: rawRule[0] as Category,
         comparison: rawRule[1] as `>` | `<`,
         value: +rawRule.slice(2),
         destination,
-      });
+      };
+      // Add the resulting rule to the rules array.
+      rules.push(parsedRule);
     }
     // Add the resulting workflow to the workflows array.
     workflows.push({
