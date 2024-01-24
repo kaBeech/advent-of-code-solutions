@@ -28,6 +28,7 @@ export interface EvaluationResult {
   category: Category;
   value: number;
   passes: boolean;
+  ruleStack: Rule[];
 }
 
 export interface ParsedInput {
