@@ -28,7 +28,7 @@ func check(e error) {
 }
 
 func main() {
-    fmt.Println("Part 1: The lagoon can hold", solvePart1(), "cubic meters of lava.")
+    fmt.Println("Part 2: The lagoon can now hold", solvePart1(), "cubic meters of lava.")
 }
 
 func solvePart1() int {
