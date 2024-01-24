@@ -5,23 +5,9 @@ export default (async function (): Promise<number> {
   const { workflows, parts } = await parseInput();
 
   for (const part of parts) {
-    const workflow = workflows.find((workflow) => workflow.name === `in`)!;
+    let workflow = workflows.find((workflow) => workflow.name === `in`)!;
     for (const rule of workflow.rules) {
-      switch (rule.category) {
-        case `x`:
-          evalRule(part.x, rule);
-          break;
-        case `m`:
-          evalRule(part.m, rule);
-          break;
-        case `a`:
-          evalRule(part.a, rule);
-          break;
-        case `s`:
-          evalRule(part.s, rule);
-          break;
-        default:
-          throw new Error(`Unknown category ${rule.category}`);
+      if (evalRule(part, rule)) {
       }
     }
     console.log(
