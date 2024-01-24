@@ -13,6 +13,7 @@ type XYCoordinates struct {
 
 type LagoonTile struct {
 	wall bool
+	xWall bool
 	yWall bool
 }
 
@@ -108,10 +109,12 @@ func solvePart1() int {
 			if x1 < x2 {
 				for xValue := x1; xValue <= x2; xValue++ {
 					lagoon[y1][xValue].wall = true
+					lagoon[y1][xValue].xWall = true
 				}
 			} else {
 				for xValue := x2; xValue <= x1; xValue++ {
 					lagoon[y1][xValue].wall = true
+					lagoon[y1][xValue].xWall = true
 				}
 			}
 		}
@@ -121,14 +124,26 @@ func solvePart1() int {
 	var numberOfLagoonTiles int = 0
 	for yValue := 0; yValue < len(lagoon); yValue++ {
 		var interiorBoolean bool = false
+		var wallEnteredNorth bool = false
+		var wallEnteredSouth bool = false
 		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
 			if lagoon[yValue][xValue].wall {
 				numberOfLagoonTiles++
-				if xValue == 0 || !lagoon[yValue][xValue - 1].wall {
+				if !lagoon[yValue][xValue].xWall {
 					interiorBoolean = !interiorBoolean
+				} else if yValue > 0 && yValue < len(lagoon) - 1 {
+					if lagoon[yValue + 1][xValue].yWall {
+						wallEnteredNorth = !wallEnteredNorth
+					}
+					if lagoon[yValue - 1][xValue].yWall {
+						wallEnteredSouth = !wallEnteredSouth
+					}
+					if wallEnteredNorth && wallEnteredSouth {
+						interiorBoolean = !interiorBoolean
+					}
 				}
 			} else if interiorBoolean {
-				// lagoon[yValue][xValue].wall = interiorBoolean
+				lagoon[yValue][xValue].wall = interiorBoolean
 				numberOfLagoonTiles++
 			}
 		}
