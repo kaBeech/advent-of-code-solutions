@@ -47,7 +47,6 @@ func solvePart1() int {
 		}
 		path = append(path, newCoordinates)
 	}	
-	fmt.Println(path)
 
 	var minX, maxX, minY, maxY int = 0, 0, 0, 0
 	for _, coordinates := range path {
@@ -64,7 +63,6 @@ func solvePart1() int {
 			maxY = coordinates.y
 		}
 	}
-	fmt.Println(minX, maxX, minY, maxY)
 
 	// Subtract the minimums to all coordinates to make them all positive
 	for i := range path {
@@ -75,7 +73,6 @@ func solvePart1() int {
 	maxY -= minY
 	minX = 0
 	minY = 0
-	fmt.Println(path)
 
 	// Create a two-dimensional array of booleans to represent the lagoon
 	var lagoon [][]bool = make([][]bool, maxY+1)
@@ -108,9 +105,8 @@ func solvePart1() int {
 			}
 		}
 	}
-	// fmt.Println(lagoon)
 	
-	// Fill the interior of the lagoon and count the number of lagoon tiles 
+	// Fill the interior of the lagoon and count the number of lagoon tiles
 	var numberOfLagoonTiles int = 0
 	for yValue := 0; yValue < len(lagoon); yValue++ {
 		var interiorBoolean bool = false
@@ -126,7 +122,6 @@ func solvePart1() int {
 			}
 		}
 	}
-	fmt.Println(lagoon)
 	
 	return numberOfLagoonTiles
 }
