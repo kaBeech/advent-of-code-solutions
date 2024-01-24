@@ -96,10 +96,12 @@ func solvePart1() int {
 			if y1 < y2 {
 				for yValue := y1; yValue <= y2; yValue++ {
 					lagoon[yValue][x1].wall = true
+					lagoon[yValue][x1].yWall = true
 				}
 			} else {
 				for yValue := y2; yValue <= y1; yValue++ {
 					lagoon[yValue][x1].wall = true
+					lagoon[yValue][x1].yWall = true
 				}
 			}
 		} else {
