@@ -5,11 +5,21 @@ export default (
   category: Category,
   comparison: Comparison,
   value: number,
+  passes: boolean,
 ): number => {
-  // Evaluate whether the part passes the rule based on the rule's comparison value.
-  if (comparison === `>`) {
-    return 4000 - part[category];
+  let stepValue = 0;
+  if (passes) {
+    if (comparison === `>`) {
+      stepValue = 4000 - part[category];
+    } else {
+      stepValue = value - part[category];
+    }
   } else {
-    return value - part[category];
+    if (comparison === `>`) {
+      stepValue = value - part[category];
+    } else {
+      stepValue = 4000 - part[category];
+    }
   }
+  return stepValue;
 };

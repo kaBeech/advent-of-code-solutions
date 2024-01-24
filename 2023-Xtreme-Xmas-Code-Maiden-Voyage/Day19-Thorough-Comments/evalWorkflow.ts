@@ -16,11 +16,31 @@ export default (
         part,
         workflows,
         rule.category,
-        calculateStepValue(part, rule.category, rule.comparison, rule.value),
+        calculateStepValue(
+          part,
+          rule.category,
+          rule.comparison,
+          rule.value,
+          true,
+        ),
         rule.destination,
       );
     }
   }
   // If the part didn't pass any rules, process the end destination without adding to any categories.
-  return processDestination(part, workflows, `x`, 0, workflow.endDestination);
+  const endRule = workflow.rules[workflow.rules.length - 1];
+  // console.log(endRule);
+  return processDestination(
+    part,
+    workflows,
+    endRule.category,
+    calculateStepValue(
+      part,
+      endRule.category,
+      endRule.comparison,
+      endRule.value,
+      false,
+    ),
+    workflow.endDestination,
+  );
 };
