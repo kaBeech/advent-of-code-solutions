@@ -1,11 +1,13 @@
 import evalWorkflow from "./evalWorkflow.ts";
+import getNextPart from "./getNextPart.ts";
 import parseInput from "./parseInput.ts";
+import { EvaluationResult } from "./types.ts";
 
 export default (async function (): Promise<number> {
   // Parse the input into workflows and parts.
   const workflows = (await parseInput()).workflows;
 
-  const currentPart = {
+  let currentPart = {
     x: 1,
     m: 1,
     a: 1,
@@ -19,15 +21,17 @@ export default (async function (): Promise<number> {
     currentPart.s < 4000
   ) {
     // If a part is accepted, add it to the acceptedParts array.
+    const result: EvaluationResult = evalWorkflow(
+      currentPart,
+      workflows.find((workflow) => workflow.name === `in`)!,
+      workflows,
+    );
     if (
-      evalWorkflow(
-        currentPart,
-        workflows.find((workflow) => workflow.name === `in`)!,
-        workflows,
-      )
+      result.passes
     ) {
-      numberOfAcceptablePartCombinations++;
+      numberOfAcceptablePartCombinations += result.value;
     }
+    currentPart = getNextPart(currentPart, result);
     if (currentPart.s === 4000) {
       currentPart.s = 1;
       if (currentPart.a === 4000) {
