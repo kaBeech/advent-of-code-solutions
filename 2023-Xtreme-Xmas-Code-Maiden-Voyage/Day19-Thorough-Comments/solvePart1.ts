@@ -1,15 +1,20 @@
-import evalRule from "./evalRule.ts";
+import evalPart from "./evalPart.ts";
 import parseInput from "./parseInput.ts";
 
 export default (async function (): Promise<number> {
   const { workflows, parts } = await parseInput();
 
   for (const part of parts) {
-    let workflow = workflows.find((workflow) => workflow.name === `in`)!;
-    for (const rule of workflow.rules) {
-      if (evalRule(part, rule)) {
-      }
+    if (
+      evalPart(
+        part,
+        workflows.find((workflow) => workflow.name === `in`)!,
+        workflows,
+      )
+    ) {
+      acceptedParts.push(part);
     }
+
     console.log(
       `Part ${JSON.stringify(part)} has workflow ${JSON.stringify(workflow)}`,
     );
