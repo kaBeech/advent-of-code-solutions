@@ -13,5 +13,6 @@ export default (
   if (evalRule(part, rule)) {
     return processDestination(part, workflows, rule.destination);
   }
+  // Otherwise, recursively evaluate the next rule in the workflow.
   return evalWorkflow(part, workflow, workflows);
 };
