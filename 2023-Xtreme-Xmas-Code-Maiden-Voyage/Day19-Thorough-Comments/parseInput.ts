@@ -15,11 +15,15 @@ export default async (): Promise<ParsedInput> => {
     splitWorkflow = splitWorkflow[1].slice(0, -1).split(",");
     const endDestination = splitWorkflow.pop()!;
     const rules: Rule[] = [];
-    for (const rawRule of splitWorkflow) {
+    for (let rawRule of splitWorkflow) {
+      const rawRuleSplit = rawRule.split(":");
+      const destination = rawRuleSplit[1];
+      rawRule = rawRuleSplit[0];
       const rule: Rule = {
         category: rawRule[0] as Category,
         comparison: rawRule[1] as `>` | `<`,
         value: +rawRule.slice(2),
+        destination,
       };
       rules.push(rule);
     }
