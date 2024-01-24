@@ -1,4 +1,4 @@
-import evalRuleByCategory from "./evalRuleByCategory.ts";
+import evalRule from "./evalRule.ts";
 import processDestinationPart1 from "./processDestinationPart1.ts";
 import { Part, Workflow } from "./types.ts";
 
@@ -10,7 +10,7 @@ export default (
   // Evaluate the part against each rule in the workflow.
   for (const rule of workflow.rules) {
     // If the part passes the rule's qualification, process the destination and don't evaluate any more rules.
-    if (evalRuleByCategory(part, rule)) {
+    if (evalRule(part, rule)) {
       return processDestinationPart1(part, workflows, rule.destination);
     }
   }
