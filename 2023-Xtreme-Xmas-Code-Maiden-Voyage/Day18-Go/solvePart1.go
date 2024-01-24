@@ -48,5 +48,33 @@ func solvePart1() int {
 		path = append(path, newCoordinates)
 	}	
 	fmt.Println(path)
+
+	var minX, maxX, minY, maxY int = 0, 0, 0, 0
+	for _, coordinates := range path {
+		if coordinates.x < minX {
+			minX = coordinates.x
+		}
+		if coordinates.x > maxX {
+			maxX = coordinates.x
+		}
+		if coordinates.y < minY {
+			minY = coordinates.y
+		}
+		if coordinates.y > maxY {
+			maxY = coordinates.y
+		}
+	}
+	fmt.Println(minX, maxX, minY, maxY)
+
+	// Subtract the minimums to all coordinates to make them all positive
+	for i := range path {
+		path[i].x -= minX
+		path[i].y -= minY
+	}
+	maxX -= minX
+	maxY -= minY
+	minX = 0
+	minY = 0
+	fmt.Println(path)
 	return 0
 }
