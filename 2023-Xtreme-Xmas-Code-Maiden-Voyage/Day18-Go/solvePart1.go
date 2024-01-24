@@ -57,7 +57,7 @@ func solvePart1() int {
 				currentCoordinates.y -= int(directionLine[2] - '0')
 		}
 		path = append(path, currentCoordinates)
-	}	
+	}
 
 	// Find the minimum and maximum x and y values of the lagoon walls
 	var minX, maxX, minY, maxY int = 0, 0, 0, 0
@@ -86,108 +86,123 @@ func solvePart1() int {
 	minX = 0
 	minY = 0
 
-	// Create a two-dimensional array of booleans to represent the lagoon
-	var lagoon [][]LagoonTile = make([][]LagoonTile, maxY+1)
-	for i := range lagoon {
-		lagoon[i] = make([]LagoonTile, maxX+1)
-	}
-
-	// Trace the perimeter of the lagoon
-	for directionIndex := 0; directionIndex < len(path)-1; directionIndex++ {
-		var x1, x2, y1, y2 int = path[directionIndex].x, path[directionIndex+1].x, path[directionIndex].y, path[directionIndex+1].y
-		if x1 == x2 {
-			if y1 < y2 {
-				for yValue := y1; yValue <= y2; yValue++ {
-					lagoon[yValue][x1].insideLagoon = true
-					lagoon[yValue][x1].yWall = true
-					if yValue == y1 {
-						lagoon[yValue][x1].bottomCorner = true
-					} else if yValue == y2 {
-						lagoon[yValue][x1].topCorner = true
-					} else if lagoon[yValue][x1].xWall {
-						fmt.Println(lagoon[yValue][x1], x1, yValue)
-					}
-				}
-			} else {
-				for yValue := y2; yValue <= y1; yValue++ {
-					lagoon[yValue][x1].insideLagoon = true
-					lagoon[yValue][x1].yWall = true
-					if yValue == y1 {
-						lagoon[yValue][x1].topCorner = true
-					} else if yValue == y2 {
-						lagoon[yValue][x1].bottomCorner = true
-					} else if lagoon[yValue][x1].xWall {
-						fmt.Println(lagoon[yValue][x1], x1, yValue)
-					}
-				}
-			}
-		} else {
-			if x1 < x2 {
-				for xValue := x1; xValue <= x2; xValue++ {
-					lagoon[y1][xValue].insideLagoon = true
-					lagoon[y1][xValue].xWall = true
-				}
-			} else {
-				for xValue := x2; xValue <= x1; xValue++ {
-					lagoon[y1][xValue].insideLagoon = true
-					lagoon[y1][xValue].xWall = true
-				}
-			}
+	// Use the shoelace formula to find the number of interior lagoon tiles
+	var sum1 int = 0
+	var sum2 int = 0
+	for i := range path {
+		if i < len(path) - 1 {
+			sum1 += path[i].x * path[i+1].y
+			sum2 += path[i].y * path[i+1].x
 		}
 	}
-	
-	// Count the number of interior lagoon tiles
-	var numberOfLagoonTiles int = 0
-	for yValue := 0; yValue < len(lagoon); yValue++ {
-		var interiorBoolean bool = false
-		var wallEnteredNorth bool = false
-		var wallEnteredSouth bool = false
-		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
-			var currentLagoonTile LagoonTile = lagoon[yValue][xValue]
-			if currentLagoonTile.insideLagoon {
-				numberOfLagoonTiles++
-				if currentLagoonTile.yWall {
-					if !currentLagoonTile.xWall {
-						interiorBoolean = !interiorBoolean
-					} else if yValue > 0 && yValue < len(lagoon) - 1 {
-						// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
-						// 	fmt.Println("Test")
-						// }
-						if currentLagoonTile.bottomCorner {
-							wallEnteredNorth = !wallEnteredNorth
-						} else if currentLagoonTile.topCorner {
-							wallEnteredSouth = !wallEnteredSouth
-						} else {
-							fmt.Println(currentLagoonTile, xValue, yValue)
-						}
-						if wallEnteredNorth && wallEnteredSouth {
-							interiorBoolean = !interiorBoolean
-							wallEnteredNorth = false
-							wallEnteredSouth = false
-						}
-					}
-				}
-			} else if interiorBoolean {
-				currentLagoonTile.insideLagoon = interiorBoolean
-				numberOfLagoonTiles++
-			}
-		}
+	var numberOfInteriorLagoonTiles int = (sum1 - sum2) / 2
+	if numberOfInteriorLagoonTiles < 0 {
+		numberOfInteriorLagoonTiles = -numberOfInteriorLagoonTiles
 	}
+	var numberOfLagoonTiles int = numberOfInteriorLagoonTiles
 
-	// Print the lagoon
-	// for yValue := 0; yValue < len(lagoon) / 2; yValue++ {
-	// 	lagoon[yValue], lagoon[len(lagoon) - 1 - yValue] = lagoon[len(lagoon) - 1 - yValue], lagoon[yValue]
+	// // Create a two-dimensional array of booleans to represent the lagoon
+	// var lagoon [][]LagoonTile = make([][]LagoonTile, maxY+1)
+	// for i := range lagoon {
+	// 	lagoon[i] = make([]LagoonTile, maxX+1)
 	// }
-	// for _, row := range lagoon {
-	// 	for _, tile := range row {
-	// 		if tile.insideLagoon {
-	// 			fmt.Print("#")
+
+	// // Trace the perimeter of the lagoon
+	// for directionIndex := 0; directionIndex < len(path)-1; directionIndex++ {
+	// 	var x1, x2, y1, y2 int = path[directionIndex].x, path[directionIndex+1].x, path[directionIndex].y, path[directionIndex+1].y
+	// 	if x1 == x2 {
+	// 		if y1 < y2 {
+	// 			for yValue := y1; yValue <= y2; yValue++ {
+	// 				lagoon[yValue][x1].insideLagoon = true
+	// 				lagoon[yValue][x1].yWall = true
+	// 				if yValue == y1 {
+	// 					lagoon[yValue][x1].bottomCorner = true
+	// 				} else if yValue == y2 {
+	// 					lagoon[yValue][x1].topCorner = true
+	// 				} else if lagoon[yValue][x1].xWall {
+	// 					fmt.Println(lagoon[yValue][x1], x1, yValue)
+	// 				}
+	// 			}
 	// 		} else {
-	// 			fmt.Print(".")
+	// 			for yValue := y2; yValue <= y1; yValue++ {
+	// 				lagoon[yValue][x1].insideLagoon = true
+	// 				lagoon[yValue][x1].yWall = true
+	// 				if yValue == y1 {
+	// 					lagoon[yValue][x1].topCorner = true
+	// 				} else if yValue == y2 {
+	// 					lagoon[yValue][x1].bottomCorner = true
+	// 				} else if lagoon[yValue][x1].xWall {
+	// 					fmt.Println(lagoon[yValue][x1], x1, yValue)
+	// 				}
+	// 			}
+	// 		}
+	// 	} else {
+	// 		if x1 < x2 {
+	// 			for xValue := x1; xValue <= x2; xValue++ {
+	// 				lagoon[y1][xValue].insideLagoon = true
+	// 				lagoon[y1][xValue].xWall = true
+	// 			}
+	// 		} else {
+	// 			for xValue := x2; xValue <= x1; xValue++ {
+	// 				lagoon[y1][xValue].insideLagoon = true
+	// 				lagoon[y1][xValue].xWall = true
+	// 			}
 	// 		}
 	// 	}
-	// 	fmt.Println()
 	// }
+	
+	// // Count the number of interior lagoon tiles
+	// var numberOfLagoonTiles int = 0
+	// for yValue := 0; yValue < len(lagoon); yValue++ {
+	// 	var interiorBoolean bool = false
+	// 	var wallEnteredNorth bool = false
+	// 	var wallEnteredSouth bool = false
+	// 	for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
+	// 		var currentLagoonTile LagoonTile = lagoon[yValue][xValue]
+	// 		if currentLagoonTile.insideLagoon {
+	// 			numberOfLagoonTiles++
+	// 			if currentLagoonTile.yWall {
+	// 				if !currentLagoonTile.xWall {
+	// 					interiorBoolean = !interiorBoolean
+	// 				} else if yValue > 0 && yValue < len(lagoon) - 1 {
+	// 					// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
+	// 					// 	fmt.Println("Test")
+	// 					// }
+	// 					if currentLagoonTile.bottomCorner {
+	// 						wallEnteredNorth = !wallEnteredNorth
+	// 					} else if currentLagoonTile.topCorner {
+	// 						wallEnteredSouth = !wallEnteredSouth
+	// 					} else {
+	// 						fmt.Println(currentLagoonTile, xValue, yValue)
+	// 					}
+	// 					if wallEnteredNorth && wallEnteredSouth {
+	// 						interiorBoolean = !interiorBoolean
+	// 						wallEnteredNorth = false
+	// 						wallEnteredSouth = false
+	// 					}
+	// 				}
+	// 			}
+	// 		} else if interiorBoolean {
+	// 			currentLagoonTile.insideLagoon = interiorBoolean
+	// 			numberOfLagoonTiles++
+	// 		}
+	// 	}
+	// }
+
+	// // Print the lagoon
+	// // for yValue := 0; yValue < len(lagoon) / 2; yValue++ {
+	// // 	lagoon[yValue], lagoon[len(lagoon) - 1 - yValue] = lagoon[len(lagoon) - 1 - yValue], lagoon[yValue]
+	// // }
+	// // for _, row := range lagoon {
+	// // 	for _, tile := range row {
+	// // 		if tile.insideLagoon {
+	// // 			fmt.Print("#")
+	// // 		} else {
+	// // 			fmt.Print(".")
+	// // 		}
+	// // 	}
+	// // 	fmt.Println()
+	// // }
 	
 	return numberOfLagoonTiles
 }
