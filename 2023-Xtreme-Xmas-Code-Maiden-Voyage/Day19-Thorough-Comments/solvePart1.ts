@@ -4,10 +4,13 @@ import parseInput from "./parseInput.ts";
 import { Part } from "./types.ts";
 
 export default (async function (): Promise<number> {
+  // Parse the input into workflows and parts.
   const { workflows, parts } = await parseInput();
-  const acceptedParts: Part[] = [];
 
+  // Evaluate each part and make a list of the accepted parts.
+  const acceptedParts: Part[] = [];
   for (const part of parts) {
+    // If a part is accepted, add it to the acceptedParts array.
     if (
       evalWorkflow(
         part,
@@ -19,8 +22,8 @@ export default (async function (): Promise<number> {
     }
   }
 
+  // Get the sum of all parts' rating numbers added together.
   let sumTotal = 0;
-
   for (const acceptedPart of acceptedParts) {
     sumTotal += getPartRating(acceptedPart);
   }
