@@ -110,7 +110,7 @@ func solvePart1() int {
 	}
 	// fmt.Println(lagoon)
 	
-	// Fill the interior of the lagoon and count the number of lagoon tiles
+	// Fill the interior of the lagoon and count the number of lagoon tiles 
 	var numberOfLagoonTiles int = 0
 	for yValue := 0; yValue < len(lagoon); yValue++ {
 		var interiorBoolean bool = false
