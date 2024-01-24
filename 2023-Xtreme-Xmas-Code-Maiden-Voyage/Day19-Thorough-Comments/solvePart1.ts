@@ -1,3 +1,4 @@
+import evalRule from "./evalRule.ts";
 import parseInput from "./parseInput.ts";
 
 export default (async function (): Promise<number> {
@@ -8,6 +9,19 @@ export default (async function (): Promise<number> {
     for (const rule of workflow.rules) {
       switch (rule.category) {
         case `x`:
+          evalRule(part.x, rule);
+          break;
+        case `m`:
+          evalRule(part.m, rule);
+          break;
+        case `a`:
+          evalRule(part.a, rule);
+          break;
+        case `s`:
+          evalRule(part.s, rule);
+          break;
+        default:
+          throw new Error(`Unknown category ${rule.category}`);
       }
     }
     console.log(
