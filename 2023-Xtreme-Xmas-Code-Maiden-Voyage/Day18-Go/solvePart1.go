@@ -12,7 +12,7 @@ type XYCoordinates struct {
 }
 
 type LagoonTile struct {
-	wall bool
+	insideLagoon bool
 	xWall bool
 	yWall bool
 	topCorner bool
@@ -98,7 +98,7 @@ func solvePart1() int {
 		if x1 == x2 {
 			if y1 < y2 {
 				for yValue := y1; yValue <= y2; yValue++ {
-					lagoon[yValue][x1].wall = true
+					lagoon[yValue][x1].insideLagoon = true
 					lagoon[yValue][x1].yWall = true
 					if yValue == y1 {
 						lagoon[yValue][x1].bottomCorner = true
@@ -109,7 +109,7 @@ func solvePart1() int {
 				}
 			} else {
 				for yValue := y2; yValue <= y1; yValue++ {
-					lagoon[yValue][x1].wall = true
+					lagoon[yValue][x1].insideLagoon = true
 					lagoon[yValue][x1].yWall = true
 					if yValue == y1 {
 						lagoon[yValue][x1].topCorner = true
@@ -122,12 +122,12 @@ func solvePart1() int {
 		} else {
 			if x1 < x2 {
 				for xValue := x1; xValue <= x2; xValue++ {
-					lagoon[y1][xValue].wall = true
+					lagoon[y1][xValue].insideLagoon = true
 					lagoon[y1][xValue].xWall = true
 				}
 			} else {
 				for xValue := x2; xValue <= x1; xValue++ {
-					lagoon[y1][xValue].wall = true
+					lagoon[y1][xValue].insideLagoon = true
 					lagoon[y1][xValue].xWall = true
 				}
 			}
@@ -141,18 +141,19 @@ func solvePart1() int {
 		var wallEnteredNorth bool = false
 		var wallEnteredSouth bool = false
 		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
-			if lagoon[yValue][xValue].wall {
+			var currentLagoonTile LagoonTile = lagoon[yValue][xValue]
+			if currentLagoonTile.insideLagoon {
 				numberOfLagoonTiles++
-				if !lagoon[yValue][xValue].xWall {
+				if !currentLagoonTile.xWall {
 					interiorBoolean = !interiorBoolean
 				} else if yValue > 0 && yValue < len(lagoon) - 1 {
 					// if lagoon[yValue + 1][xValue].yWall && lagoon[yValue - 1][xValue].yWall {
 					// 	fmt.Println("Test")
 					// }
-					if lagoon[yValue][xValue].bottomCorner {
+					if currentLagoonTile.bottomCorner {
 						wallEnteredNorth = !wallEnteredNorth
 					}
-					if lagoon[yValue][xValue].topCorner {
+					if currentLagoonTile.topCorner {
 						wallEnteredSouth = !wallEnteredSouth
 					}
 					if wallEnteredNorth && wallEnteredSouth {
@@ -162,7 +163,7 @@ func solvePart1() int {
 					}
 				}
 			} else if interiorBoolean {
-				lagoon[yValue][xValue].wall = interiorBoolean
+				currentLagoonTile.insideLagoon = interiorBoolean
 				numberOfLagoonTiles++
 			}
 		}
@@ -174,7 +175,7 @@ func solvePart1() int {
 	// }
 	// for _, row := range lagoon {
 	// 	for _, tile := range row {
-	// 		if tile.wall {
+	// 		if tile.insideLagoon {
 	// 			fmt.Print("#")
 	// 		} else {
 	// 			fmt.Print(".")
