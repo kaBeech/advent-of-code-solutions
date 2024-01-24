@@ -1,4 +1,5 @@
 import evalWorkflow from "./evalWorkflow.ts";
+import getPartRating from "./getPartRating.ts";
 import parseInput from "./parseInput.ts";
 import { Part } from "./types.ts";
 
@@ -18,7 +19,11 @@ export default (async function (): Promise<number> {
     }
   }
 
-  const sumTotal = 0;
+  let sumTotal = 0;
+
+  for (const acceptedPart of acceptedParts) {
+    sumTotal += getPartRating(acceptedPart);
+  }
 
   console.log(
     `Part 1: The sum of all rating numbers for all parts is ${sumTotal}`,
