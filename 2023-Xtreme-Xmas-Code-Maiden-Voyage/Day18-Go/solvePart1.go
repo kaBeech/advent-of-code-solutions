@@ -116,8 +116,10 @@ func solvePart1() int {
 		var interiorBoolean bool = false
 		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
 			if lagoon[yValue][xValue] {
-				interiorBoolean = !interiorBoolean
 				numberOfLagoonTiles++
+					if xValue == len(lagoon[yValue]) - 1 || !lagoon[yValue][xValue + 1] {
+					interiorBoolean = !interiorBoolean
+				}
 			} else if interiorBoolean {
 				lagoon[yValue][xValue] = interiorBoolean
 				numberOfLagoonTiles++
