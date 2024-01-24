@@ -53,6 +53,14 @@ func extractHexadecimalFromString(input string) (string) {
 	
 	return match[1]
 }
+
+func convertHexadecimalToDecimal(hexadecimalNumber string) (int) {
+	decimalNumber, err := strconv.ParseInt(hexadecimalNumber, 16, 32)
+	if err != nil {
+		return 0
+	}
+	return int(decimalNumber)
+}
 	
 
 func tracePath() ([]XYCoordinates, int) {
@@ -73,11 +81,12 @@ func tracePath() ([]XYCoordinates, int) {
 	var perimeterLength int = 0
 	for scanner.Scan() {
 		directionLine := scanner.Text()
-		var sideLength int = extractFirstNumberFromString(directionLine)
+		// var sideLength int = extractFirstNumberFromString(directionLine)
 		var hexadecimalDirections string = extractHexadecimalFromString(directionLine)
 		var hexadecimalOrientation string = hexadecimalDirections[len(hexadecimalDirections) - 1 : len(hexadecimalDirections)]
 		var hexadecimalSideLength string = hexadecimalDirections[0 : len(hexadecimalDirections) - 1]
-		fmt.Println(hexadecimalOrientation, hexadecimalSideLength)
+		var sideLength int = convertHexadecimalToDecimal(hexadecimalSideLength)
+		// fmt.Println(hexadecimalOrientation, hexadecimalSideLength)
 		perimeterLength += sideLength
 		switch directionLine[0] {
 			case 'R':
