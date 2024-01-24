@@ -38,7 +38,6 @@ func solvePart1() int {
 	var currentCoordinates XYCoordinates = path[len(path)-1]
 	for scanner.Scan() {
 		directionLine := scanner.Text()
-		fmt.Println(directionLine)
 		switch directionLine[0] {
 			case 'R':
 				currentCoordinates.x += int(directionLine[2] - '0')
