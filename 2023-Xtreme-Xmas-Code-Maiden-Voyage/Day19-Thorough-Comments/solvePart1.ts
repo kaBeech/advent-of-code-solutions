@@ -1,8 +1,10 @@
 import evalPart from "./evalPart.ts";
 import parseInput from "./parseInput.ts";
+import { Part } from "./types.ts";
 
 export default (async function (): Promise<number> {
   const { workflows, parts } = await parseInput();
+  const acceptedParts: Part[] = [];
 
   for (const part of parts) {
     if (
@@ -14,10 +16,6 @@ export default (async function (): Promise<number> {
     ) {
       acceptedParts.push(part);
     }
-
-    console.log(
-      `Part ${JSON.stringify(part)} has workflow ${JSON.stringify(workflow)}`,
-    );
   }
 
   const sumTotal = 0;
