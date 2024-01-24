@@ -18,6 +18,6 @@ export interface Part {
 }
 
 export interface ParsedInput {
-  workflows: string[];
+  workflows: Workflow[];
   parts: Part[];
 }
