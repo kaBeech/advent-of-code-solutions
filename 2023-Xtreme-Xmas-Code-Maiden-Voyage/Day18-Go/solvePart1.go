@@ -110,14 +110,14 @@ func solvePart1() int {
 		}
 	}
 	
-	// Fill the interior of the lagoon and count the number of lagoon tiles
+	// Count the number of interior lagoon tiles
 	var numberOfLagoonTiles int = 0
 	for yValue := 0; yValue < len(lagoon); yValue++ {
 		var interiorBoolean bool = false
 		for xValue := 0; xValue < len(lagoon[yValue]); xValue++ {
 			if lagoon[yValue][xValue] {
 				numberOfLagoonTiles++
-					if xValue == 0 || !lagoon[yValue][xValue - 1] {
+				if xValue == 0 || !lagoon[yValue][xValue - 1] {
 					interiorBoolean = !interiorBoolean
 				}
 			} else if interiorBoolean {
