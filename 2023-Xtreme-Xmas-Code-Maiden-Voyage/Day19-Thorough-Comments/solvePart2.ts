@@ -31,7 +31,7 @@ export default (async function (): Promise<number> {
     ) {
       numberOfAcceptablePartCombinations += result.value;
     }
-    currentPart = getNextPart(currentPart, result);
+    currentPart = getNextPart(currentPart, result.category, result.value);
     if (currentPart.s === 4000) {
       currentPart.s = 1;
       if (currentPart.a === 4000) {
