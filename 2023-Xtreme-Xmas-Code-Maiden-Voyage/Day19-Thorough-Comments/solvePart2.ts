@@ -1,36 +1,56 @@
 import evalWorkflow from "./evalWorkflow.ts";
-import getPartRating from "./getPartRating.ts";
 import parseInput from "./parseInput.ts";
-import { Part } from "./types.ts";
 
 export default (async function (): Promise<number> {
   // Parse the input into workflows and parts.
-  const { workflows, parts } = await parseInput();
+  const workflows = (await parseInput()).workflows;
+
+  const currentPart = {
+    x: 1,
+    m: 1,
+    a: 1,
+    s: 1,
+  };
 
   // Evaluate each part and make a list of the accepted parts.
-  const acceptedParts: Part[] = [];
-  for (const part of parts) {
+  let numberOfAcceptablePartCombinations = 0;
+  while (
+    currentPart.x < 4000 || currentPart.m < 4000 || currentPart.a < 4000 ||
+    currentPart.s < 4000
+  ) {
     // If a part is accepted, add it to the acceptedParts array.
     if (
       evalWorkflow(
-        part,
+        currentPart,
         workflows.find((workflow) => workflow.name === `in`)!,
         workflows,
       )
     ) {
-      acceptedParts.push(part);
+      numberOfAcceptablePartCombinations++;
+    }
+    if (currentPart.s === 4000) {
+      currentPart.s = 1;
+      if (currentPart.a === 4000) {
+        currentPart.a = 1;
+        if (currentPart.m === 4000) {
+          currentPart.m = 1;
+          currentPart.x++;
+        } else {
+          currentPart.m++;
+        }
+      } else {
+        currentPart.a++;
+      }
+    } else {
+      currentPart.s++;
     }
   }
 
   // Get the sum of all parts' rating numbers added together.
-  let sumTotal = 0;
-  for (const acceptedPart of acceptedParts) {
-    sumTotal += getPartRating(acceptedPart);
-  }
 
   console.log(
-    `Part 2: The number of distinct combinations of acceptable ratings is ${sumTotal}`,
+    `Part 2: The number of distinct combinations of acceptable ratings is ${numberOfAcceptablePartCombinations}`,
   );
 
-  return sumTotal;
+  return numberOfAcceptablePartCombinations;
 })();
