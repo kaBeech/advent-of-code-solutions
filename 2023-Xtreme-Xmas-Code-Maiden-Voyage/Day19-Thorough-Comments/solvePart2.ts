@@ -88,79 +88,80 @@ export default (async function (): Promise<number> {
   }
 
   // Process all rules with destination other than A or R
-  // while (unprocessedRules.length > 0) {
-  const rulesToBeProcessed = unprocessedRules.filter((rule) =>
-    processedWorkflows.find((processedWorkflow) =>
-      processedWorkflow.name === rule.destination
-    ) !== undefined
-  );
-  // console.log(rulesToBeProcessed);
-  for (const finalRule of rulesToBeProcessed) {
-    const endingFiltersMatchingWorkflowName = endingFilters.filter((
-      endingFilter,
-    ) => endingFilter.workflowName === finalRule.destination)!;
-    const acceptablePartsRanges: AcceptablePartsRange[] = [];
-    for (const endingFilter of endingFiltersMatchingWorkflowName) {
-      if (
-        endingFilter === undefined || endingFilter.acceptablePartsRange === null
-      ) {
-        // acceptablePartsRanges.push(null);
-      } else {
-        acceptablePartsRanges.push({
-          x: {
-            min: endingFilter.acceptablePartsRange.x.min,
-            max: endingFilter.acceptablePartsRange.x.max,
-          },
-          m: {
-            min: endingFilter.acceptablePartsRange.m.min,
-            max: endingFilter.acceptablePartsRange.m.max,
-          },
-          a: {
-            min: endingFilter.acceptablePartsRange.a.min,
-            max: endingFilter.acceptablePartsRange.a.max,
-          },
-          s: {
-            min: endingFilter.acceptablePartsRange.s.min,
-            max: endingFilter.acceptablePartsRange.s.max,
-          },
-        });
-      }
-    }
-
-    const processRuleResult = processRule(
-      workflows,
-      finalRule,
-      processedRules,
-      unprocessedRules,
-      processedWorkflows,
-      endingFilters,
-      acceptablePartsRanges,
+  while (unprocessedRules.length > 0) {
+    const rulesToBeProcessed = unprocessedRules.filter((rule) =>
+      processedWorkflows.find((processedWorkflow) =>
+        processedWorkflow.name === rule.destination
+      ) !== undefined
     );
-    processedRules = processRuleResult.processedRules;
-    unprocessedRules = processRuleResult.unprocessedRules;
-    processedWorkflows = processRuleResult.processedWorkflows;
-    endingFilters = processRuleResult.endingFilters;
+    // console.log(rulesToBeProcessed);
+    for (const finalRule of rulesToBeProcessed) {
+      const endingFiltersMatchingWorkflowName = endingFilters.filter((
+        endingFilter,
+      ) => endingFilter.workflowName === finalRule.destination)!;
+      const acceptablePartsRanges: AcceptablePartsRange[] = [];
+      for (const endingFilter of endingFiltersMatchingWorkflowName) {
+        if (
+          endingFilter === undefined ||
+          endingFilter.acceptablePartsRange === null
+        ) {
+          // acceptablePartsRanges.push(null);
+        } else {
+          acceptablePartsRanges.push({
+            x: {
+              min: endingFilter.acceptablePartsRange.x.min,
+              max: endingFilter.acceptablePartsRange.x.max,
+            },
+            m: {
+              min: endingFilter.acceptablePartsRange.m.min,
+              max: endingFilter.acceptablePartsRange.m.max,
+            },
+            a: {
+              min: endingFilter.acceptablePartsRange.a.min,
+              max: endingFilter.acceptablePartsRange.a.max,
+            },
+            s: {
+              min: endingFilter.acceptablePartsRange.s.min,
+              max: endingFilter.acceptablePartsRange.s.max,
+            },
+          });
+        }
+      }
+
+      const processRuleResult = processRule(
+        workflows,
+        finalRule,
+        processedRules,
+        unprocessedRules,
+        processedWorkflows,
+        endingFilters,
+        acceptablePartsRanges,
+      );
+      processedRules = processRuleResult.processedRules;
+      unprocessedRules = processRuleResult.unprocessedRules;
+      processedWorkflows = processRuleResult.processedWorkflows;
+      endingFilters = processRuleResult.endingFilters;
+    }
   }
-  // }
 
   console.log(processedWorkflows);
 
-  // const entry = processedWorkflows.find((processedWorkflow) =>
-  //   processedWorkflow.name === `in`
-  // )!;
+  const entry = processedWorkflows.find((processedWorkflow) =>
+    processedWorkflow.name === `in`
+  )!;
 
   let numberOfAcceptablePartCombinations = 0;
-  // for (const acceptablePartsRange of entry.acceptablePartsRanges) {
-  //   const xRange = acceptablePartsRange.x.max - acceptablePartsRange.x.min +
-  //     1;
-  //   const mRange = acceptablePartsRange.m.max - acceptablePartsRange.m.min +
-  //     1;
-  //   const aRange = acceptablePartsRange.a.max - acceptablePartsRange.a.min +
-  //     1;
-  //   const sRange = acceptablePartsRange.s.max - acceptablePartsRange.s.min +
-  //     1;
-  //   numberOfAcceptablePartCombinations += xRange * mRange * aRange * sRange;
-  // }
+  for (const acceptablePartsRange of entry.acceptablePartsRanges) {
+    const xRange = acceptablePartsRange.x.max - acceptablePartsRange.x.min +
+      1;
+    const mRange = acceptablePartsRange.m.max - acceptablePartsRange.m.min +
+      1;
+    const aRange = acceptablePartsRange.a.max - acceptablePartsRange.a.min +
+      1;
+    const sRange = acceptablePartsRange.s.max - acceptablePartsRange.s.min +
+      1;
+    numberOfAcceptablePartCombinations += xRange * mRange * aRange * sRange;
+  }
 
   console.log(
     `Part 2: The number of distinct combinations of acceptable ratings is ${numberOfAcceptablePartCombinations} of ${
