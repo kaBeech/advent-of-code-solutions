@@ -3,6 +3,7 @@ import {
   AcceptablePartsRange,
   Comparison,
   EndingFilter,
+  ProcessedWorkflow,
   Rule,
   Workflow,
 } from "./types.ts";
@@ -12,7 +13,8 @@ const processRule = (
   processedRules: Rule[],
   unprocessedRules: Rule[],
   workflows: Workflow[],
-  processedWorkflows: string[],
+  processedWorkflows: ProcessedWorkflow[],
+  endingFilters: EndingFilter[],
 ) => {
   processedRules.push(
     unprocessedRules.splice(unprocessedRules.indexOf(ruleBeingProcessed), 1)[0],
@@ -27,7 +29,24 @@ const processRule = (
   if (
     processedRulesInWorkflow.length === finalRuleWorkflow.rules.length + 1
   ) {
-    processedWorkflows.push(ruleBeingProcessed.workflowName);
+    const acceptablePartsRanges: AcceptablePartsRange[] = [];
+
+    const ruleEndingFilters = processedRulesInWorkflow.map((rule) =>
+      endingFilters.find((endingFilter) =>
+        endingFilter.workflowName === rule.workflowName &&
+        endingFilter.index === rule.index
+      )
+    ).filter((endingFilter) => endingFilter !== undefined);
+    for (const endingFilter of ruleEndingFilters) {
+      acceptablePartsRanges.push(
+        endingFilter!.acceptablePartsRange,
+      );
+    }
+
+    processedWorkflows.push({
+      name: ruleBeingProcessed.workflowName,
+      acceptablePartsRanges,
+    });
   }
   return {
     processedRules,
@@ -42,7 +61,7 @@ export default (async function (): Promise<number> {
 
   let unprocessedRules: Rule[] = [];
   let processedRules: Rule[] = [];
-  let processedWorkflows: string[] = [];
+  let processedWorkflows: ProcessedWorkflow[] = [];
   const endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
@@ -83,6 +102,7 @@ export default (async function (): Promise<number> {
       unprocessedRules,
       workflows,
       processedWorkflows,
+      endingFilters,
     );
     processedRules = processRuleResult.processedRules;
     unprocessedRules = processRuleResult.unprocessedRules;
@@ -135,13 +155,16 @@ export default (async function (): Promise<number> {
       unprocessedRules,
       workflows,
       processedWorkflows,
+      endingFilters,
     );
     processedRules = processRuleResult.processedRules;
     unprocessedRules = processRuleResult.unprocessedRules;
     processedWorkflows = processRuleResult.processedWorkflows;
   }
 
-  // Get the sum of all parts' rating numbers added together.
+  for (const processedRule of processedRules) {
+    console.log(processedRule);
+  }
 
   console.log(
     `Part 2: The number of distinct combinations of acceptable ratings is ${numberOfAcceptablePartCombinations}`,

@@ -19,6 +19,11 @@ export interface Workflow {
   endDestination: string;
 }
 
+export interface ProcessedWorkflow {
+  name: string;
+  acceptablePartsRanges: AcceptablePartsRange[];
+}
+
 export interface AcceptablePartsRange {
   x: MinMax;
   m: MinMax;
