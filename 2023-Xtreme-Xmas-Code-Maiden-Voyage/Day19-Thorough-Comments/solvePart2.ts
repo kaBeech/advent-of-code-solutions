@@ -11,6 +11,8 @@ export default (async function (): Promise<number> {
   const workflows = (await parseInput()).workflows;
 
   const unprocessedRules: Rule[] = [];
+  const processedRules: Rule[] = [];
+  const processedWorkflows: string[] = [];
   const endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
@@ -73,12 +75,28 @@ export default (async function (): Promise<number> {
         acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
         break;
     }
+
     endingFilters.push({
       workflowName: workflow.name,
       index: finalRule.index,
       acceptablePartsRange,
     });
-    unprocessedRules.splice(unprocessedRules.indexOf(finalRule), 1);
+
+    processedRules.push(
+      unprocessedRules.splice(unprocessedRules.indexOf(finalRule), 1)[0],
+    );
+
+    const finalRuleWorkflow = workflows.find((workflow) =>
+      workflow.name === finalRule.workflowName
+    )!;
+    const processedRulesInWorkflow = processedRules.filter((rule) =>
+      rule.workflowName === finalRule.workflowName
+    );
+    if (
+      processedRulesInWorkflow.length === finalRuleWorkflow.rules.length + 1
+    ) {
+      processedWorkflows.push(finalRule.workflowName);
+    }
   }
 
   // Get the sum of all parts' rating numbers added together.
