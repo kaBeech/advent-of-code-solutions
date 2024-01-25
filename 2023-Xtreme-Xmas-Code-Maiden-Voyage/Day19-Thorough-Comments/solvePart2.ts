@@ -3,6 +3,7 @@ import getNextPart from "./getNextPart.ts";
 import parseInput from "./parseInput.ts";
 import {
   AcceptablePartsRange,
+  EndingFilter,
   EvaluationResult,
   Part,
   RuleInstance,
@@ -52,6 +53,8 @@ export default (async function (): Promise<number> {
     s: 1,
   };
 
+  const endingFilters: EndingFilter[] = [];
+
   // Evaluate each part and make a list of the accepted parts.
   let numberOfAcceptablePartCombinations = 0;
   let ruleStack: RuleInstance[] = [];
@@ -94,6 +97,11 @@ export default (async function (): Promise<number> {
           acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
           break;
       }
+      endingFilters.push({
+        workflowName: workflow.name,
+        index: finalRule.index,
+        acceptablePartsRange,
+      });
     }
     const result = myFunction(
       numberOfAcceptablePartCombinations,

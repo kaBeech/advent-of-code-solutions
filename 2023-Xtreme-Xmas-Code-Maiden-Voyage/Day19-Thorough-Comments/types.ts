@@ -26,6 +26,12 @@ export interface AcceptablePartsRange {
   s: MinMax;
 }
 
+export interface EndingFilter {
+  workflowName: string;
+  index: number;
+  acceptablePartsRange: AcceptablePartsRange;
+}
+
 export interface Part {
   x: number;
   m: number;
