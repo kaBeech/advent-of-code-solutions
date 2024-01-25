@@ -14,8 +14,11 @@ export default (
   processedWorkflows: ProcessedWorkflow[],
   endingFilters: EndingFilter[],
 ) => {
+  const test =
+    unprocessedRules.splice(unprocessedRules.indexOf(ruleBeingProcessed), 1)[0];
+  // console.log(`TEEEEEEEEEEEEEESSSSST\n`, test);
   processedRules.push(
-    unprocessedRules.splice(unprocessedRules.indexOf(ruleBeingProcessed), 1)[0],
+    test,
   );
 
   const finalRuleWorkflow = workflows.find((workflow) =>
@@ -48,6 +51,12 @@ export default (
       acceptablePartsRanges,
     });
   }
+
+  // console.log(
+  //   processedWorkflows.find((processedWorkflow) =>
+  //     processedWorkflow.name === "lnx"
+  //   )!,
+  // );
   return {
     processedRules,
     unprocessedRules,
