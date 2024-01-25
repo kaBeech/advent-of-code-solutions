@@ -1,7 +1,13 @@
 import evalWorkflow from "./evalWorkflow.ts";
 import getNextPart from "./getNextPart.ts";
 import parseInput from "./parseInput.ts";
-import { EvaluationResult, Part, RuleInstance, Workflow } from "./types.ts";
+import {
+  AcceptablePartsRange,
+  EvaluationResult,
+  Part,
+  RuleInstance,
+  Workflow,
+} from "./types.ts";
 
 const myFunction = (
   numberOfAcceptablePartCombinations: number,
@@ -49,14 +55,45 @@ export default (async function (): Promise<number> {
   // Evaluate each part and make a list of the accepted parts.
   let numberOfAcceptablePartCombinations = 0;
   let ruleStack: RuleInstance[] = [];
-  let finished = 0;
-  while (
-    currentPart.x < 4000 || currentPart.m < 4000 || currentPart.a < 4000 ||
-    currentPart.s < 4000
+  for (
+    const workflow of workflows
   ) {
     // while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
-    if (numberOfAcceptablePartCombinations > 3000) {
-      finished += 1;
+    const rulesWithDestinationA = workflow.rules.filter((rule) =>
+      rule.destination === `A`
+    );
+    if (workflow.endDestination === `A`) {
+      // Do something.
+    }
+    for (const finalRule of rulesWithDestinationA) {
+      const workflow = workflows.find((workflow) =>
+        workflow.name === finalRule.workflowName
+      )!;
+      const acceptablePartsRange: AcceptablePartsRange = {
+        x: { min: 1, max: 4000 },
+        m: { min: 1, max: 4000 },
+        a: { min: 1, max: 4000 },
+        s: { min: 1, max: 4000 },
+      };
+      for (let i = 0; i < finalRule.index; i++) {
+        const rule = workflow.rules[i];
+        switch (rule.comparison) {
+          case ">":
+            acceptablePartsRange[rule.category].max = rule.value;
+            break;
+          case "<":
+            acceptablePartsRange[rule.category].min = rule.value;
+            break;
+        }
+      }
+      switch (finalRule.comparison) {
+        case ">":
+          acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
+          break;
+        case "<":
+          acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
+          break;
+      }
     }
     const result = myFunction(
       numberOfAcceptablePartCombinations,

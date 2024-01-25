@@ -1,3 +1,5 @@
+import { MinMax } from "../../tools/commonTypes.ts";
+
 export type Category = `x` | `m` | `a` | `s`;
 
 export type Comparison = `>` | `<`;
@@ -15,6 +17,13 @@ export interface Workflow {
   name: string;
   rules: Rule[];
   endDestination: string;
+}
+
+export interface AcceptablePartsRange {
+  x: MinMax;
+  m: MinMax;
+  a: MinMax;
+  s: MinMax;
 }
 
 export interface Part {
