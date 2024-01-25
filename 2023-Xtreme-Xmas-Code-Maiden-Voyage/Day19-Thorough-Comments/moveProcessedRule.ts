@@ -33,11 +33,11 @@ export default (
     const acceptablePartsRanges: AcceptablePartsRange[] = [];
 
     const ruleEndingFilters = processedRulesInWorkflow.map((rule) =>
-      endingFilters.find((endingFilter) =>
+      endingFilters.filter((endingFilter) =>
         endingFilter.workflowName === rule.workflowName &&
         endingFilter.index === rule.index
       )
-    ).filter((endingFilter) => endingFilter !== undefined);
+    ).flat().filter((endingFilter) => endingFilter !== undefined);
     for (const endingFilter of ruleEndingFilters) {
       if (endingFilter!.acceptablePartsRange !== null) {
         acceptablePartsRanges.push(
