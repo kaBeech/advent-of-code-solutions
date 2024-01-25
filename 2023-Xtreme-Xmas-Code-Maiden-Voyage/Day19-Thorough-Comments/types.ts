@@ -24,11 +24,17 @@ export interface Part {
   s: number;
 }
 
+export interface RuleInstance {
+  rule: Rule;
+  partBeingProcessed: Part;
+}
+
 export interface EvaluationResult {
   category: Category;
   value: number;
   passes: boolean;
-  ruleStack: Rule[];
+  ruleStack: RuleInstance[];
+  lastPartProcessed: Part;
 }
 
 export interface ParsedInput {
