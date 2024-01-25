@@ -159,7 +159,7 @@ export default (async function (): Promise<number> {
       index: workflow.rules.length,
       category: finalRule.category,
       comparison: endingComparison,
-      value: 0,
+      value: endingValue,
       destination: workflow.endDestination,
     };
     unprocessedRules.push(endingCondition);
