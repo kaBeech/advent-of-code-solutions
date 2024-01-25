@@ -31,19 +31,31 @@ const processRule = (
       const rule = workflow.rules[i];
       switch (rule.comparison) {
         case ">":
-          acceptablePartsRange[rule.category].max = rule.value;
+          acceptablePartsRange[rule.category].max = Math.min(
+            acceptablePartsRange[rule.category].max,
+            rule.value,
+          );
           break;
         case "<":
-          acceptablePartsRange[rule.category].min = rule.value;
+          acceptablePartsRange[rule.category].min = Math.max(
+            acceptablePartsRange[rule.category].min,
+            rule.value,
+          );
           break;
       }
     }
     switch (finalRule.comparison) {
       case ">":
-        acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
+        acceptablePartsRange[finalRule.category].min = Math.max(
+          acceptablePartsRange[finalRule.category].min,
+          finalRule.value + 1,
+        );
         break;
       case "<":
-        acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
+        acceptablePartsRange[finalRule.category].max = Math.min(
+          acceptablePartsRange[finalRule.category].max,
+          finalRule.value - 1,
+        );
         break;
     }
     if (finalRule.destination === `R`) {
