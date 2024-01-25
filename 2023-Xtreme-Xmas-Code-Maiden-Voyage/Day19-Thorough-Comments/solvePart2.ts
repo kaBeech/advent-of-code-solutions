@@ -51,7 +51,7 @@ export default (async function (): Promise<number> {
   let ruleStack: RuleInstance[] = [];
   let finished = 0;
   while (
-    currentPart.x < 4000 && currentPart.m < 4000 && currentPart.a < 4000 &&
+    currentPart.x < 4000 || currentPart.m < 4000 || currentPart.a < 4000 ||
     currentPart.s < 4000
   ) {
     // while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
