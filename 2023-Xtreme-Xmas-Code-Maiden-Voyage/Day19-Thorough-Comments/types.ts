@@ -34,7 +34,7 @@ export interface AcceptablePartsRange {
 export interface EndingFilter {
   workflowName: string;
   index: number;
-  acceptablePartsRange: AcceptablePartsRange | null;
+  acceptablePartsRange: AcceptablePartsRange;
 }
 
 export interface Part {
