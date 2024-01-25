@@ -15,16 +15,11 @@ const processRule = (
   unprocessedRules: Rule[],
   processedWorkflows: ProcessedWorkflow[],
   endingFilters: EndingFilter[],
+  acceptablePartsRange: AcceptablePartsRange,
 ) => {
   const workflow = workflows.find((workflow) =>
     workflow.name === finalRule.workflowName
   )!;
-  const acceptablePartsRange: AcceptablePartsRange = {
-    x: { min: 1, max: 4000 },
-    m: { min: 1, max: 4000 },
-    a: { min: 1, max: 4000 },
-    s: { min: 1, max: 4000 },
-  };
   for (let i = 0; i < finalRule.index; i++) {
     const rule = workflow.rules[i];
     switch (rule.comparison) {
@@ -184,6 +179,12 @@ export default (async function (): Promise<number> {
       unprocessedRules,
       processedWorkflows,
       endingFilters,
+      {
+        x: { min: 1, max: 4000 },
+        m: { min: 1, max: 4000 },
+        a: { min: 1, max: 4000 },
+        s: { min: 1, max: 4000 },
+      },
     );
     processedRules = processRuleResult.processedRules;
     unprocessedRules = processRuleResult.unprocessedRules;
@@ -198,6 +199,9 @@ export default (async function (): Promise<number> {
       ) !== undefined
     );
     for (const finalRule of rulesToBeProcessed) {
+      const endingFilter = endingFilters.find((endingFilter) =>
+        endingFilter.workflowName === finalRule.destination
+      )!;
       const processRuleResult = processRule(
         workflows,
         finalRule,
@@ -205,6 +209,7 @@ export default (async function (): Promise<number> {
         unprocessedRules,
         processedWorkflows,
         endingFilters,
+        endingFilter.acceptablePartsRange,
       );
       processedRules = processRuleResult.processedRules;
       unprocessedRules = processRuleResult.unprocessedRules;
@@ -212,6 +217,8 @@ export default (async function (): Promise<number> {
       endingFilters = processRuleResult.endingFilters;
     }
   }
+
+  console.log(processedWorkflows);
 
   console.log(
     `Part 2: The number of distinct combinations of acceptable ratings is ${numberOfAcceptablePartCombinations}`,
