@@ -1,4 +1,4 @@
-import evalWorkflowPart1 from "./evalWorkflowPart1.ts";
+import evalWorkflow from "./evalWorkflow.ts";
 import getPartRating from "./getPartRating.ts";
 import parseInput from "./parseInput.ts";
 import { Part } from "./types.ts";
@@ -12,7 +12,7 @@ export default (async function (): Promise<number> {
   for (const part of parts) {
     // If a part is accepted, add it to the acceptedParts array.
     if (
-      evalWorkflowPart1(
+      evalWorkflow(
         part,
         workflows.find((workflow) => workflow.name === `in`)!,
         workflows,

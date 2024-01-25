@@ -94,7 +94,6 @@ export default (async function (): Promise<number> {
         processedWorkflow.name === rule.destination
       ) !== undefined
     );
-    // console.log(rulesToBeProcessed);
     for (const finalRule of rulesToBeProcessed) {
       const endingFiltersMatchingWorkflowName = endingFilters.filter((
         endingFilter,
@@ -102,11 +101,9 @@ export default (async function (): Promise<number> {
       const acceptablePartsRanges: AcceptablePartsRange[] = [];
       for (const endingFilter of endingFiltersMatchingWorkflowName) {
         if (
-          endingFilter === undefined ||
-          endingFilter.acceptablePartsRange === null
+          endingFilter !== undefined &&
+          endingFilter.acceptablePartsRange !== null
         ) {
-          // acceptablePartsRanges.push(null);
-        } else {
           acceptablePartsRanges.push({
             x: {
               min: endingFilter.acceptablePartsRange.x.min,
@@ -143,8 +140,6 @@ export default (async function (): Promise<number> {
       endingFilters = processRuleResult.endingFilters;
     }
   }
-
-  console.log(processedWorkflows);
 
   const entry = processedWorkflows.find((processedWorkflow) =>
     processedWorkflow.name === `in`

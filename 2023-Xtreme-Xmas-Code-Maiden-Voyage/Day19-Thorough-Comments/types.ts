@@ -44,19 +44,6 @@ export interface Part {
   s: number;
 }
 
-export interface RuleInstance {
-  rule: Rule;
-  partBeingProcessed: Part;
-}
-
-export interface EvaluationResult {
-  category: Category;
-  value: number;
-  passes: boolean;
-  ruleStack: RuleInstance[];
-  lastPartProcessed: Part;
-}
-
 export interface ParsedInput {
   workflows: Workflow[];
   parts: Part[];

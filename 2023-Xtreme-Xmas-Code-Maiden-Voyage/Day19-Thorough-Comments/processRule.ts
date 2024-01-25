@@ -31,25 +31,12 @@ export default (
         const rule = workflow.rules[i];
         switch (rule.comparison) {
           case ">":
-            // console.log(
-            //   `\nTEEEEEEEEEEEEEEESSSSSSST\n`,
-            //   processedWorkflows.filter((processedWorkflow) =>
-            //     processedWorkflow.name === "lnx"
-            //   )!,
-            // );
-            // console.log(rule);
             acceptablePartsRange[rule.category].max = Math.min(
               acceptablePartsRange[rule.category].max,
               rule.value,
             );
-            // console.log(
-            //   processedWorkflows.filter((processedWorkflow) =>
-            //     processedWorkflow.name === "lnx"
-            //   )!,
-            // );
             break;
           case "<":
-            // console.log(finalRule);
             acceptablePartsRange[rule.category].min = Math.max(
               acceptablePartsRange[rule.category].min,
               rule.value,
@@ -84,7 +71,6 @@ export default (
           acceptablePartsRange,
         });
       }
-      // console.log(`\nEND TEST\n`);
     }
   }
   const moveProcessedRuleResult = moveProcessedRule(
