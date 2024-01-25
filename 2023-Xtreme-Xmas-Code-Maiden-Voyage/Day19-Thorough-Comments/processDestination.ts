@@ -16,9 +16,9 @@ export default (
   ruleStack: RuleInstance[],
 ): EvaluationResult => {
   // if (part.x < 4000) {
-  console.log(
-    ` ${JSON.stringify(part)} ${category} ${value} ${destination}`,
-  );
+  // console.log(
+  //   ` ${JSON.stringify(part)} ${category} ${value} ${destination}`,
+  // );
   // }
   switch (destination) {
     case `A`:

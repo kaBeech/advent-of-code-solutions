@@ -18,15 +18,15 @@ export default (
         rule.destination !== `A` &&
         rule.destination !== `R`
       ) {
-        console.log(ruleStack);
-        console.log(
-          ruleStack.find((ruleInstance) => ruleInstance.rule === rule),
-        );
+        // console.log(ruleStack);
+        // console.log(
+        //   ruleStack.find((ruleInstance) => ruleInstance.rule === rule),
+        // );
         ruleStack.push({
           rule,
           partBeingProcessed: { x: part.x, m: part.m, a: part.a, s: part.s },
         });
-        console.log(ruleStack);
+        // console.log(ruleStack);
       } else {
         // console.log(
         //   ruleStack.find((ruleInstance) => ruleInstance.rule === rule),
@@ -52,8 +52,26 @@ export default (
         // console.log(ruleStack);
         return result;
       }
+    } else if (
+      rule.comparison === `>` &&
+      !ruleStack.find((ruleInstance) => ruleInstance.rule === rule)
+    ) {
+      // console.log(ruleStack);
+      // console.log(
+      //   ruleStack.find((ruleInstance) => ruleInstance.rule === rule),
+      // );
+      ruleStack.push({
+        rule,
+        partBeingProcessed: { x: part.x, m: part.m, a: part.a, s: part.s },
+      });
+      // console.log(ruleStack);
+    } else {
+      // console.log(
+      //   ruleStack.find((ruleInstance) => ruleInstance.rule === rule),
+      // );
     }
   }
+
   // If the part didn't pass any rules, process the end destination without adding to any categories.
   const endRule = workflow.rules[workflow.rules.length - 1];
   // console.log(endRule);

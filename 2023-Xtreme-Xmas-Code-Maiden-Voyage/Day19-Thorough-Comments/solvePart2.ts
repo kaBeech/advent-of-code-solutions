@@ -50,7 +50,11 @@ export default (async function (): Promise<number> {
   let numberOfAcceptablePartCombinations = 0;
   let ruleStack: RuleInstance[] = [];
   let finished = 0;
-  while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
+  while (
+    currentPart.x < 4000 && currentPart.m < 4000 && currentPart.a < 4000 &&
+    currentPart.s < 4000
+  ) {
+    // while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
     if (numberOfAcceptablePartCombinations > 3000) {
       finished += 1;
     }
@@ -67,6 +71,9 @@ export default (async function (): Promise<number> {
     currentPart = ruleInstanceToPass.partBeingProcessed;
     currentPart[ruleInstanceToPass.rule.category] =
       ruleInstanceToPass.rule.value;
+    if (ruleInstanceToPass.rule.comparison === `>`) {
+      currentPart[ruleInstanceToPass.rule.category] += 1;
+    }
     console.log(numberOfAcceptablePartCombinations);
   }
 
