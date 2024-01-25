@@ -197,6 +197,20 @@ export default (async function (): Promise<number> {
         processedWorkflow.name === rule.destination
       ) !== undefined
     );
+    for (const finalRule of rulesToBeProcessed) {
+      const processRuleResult = processRule(
+        workflows,
+        finalRule,
+        processedRules,
+        unprocessedRules,
+        processedWorkflows,
+        endingFilters,
+      );
+      processedRules = processRuleResult.processedRules;
+      unprocessedRules = processRuleResult.unprocessedRules;
+      processedWorkflows = processRuleResult.processedWorkflows;
+      endingFilters = processRuleResult.endingFilters;
+    }
   }
 
   console.log(
