@@ -28,6 +28,7 @@ export default (
   );
 
   // If all rules in the workflow have been processed, process the workflow.
+  // We add 1 to the length of the processed rules for the ending condition.
   if (
     processedRulesInWorkflow.length === finalRuleWorkflow.rules.length + 1
   ) {
