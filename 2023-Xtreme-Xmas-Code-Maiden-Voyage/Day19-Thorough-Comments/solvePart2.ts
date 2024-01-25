@@ -9,6 +9,69 @@ import {
 } from "./types.ts";
 
 const processRule = (
+  workflows: Workflow[],
+  finalRule: Rule,
+  processedRules: Rule[],
+  unprocessedRules: Rule[],
+  processedWorkflows: ProcessedWorkflow[],
+  endingFilters: EndingFilter[],
+) => {
+  const workflow = workflows.find((workflow) =>
+    workflow.name === finalRule.workflowName
+  )!;
+  const acceptablePartsRange: AcceptablePartsRange = {
+    x: { min: 1, max: 4000 },
+    m: { min: 1, max: 4000 },
+    a: { min: 1, max: 4000 },
+    s: { min: 1, max: 4000 },
+  };
+  for (let i = 0; i < finalRule.index; i++) {
+    const rule = workflow.rules[i];
+    switch (rule.comparison) {
+      case ">":
+        acceptablePartsRange[rule.category].max = rule.value;
+        break;
+      case "<":
+        acceptablePartsRange[rule.category].min = rule.value;
+        break;
+    }
+  }
+  switch (finalRule.comparison) {
+    case ">":
+      acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
+      break;
+    case "<":
+      acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
+      break;
+  }
+
+  endingFilters.push({
+    workflowName: workflow.name,
+    index: finalRule.index,
+    acceptablePartsRange,
+  });
+
+  const moveProcessedRuleResult = moveProcessedRule(
+    finalRule,
+    processedRules,
+    unprocessedRules,
+    workflows,
+    processedWorkflows,
+    endingFilters,
+  );
+  processedRules = moveProcessedRuleResult.processedRules;
+  unprocessedRules = moveProcessedRuleResult.unprocessedRules;
+  processedWorkflows = moveProcessedRuleResult.processedWorkflows;
+
+  return {
+    processedRules,
+    unprocessedRules,
+    processedWorkflows,
+    endingFilters,
+  };
+};
+
+const moveProcessedRule = (
   ruleBeingProcessed: Rule,
   processedRules: Rule[],
   unprocessedRules: Rule[],
@@ -62,7 +125,7 @@ export default (async function (): Promise<number> {
   let unprocessedRules: Rule[] = [];
   let processedRules: Rule[] = [];
   let processedWorkflows: ProcessedWorkflow[] = [];
-  const endingFilters: EndingFilter[] = [];
+  let endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
   let numberOfAcceptablePartCombinations = 0;
@@ -96,7 +159,7 @@ export default (async function (): Promise<number> {
     rule.destination === `R`
   );
   for (const finalRule of rulesWithDestinationR) {
-    const processRuleResult = processRule(
+    const moveProcessedRuleResult = moveProcessedRule(
       finalRule,
       processedRules,
       unprocessedRules,
@@ -104,9 +167,9 @@ export default (async function (): Promise<number> {
       processedWorkflows,
       endingFilters,
     );
-    processedRules = processRuleResult.processedRules;
-    unprocessedRules = processRuleResult.unprocessedRules;
-    processedWorkflows = processRuleResult.processedWorkflows;
+    processedRules = moveProcessedRuleResult.processedRules;
+    unprocessedRules = moveProcessedRuleResult.unprocessedRules;
+    processedWorkflows = moveProcessedRuleResult.processedWorkflows;
   }
 
   // Process all rules with destination A
@@ -114,56 +177,26 @@ export default (async function (): Promise<number> {
     rule.destination === `A`
   );
   for (const finalRule of rulesWithDestinationA) {
-    const workflow = workflows.find((workflow) =>
-      workflow.name === finalRule.workflowName
-    )!;
-    const acceptablePartsRange: AcceptablePartsRange = {
-      x: { min: 1, max: 4000 },
-      m: { min: 1, max: 4000 },
-      a: { min: 1, max: 4000 },
-      s: { min: 1, max: 4000 },
-    };
-    for (let i = 0; i < finalRule.index; i++) {
-      const rule = workflow.rules[i];
-      switch (rule.comparison) {
-        case ">":
-          acceptablePartsRange[rule.category].max = rule.value;
-          break;
-        case "<":
-          acceptablePartsRange[rule.category].min = rule.value;
-          break;
-      }
-    }
-    switch (finalRule.comparison) {
-      case ">":
-        acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
-        break;
-      case "<":
-        acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
-        break;
-    }
-
-    endingFilters.push({
-      workflowName: workflow.name,
-      index: finalRule.index,
-      acceptablePartsRange,
-    });
-
     const processRuleResult = processRule(
+      workflows,
       finalRule,
       processedRules,
       unprocessedRules,
-      workflows,
       processedWorkflows,
       endingFilters,
     );
     processedRules = processRuleResult.processedRules;
     unprocessedRules = processRuleResult.unprocessedRules;
     processedWorkflows = processRuleResult.processedWorkflows;
+    endingFilters = processRuleResult.endingFilters;
   }
 
-  for (const processedRule of processedRules) {
-    console.log(processedRule);
+  while (unprocessedRules.length > 0) {
+    const rulesToBeProcessed = unprocessedRules.filter((rule) =>
+      processedWorkflows.find((processedWorkflow) =>
+        processedWorkflow.name === rule.destination
+      ) !== undefined
+    );
   }
 
   console.log(
