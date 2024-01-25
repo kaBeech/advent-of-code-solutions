@@ -15,36 +15,51 @@ const processRule = (
   unprocessedRules: Rule[],
   processedWorkflows: ProcessedWorkflow[],
   endingFilters: EndingFilter[],
-  acceptablePartsRange: AcceptablePartsRange,
+  acceptablePartsRange: AcceptablePartsRange | null,
 ) => {
   const workflow = workflows.find((workflow) =>
     workflow.name === finalRule.workflowName
   )!;
-  for (let i = 0; i < finalRule.index; i++) {
-    const rule = workflow.rules[i];
-    switch (rule.comparison) {
+  if (acceptablePartsRange === null) {
+    endingFilters.push({
+      workflowName: workflow.name,
+      index: finalRule.index,
+      acceptablePartsRange: null,
+    });
+  } else {
+    for (let i = 0; i < finalRule.index; i++) {
+      const rule = workflow.rules[i];
+      switch (rule.comparison) {
+        case ">":
+          acceptablePartsRange[rule.category].max = rule.value;
+          break;
+        case "<":
+          acceptablePartsRange[rule.category].min = rule.value;
+          break;
+      }
+    }
+    switch (finalRule.comparison) {
       case ">":
-        acceptablePartsRange[rule.category].max = rule.value;
+        acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
         break;
       case "<":
-        acceptablePartsRange[rule.category].min = rule.value;
+        acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
         break;
     }
+    if (finalRule.destination === `R`) {
+      endingFilters.push({
+        workflowName: workflow.name,
+        index: finalRule.index,
+        acceptablePartsRange: null,
+      });
+    } else {
+      endingFilters.push({
+        workflowName: workflow.name,
+        index: finalRule.index,
+        acceptablePartsRange,
+      });
+    }
   }
-  switch (finalRule.comparison) {
-    case ">":
-      acceptablePartsRange[finalRule.category].min = finalRule.value + 1;
-      break;
-    case "<":
-      acceptablePartsRange[finalRule.category].max = finalRule.value - 1;
-      break;
-  }
-
-  endingFilters.push({
-    workflowName: workflow.name,
-    index: finalRule.index,
-    acceptablePartsRange,
-  });
 
   const moveProcessedRuleResult = moveProcessedRule(
     finalRule,
@@ -96,9 +111,11 @@ const moveProcessedRule = (
       )
     ).filter((endingFilter) => endingFilter !== undefined);
     for (const endingFilter of ruleEndingFilters) {
-      acceptablePartsRanges.push(
-        endingFilter!.acceptablePartsRange,
-      );
+      if (endingFilter!.acceptablePartsRange !== null) {
+        acceptablePartsRanges.push(
+          endingFilter!.acceptablePartsRange,
+        );
+      }
     }
 
     processedWorkflows.push({
@@ -202,6 +219,17 @@ export default (async function (): Promise<number> {
       const endingFilter = endingFilters.find((endingFilter) =>
         endingFilter.workflowName === finalRule.destination
       )!;
+      let acceptablePartsRange: AcceptablePartsRange | null;
+      if (endingFilter === undefined) {
+        acceptablePartsRange = {
+          x: { min: 1, max: 4000 },
+          m: { min: 1, max: 4000 },
+          a: { min: 1, max: 4000 },
+          s: { min: 1, max: 4000 },
+        };
+      } else {
+        acceptablePartsRange = endingFilter.acceptablePartsRange;
+      }
       const processRuleResult = processRule(
         workflows,
         finalRule,
@@ -209,7 +237,7 @@ export default (async function (): Promise<number> {
         unprocessedRules,
         processedWorkflows,
         endingFilters,
-        endingFilter.acceptablePartsRange,
+        acceptablePartsRange,
       );
       processedRules = processRuleResult.processedRules;
       unprocessedRules = processRuleResult.unprocessedRules;
