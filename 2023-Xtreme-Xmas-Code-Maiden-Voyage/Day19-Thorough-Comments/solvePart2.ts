@@ -6,6 +6,7 @@ import {
   EndingFilter,
   EvaluationResult,
   Part,
+  Rule,
   RuleInstance,
   Workflow,
 } from "./types.ts";
@@ -53,6 +54,7 @@ export default (async function (): Promise<number> {
     s: 1,
   };
 
+  const unprocessedRules: Rule[] = [];
   const endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
@@ -62,7 +64,7 @@ export default (async function (): Promise<number> {
     const workflow of workflows
   ) {
     // while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
-    const rulesWithDestinationA = workflow.rules.filter((rule) =>
+    const rulesWithDestinationA = unprocessedRules.filter((rule) =>
       rule.destination === `A`
     );
     if (workflow.endDestination === `A`) {
@@ -102,6 +104,7 @@ export default (async function (): Promise<number> {
         index: finalRule.index,
         acceptablePartsRange,
       });
+      unprocessedRules.splice(unprocessedRules.indexOf(finalRule), 1);
     }
     const result = myFunction(
       numberOfAcceptablePartCombinations,
