@@ -140,7 +140,6 @@ export default (async function (): Promise<number> {
   let endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
-  let numberOfAcceptablePartCombinations = 0;
   for (
     const workflow of workflows
   ) {
@@ -247,6 +246,23 @@ export default (async function (): Promise<number> {
   }
 
   console.log(processedWorkflows);
+
+  let numberOfAcceptablePartCombinations = 0;
+  for (const processedWorkflow of processedWorkflows) {
+    for (
+      const acceptablePartsRange of processedWorkflow.acceptablePartsRanges
+    ) {
+      const xRange = acceptablePartsRange.x.max - acceptablePartsRange.x.min +
+        1;
+      const mRange = acceptablePartsRange.m.max - acceptablePartsRange.m.min +
+        1;
+      const aRange = acceptablePartsRange.a.max - acceptablePartsRange.a.min +
+        1;
+      const sRange = acceptablePartsRange.s.max - acceptablePartsRange.s.min +
+        1;
+      numberOfAcceptablePartCombinations += xRange * mRange * aRange * sRange;
+    }
+  }
 
   console.log(
     `Part 2: The number of distinct combinations of acceptable ratings is ${numberOfAcceptablePartCombinations}`,
