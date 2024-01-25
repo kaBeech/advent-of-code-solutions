@@ -26,4 +26,9 @@ export interface XYCoordinates {
   y: number;
 }
 
+export interface MinMax {
+  min: number;
+  max: number;
+}
+
 export type CardinalDirection = `North` | `East` | `South` | `West`;
