@@ -4,15 +4,45 @@ import {
   Comparison,
   EndingFilter,
   Rule,
+  Workflow,
 } from "./types.ts";
+
+const processRule = (
+  ruleBeingProcessed: Rule,
+  processedRules: Rule[],
+  unprocessedRules: Rule[],
+  workflows: Workflow[],
+  processedWorkflows: string[],
+) => {
+  processedRules.push(
+    unprocessedRules.splice(unprocessedRules.indexOf(ruleBeingProcessed), 1)[0],
+  );
+
+  const finalRuleWorkflow = workflows.find((workflow) =>
+    workflow.name === ruleBeingProcessed.workflowName
+  )!;
+  const processedRulesInWorkflow = processedRules.filter((rule) =>
+    rule.workflowName === ruleBeingProcessed.workflowName
+  );
+  if (
+    processedRulesInWorkflow.length === finalRuleWorkflow.rules.length + 1
+  ) {
+    processedWorkflows.push(ruleBeingProcessed.workflowName);
+  }
+  return {
+    processedRules,
+    unprocessedRules,
+    processedWorkflows,
+  };
+};
 
 export default (async function (): Promise<number> {
   // Parse the input into workflows and parts.
   const workflows = (await parseInput()).workflows;
 
-  const unprocessedRules: Rule[] = [];
-  const processedRules: Rule[] = [];
-  const processedWorkflows: string[] = [];
+  let unprocessedRules: Rule[] = [];
+  let processedRules: Rule[] = [];
+  let processedWorkflows: string[] = [];
   const endingFilters: EndingFilter[] = [];
 
   // Evaluate each part and make a list of the accepted parts.
@@ -82,21 +112,16 @@ export default (async function (): Promise<number> {
       acceptablePartsRange,
     });
 
-    processedRules.push(
-      unprocessedRules.splice(unprocessedRules.indexOf(finalRule), 1)[0],
+    const processRuleResult = processRule(
+      finalRule,
+      processedRules,
+      unprocessedRules,
+      workflows,
+      processedWorkflows,
     );
-
-    const finalRuleWorkflow = workflows.find((workflow) =>
-      workflow.name === finalRule.workflowName
-    )!;
-    const processedRulesInWorkflow = processedRules.filter((rule) =>
-      rule.workflowName === finalRule.workflowName
-    );
-    if (
-      processedRulesInWorkflow.length === finalRuleWorkflow.rules.length + 1
-    ) {
-      processedWorkflows.push(finalRule.workflowName);
-    }
+    processedRules = processRuleResult.processedRules;
+    unprocessedRules = processRuleResult.unprocessedRules;
+    processedWorkflows = processRuleResult.processedWorkflows;
   }
 
   // Get the sum of all parts' rating numbers added together.
