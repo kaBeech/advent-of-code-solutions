@@ -1,5 +1,10 @@
 import parseInput from "./parseInput.ts";
-import { AcceptablePartsRange, EndingFilter, Rule } from "./types.ts";
+import {
+  AcceptablePartsRange,
+  Comparison,
+  EndingFilter,
+  Rule,
+} from "./types.ts";
 
 export default (async function (): Promise<number> {
   // Parse the input into workflows and parts.
@@ -13,7 +18,26 @@ export default (async function (): Promise<number> {
   for (
     const workflow of workflows
   ) {
-    // while (numberOfAcceptablePartCombinations < 3000 || finished < 3) {
+    unprocessedRules.push(...workflow.rules);
+    const finalRule = workflow.rules[workflow.rules.length - 1];
+    let endingComparison: Comparison;
+    let endingValue = finalRule.value;
+    if (finalRule.comparison === `>`) {
+      endingComparison = `<`;
+      endingValue += 1;
+    } else {
+      endingComparison = `>`;
+      endingValue -= 1;
+    }
+    const endingCondition = {
+      workflowName: workflow.name,
+      index: workflow.rules.length,
+      category: finalRule.category,
+      comparison: endingComparison,
+      value: 0,
+      destination: workflow.endDestination,
+    };
+    unprocessedRules.push(endingCondition);
 
     if (workflow.endDestination === `A`) {
       // Do something.
