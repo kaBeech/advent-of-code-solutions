@@ -72,7 +72,24 @@ export default (async function (): Promise<number> {
     unprocessedRules.push(endingCondition);
   }
 
-  // process all rules with destination A
+  // Process all rules with destination R
+  const rulesWithDestinationR = unprocessedRules.filter((rule) =>
+    rule.destination === `R`
+  );
+  for (const finalRule of rulesWithDestinationR) {
+    const processRuleResult = processRule(
+      finalRule,
+      processedRules,
+      unprocessedRules,
+      workflows,
+      processedWorkflows,
+    );
+    processedRules = processRuleResult.processedRules;
+    unprocessedRules = processRuleResult.unprocessedRules;
+    processedWorkflows = processRuleResult.processedWorkflows;
+  }
+
+  // Process all rules with destination A
   const rulesWithDestinationA = unprocessedRules.filter((rule) =>
     rule.destination === `A`
   );
