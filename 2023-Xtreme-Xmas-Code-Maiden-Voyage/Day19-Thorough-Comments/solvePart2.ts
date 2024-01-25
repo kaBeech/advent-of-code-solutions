@@ -38,12 +38,6 @@ export default (async function (): Promise<number> {
       destination: workflow.endDestination,
     };
     unprocessedRules.push(endingCondition);
-
-    if (workflow.endDestination === `A`) {
-      // Do something.
-    }
-
-    console.log(numberOfAcceptablePartCombinations);
   }
 
   // process all rules with destination A
