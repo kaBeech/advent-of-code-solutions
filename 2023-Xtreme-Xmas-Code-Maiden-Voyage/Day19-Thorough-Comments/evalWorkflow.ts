@@ -90,10 +90,6 @@ export default (
     // [...ruleStack, endRule],
     ruleStack,
   );
-  if (result.value > 0) {
-    return result;
-  } else {
-    // console.log(ruleStack);
-    return result;
-  }
+  // console.log(ruleStack);
+  return result;
 };
