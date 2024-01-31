@@ -10,15 +10,34 @@ main = do
 
 solvePart2 puzzleInput = do
   box <- convertBox (assembleBox (parseSteps puzzleInput))
-  focusingPowerValues <- map (getFocusingPower box) [0 .. length box - 1]
-  return (sum focusingPowerValues)
+  -- focusingPowerValues <- map (getFocusingPower box) [0 .. length box - 1]
+  -- return (sum focusingPowerValues)
+  return box
 
 -- solvePart2 puzzleInput = sum (map getFocusingPower (assembleBox (parseSteps puzzleInput)))
 
--- recursiveFunction box = if (all lenses in the box have labels with the same hashed value)
--- then return (sum (getFocusingPower boxNumber lens slotIndex) of each lens in the box)
--- else remove all the lenses with labels that have the same hash value as the first lens, and put them in a new box.
+-- clean this up!
+getLensValues box =
+  if (doAllLensesHaveTheSameBoxNumber box)
+    then -- Update this - currently we just treat each lense as having index 1
+      return getTotalLensValueOfHomogeneousBox box
+    else -- else remove all the lenses with labels that have the same hash value as the first lens, and put them in a new box.
+    -- return (getLensValues (filter (\x -> getBoxNumber x /= getBoxNumber head box) box))
+    -- return (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
+      return getTotalLensValueOfHomogeneousBox (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
+
 -- then return (recursiveFunction theNewBox) + recursiveFunction theBoxWithTheLeftoverLenses)
+
+getTotalLensValueOfHomogeneousBox box = sum (map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 1) box)
+
+doAllLensesHaveTheSameBoxNumber :: [[Char]] -> Bool
+doAllLensesHaveTheSameBoxNumber box = all (\x -> getBoxNumber x == getBoxNumber (head box)) box
+
+-- getTotalLensValueOfHomogeneousBox box = sum (map (getFocusingPower boxNumber lens slotIndex) [0 .. length box - 1])
+
+getBoxNumber lens = splitStringOn (== '=') (filter (/= '-') lens) !! 1
+
+-- end cleanup
 
 -- Parse Steps --
 
@@ -49,7 +68,7 @@ addLensToBox box lens = box ++ [lens]
 
 -- Get Focusing Power --
 
-getFocusingPower boxNumber lens slotIndex = (boxNumber + 1) * read (getFocalLength lens) * (slotIndex + 1)
+getFocusingPower lens boxNumber slotIndex = (boxNumber + 1) * read (getFocalLength lens) * (slotIndex + 1)
 
 getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
 
