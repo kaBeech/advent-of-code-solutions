@@ -12,22 +12,18 @@ solvePart2 puzzleInput = do
   box <- convertBox (assembleBox (parseSteps puzzleInput))
   -- focusingPowerValues <- map (getFocusingPower box) [0 .. length box - 1]
   -- return (sum focusingPowerValues)
-  return box
+  return (getTotalLensValue (convertBox (assembleBox (parseSteps puzzleInput))))
 
 -- solvePart2 puzzleInput = sum (map getFocusingPower (assembleBox (parseSteps puzzleInput)))
 
 -- clean this up!
-getLensValues box =
-  if (doAllLensesHaveTheSameBoxNumber box)
-    then -- Update this - currently we just treat each lense as having index 1
-      return getTotalLensValueOfHomogeneousBox box
-    else -- else remove all the lenses with labels that have the same hash value as the first lens, and put them in a new box.
-    -- return (getLensValues (filter (\x -> getBoxNumber x /= getBoxNumber head box) box))
-    -- return (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
-      return getTotalLensValueOfHomogeneousBox (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
+getTotalLensValue box
+  | null box = 0
+  | doAllLensesHaveTheSameBoxNumber box = getTotalLensValueOfHomogeneousBox box
+  -- otherwise remove all the lenses with labels that have the same label as the first lens, get their total lens value, and run getTotalLensValue recursively on the remaining lenses
+  | otherwise = getTotalLensValueOfHomogeneousBox (filter (\x -> getBoxNumber x == getBoxNumber (head box)) box) + getTotalLensValue (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
 
--- then return (recursiveFunction theNewBox) + recursiveFunction theBoxWithTheLeftoverLenses)
-
+-- Update this - currently we just treat each lens as having index 1
 getTotalLensValueOfHomogeneousBox box = sum (map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 1) box)
 
 doAllLensesHaveTheSameBoxNumber :: [[Char]] -> Bool
