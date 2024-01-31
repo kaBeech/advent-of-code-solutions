@@ -31,7 +31,7 @@ doAllLensesHaveTheSameBoxNumber box = all (\x -> getBoxNumber x == getBoxNumber 
 
 -- getTotalLensValueOfHomogeneousBox box = sum (map (getFocusingPower boxNumber lens slotIndex) [0 .. length box - 1])
 
-getBoxNumber lens = splitStringOn (== '=') (filter (/= '-') lens) !! 1
+getBoxNumber lens = splitStringOn (== '=') (filter (/= '-') lens) !! 0
 
 -- end cleanup
 
