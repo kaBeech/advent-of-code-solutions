@@ -60,8 +60,13 @@ doAllLensesHaveTheSameBoxNumber box = all (\x -> getBoxNumber x == getBoxNumber 
 
 getBoxNumber lens = head (splitStringOn (== '=') (filter (/= '-') lens))
 
-getTotalLensValueOfHomogeneousBox box = sum (map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 0) box)
+getLensValuesOfHomogeneousBox = map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 0)
 
-getFocusingPower lens boxNumber slotIndex = (boxNumber + 1) * read (getFocalLength lens) * (slotIndex + 1)
+getTotalLensValueOfHomogeneousBox box
+  | null box = 0
+  | length box == 1 = getFocusingPower (head box) (read (getBoxNumber (head box))) (length box)
+  | otherwise = getFocusingPower (last box) (read (getBoxNumber (last box))) (length box) + getTotalLensValueOfHomogeneousBox (init box)
+
+getFocusingPower lens boxNumber slotIndex = (boxNumber + 1) * read (getFocalLength lens) * slotIndex
 
 getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
