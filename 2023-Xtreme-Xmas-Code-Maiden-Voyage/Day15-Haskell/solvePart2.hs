@@ -23,8 +23,8 @@ getTotalLensValue box
   -- otherwise remove all the lenses with labels that have the same label as the first lens, get their total lens value, and run getTotalLensValue recursively on the remaining lenses
   | otherwise = getTotalLensValueOfHomogeneousBox (filter (\x -> getBoxNumber x == getBoxNumber (head box)) box) + getTotalLensValue (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
 
--- Update this - currently we just treat each lens as having index 1
-getTotalLensValueOfHomogeneousBox box = sum (map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 1) box)
+-- Update this - currently we just treat each lens as having index 0
+getTotalLensValueOfHomogeneousBox box = sum (map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 0) box)
 
 doAllLensesHaveTheSameBoxNumber :: [[Char]] -> Bool
 doAllLensesHaveTheSameBoxNumber box = all (\x -> getBoxNumber x == getBoxNumber (head box)) box
