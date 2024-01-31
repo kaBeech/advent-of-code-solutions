@@ -9,7 +9,7 @@ main = do
   print (solvePart2 input)
 
 solvePart2 puzzleInput = do
-  box <- assembleBox (parseSteps puzzleInput)
+  box <- convertBox (assembleBox (parseSteps puzzleInput))
   focusingPowerValues <- map (getFocusingPower box) [0 .. length box - 1]
   return (sum focusingPowerValues)
 
@@ -26,7 +26,8 @@ parseSteps = splitStringOn (== ',')
 
 -- Assemble Box --
 
--- convertBox steps = map (\x -> x + '=' + (runHASHAlgorithm (getLabel x))) steps
+-- Replace the box label of each string with its hashed value
+convertBox box = map (\x -> show (runHASHAlgorithm (getLabel x)) ++ drop 2 x) box
 
 assembleBox steps = foldl processStep [] steps
 
