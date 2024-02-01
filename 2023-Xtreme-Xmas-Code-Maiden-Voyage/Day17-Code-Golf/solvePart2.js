@@ -11,7 +11,7 @@ const gN = (cN, m) => {
       b: m[y - 1][x],
       d: "n",
       s: 1,
-      h: cN.h + m[y - 1][x].heatLoss,
+      h: cN.h + m[y - 1][x].h,
     });
   }
   if (x < m[0].length - 1 && d !== "w" && (d === "e" || min)) {
@@ -19,7 +19,7 @@ const gN = (cN, m) => {
       b: m[y][x + 1],
       d: "e",
       s: 1,
-      h: cN.h + m[y][x + 1].heatLoss,
+      h: cN.h + m[y][x + 1].h,
     });
   }
   if (y < m.length - 1 && d !== "n" && (d === "s" || min)) {
@@ -27,7 +27,7 @@ const gN = (cN, m) => {
       b: m[y + 1][x],
       d: "s",
       s: 1,
-      h: cN.h + m[y + 1][x].heatLoss,
+      h: cN.h + m[y + 1][x].h,
     });
   }
   if (x > 0 && d !== "e" && (d === "w" || min)) {
@@ -35,7 +35,7 @@ const gN = (cN, m) => {
       b: m[y][x - 1],
       d: "w",
       s: 1,
-      h: cN.h + m[y][x - 1].heatLoss,
+      h: cN.h + m[y][x - 1].h,
     });
   }
 
@@ -58,24 +58,24 @@ s.trimEnd()
   });
 let y = 0;
 
-for (const rawCityRow of a) {
-  const cityRow = [];
+for (const rR of a) {
+  const r = [];
   let x = 0;
-  for (const rawCityBlock of rawCityRow) {
-    cityRow.push({
-      heatLoss: +rawCityBlock,
-      minimumRouteHeatLoss: Infinity,
+  for (const rB of rR) {
+    r.push({
+      h: +rB,
+      m: Infinity,
       c: { x, y },
     });
     x++;
   }
-  m.push(cityRow);
+  m.push(r);
   y++;
 }
 
 export default (function () {
   const fac = m[m.length - 1][m[0].length - 1];
-  let end = fac.minimumRouteHeatLoss;
+  let end = fac.m;
   const v = new Map();
   const nodesToVisit = new Heap((a, b) => a.h - b.h);
   nodesToVisit.push(
@@ -83,13 +83,13 @@ export default (function () {
       b: m[0][1],
       d: "e",
       s: 1,
-      h: m[0][1].heatLoss,
+      h: m[0][1].h,
     },
     {
       b: m[1][0],
       d: "s",
       s: 1,
-      h: m[1][0].heatLoss,
+      h: m[1][0].h,
     }
   );
 
@@ -116,11 +116,11 @@ export default (function () {
 
     for (const neighborNode of neighbors) {
       if (neighborNode.s < 11 && neighborNode.h < end) {
-        const nBlock = neighborNode.b;
-        if (nBlock === fac) {
-          nBlock.finalNode = currentNode;
+        const nB = neighborNode.b;
+        if (nB === fac) {
+          nB.finalNode = currentNode;
         }
-        nBlock.minimumRouteHeatLoss = h + nBlock.heatLoss;
+        nB.m = h + nB.h;
         nodesToVisit.push(neighborNode);
       }
     }
