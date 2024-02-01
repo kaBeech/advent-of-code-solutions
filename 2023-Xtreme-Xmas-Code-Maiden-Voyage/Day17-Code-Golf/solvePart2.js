@@ -1,62 +1,51 @@
 import { Heap } from "npm:heap-js";
 
-const getNeighbors = (currentNode, cityMap) => {
-  const neighbors = [];
-  const { x, y } = currentNode.block.coordinates;
-  const minStepsReached = currentNode.consecutiveStepsInSameDirection > 3;
-  const d = currentNode.direction;
+const gN = (cN, m) => {
+  const ns = [];
+  const { x, y } = cN.block.coordinates;
+  const min = cN.consecutiveStepsInSameDirection > 3;
+  const d = cN.direction;
 
-  if (y > 0 && d !== "south" && (d === "north" || minStepsReached)) {
-    neighbors.push({
-      block: cityMap[y - 1][x],
-      direction: "north",
+  if (y > 0 && d !== "s" && (d === "n" || min)) {
+    ns.push({
+      block: m[y - 1][x],
+      direction: "n",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
+      routeHeatLoss: cN.routeHeatLoss + m[y - 1][x].heatLoss,
     });
   }
-  if (
-    x < cityMap[0].length - 1 &&
-    d !== "west" &&
-    (d === "east" || minStepsReached)
-  ) {
-    neighbors.push({
-      block: cityMap[y][x + 1],
-      direction: "east",
+  if (x < m[0].length - 1 && d !== "w" && (d === "e" || min)) {
+    ns.push({
+      block: m[y][x + 1],
+      direction: "e",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
+      routeHeatLoss: cN.routeHeatLoss + m[y][x + 1].heatLoss,
     });
   }
-  if (
-    y < cityMap.length - 1 &&
-    d !== "north" &&
-    (d === "south" || minStepsReached)
-  ) {
-    neighbors.push({
-      block: cityMap[y + 1][x],
-      direction: "south",
+  if (y < m.length - 1 && d !== "n" && (d === "s" || min)) {
+    ns.push({
+      block: m[y + 1][x],
+      direction: "s",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
+      routeHeatLoss: cN.routeHeatLoss + m[y + 1][x].heatLoss,
     });
   }
-  if (x > 0 && d !== "east" && (d === "west" || minStepsReached)) {
-    neighbors.push({
-      block: cityMap[y][x - 1],
-      direction: "west",
+  if (x > 0 && d !== "e" && (d === "w" || min)) {
+    ns.push({
+      block: m[y][x - 1],
+      direction: "w",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
+      routeHeatLoss: cN.routeHeatLoss + m[y][x - 1].heatLoss,
     });
   }
 
-  const directionNeighbor = neighbors.find(
-    (neighbor) => neighbor.direction === d
-  );
+  const dN = ns.find((n) => n.direction === d);
 
-  if (directionNeighbor) {
-    directionNeighbor.consecutiveStepsInSameDirection =
-      currentNode.consecutiveStepsInSameDirection + 1;
+  if (dN) {
+    dN.consecutiveStepsInSameDirection = cN.consecutiveStepsInSameDirection + 1;
   }
 
-  return neighbors;
+  return ns;
 };
 
 const m = [];
@@ -91,13 +80,13 @@ export default (function () {
   nodesToVisit.push(
     {
       block: m[0][1],
-      direction: "east",
+      direction: "e",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: m[0][1].heatLoss,
     },
     {
       block: m[1][0],
-      direction: "south",
+      direction: "s",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: m[1][0].heatLoss,
     }
@@ -127,7 +116,7 @@ export default (function () {
     }
     visited.set(cacheKey, routeHeatLoss);
 
-    const neighbors = getNeighbors(currentNode, m);
+    const neighbors = gN(currentNode, m);
 
     for (const neighborNode of neighbors) {
       if (
