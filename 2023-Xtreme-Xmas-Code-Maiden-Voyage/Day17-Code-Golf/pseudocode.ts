@@ -34,7 +34,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   // const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const visited = new Set();
+  const visited = new Map();
   const nodesToVisit = new Heap((a: Node, b: Node) =>
     a.routeHeatLoss - b.routeHeatLoss
   );
@@ -86,10 +86,13 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 
     const cacheKey =
       `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
-    if (visited.has(cacheKey)) {
+    if (
+      visited.has(cacheKey) &&
+      (visited.get(cacheKey) <= currentNode.routeHeatLoss)
+    ) {
       continue;
     }
-    visited.add(cacheKey);
+    visited.set(cacheKey, currentNode.routeHeatLoss);
 
     const neighbors = getNeighbors(currentNode, cityMap);
 
