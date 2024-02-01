@@ -94,13 +94,13 @@ export default (function () {
   );
 
   while (nodesToVisit.length > 0) {
-    const currentNode = nodesToVisit.pop();
-    const { b, h, d, s } = currentNode;
+    const cN = nodesToVisit.pop();
+    const { b, h, d, s } = cN;
     const { x, y } = b.c;
 
     if (b === fac) {
       if (h < end) {
-        fac.finalNode = currentNode;
+        fac.finalNode = cN;
       }
       end = Math.min(h, end);
       continue;
@@ -112,13 +112,13 @@ export default (function () {
     }
     v.set(cacheKey, h);
 
-    const neighbors = gN(currentNode, m);
+    const neighbors = gN(cN, m);
 
     for (const neighborNode of neighbors) {
       if (neighborNode.s < 11 && neighborNode.h < end) {
         const nB = neighborNode.b;
         if (nB === fac) {
-          nB.finalNode = currentNode;
+          nB.finalNode = cN;
         }
         nB.m = h + nB.h;
         nodesToVisit.push(neighborNode);
