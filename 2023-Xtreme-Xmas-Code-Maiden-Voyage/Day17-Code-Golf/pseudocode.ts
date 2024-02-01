@@ -1,3 +1,5 @@
+import { Heap } from "npm:heap-js";
+
 import { CardinalDirection } from "../../tools/commonTypes.ts";
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
@@ -35,37 +37,38 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   // const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const nodesToVisit: Node[] = [
-    {
-      block: cityMap[0][1],
-      direction: "east",
+  const nodesToVisit = new Heap((a: Node, b: Node) =>
+    a.routeHeatLoss - b.routeHeatLoss
+  );
+  nodesToVisit.push({
+    block: cityMap[0][1],
+    direction: "east",
+    consecutiveStepsInSameDirection: 1,
+    routeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
+    visitedBlocks: [cityMap[0][0]],
+    heatLossRecord: [{
+      nodeHeatLoss: cityMap[0][1].heatLoss,
+      cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
-      visitedBlocks: [cityMap[0][0]],
-      heatLossRecord: [{
-        nodeHeatLoss: cityMap[0][1].heatLoss,
-        cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 1, y: 0 },
-      }],
-    },
-    {
-      block: cityMap[1][0],
-      direction: "south",
+      coordinates: { x: 1, y: 0 },
+    }],
+  });
+  nodesToVisit.push({
+    block: cityMap[1][0],
+    direction: "south",
+    consecutiveStepsInSameDirection: 1,
+    routeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
+    visitedBlocks: [cityMap[0][0]],
+    heatLossRecord: [{
+      nodeHeatLoss: cityMap[1][0].heatLoss,
+      cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
-      visitedBlocks: [cityMap[0][0]],
-      heatLossRecord: [{
-        nodeHeatLoss: cityMap[1][0].heatLoss,
-        cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 0, y: 1 },
-      }],
-    },
-  ];
+      coordinates: { x: 0, y: 1 },
+    }],
+  });
 
   while (nodesToVisit.length > 0) {
-    const currentNode = nodesToVisit.shift()!;
+    const currentNode = nodesToVisit.pop()!;
 
     if (
       currentNode.block === machinePartsFactory
