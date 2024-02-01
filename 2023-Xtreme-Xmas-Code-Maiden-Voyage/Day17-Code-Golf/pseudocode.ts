@@ -95,7 +95,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 
     for (const neighborNode of neighbors) {
       if (
-        neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
+        neighborNode && neighborNode.consecutiveStepsInSameDirection < 11 &&
+        // neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
         neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
       ) {
         if (
@@ -128,7 +129,12 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
 
-  if (y > 0 && currentNode.direction !== "south") {
+  // if (y > 0 && currentNode.direction !== "south") {
+  if (
+    y > 0 && currentNode.direction !== "south" &&
+    (currentNode.direction === "north" ||
+      currentNode.consecutiveStepsInSameDirection > 3)
+  ) {
     neighbors.push({
       block: cityMap[y - 1][x],
       direction: "north",
@@ -146,7 +152,12 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (x < cityMap[0].length - 1 && currentNode.direction !== "west") {
+  // if (x < cityMap[0].length - 1 && currentNode.direction !== "west") {
+  if (
+    x < cityMap[0].length - 1 && currentNode.direction !== "west" &&
+    (currentNode.direction === "east" ||
+      currentNode.consecutiveStepsInSameDirection > 3)
+  ) {
     neighbors.push({
       block: cityMap[y][x + 1],
       direction: "east",
@@ -164,7 +175,12 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (y < cityMap.length - 1 && currentNode.direction !== "north") {
+  // if (y < cityMap.length - 1 && currentNode.direction !== "north") {
+  if (
+    y < cityMap.length - 1 && currentNode.direction !== "north" &&
+    (currentNode.direction === "south" ||
+      currentNode.consecutiveStepsInSameDirection > 3)
+  ) {
     neighbors.push({
       block: cityMap[y + 1][x],
       direction: "south",
@@ -182,7 +198,12 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (x > 0 && currentNode.direction !== "east") {
+  // if (x > 0 && currentNode.direction !== "east") {
+  if (
+    x > 0 && currentNode.direction !== "east" &&
+    (currentNode.direction === "west" ||
+      currentNode.consecutiveStepsInSameDirection > 3)
+  ) {
     neighbors.push({
       block: cityMap[y][x - 1],
       direction: "west",
