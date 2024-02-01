@@ -27,6 +27,7 @@ interface CityBlock {
 interface Node {
   block: CityBlock;
   route: Route;
+  totalHeatLoss: number;
 }
 
 const pseudoSolvePart1 = async (): Promise<number> => {
@@ -34,10 +35,26 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const nodesToVisit = [{
-    block: lavaPool,
-    route: { distanceFromLavaPool: 0, straightLine: "", path: [] },
-  }];
+  const nodesToVisit = [
+    {
+      block: cityMap[0][1],
+      totalHeatLoss: cityMap[0][1].heatLoss,
+      route: {
+        distanceFromLavaPool: cityMap[0][1].heatLoss,
+        straightLine: "E",
+        path: [{ x: 0, y: 0 }],
+      },
+    },
+    {
+      block: cityMap[1][0],
+      totalHeatLoss: cityMap[1][0].heatLoss,
+      route: {
+        distanceFromLavaPool: cityMap[1][0].heatLoss,
+        straightLine: "S",
+        path: [{ x: 0, y: 0 }],
+      },
+    },
+  ];
 
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.shift()!;
