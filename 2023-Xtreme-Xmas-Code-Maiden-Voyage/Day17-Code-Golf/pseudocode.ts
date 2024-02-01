@@ -99,11 +99,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     for (const neighborNode of neighbors) {
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
-        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
-        neighborNode.routeHeatLoss < 1300 &&
-        currentNode.routeHeatLoss <
-          neighborNode.block.minimumRouteHeatLoss
-        // !currentNode.visitedBlocks.includes(neighborNode.block.coordinates)
+        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
       ) {
         if (
           neighborNode.block === machinePartsFactory
