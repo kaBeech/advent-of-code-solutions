@@ -52,7 +52,7 @@ for (let rR of a) {
   y++;
 }
 
-export default (function () {
+export default () => {
   let f = m[m.length - 1][m[0].length - 1];
   let z = f.m;
   let v = new Map();
@@ -79,7 +79,5 @@ export default (function () {
     }
   }
 
-  console.log(`Part 2: The lowest possible heat loss is ${z}.`);
-
   return z;
-})();
+};
