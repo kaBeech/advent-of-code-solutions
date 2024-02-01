@@ -11,94 +11,6 @@ const c = async (input) => {
   return a;
 };
 
-const pseudoSolvePart1 = async () => {
-  const cityMap = await parseInput();
-  const machinePartsFactory =
-    cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const visited = new Map();
-  const nodesToVisit = new Heap((a, b) => a.routeHeatLoss - b.routeHeatLoss);
-  nodesToVisit.push({
-    block: cityMap[0][1],
-    direction: "east",
-    consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[0][1].heatLoss,
-    heatLossRecord: [
-      {
-        nodeHeatLoss: cityMap[0][1].heatLoss,
-        cumulativeHeatLoss: cityMap[0][1].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 1, y: 0 },
-      },
-    ],
-  });
-  nodesToVisit.push({
-    block: cityMap[1][0],
-    direction: "south",
-    consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[1][0].heatLoss,
-    heatLossRecord: [
-      {
-        nodeHeatLoss: cityMap[1][0].heatLoss,
-        cumulativeHeatLoss: cityMap[1][0].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 0, y: 1 },
-      },
-    ],
-  });
-
-  while (nodesToVisit.length > 0) {
-    const currentNode = nodesToVisit.pop();
-
-    if (currentNode.block === machinePartsFactory) {
-      if (
-        currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
-      ) {
-        machinePartsFactory.finalNode = currentNode;
-      }
-      machinePartsFactory.minimumRouteHeatLoss = Math.min(
-        currentNode.routeHeatLoss,
-        machinePartsFactory.minimumRouteHeatLoss
-      );
-
-      continue;
-    }
-
-    const cacheKey = `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
-    if (
-      visited.has(cacheKey) &&
-      visited.get(cacheKey) <= currentNode.routeHeatLoss
-    ) {
-      continue;
-    }
-    visited.set(cacheKey, currentNode.routeHeatLoss);
-
-    const neighbors = getNeighbors(currentNode, cityMap);
-
-    for (const neighborNode of neighbors) {
-      if (
-        neighborNode &&
-        neighborNode.consecutiveStepsInSameDirection < 4 &&
-        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
-      ) {
-        if (neighborNode.block === machinePartsFactory) {
-          neighborNode.block.finalNode = currentNode;
-        }
-        neighborNode.block.minimumRouteHeatLoss =
-          currentNode.routeHeatLoss + neighborNode.block.heatLoss;
-        nodesToVisit.push(neighborNode);
-      }
-    }
-  }
-
-  const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
-
-  console.log(
-    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`
-  );
-
-  return lowestPossibleHeatLoss;
-};
-
 const getNeighbors = (currentNode, cityMap) => {
   const neighbors = [];
   const { x, y } = currentNode.block.coordinates;
@@ -214,8 +126,91 @@ const parseInput = async () => {
   return cityMap;
 };
 
-export default (function () {
-  const result = pseudoSolvePart1();
+const cityMap = await parseInput();
 
-  return result;
+export default (function () {
+  const machinePartsFactory =
+    cityMap[cityMap.length - 1][cityMap[0].length - 1];
+  const visited = new Map();
+  const nodesToVisit = new Heap((a, b) => a.routeHeatLoss - b.routeHeatLoss);
+  nodesToVisit.push({
+    block: cityMap[0][1],
+    direction: "east",
+    consecutiveStepsInSameDirection: 1,
+    routeHeatLoss: cityMap[0][1].heatLoss,
+    heatLossRecord: [
+      {
+        nodeHeatLoss: cityMap[0][1].heatLoss,
+        cumulativeHeatLoss: cityMap[0][1].heatLoss,
+        consecutiveStepsInSameDirection: 1,
+        coordinates: { x: 1, y: 0 },
+      },
+    ],
+  });
+  nodesToVisit.push({
+    block: cityMap[1][0],
+    direction: "south",
+    consecutiveStepsInSameDirection: 1,
+    routeHeatLoss: cityMap[1][0].heatLoss,
+    heatLossRecord: [
+      {
+        nodeHeatLoss: cityMap[1][0].heatLoss,
+        cumulativeHeatLoss: cityMap[1][0].heatLoss,
+        consecutiveStepsInSameDirection: 1,
+        coordinates: { x: 0, y: 1 },
+      },
+    ],
+  });
+
+  while (nodesToVisit.length > 0) {
+    const currentNode = nodesToVisit.pop();
+
+    if (currentNode.block === machinePartsFactory) {
+      if (
+        currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+      ) {
+        machinePartsFactory.finalNode = currentNode;
+      }
+      machinePartsFactory.minimumRouteHeatLoss = Math.min(
+        currentNode.routeHeatLoss,
+        machinePartsFactory.minimumRouteHeatLoss
+      );
+
+      continue;
+    }
+
+    const cacheKey = `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
+    if (
+      visited.has(cacheKey) &&
+      visited.get(cacheKey) <= currentNode.routeHeatLoss
+    ) {
+      continue;
+    }
+    visited.set(cacheKey, currentNode.routeHeatLoss);
+
+    const neighbors = getNeighbors(currentNode, cityMap);
+
+    for (const neighborNode of neighbors) {
+      if (
+        neighborNode &&
+        neighborNode.consecutiveStepsInSameDirection < 4 &&
+        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+      ) {
+        if (neighborNode.block === machinePartsFactory) {
+          neighborNode.block.finalNode = currentNode;
+        }
+        neighborNode.block.minimumRouteHeatLoss =
+          currentNode.routeHeatLoss + neighborNode.block.heatLoss;
+        nodesToVisit.push(neighborNode);
+      }
+    }
+  }
+
+  const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
+
+  console.log(
+    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`
+  );
+
+  return lowestPossibleHeatLoss;
 })();
