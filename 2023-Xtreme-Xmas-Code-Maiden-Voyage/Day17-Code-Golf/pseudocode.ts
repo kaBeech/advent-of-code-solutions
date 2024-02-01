@@ -16,20 +16,27 @@ interface Node {
   consecutiveStepsInSameDirection: number;
 }
 
+interface Neighbors {
+  north: Node | null;
+  east: Node | null;
+  south: Node | null;
+  west: Node | null;
+}
+
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
   const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const nodesToVisit = [
+  const nodesToVisit: Node[] = [
     {
       block: cityMap[0][1],
-      direction: "E",
+      direction: "east",
       consecutiveStepsInSameDirection: 1,
     },
     {
       block: cityMap[1][0],
-      direction: "S",
+      direction: "south",
       consecutiveStepsInSameDirection: 1,
     },
   ];
@@ -76,89 +83,46 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   return lowestPossibleHeatLoss;
 };
 
-const parseInput = async (): Promise<CityBlock[][]> => {
-  const cityMap: CityBlock[][] = [];
-  const cityMapString = await convertMultiLineFileToDoubleArray(
-    "./testInput.dat",
-  );
-  let y = 0;
-
-  for (const rawCityRow of cityMapString) {
-    const cityRow: CityBlock[] = [];
-    let x = 0;
-    for (const rawCityBlock of rawCityRow) {
-      cityRow.push({
-        heatLoss: +rawCityBlock,
-        shortestRoute: {
-          currentHeatLoss: Infinity,
-          straightLine: "",
-          path: [],
-        },
-        routesByDirection: {
-          N: {
-            currentHeatLoss: Infinity,
-            straightLine: "",
-            path: [],
-          },
-          E: {
-            currentHeatLoss: Infinity,
-            straightLine: "",
-            path: [],
-          },
-          S: {
-            currentHeatLoss: Infinity,
-            straightLine: "",
-            path: [],
-          },
-          W: {
-            currentHeatLoss: Infinity,
-            straightLine: "",
-            path: [],
-          },
-        },
-        coordinates: { x, y },
-      });
-      x++;
-    }
-    cityMap.push(cityRow);
-    y++;
-  }
-  return cityMap;
-};
-
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
-  const neighbors: Node[] = [];
+  const neighbors: Neighbors = {
+    north: null,
+    east: null,
+    south: null,
+    west: null,
+  };
   const { x, y } = currentNode.block.coordinates;
 
-  if (y > 0 && currentNode.route.straightLine[0] !== "S") {
-    neighbors.push({
+  if (y > 0) {
+    neighbors.north = {
       block: cityMap[y - 1][x],
-      route: cityMap[y - 1][x].routesByDirection.N,
-    });
+      direction: "north",
+      consecutiveStepsInSameDirection: 1,
+    };
   }
-  if (
-    x < cityMap[0].length - 1 &&
-    currentNode.route.straightLine[0] !== "W"
-  ) {
-    neighbors.push({
+  if (x < cityMap[0].length - 1) {
+    neighbors.east = {
       block: cityMap[y][x + 1],
-      route: cityMap[y][x + 1].routesByDirection.E,
-    });
+      direction: "east",
+      consecutiveStepsInSameDirection: 1,
+    };
   }
-  if (
-    y < cityMap.length - 1 && currentNode.route.straightLine[0] !== "N"
-  ) {
-    neighbors.push({
+  if (y < cityMap.length - 1) {
+    neighbors.south = {
       block: cityMap[y + 1][x],
-      route: cityMap[y + 1][x].routesByDirection.S,
-    });
+      direction: "south",
+      consecutiveStepsInSameDirection: 1,
+    };
   }
-  if (x > 0 && currentNode.route.straightLine[0] !== "E") {
-    neighbors.push({
+  if (x > 0) {
+    neighbors.west = {
       block: cityMap[y][x - 1],
-      route: cityMap[y][x - 1].routesByDirection.W,
-    });
+      direction: "west",
+      consecutiveStepsInSameDirection: 1,
+    };
   }
+
+  neighbors[currentNode.direction]!.consecutiveStepsInSameDirection++;
+
   return neighbors;
 };
 
@@ -302,3 +266,27 @@ const _happyPath = [
   { x: 11, y: 12 },
   { x: 12, y: 12 },
 ];
+
+const parseInput = async (): Promise<CityBlock[][]> => {
+  const cityMap: CityBlock[][] = [];
+  const cityMapString = await convertMultiLineFileToDoubleArray(
+    "./testInput.dat",
+  );
+  let y = 0;
+
+  for (const rawCityRow of cityMapString) {
+    const cityRow: CityBlock[] = [];
+    let x = 0;
+    for (const rawCityBlock of rawCityRow) {
+      cityRow.push({
+        heatLoss: +rawCityBlock,
+        minimumRouteHeatLoss: Infinity,
+        coordinates: { x, y },
+      });
+      x++;
+    }
+    cityMap.push(cityRow);
+    y++;
+  }
+  return cityMap;
+};
