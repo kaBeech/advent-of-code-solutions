@@ -24,7 +24,7 @@ const gN = (cN, m) => {
 };
 
 const m = [];
-const s = await Deno.readTextFile("./t.dat");
+const s = await Deno.readTextFile("./i.dat");
 const a = [];
 s.trimEnd()
   .split(/\n/)
