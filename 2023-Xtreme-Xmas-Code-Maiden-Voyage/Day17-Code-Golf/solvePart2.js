@@ -1,16 +1,5 @@
 import { Heap } from "npm:heap-js";
 
-const c = async (input) => {
-  const s = await Deno.readTextFile(input);
-  const a = [];
-  s.trimEnd()
-    .split(/\n/)
-    .forEach((l) => {
-      a.push(l.split(""));
-    });
-  return a;
-};
-
 const getNeighbors = (currentNode, cityMap) => {
   const neighbors = [];
   const { x, y } = currentNode.block.coordinates;
@@ -126,10 +115,16 @@ const getNeighbors = (currentNode, cityMap) => {
 
 const parseInput = async () => {
   const cityMap = [];
-  const cityMapString = await c("./t.dat");
+  const s = await Deno.readTextFile("./t.dat");
+  const a = [];
+  s.trimEnd()
+    .split(/\n/)
+    .forEach((l) => {
+      a.push(l.split(""));
+    });
   let y = 0;
 
-  for (const rawCityRow of cityMapString) {
+  for (const rawCityRow of a) {
     const cityRow = [];
     let x = 0;
     for (const rawCityBlock of rawCityRow) {
