@@ -32,9 +32,9 @@ Part 2: 0
 
 To run these programs, first enter the Deno runtime by running `deno` from inside this directory.
 
-Next, input `import solvePart[1-2] from './solvePart[1-2].js'`.
+Next, input `import s from './s.js'`.
 
-Finally, run `solvePart[1-2]()`.
+Finally, run `s(true)` for Part 1 and `s(false)` for Part 2.
 
 ### Retrospective
 

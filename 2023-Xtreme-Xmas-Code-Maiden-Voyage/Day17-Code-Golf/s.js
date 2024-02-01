@@ -1,21 +1,26 @@
 import { Heap } from "npm:heap-js";
 
-const gN = (cN, m) => {
+const gN = (cN, m, p1) => {
   const ns = [];
   const { x, y } = cN.b.c;
+  const n = cN.s > 3;
   const d = cN.d;
 
   y > 0 &&
     d !== "s" &&
+    (p1 || d === "n" || n) &&
     ns.push({ b: m[y - 1][x], d: "n", s: 1, h: cN.h + m[y - 1][x].h });
   x < m[0].length - 1 &&
     d !== "w" &&
+    (p1 || d === "e" || n) &&
     ns.push({ b: m[y][x + 1], d: "e", s: 1, h: cN.h + m[y][x + 1].h });
   y < m.length - 1 &&
     d !== "n" &&
+    (p1 || d === "s" || n) &&
     ns.push({ b: m[y + 1][x], d: "s", s: 1, h: cN.h + m[y + 1][x].h });
   x > 0 &&
     d !== "e" &&
+    (p1 || d === "w" || n) &&
     ns.push({ b: m[y][x - 1], d: "w", s: 1, h: cN.h + m[y][x - 1].h });
 
   const dN = ns.find((n) => n.d === d);
@@ -47,7 +52,7 @@ for (const rR of a) {
   y++;
 }
 
-export default () => {
+export default (p1) => {
   const f = m[m.length - 1][m[0].length - 1];
   let z = f.m;
   const v = new Map();
@@ -77,8 +82,8 @@ export default () => {
     }
     if (v.has(k) && v.get(k) <= h) continue;
     v.set(k, h);
-    for (const nN of gN(cN, m)) {
-      if (nN.s < 4 && nN.h < z) {
+    for (const nN of gN(cN, m, p1)) {
+      if ((p1 && nN.s < 4) || (!p1 && nN.s < 11 && nN.h < z)) {
         nN.b.m = h + nN.b.h;
         q.push(nN);
       }
