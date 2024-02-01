@@ -25,7 +25,7 @@ interface Node {
   direction: CardinalDirection;
   consecutiveStepsInSameDirection: number;
   routeHeatLoss: number;
-  visitedBlocks: XYCoordinates[];
+  // visitedBlocks: XYCoordinates[];
   heatLossRecord: NodeRecord[];
 }
 
@@ -34,6 +34,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   // const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
+  const visited = new Set();
   const nodesToVisit = new Heap((a: Node, b: Node) =>
     a.routeHeatLoss - b.routeHeatLoss
   );
@@ -42,7 +43,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     direction: "east",
     consecutiveStepsInSameDirection: 1,
     routeHeatLoss: cityMap[0][1].heatLoss,
-    visitedBlocks: [{ x: 0, y: 0 }],
+    // visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[0][1].heatLoss,
       cumulativeHeatLoss: cityMap[0][1].heatLoss,
@@ -55,7 +56,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     direction: "south",
     consecutiveStepsInSameDirection: 1,
     routeHeatLoss: cityMap[1][0].heatLoss,
-    visitedBlocks: [{ x: 0, y: 0 }],
+    // visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[1][0].heatLoss,
       cumulativeHeatLoss: cityMap[1][0].heatLoss,
@@ -83,17 +84,23 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       continue;
     }
 
+    const cacheKey =
+      `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
+    if (visited.has(cacheKey)) {
+      continue;
+    }
+    visited.add(cacheKey);
+
     const neighbors = getNeighbors(currentNode, cityMap);
 
     for (const neighborNode of neighbors) {
-      // Optimization possible in this if statement
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
         neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
+        neighborNode.routeHeatLoss < 1300 &&
         currentNode.routeHeatLoss <
-          neighborNode.block.minimumRouteHeatLoss &&
-        neighborNode.routeHeatLoss < 105 &&
-        !currentNode.visitedBlocks.includes(neighborNode.block.coordinates)
+          neighborNode.block.minimumRouteHeatLoss
+        // !currentNode.visitedBlocks.includes(neighborNode.block.coordinates)
       ) {
         if (
           neighborNode.block === machinePartsFactory
@@ -124,9 +131,9 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
-  const visitedBlocks = currentNode.visitedBlocks;
+  // const visitedBlocks = currentNode.visitedBlocks;
   // const visitedBlocks = currentNode.visitedBlocks.slice();
-  visitedBlocks.push(currentNode.block.coordinates);
+  // visitedBlocks.push(currentNode.block.coordinates);
 
   if (y > 0) {
     neighbors.push({
@@ -134,7 +141,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "north",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
-      visitedBlocks,
+      // visitedBlocks,
       heatLossRecord: [
         ...currentNode.heatLossRecord,
         {
@@ -153,7 +160,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "east",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
-      visitedBlocks,
+      // visitedBlocks,
       heatLossRecord: [
         ...currentNode.heatLossRecord,
         {
@@ -172,7 +179,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "south",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
-      visitedBlocks,
+      // visitedBlocks,
       heatLossRecord: [
         ...currentNode.heatLossRecord,
         {
@@ -191,7 +198,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "west",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
-      visitedBlocks,
+      // visitedBlocks,
       heatLossRecord: [
         ...currentNode.heatLossRecord,
         {
@@ -225,7 +232,8 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
 const parseInput = async (): Promise<CityBlock[][]> => {
   const cityMap: CityBlock[][] = [];
   const cityMapString = await convertMultiLineFileToDoubleArray(
-    "./testInput.dat",
+    "./challengeInput.dat",
+    // "./testInput.dat",
   );
   let y = 0;
 
