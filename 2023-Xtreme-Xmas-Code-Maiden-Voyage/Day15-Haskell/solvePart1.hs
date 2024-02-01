@@ -6,7 +6,7 @@ solvePart1 puzzleInput = sum (getHASHedValues puzzleInput)
 
 getHASHedValues puzzleInput = map runHASHAlgorithm (splitStringOn (== ',') puzzleInput)
 
-runHASHAlgorithm hashString = foldl runHASHAlgorithmOnChar 0 hashString
+runHASHAlgorithm = foldl runHASHAlgorithmOnChar 0
 
 runHASHAlgorithmOnChar currentValue nextCharacter = (currentValue + fromEnum nextCharacter) * 17 `mod` 256
 
