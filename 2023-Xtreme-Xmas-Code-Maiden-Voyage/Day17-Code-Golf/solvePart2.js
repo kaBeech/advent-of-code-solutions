@@ -74,7 +74,8 @@ for (const rawCityRow of a) {
 }
 
 export default (function () {
-  const machinePartsFactory = m[m.length - 1][m[0].length - 1];
+  const fac = m[m.length - 1][m[0].length - 1];
+  let end = fac.minimumRouteHeatLoss;
   const visited = new Map();
   const nodesToVisit = new Heap((a, b) => a.routeHeatLoss - b.routeHeatLoss);
   nodesToVisit.push(
@@ -97,16 +98,12 @@ export default (function () {
     const { block, routeHeatLoss, direction, consecutiveStepsInSameDirection } =
       currentNode;
     const { x, y } = block.coordinates;
-    let endMinimumRouteHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
 
-    if (block === machinePartsFactory) {
-      if (routeHeatLoss < endMinimumRouteHeatLoss) {
-        machinePartsFactory.finalNode = currentNode;
+    if (block === fac) {
+      if (routeHeatLoss < end) {
+        fac.finalNode = currentNode;
       }
-      endMinimumRouteHeatLoss = Math.min(
-        routeHeatLoss,
-        endMinimumRouteHeatLoss
-      );
+      end = Math.min(routeHeatLoss, end);
       continue;
     }
 
@@ -121,10 +118,10 @@ export default (function () {
     for (const neighborNode of neighbors) {
       if (
         neighborNode.consecutiveStepsInSameDirection < 11 &&
-        neighborNode.routeHeatLoss < endMinimumRouteHeatLoss
+        neighborNode.routeHeatLoss < end
       ) {
         const nBlock = neighborNode.block;
-        if (nBlock === machinePartsFactory) {
+        if (nBlock === fac) {
           nBlock.finalNode = currentNode;
         }
         nBlock.minimumRouteHeatLoss = routeHeatLoss + nBlock.heatLoss;
@@ -133,9 +130,7 @@ export default (function () {
     }
   }
 
-  console.log(
-    `Part 2: The lowest possible heat loss is ${machinePartsFactory.minimumRouteHeatLoss}.`
-  );
+  console.log(`Part 2: The lowest possible heat loss is ${end}.`);
 
-  return machinePartsFactory.minimumRouteHeatLoss;
+  return end;
 })();
