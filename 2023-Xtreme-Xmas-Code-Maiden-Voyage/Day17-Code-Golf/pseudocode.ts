@@ -75,12 +75,11 @@ const pseudoSolvePart1 = async (): Promise<number> => {
         currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
       ) {
         machinePartsFactory.finalNode = currentNode;
-        machinePartsFactory.minimumRouteHeatLoss = currentNode.routeHeatLoss;
       }
-      // machinePartsFactory.minimumRouteHeatLoss = Math.min(
-      //   currentNode.routeHeatLoss,
-      //   machinePartsFactory.minimumRouteHeatLoss,
-      // );
+      machinePartsFactory.minimumRouteHeatLoss = Math.min(
+        currentNode.routeHeatLoss,
+        machinePartsFactory.minimumRouteHeatLoss,
+      );
 
       continue;
     }
@@ -109,7 +108,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     }
   }
 
-  const lowestPossibleHeatLoss = machinePartsFactory.finalNode!.routeHeatLoss;
+  const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
 
   console.log(
     machinePartsFactory.finalNode,
