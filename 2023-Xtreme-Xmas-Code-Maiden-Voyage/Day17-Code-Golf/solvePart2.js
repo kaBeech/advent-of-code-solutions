@@ -2,7 +2,7 @@ import { Heap } from "npm:heap-js";
 
 const gN = (cN, m) => {
   const ns = [];
-  const { x, y } = cN.b.coordinates;
+  const { x, y } = cN.b.c;
   const min = cN.s > 3;
   const d = cN.d;
 
@@ -65,7 +65,7 @@ for (const rawCityRow of a) {
     cityRow.push({
       heatLoss: +rawCityBlock,
       minimumRouteHeatLoss: Infinity,
-      coordinates: { x, y },
+      c: { x, y },
     });
     x++;
   }
@@ -96,7 +96,7 @@ export default (function () {
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.pop();
     const { b, h, d, s } = currentNode;
-    const { x, y } = b.coordinates;
+    const { x, y } = b.c;
 
     if (b === fac) {
       if (h < end) {
