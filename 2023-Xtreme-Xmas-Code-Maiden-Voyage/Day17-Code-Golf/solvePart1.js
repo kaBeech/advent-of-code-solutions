@@ -1,96 +1,26 @@
 import { Heap } from "npm:heap-js";
 
-const getNeighbors = (currentNode, cityMap) => {
-  const neighbors = [];
-  const { x, y } = currentNode.block.coordinates;
+const gN = (cN, m) => {
+  const ns = [];
+  const { x, y } = cN.b.c;
+  const d = cN.d;
 
-  if (y > 0 && currentNode.direction !== "south") {
-    neighbors.push({
-      block: cityMap[y - 1][x],
-      direction: "north",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y - 1][x].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x, y: y - 1 },
-        },
-      ],
-    });
-  }
-  if (x < cityMap[0].length - 1 && currentNode.direction !== "west") {
-    neighbors.push({
-      block: cityMap[y][x + 1],
-      direction: "east",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y][x + 1].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: x + 1, y },
-        },
-      ],
-    });
-  }
-  if (y < cityMap.length - 1 && currentNode.direction !== "north") {
-    neighbors.push({
-      block: cityMap[y + 1][x],
-      direction: "south",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y + 1][x].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x, y: y + 1 },
-        },
-      ],
-    });
-  }
-  if (x > 0 && currentNode.direction !== "east") {
-    neighbors.push({
-      block: cityMap[y][x - 1],
-      direction: "west",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y][x - 1].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: x - 1, y },
-        },
-      ],
-    });
-  }
+  y > 0 &&
+    d !== "s" &&
+    ns.push({ b: m[y - 1][x], d: "n", s: 1, h: cN.h + m[y - 1][x].h });
+  x < m[0].length - 1 &&
+    d !== "w" &&
+    ns.push({ b: m[y][x + 1], d: "e", s: 1, h: cN.h + m[y][x + 1].h });
+  y < m.length - 1 &&
+    d !== "n" &&
+    ns.push({ b: m[y + 1][x], d: "s", s: 1, h: cN.h + m[y + 1][x].h });
+  x > 0 &&
+    d !== "e" &&
+    ns.push({ b: m[y][x - 1], d: "w", s: 1, h: cN.h + m[y][x - 1].h });
 
-  const directionNeighbor = neighbors.find(
-    (neighbor) => neighbor.direction === currentNode.direction
-  );
-
-  if (directionNeighbor) {
-    directionNeighbor.consecutiveStepsInSameDirection =
-      currentNode.consecutiveStepsInSameDirection + 1;
-    directionNeighbor.heatLossRecord[
-      directionNeighbor.heatLossRecord.length - 1
-    ].consecutiveStepsInSameDirection =
-      currentNode.consecutiveStepsInSameDirection + 1;
-  }
-
-  return neighbors;
+  const dN = ns.find((n) => n.d === d);
+  dN && (dN.s = cN.s + 1);
+  return ns;
 };
 
 const m = [];
@@ -102,106 +32,57 @@ s.trimEnd()
     a.push(l.split(""));
   });
 let y = 0;
-
-for (const rawCityRow of a) {
-  const cityRow = [];
+for (const rR of a) {
+  const r = [];
   let x = 0;
-  for (const rawCityBlock of rawCityRow) {
-    cityRow.push({
-      heatLoss: +rawCityBlock,
-      minimumRouteHeatLoss: Infinity,
-      coordinates: { x, y },
+  for (const rB of rR) {
+    r.push({
+      h: +rB,
+      m: Infinity,
+      c: { x, y },
     });
     x++;
   }
-  m.push(cityRow);
+  m.push(r);
   y++;
 }
 
-export default (function () {
-  const machinePartsFactory = m[m.length - 1][m[0].length - 1];
-  const visited = new Map();
-  const nodesToVisit = new Heap((a, b) => a.routeHeatLoss - b.routeHeatLoss);
-  nodesToVisit.push(
+export default () => {
+  const f = m[m.length - 1][m[0].length - 1];
+  let z = f.m;
+  const v = new Map();
+  const q = new Heap((a, b) => a.h - b.h);
+  q.push(
     {
-      block: m[0][1],
-      direction: "east",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: m[0][1].heatLoss,
-      heatLossRecord: [
-        {
-          nodeHeatLoss: m[0][1].heatLoss,
-          cumulativeHeatLoss: m[0][1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: 1, y: 0 },
-        },
-      ],
+      b: m[0][1],
+      d: "e",
+      s: 1,
+      h: m[0][1].h,
     },
     {
-      block: m[1][0],
-      direction: "south",
-      consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: m[1][0].heatLoss,
-      heatLossRecord: [
-        {
-          nodeHeatLoss: m[1][0].heatLoss,
-          cumulativeHeatLoss: m[1][0].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: 0, y: 1 },
-        },
-      ],
+      b: m[1][0],
+      d: "s",
+      s: 1,
+      h: m[1][0].h,
     }
   );
-
-  while (nodesToVisit.length > 0) {
-    const currentNode = nodesToVisit.pop();
-
-    if (currentNode.block === machinePartsFactory) {
-      if (
-        currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
-      ) {
-        machinePartsFactory.finalNode = currentNode;
-      }
-      machinePartsFactory.minimumRouteHeatLoss = Math.min(
-        currentNode.routeHeatLoss,
-        machinePartsFactory.minimumRouteHeatLoss
-      );
-
+  while (q.length > 0) {
+    const cN = q.pop();
+    const { b, h, d, s } = cN;
+    const { x, y } = b.c;
+    const k = `${x}-${y}-${d}-${s}`;
+    if (b === f) {
+      z = Math.min(h, z);
       continue;
     }
-
-    const cacheKey = `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
-    if (
-      visited.has(cacheKey) &&
-      visited.get(cacheKey) <= currentNode.routeHeatLoss
-    ) {
-      continue;
-    }
-    visited.set(cacheKey, currentNode.routeHeatLoss);
-
-    const neighbors = getNeighbors(currentNode, m);
-
-    for (const neighborNode of neighbors) {
-      if (
-        neighborNode &&
-        neighborNode.consecutiveStepsInSameDirection < 4 &&
-        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
-      ) {
-        if (neighborNode.block === machinePartsFactory) {
-          neighborNode.block.finalNode = currentNode;
-        }
-        neighborNode.block.minimumRouteHeatLoss =
-          currentNode.routeHeatLoss + neighborNode.block.heatLoss;
-        nodesToVisit.push(neighborNode);
+    if (v.has(k) && v.get(k) <= h) continue;
+    v.set(k, h);
+    for (const nN of gN(cN, m)) {
+      if (nN.s < 4 && nN.h < z) {
+        nN.b.m = h + nN.b.h;
+        q.push(nN);
       }
     }
   }
-
-  const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
-
-  console.log(
-    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`
-  );
-
-  return lowestPossibleHeatLoss;
-})();
+  return z;
+};
