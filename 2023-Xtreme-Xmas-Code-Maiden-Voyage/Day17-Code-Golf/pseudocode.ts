@@ -43,7 +43,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       block: cityMap[0][1],
       direction: "east",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: cityMap[0][1].heatLoss,
+      routeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
       visitedBlocks: [cityMap[0][0]],
       heatLossRecord: [{
         nodeHeatLoss: cityMap[0][1].heatLoss,
@@ -55,7 +55,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       block: cityMap[1][0],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
-      routeHeatLoss: cityMap[1][0].heatLoss,
+      routeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
       visitedBlocks: [cityMap[0][0]],
       heatLossRecord: [{
         nodeHeatLoss: cityMap[1][0].heatLoss,
