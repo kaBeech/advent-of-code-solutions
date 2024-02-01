@@ -12,23 +12,23 @@ Awww yeah let's gooooo!! Learn us a Haskell!
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
