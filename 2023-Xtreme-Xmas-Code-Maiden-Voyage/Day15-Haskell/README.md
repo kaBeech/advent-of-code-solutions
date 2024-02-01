@@ -34,7 +34,7 @@ Part 2: 0
 
 - To build the program, run `ghc solvePart[1-2].hs` from this directory
 
-- To run the program, run `./solvePart[1-2]` from this directory after building
+- To run the program, run `./solvePart[1-2]` from this directory after building the program
 
 ### Retrospective
 
