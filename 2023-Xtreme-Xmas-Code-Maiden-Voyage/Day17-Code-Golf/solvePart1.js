@@ -93,7 +93,7 @@ const getNeighbors = (currentNode, cityMap) => {
   return neighbors;
 };
 
-const cityMap = [];
+const m = [];
 const s = await Deno.readTextFile("./t.dat");
 const a = [];
 s.trimEnd()
@@ -114,43 +114,44 @@ for (const rawCityRow of a) {
     });
     x++;
   }
-  cityMap.push(cityRow);
+  m.push(cityRow);
   y++;
 }
 
 export default (function () {
-  const machinePartsFactory =
-    cityMap[cityMap.length - 1][cityMap[0].length - 1];
+  const machinePartsFactory = m[m.length - 1][m[0].length - 1];
   const visited = new Map();
   const nodesToVisit = new Heap((a, b) => a.routeHeatLoss - b.routeHeatLoss);
-  nodesToVisit.push({
-    block: cityMap[0][1],
-    direction: "east",
-    consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[0][1].heatLoss,
-    heatLossRecord: [
-      {
-        nodeHeatLoss: cityMap[0][1].heatLoss,
-        cumulativeHeatLoss: cityMap[0][1].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 1, y: 0 },
-      },
-    ],
-  });
-  nodesToVisit.push({
-    block: cityMap[1][0],
-    direction: "south",
-    consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[1][0].heatLoss,
-    heatLossRecord: [
-      {
-        nodeHeatLoss: cityMap[1][0].heatLoss,
-        cumulativeHeatLoss: cityMap[1][0].heatLoss,
-        consecutiveStepsInSameDirection: 1,
-        coordinates: { x: 0, y: 1 },
-      },
-    ],
-  });
+  nodesToVisit.push(
+    {
+      block: m[0][1],
+      direction: "east",
+      consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: m[0][1].heatLoss,
+      heatLossRecord: [
+        {
+          nodeHeatLoss: m[0][1].heatLoss,
+          cumulativeHeatLoss: m[0][1].heatLoss,
+          consecutiveStepsInSameDirection: 1,
+          coordinates: { x: 1, y: 0 },
+        },
+      ],
+    },
+    {
+      block: m[1][0],
+      direction: "south",
+      consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: m[1][0].heatLoss,
+      heatLossRecord: [
+        {
+          nodeHeatLoss: m[1][0].heatLoss,
+          cumulativeHeatLoss: m[1][0].heatLoss,
+          consecutiveStepsInSameDirection: 1,
+          coordinates: { x: 0, y: 1 },
+        },
+      ],
+    }
+  );
 
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.pop();
@@ -178,7 +179,7 @@ export default (function () {
     }
     visited.set(cacheKey, currentNode.routeHeatLoss);
 
-    const neighbors = getNeighbors(currentNode, cityMap);
+    const neighbors = getNeighbors(currentNode, m);
 
     for (const neighborNode of neighbors) {
       if (
