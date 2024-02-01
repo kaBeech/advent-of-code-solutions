@@ -14,6 +14,7 @@ interface Node {
   block: CityBlock;
   direction: CardinalDirection;
   consecutiveStepsInSameDirection: number;
+  routeHeatLoss: number;
 }
 
 interface Neighbors {
@@ -33,27 +34,30 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       block: cityMap[0][1],
       direction: "east",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: cityMap[0][1].heatLoss,
     },
     {
       block: cityMap[1][0],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: cityMap[1][0].heatLoss,
     },
   ];
 
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.shift()!;
-    const neighbors = getNeighbors(currentNode, cityMap);
 
     if (
-      currentNode.block === machinePartsFactory &&
-      currentNode.route.currentHeatLoss <
-        machinePartsFactory.minimumRouteHeatLoss
+      currentNode.block === machinePartsFactory
     ) {
-      machinePartsFactory.minimumRouteHeatLoss =
-        currentNode.route.currentHeatLoss;
+      machinePartsFactory.minimumRouteHeatLoss = Math.min(
+        currentNode.routeHeatLoss,
+        machinePartsFactory.minimumRouteHeatLoss,
+      );
       continue;
     }
+
+    const neighbors = getNeighbors(currentNode, cityMap);
 
     for (const rawNeighbor of neighbors) {
       const neighbor = rawNeighbor.block;
