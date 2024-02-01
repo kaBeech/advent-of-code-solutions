@@ -99,9 +99,6 @@ export default (function () {
     const { x, y } = b.c;
 
     if (b === fac) {
-      if (h < end) {
-        fac.finalNode = cN;
-      }
       end = Math.min(h, end);
       continue;
     }
@@ -117,9 +114,6 @@ export default (function () {
     for (const neighborNode of neighbors) {
       if (neighborNode.s < 11 && neighborNode.h < end) {
         const nB = neighborNode.b;
-        if (nB === fac) {
-          nB.finalNode = cN;
-        }
         nB.m = h + nB.h;
         nodesToVisit.push(neighborNode);
       }
