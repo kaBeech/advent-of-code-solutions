@@ -1,7 +1,7 @@
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
 interface Route {
-  distanceFromLavaPool: number;
+  currentHeatLoss: number;
   straightLine: string;
   path: {
     x: number;
@@ -11,6 +11,7 @@ interface Route {
 
 interface CityBlock {
   heatLoss: number;
+  minimumRouteHeatLoss: number;
   shortestRoute: Route;
   routesByDirection: {
     N: Route;
@@ -27,6 +28,7 @@ interface CityBlock {
 interface Node {
   block: CityBlock;
   route: Route;
+  totalHeatLoss: number;
 }
 
 const pseudoSolvePart1 = async (): Promise<number> => {
@@ -34,65 +36,61 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
-  const nodesToVisit = [{
-    block: lavaPool,
-    route: { distanceFromLavaPool: 0, straightLine: "", path: [] },
-  }];
+  const nodesToVisit = [
+    {
+      block: cityMap[0][1],
+      totalHeatLoss: cityMap[0][1].heatLoss,
+      route: {
+        currentHeatLoss: cityMap[0][1].heatLoss,
+        currentHeatLoss: cityMap[0][1].heatLoss,
+        straightLine: "E",
+        path: [{ x: 0, y: 0 }],
+      },
+    },
+    {
+      block: cityMap[1][0],
+      totalHeatLoss: cityMap[1][0].heatLoss,
+      route: {
+        currentHeatLoss: cityMap[1][0].heatLoss,
+        currentHeatLoss: cityMap[1][0].heatLoss,
+        straightLine: "S",
+        path: [{ x: 0, y: 0 }],
+      },
+    },
+  ];
+
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.shift()!;
     const neighbors = getNeighbors(currentNode, cityMap);
+
+    if (
+      currentNode.block === machinePartsFactory &&
+      currentNode.route.currentHeatLoss <
+        machinePartsFactory.minimumRouteHeatLoss
+    ) {
+      machinePartsFactory.minimumRouteHeatLoss =
+        currentNode.route.currentHeatLoss;
+      continue;
+    }
+
     for (const rawNeighbor of neighbors) {
       const neighbor = rawNeighbor.block;
       const straightLine = calculateStraightLine(currentNode, neighbor);
-      switch (straightLine[0]) {
-        case "N":
-          neighbor.routesByDirection.N = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.N,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "E":
-          neighbor.routesByDirection.E = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.E,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "S":
-          neighbor.routesByDirection.S = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.S,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "W":
-          neighbor.routesByDirection.W = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.W,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        default:
-          throw new Error("Invalid direction");
-      }
+      const direction = straightLine[0] as "N" | "E" | "S" | "W";
+
+      neighbor.routesByDirection[direction] = compareDistance(
+        currentNode,
+        neighbor,
+        rawNeighbor.route,
+        machinePartsFactory.shortestRoute.currentHeatLoss,
+        nodesToVisit,
+        straightLine,
+      );
     }
   }
 
   const lowestPossibleHeatLoss =
-    machinePartsFactory.shortestRoute.distanceFromLavaPool;
+    machinePartsFactory.shortestRoute.currentHeatLoss;
 
   console.log(machinePartsFactory.shortestRoute.path);
 
@@ -109,6 +107,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
     "./testInput.dat",
   );
   let y = 0;
+
   for (const rawCityRow of cityMapString) {
     const cityRow: CityBlock[] = [];
     let x = 0;
@@ -116,28 +115,28 @@ const parseInput = async (): Promise<CityBlock[][]> => {
       cityRow.push({
         heatLoss: +rawCityBlock,
         shortestRoute: {
-          distanceFromLavaPool: Infinity,
+          currentHeatLoss: Infinity,
           straightLine: "",
           path: [],
         },
         routesByDirection: {
           N: {
-            distanceFromLavaPool: Infinity,
+            currentHeatLoss: Infinity,
             straightLine: "",
             path: [],
           },
           E: {
-            distanceFromLavaPool: Infinity,
+            currentHeatLoss: Infinity,
             straightLine: "",
             path: [],
           },
           S: {
-            distanceFromLavaPool: Infinity,
+            currentHeatLoss: Infinity,
             straightLine: "",
             path: [],
           },
           W: {
-            distanceFromLavaPool: Infinity,
+            currentHeatLoss: Infinity,
             straightLine: "",
             path: [],
           },
@@ -155,6 +154,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
+
   if (y > 0 && currentNode.route.straightLine[0] !== "S") {
     neighbors.push({
       block: cityMap[y - 1][x],
@@ -215,9 +215,10 @@ const compareDistance = (
   nodesToVisit: Node[],
   straightLine: string,
 ) => {
-  const prospectiveNeighborDistance = currentNode.route.distanceFromLavaPool +
+  const comparedRouteOrig = { ...comparedRoute };
+  const prospectiveNeighborDistance = currentNode.route.currentHeatLoss +
     neighbor.heatLoss;
-  const comparedDistance = comparedRoute.distanceFromLavaPool;
+  const comparedDistance = comparedRoute.currentHeatLoss;
   // console.log(
   //   `prospectiveNeighborDistance: ${prospectiveNeighborDistance}, comparedDistance: ${comparedDistance}`,
   // );
@@ -225,14 +226,14 @@ const compareDistance = (
     prospectiveNeighborDistance <
       shortestRouteDistance &&
     straightLine.length < 4 &&
-    (prospectiveNeighborDistance <
+    (
+      prospectiveNeighborDistance <
         comparedDistance ||
-      (prospectiveNeighborDistance ===
-          comparedDistance &&
-        straightLine.length <
-          comparedRoute.straightLine.length))
+      straightLine.length <
+        comparedRoute.straightLine.length
+    )
   ) {
-    comparedRoute.distanceFromLavaPool = prospectiveNeighborDistance;
+    comparedRoute.currentHeatLoss = prospectiveNeighborDistance;
     comparedRoute.straightLine = straightLine;
     comparedRoute.path = currentNode.route.path
       .concat(
@@ -240,7 +241,7 @@ const compareDistance = (
       );
     if (
       prospectiveNeighborDistance <=
-        neighbor.shortestRoute.distanceFromLavaPool
+        neighbor.shortestRoute.currentHeatLoss
     ) {
       neighbor.shortestRoute = comparedRoute;
     }
@@ -248,8 +249,45 @@ const compareDistance = (
       block: neighbor,
       route: comparedRoute,
     });
+    if (
+      prospectiveNeighborDistance <=
+        comparedDistance
+    ) {
+      return comparedRoute;
+    }
+    if (
+      currentNode.block.coordinates.x === 11 &&
+      currentNode.block.coordinates.y === 11 && neighbor.coordinates.x === 11 &&
+      neighbor.coordinates.y === 12
+    ) {
+      console.count("made it this far!");
+      console.log(currentNode.route.currentHeatLoss);
+    }
+    const testArray = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: 2, y: 0 },
+      { x: 2, y: 1 },
+      { x: 3, y: 1 },
+      { x: 4, y: 1 },
+      { x: 5, y: 1 },
+      { x: 5, y: 0 },
+    ];
+    if (
+      comparedRoute.path.length === testArray.length &&
+      comparedRoute.path.every((step, index) =>
+        step.x === testArray[index].x && step.y === testArray[index].y
+      )
+    ) {
+      console.count("PING!");
+      console.log(
+        nodesToVisit,
+        nodesToVisit.length,
+        currentNode.block.coordinates,
+      );
+    }
   }
-  return comparedRoute;
+  return comparedRouteOrig;
 };
 
 export default (function (): Promise<number> {
@@ -257,3 +295,35 @@ export default (function (): Promise<number> {
 
   return result;
 })();
+
+const _happyPath = [
+  { x: 0, y: 0 },
+  { x: 1, y: 0 },
+  { x: 2, y: 0 },
+  { x: 2, y: 1 },
+  { x: 3, y: 1 },
+  { x: 4, y: 1 },
+  { x: 5, y: 1 },
+  { x: 5, y: 0 },
+  { x: 6, y: 0 },
+  { x: 7, y: 0 },
+  { x: 8, y: 0 },
+  { x: 8, y: 1 },
+  { x: 8, y: 2 },
+  { x: 9, y: 2 },
+  { x: 10, y: 2 },
+  { x: 10, y: 3 },
+  { x: 10, y: 4 },
+  { x: 11, y: 4 },
+  { x: 11, y: 5 },
+  { x: 11, y: 6 },
+  { x: 11, y: 7 },
+  { x: 12, y: 7 },
+  { x: 12, y: 8 },
+  { x: 12, y: 9 },
+  { x: 12, y: 10 },
+  { x: 11, y: 10 },
+  { x: 11, y: 11 },
+  { x: 11, y: 12 },
+  { x: 12, y: 12 },
+];
