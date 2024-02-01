@@ -1,0 +1,15 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:heap-js": "npm:heap-js@2.3.0"
+    },
+    "npm": {
+      "heap-js@2.3.0": {
+        "integrity": "sha512-E5303mzwQ+4j/n2J0rDvEPBN7GKjhis10oHiYOgjxsmxYgqG++hz9NyLLOXttzH8as/DyiBHYpUrJTZWYaMo8Q==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {}
+}

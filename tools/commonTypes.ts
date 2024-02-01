@@ -31,4 +31,4 @@ export interface MinMax {
   max: number;
 }
 
-export type CardinalDirection = `North` | `East` | `South` | `West`;
+export type CardinalDirection = `north` | `east` | `south` | `west`;
