@@ -38,56 +38,24 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     block: lavaPool,
     route: { distanceFromLavaPool: 0, straightLine: "", path: [] },
   }];
+
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.shift()!;
     const neighbors = getNeighbors(currentNode, cityMap);
+
     for (const rawNeighbor of neighbors) {
       const neighbor = rawNeighbor.block;
       const straightLine = calculateStraightLine(currentNode, neighbor);
-      switch (straightLine[0]) {
-        case "N":
-          neighbor.routesByDirection.N = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.N,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "E":
-          neighbor.routesByDirection.E = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.E,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "S":
-          neighbor.routesByDirection.S = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.S,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        case "W":
-          neighbor.routesByDirection.W = compareDistance(
-            currentNode,
-            neighbor,
-            neighbor.routesByDirection.W,
-            machinePartsFactory.shortestRoute.distanceFromLavaPool,
-            nodesToVisit,
-            straightLine,
-          );
-          break;
-        default:
-          throw new Error("Invalid direction");
-      }
+      const direction = straightLine[0] as "N" | "E" | "S" | "W";
+
+      neighbor.routesByDirection[direction] = compareDistance(
+        currentNode,
+        neighbor,
+        rawNeighbor.route,
+        machinePartsFactory.shortestRoute.distanceFromLavaPool,
+        nodesToVisit,
+        straightLine,
+      );
     }
   }
 
@@ -109,6 +77,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
     "./testInput.dat",
   );
   let y = 0;
+
   for (const rawCityRow of cityMapString) {
     const cityRow: CityBlock[] = [];
     let x = 0;
@@ -155,6 +124,7 @@ const parseInput = async (): Promise<CityBlock[][]> => {
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
+
   if (y > 0 && currentNode.route.straightLine[0] !== "S") {
     neighbors.push({
       block: cityMap[y - 1][x],
