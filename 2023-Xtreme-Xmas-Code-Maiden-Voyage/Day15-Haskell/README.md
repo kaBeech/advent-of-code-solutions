@@ -32,6 +32,10 @@ Part 2: 0
 
 ### Notes
 
+- To build the program, run `ghc solvePart[1-2].hs` from this directory
+
+- To run the program, run `./solvePart[1-2]` from this directory after building
+
 ### Retrospective
 
 XXC.23 Day 15: Haskell (New Language)
