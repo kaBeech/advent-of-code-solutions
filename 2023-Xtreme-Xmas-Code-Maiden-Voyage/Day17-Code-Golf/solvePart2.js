@@ -133,13 +133,13 @@ export default (function () {
       if (
         neighborNode &&
         neighborNode.consecutiveStepsInSameDirection < 11 &&
-        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+        neighborNode.routeHeatLoss < endMinimumRouteHeatLoss
       ) {
-        if (neighborNode.block === machinePartsFactory) {
-          neighborNode.block.finalNode = currentNode;
+        const nBlock = neighborNode.block;
+        if (nBlock === machinePartsFactory) {
+          nBlock.finalNode = currentNode;
         }
-        neighborNode.block.minimumRouteHeatLoss =
-          routeHeatLoss + neighborNode.block.heatLoss;
+        nBlock.minimumRouteHeatLoss = routeHeatLoss + nBlock.heatLoss;
         nodesToVisit.push(neighborNode);
       }
     }
