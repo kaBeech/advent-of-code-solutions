@@ -12,16 +12,6 @@ const getNeighbors = (currentNode, cityMap) => {
       direction: "north",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y - 1][x].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x, y: y - 1 },
-        },
-      ],
     });
   }
   if (
@@ -34,16 +24,6 @@ const getNeighbors = (currentNode, cityMap) => {
       direction: "east",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y][x + 1].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: x + 1, y },
-        },
-      ],
     });
   }
   if (
@@ -56,16 +36,6 @@ const getNeighbors = (currentNode, cityMap) => {
       direction: "south",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y + 1][x].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x, y: y + 1 },
-        },
-      ],
     });
   }
   if (x > 0 && d !== "east" && (d === "west" || minStepsReached)) {
@@ -74,16 +44,6 @@ const getNeighbors = (currentNode, cityMap) => {
       direction: "west",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
-      heatLossRecord: [
-        ...currentNode.heatLossRecord,
-        {
-          nodeHeatLoss: cityMap[y][x - 1].heatLoss,
-          cumulativeHeatLoss:
-            currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: x - 1, y },
-        },
-      ],
     });
   }
 
@@ -93,10 +53,6 @@ const getNeighbors = (currentNode, cityMap) => {
 
   if (directionNeighbor) {
     directionNeighbor.consecutiveStepsInSameDirection =
-      currentNode.consecutiveStepsInSameDirection + 1;
-    directionNeighbor.heatLossRecord[
-      directionNeighbor.heatLossRecord.length - 1
-    ].consecutiveStepsInSameDirection =
       currentNode.consecutiveStepsInSameDirection + 1;
   }
 
@@ -138,28 +94,12 @@ export default (function () {
       direction: "east",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: m[0][1].heatLoss,
-      heatLossRecord: [
-        {
-          nodeHeatLoss: m[0][1].heatLoss,
-          cumulativeHeatLoss: m[0][1].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: 1, y: 0 },
-        },
-      ],
     },
     {
       block: m[1][0],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: m[1][0].heatLoss,
-      heatLossRecord: [
-        {
-          nodeHeatLoss: m[1][0].heatLoss,
-          cumulativeHeatLoss: m[1][0].heatLoss,
-          consecutiveStepsInSameDirection: 1,
-          coordinates: { x: 0, y: 1 },
-        },
-      ],
     }
   );
 
