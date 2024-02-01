@@ -8,6 +8,12 @@ interface CityBlock {
     x: number;
     y: number;
   };
+  finalNode?: Node;
+}
+
+interface NodeRecord {
+  nodeHeatLoss: number;
+  cumulativeHeatLoss: number;
 }
 
 interface Node {
@@ -15,6 +21,8 @@ interface Node {
   direction: CardinalDirection;
   consecutiveStepsInSameDirection: number;
   routeHeatLoss: number;
+  visitedBlocks: CityBlock[];
+  heatLossRecord: NodeRecord[];
 }
 
 interface Neighbors {
@@ -26,7 +34,7 @@ interface Neighbors {
 
 const pseudoSolvePart1 = async (): Promise<number> => {
   const cityMap = await parseInput();
-  const lavaPool = cityMap[0][0];
+  // const lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
   const nodesToVisit: Node[] = [
@@ -35,12 +43,22 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       direction: "east",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: cityMap[0][1].heatLoss,
+      visitedBlocks: [cityMap[0][0]],
+      heatLossRecord: [{
+        nodeHeatLoss: cityMap[0][1].heatLoss,
+        cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
+      }],
     },
     {
       block: cityMap[1][0],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: cityMap[1][0].heatLoss,
+      visitedBlocks: [cityMap[0][0]],
+      heatLossRecord: [{
+        nodeHeatLoss: cityMap[1][0].heatLoss,
+        cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
+      }],
     },
   ];
 
@@ -50,43 +68,50 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     if (
       currentNode.block === machinePartsFactory
     ) {
-      machinePartsFactory.minimumRouteHeatLoss = Math.min(
-        currentNode.routeHeatLoss,
-        machinePartsFactory.minimumRouteHeatLoss,
-      );
+      if (
+        currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+      ) {
+        machinePartsFactory.finalNode = currentNode;
+        machinePartsFactory.minimumRouteHeatLoss = currentNode.routeHeatLoss;
+      }
+      // machinePartsFactory.minimumRouteHeatLoss = Math.min(
+      //   currentNode.routeHeatLoss,
+      //   machinePartsFactory.minimumRouteHeatLoss,
+      // );
+
       continue;
     }
 
     const neighbors = getNeighbors(currentNode, cityMap);
 
     for (const direction in neighbors) {
-      const neighbor: Node = neighbors[direction];
+      const neighborNode: Node = neighbors[direction];
 
       // Optimization possible in this if statement
       if (
-        neighbor && neighbor.consecutiveStepsInSameDirection < 4 &&
-        neighbor.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+        neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
+        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
+        neighborNode.routeHeatLoss < neighborNode.block.minimumRouteHeatLoss &&
+        !currentNode.visitedBlocks.includes(neighborNode.block)
       ) {
-        nodesToVisit.push(neighbor);
+        if (
+          neighborNode.block === machinePartsFactory
+        ) {
+          neighborNode.block.finalNode = currentNode;
+        }
+        neighborNode.block.minimumRouteHeatLoss = currentNode.routeHeatLoss +
+          neighborNode.block.heatLoss;
+        nodesToVisit.push(neighborNode);
       }
-
-      const block = rawNeighbor.block;
-
-      neighbor.routesByDirection[direction] = compareDistance(
-        currentNode,
-        neighbor,
-        rawNeighbor.route,
-        machinePartsFactory.shortestRoute.currentHeatLoss,
-        nodesToVisit,
-        straightLine,
-      );
     }
   }
 
-  const lowestPossibleHeatLoss =
-    machinePartsFactory.shortestRoute.currentHeatLoss;
+  const lowestPossibleHeatLoss = machinePartsFactory.finalNode!.routeHeatLoss;
 
-  console.log(machinePartsFactory.shortestRoute.path);
+  console.log(
+    machinePartsFactory.finalNode,
+    machinePartsFactory.minimumRouteHeatLoss,
+  );
 
   console.log(
     `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`,
@@ -103,6 +128,8 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
     west: null,
   };
   const { x, y } = currentNode.block.coordinates;
+  const visitedBlocks = currentNode.visitedBlocks;
+  visitedBlocks.push(currentNode.block);
 
   if (y > 0) {
     neighbors.north = {
@@ -110,6 +137,15 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "north",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
+      visitedBlocks,
+      heatLossRecord: [
+        ...currentNode.heatLossRecord,
+        {
+          nodeHeatLoss: cityMap[y - 1][x].heatLoss,
+          cumulativeHeatLoss: currentNode.routeHeatLoss +
+            cityMap[y - 1][x].heatLoss,
+        },
+      ],
     };
   }
   if (x < cityMap[0].length - 1) {
@@ -118,6 +154,15 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "east",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
+      visitedBlocks,
+      heatLossRecord: [
+        ...currentNode.heatLossRecord,
+        {
+          nodeHeatLoss: cityMap[y][x + 1].heatLoss,
+          cumulativeHeatLoss: currentNode.routeHeatLoss +
+            cityMap[y][x + 1].heatLoss,
+        },
+      ],
     };
   }
   if (y < cityMap.length - 1) {
@@ -126,6 +171,15 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "south",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
+      visitedBlocks,
+      heatLossRecord: [
+        ...currentNode.heatLossRecord,
+        {
+          nodeHeatLoss: cityMap[y + 1][x].heatLoss,
+          cumulativeHeatLoss: currentNode.routeHeatLoss +
+            cityMap[y + 1][x].heatLoss,
+        },
+      ],
     };
   }
   if (x > 0) {
@@ -134,154 +188,24 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       direction: "west",
       consecutiveStepsInSameDirection: 1,
       routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
+      visitedBlocks,
+      heatLossRecord: [
+        ...currentNode.heatLossRecord,
+        {
+          nodeHeatLoss: cityMap[y][x - 1].heatLoss,
+          cumulativeHeatLoss: currentNode.routeHeatLoss +
+            cityMap[y][x - 1].heatLoss,
+        },
+      ],
     };
   }
 
-  neighbors[currentNode.direction]!.consecutiveStepsInSameDirection++;
+  if (neighbors[currentNode.direction]) {
+    neighbors[currentNode.direction]!.consecutiveStepsInSameDirection++;
+  }
 
   return neighbors;
 };
-
-const calculateStraightLine = (currentNode: Node, neighbor: CityBlock) => {
-  let straightLine = currentNode.route.straightLine;
-  let currentDirection = "";
-  if (neighbor.coordinates.y < currentNode.block.coordinates.y) {
-    currentDirection = "N";
-  } else if (neighbor.coordinates.x > currentNode.block.coordinates.x) {
-    currentDirection = "E";
-  } else if (neighbor.coordinates.y > currentNode.block.coordinates.y) {
-    currentDirection = "S";
-  } else {
-    currentDirection = "W";
-  }
-  if (currentDirection === straightLine[0]) {
-    straightLine += currentDirection;
-  } else {
-    straightLine = currentDirection;
-  }
-  return straightLine;
-};
-
-const compareDistance = (
-  currentNode: Node,
-  neighbor: CityBlock,
-  comparedRoute: Route,
-  shortestRouteDistance: number,
-  nodesToVisit: Node[],
-  straightLine: string,
-) => {
-  const comparedRouteOrig = { ...comparedRoute };
-  const prospectiveNeighborDistance = currentNode.route.currentHeatLoss +
-    neighbor.heatLoss;
-  const comparedDistance = comparedRoute.currentHeatLoss;
-  // console.log(
-  //   `prospectiveNeighborDistance: ${prospectiveNeighborDistance}, comparedDistance: ${comparedDistance}`,
-  // );
-  if (
-    prospectiveNeighborDistance <
-      shortestRouteDistance &&
-    straightLine.length < 4 &&
-    (
-      prospectiveNeighborDistance <
-        comparedDistance ||
-      straightLine.length <
-        comparedRoute.straightLine.length
-    )
-  ) {
-    comparedRoute.currentHeatLoss = prospectiveNeighborDistance;
-    comparedRoute.straightLine = straightLine;
-    comparedRoute.path = currentNode.route.path
-      .concat(
-        currentNode.block.coordinates,
-      );
-    if (
-      prospectiveNeighborDistance <=
-        neighbor.shortestRoute.currentHeatLoss
-    ) {
-      neighbor.shortestRoute = comparedRoute;
-    }
-    nodesToVisit.push({
-      block: neighbor,
-      route: comparedRoute,
-    });
-    if (
-      prospectiveNeighborDistance <=
-        comparedDistance
-    ) {
-      return comparedRoute;
-    }
-    if (
-      currentNode.block.coordinates.x === 11 &&
-      currentNode.block.coordinates.y === 11 && neighbor.coordinates.x === 11 &&
-      neighbor.coordinates.y === 12
-    ) {
-      console.count("made it this far!");
-      console.log(currentNode.route.currentHeatLoss);
-    }
-    const testArray = [
-      { x: 0, y: 0 },
-      { x: 1, y: 0 },
-      { x: 2, y: 0 },
-      { x: 2, y: 1 },
-      { x: 3, y: 1 },
-      { x: 4, y: 1 },
-      { x: 5, y: 1 },
-      { x: 5, y: 0 },
-    ];
-    if (
-      comparedRoute.path.length === testArray.length &&
-      comparedRoute.path.every((step, index) =>
-        step.x === testArray[index].x && step.y === testArray[index].y
-      )
-    ) {
-      console.count("PING!");
-      console.log(
-        nodesToVisit,
-        nodesToVisit.length,
-        currentNode.block.coordinates,
-      );
-    }
-  }
-  return comparedRouteOrig;
-};
-
-export default (function (): Promise<number> {
-  const result = pseudoSolvePart1();
-
-  return result;
-})();
-
-const _happyPath = [
-  { x: 0, y: 0 },
-  { x: 1, y: 0 },
-  { x: 2, y: 0 },
-  { x: 2, y: 1 },
-  { x: 3, y: 1 },
-  { x: 4, y: 1 },
-  { x: 5, y: 1 },
-  { x: 5, y: 0 },
-  { x: 6, y: 0 },
-  { x: 7, y: 0 },
-  { x: 8, y: 0 },
-  { x: 8, y: 1 },
-  { x: 8, y: 2 },
-  { x: 9, y: 2 },
-  { x: 10, y: 2 },
-  { x: 10, y: 3 },
-  { x: 10, y: 4 },
-  { x: 11, y: 4 },
-  { x: 11, y: 5 },
-  { x: 11, y: 6 },
-  { x: 11, y: 7 },
-  { x: 12, y: 7 },
-  { x: 12, y: 8 },
-  { x: 12, y: 9 },
-  { x: 12, y: 10 },
-  { x: 11, y: 10 },
-  { x: 11, y: 11 },
-  { x: 11, y: 12 },
-  { x: 12, y: 12 },
-];
 
 const parseInput = async (): Promise<CityBlock[][]> => {
   const cityMap: CityBlock[][] = [];
@@ -306,3 +230,9 @@ const parseInput = async (): Promise<CityBlock[][]> => {
   }
   return cityMap;
 };
+
+export default (function (): Promise<number> {
+  const result = pseudoSolvePart1();
+
+  return result;
+})();
