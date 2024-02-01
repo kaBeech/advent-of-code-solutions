@@ -147,11 +147,9 @@ export default (function () {
     }
   }
 
-  const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
-
   console.log(
-    `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`
+    `Part 2: The lowest possible heat loss is ${machinePartsFactory.minimumRouteHeatLoss}.`
   );
 
-  return lowestPossibleHeatLoss;
+  return machinePartsFactory.minimumRouteHeatLoss;
 })();
