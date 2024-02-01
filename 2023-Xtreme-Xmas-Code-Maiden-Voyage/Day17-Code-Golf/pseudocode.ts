@@ -15,6 +15,10 @@ interface NodeRecord {
   nodeHeatLoss: number;
   cumulativeHeatLoss: number;
   consecutiveStepsInSameDirection: number;
+  coordinates: {
+    x: number;
+    y: number;
+  };
 }
 
 interface Node {
@@ -24,13 +28,6 @@ interface Node {
   routeHeatLoss: number;
   visitedBlocks: CityBlock[];
   heatLossRecord: NodeRecord[];
-}
-
-interface Neighbors {
-  north: Node | null;
-  east: Node | null;
-  south: Node | null;
-  west: Node | null;
 }
 
 const pseudoSolvePart1 = async (): Promise<number> => {
@@ -49,6 +46,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
         nodeHeatLoss: cityMap[0][1].heatLoss,
         cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
         consecutiveStepsInSameDirection: 1,
+        coordinates: { x: 1, y: 0 },
       }],
     },
     {
@@ -61,6 +59,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
         nodeHeatLoss: cityMap[1][0].heatLoss,
         cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
         consecutiveStepsInSameDirection: 1,
+        coordinates: { x: 0, y: 1 },
       }],
     },
   ];
@@ -86,14 +85,15 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 
     const neighbors = getNeighbors(currentNode, cityMap);
 
-    for (const direction in neighbors) {
-      const neighborNode: Node = neighbors[direction];
-
+    for (const neighborNode of neighbors) {
       // Optimization possible in this if statement
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
-        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
-        neighborNode.routeHeatLoss < neighborNode.block.minimumRouteHeatLoss &&
+        // neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
+        neighborNode.routeHeatLoss < 110 &&
+        neighborNode.routeHeatLoss <
+          neighborNode.block.minimumRouteHeatLoss + 20 &&
+        // neighborNode.routeHeatLoss < neighborNode.block.minimumRouteHeatLoss &&
         !currentNode.visitedBlocks.includes(neighborNode.block)
       ) {
         if (
@@ -123,18 +123,14 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 };
 
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
-  const neighbors: Neighbors = {
-    north: null,
-    east: null,
-    south: null,
-    west: null,
-  };
+  const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
   const visitedBlocks = currentNode.visitedBlocks;
+  // const visitedBlocks = currentNode.visitedBlocks.slice();
   visitedBlocks.push(currentNode.block);
 
   if (y > 0) {
-    neighbors.north = {
+    neighbors.push({
       block: cityMap[y - 1][x],
       direction: "north",
       consecutiveStepsInSameDirection: 1,
@@ -147,12 +143,13 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y - 1][x].heatLoss,
           consecutiveStepsInSameDirection: 1,
+          coordinates: { x, y: y - 1 },
         },
       ],
-    };
+    });
   }
   if (x < cityMap[0].length - 1) {
-    neighbors.east = {
+    neighbors.push({
       block: cityMap[y][x + 1],
       direction: "east",
       consecutiveStepsInSameDirection: 1,
@@ -165,12 +162,13 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y][x + 1].heatLoss,
           consecutiveStepsInSameDirection: 1,
+          coordinates: { x: x + 1, y },
         },
       ],
-    };
+    });
   }
   if (y < cityMap.length - 1) {
-    neighbors.south = {
+    neighbors.push({
       block: cityMap[y + 1][x],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
@@ -183,12 +181,13 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y + 1][x].heatLoss,
           consecutiveStepsInSameDirection: 1,
+          coordinates: { x, y: y + 1 },
         },
       ],
-    };
+    });
   }
   if (x > 0) {
-    neighbors.west = {
+    neighbors.push({
       block: cityMap[y][x - 1],
       direction: "west",
       consecutiveStepsInSameDirection: 1,
@@ -201,17 +200,22 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y][x - 1].heatLoss,
           consecutiveStepsInSameDirection: 1,
+          coordinates: { x: x - 1, y },
         },
       ],
-    };
+    });
   }
 
-  if (neighbors[currentNode.direction]) {
-    neighbors[currentNode.direction]!.consecutiveStepsInSameDirection =
+  const directionNeighbor = neighbors.find(
+    (neighbor) => neighbor.direction === currentNode.direction,
+  );
+
+  if (directionNeighbor) {
+    directionNeighbor.consecutiveStepsInSameDirection =
       currentNode.consecutiveStepsInSameDirection + 1;
-    neighbors[currentNode.direction]!
+    directionNeighbor
       .heatLossRecord[
-        neighbors[currentNode.direction]!.heatLossRecord.length - 1
+        directionNeighbor.heatLossRecord.length - 1
       ].consecutiveStepsInSameDirection =
         currentNode.consecutiveStepsInSameDirection + 1;
   }
