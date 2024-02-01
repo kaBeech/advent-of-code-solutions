@@ -242,8 +242,8 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
 const parseInput = async (): Promise<CityBlock[][]> => {
   const cityMap: CityBlock[][] = [];
   const cityMapString = await convertMultiLineFileToDoubleArray(
-    "./challengeInput.dat",
-    // "./testInput.dat",
+    "./c.dat",
+    // "./t.dat",
   );
   let y = 0;
 
