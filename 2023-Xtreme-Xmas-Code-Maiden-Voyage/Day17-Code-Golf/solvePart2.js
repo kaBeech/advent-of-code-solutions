@@ -1,19 +1,18 @@
 import { Heap } from "npm:heap-js";
 
-const convertMultiLineFileToDoubleArray = async (input, splitOn) => {
-  const inputString = await Deno.readTextFile(input);
-  const inputStringTrimmed = inputString.trimEnd();
-  const inputStringArray = inputStringTrimmed.split(/\n/);
-  const inputStringDoubleArray = [];
-  inputStringArray.forEach((line) => {
-    inputStringDoubleArray.push(line.split(splitOn || ""));
-  });
-  return inputStringDoubleArray;
+const c = async (input) => {
+  const s = await Deno.readTextFile(input);
+  const a = [];
+  s.trimEnd()
+    .split(/\n/)
+    .forEach((l) => {
+      a.push(l.split(""));
+    });
+  return a;
 };
 
 const pseudoSolvePart1 = async () => {
   const cityMap = await parseInput();
-  const _lavaPool = cityMap[0][0];
   const machinePartsFactory =
     cityMap[cityMap.length - 1][cityMap[0].length - 1];
   const visited = new Map();
@@ -215,7 +214,7 @@ const getNeighbors = (currentNode, cityMap) => {
 
 const parseInput = async () => {
   const cityMap = [];
-  const cityMapString = await convertMultiLineFileToDoubleArray("./i.dat");
+  const cityMapString = await c("./t.dat");
   let y = 0;
 
   for (const rawCityRow of cityMapString) {
