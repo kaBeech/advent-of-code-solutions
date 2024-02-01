@@ -1,24 +1,9 @@
+import { CardinalDirection } from "../../tools/commonTypes.ts";
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-
-interface Route {
-  currentHeatLoss: number;
-  straightLine: string;
-  path: {
-    x: number;
-    y: number;
-  }[];
-}
 
 interface CityBlock {
   heatLoss: number;
   minimumRouteHeatLoss: number;
-  shortestRoute: Route;
-  routesByDirection: {
-    N: Route;
-    E: Route;
-    S: Route;
-    W: Route;
-  };
   coordinates: {
     x: number;
     y: number;
@@ -27,8 +12,8 @@ interface CityBlock {
 
 interface Node {
   block: CityBlock;
-  route: Route;
-  totalHeatLoss: number;
+  direction: CardinalDirection;
+  consecutiveStepsInSameDirection: number;
 }
 
 const pseudoSolvePart1 = async (): Promise<number> => {
@@ -39,23 +24,13 @@ const pseudoSolvePart1 = async (): Promise<number> => {
   const nodesToVisit = [
     {
       block: cityMap[0][1],
-      totalHeatLoss: cityMap[0][1].heatLoss,
-      route: {
-        currentHeatLoss: cityMap[0][1].heatLoss,
-        currentHeatLoss: cityMap[0][1].heatLoss,
-        straightLine: "E",
-        path: [{ x: 0, y: 0 }],
-      },
+      direction: "E",
+      consecutiveStepsInSameDirection: 1,
     },
     {
       block: cityMap[1][0],
-      totalHeatLoss: cityMap[1][0].heatLoss,
-      route: {
-        currentHeatLoss: cityMap[1][0].heatLoss,
-        currentHeatLoss: cityMap[1][0].heatLoss,
-        straightLine: "S",
-        path: [{ x: 0, y: 0 }],
-      },
+      direction: "S",
+      consecutiveStepsInSameDirection: 1,
     },
   ];
 
