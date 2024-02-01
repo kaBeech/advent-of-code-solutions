@@ -10,27 +10,31 @@ https://www.xtremexmascode.com/game/public/13/day/17/
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
+2
 
 ### Notes
 
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+To run these programs, first enter the Deno runtime by running `deno` from inside this directory.
+
+Next, input `import solvePart[1-2] from './solvePart[1-2].js'`.
+
+Finally, run `solvePart[1-2]()`.
 
 ### Retrospective
 
