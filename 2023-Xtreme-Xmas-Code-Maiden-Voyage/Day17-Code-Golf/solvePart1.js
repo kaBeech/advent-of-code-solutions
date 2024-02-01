@@ -93,35 +93,30 @@ const getNeighbors = (currentNode, cityMap) => {
   return neighbors;
 };
 
-const parseInput = async () => {
-  const cityMap = [];
-  const s = await Deno.readTextFile("./t.dat");
-  const a = [];
-  s.trimEnd()
-    .split(/\n/)
-    .forEach((l) => {
-      a.push(l.split(""));
+const cityMap = [];
+const s = await Deno.readTextFile("./t.dat");
+const a = [];
+s.trimEnd()
+  .split(/\n/)
+  .forEach((l) => {
+    a.push(l.split(""));
+  });
+let y = 0;
+
+for (const rawCityRow of a) {
+  const cityRow = [];
+  let x = 0;
+  for (const rawCityBlock of rawCityRow) {
+    cityRow.push({
+      heatLoss: +rawCityBlock,
+      minimumRouteHeatLoss: Infinity,
+      coordinates: { x, y },
     });
-  let y = 0;
-
-  for (const rawCityRow of a) {
-    const cityRow = [];
-    let x = 0;
-    for (const rawCityBlock of rawCityRow) {
-      cityRow.push({
-        heatLoss: +rawCityBlock,
-        minimumRouteHeatLoss: Infinity,
-        coordinates: { x, y },
-      });
-      x++;
-    }
-    cityMap.push(cityRow);
-    y++;
+    x++;
   }
-  return cityMap;
-};
-
-const cityMap = await parseInput();
+  cityMap.push(cityRow);
+  y++;
+}
 
 export default (function () {
   const machinePartsFactory =
