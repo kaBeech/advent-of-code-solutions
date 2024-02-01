@@ -3,13 +3,10 @@ import { Heap } from "npm:heap-js";
 const getNeighbors = (currentNode, cityMap) => {
   const neighbors = [];
   const { x, y } = currentNode.block.coordinates;
+  const minStepsReached = currentNode.consecutiveStepsInSameDirection > 3;
+  const d = currentNode.direction;
 
-  if (
-    y > 0 &&
-    currentNode.direction !== "south" &&
-    (currentNode.direction === "north" ||
-      currentNode.consecutiveStepsInSameDirection > 3)
-  ) {
+  if (y > 0 && d !== "south" && (d === "north" || minStepsReached)) {
     neighbors.push({
       block: cityMap[y - 1][x],
       direction: "north",
@@ -29,9 +26,8 @@ const getNeighbors = (currentNode, cityMap) => {
   }
   if (
     x < cityMap[0].length - 1 &&
-    currentNode.direction !== "west" &&
-    (currentNode.direction === "east" ||
-      currentNode.consecutiveStepsInSameDirection > 3)
+    d !== "west" &&
+    (d === "east" || minStepsReached)
   ) {
     neighbors.push({
       block: cityMap[y][x + 1],
@@ -53,8 +49,7 @@ const getNeighbors = (currentNode, cityMap) => {
   if (
     y < cityMap.length - 1 &&
     currentNode.direction !== "north" &&
-    (currentNode.direction === "south" ||
-      currentNode.consecutiveStepsInSameDirection > 3)
+    (d === "south" || minStepsReached)
   ) {
     neighbors.push({
       block: cityMap[y + 1][x],
@@ -73,12 +68,7 @@ const getNeighbors = (currentNode, cityMap) => {
       ],
     });
   }
-  if (
-    x > 0 &&
-    currentNode.direction !== "east" &&
-    (currentNode.direction === "west" ||
-      currentNode.consecutiveStepsInSameDirection > 3)
-  ) {
+  if (x > 0 && d !== "east" && (d === "west" || minStepsReached)) {
     neighbors.push({
       block: cityMap[y][x - 1],
       direction: "west",
@@ -98,7 +88,7 @@ const getNeighbors = (currentNode, cityMap) => {
   }
 
   const directionNeighbor = neighbors.find(
-    (neighbor) => neighbor.direction === currentNode.direction
+    (neighbor) => neighbor.direction === d
   );
 
   if (directionNeighbor) {
