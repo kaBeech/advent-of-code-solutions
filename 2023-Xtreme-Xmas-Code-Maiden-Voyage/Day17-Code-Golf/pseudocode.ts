@@ -92,11 +92,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       // Optimization possible in this if statement
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
-        // neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
-        neighborNode.routeHeatLoss < 110 &&
-        neighborNode.routeHeatLoss <
-          neighborNode.block.minimumRouteHeatLoss + 20 &&
-        // neighborNode.routeHeatLoss < neighborNode.block.minimumRouteHeatLoss &&
+        neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
         !currentNode.visitedBlocks.includes(neighborNode.block)
       ) {
         if (
