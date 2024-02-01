@@ -41,11 +41,11 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     block: cityMap[0][1],
     direction: "east",
     consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
+    routeHeatLoss: cityMap[0][1].heatLoss,
     visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[0][1].heatLoss,
-      cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
+      cumulativeHeatLoss: cityMap[0][1].heatLoss,
       consecutiveStepsInSameDirection: 1,
       coordinates: { x: 1, y: 0 },
     }],
@@ -54,11 +54,11 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     block: cityMap[1][0],
     direction: "south",
     consecutiveStepsInSameDirection: 1,
-    routeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
+    routeHeatLoss: cityMap[1][0].heatLoss,
     visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[1][0].heatLoss,
-      cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
+      cumulativeHeatLoss: cityMap[1][0].heatLoss,
       consecutiveStepsInSameDirection: 1,
       coordinates: { x: 0, y: 1 },
     }],
@@ -90,6 +90,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
         neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
+        currentNode.routeHeatLoss <
+          neighborNode.block.minimumRouteHeatLoss &&
         neighborNode.routeHeatLoss < 105 &&
         !currentNode.visitedBlocks.includes(neighborNode.block.coordinates)
       ) {
