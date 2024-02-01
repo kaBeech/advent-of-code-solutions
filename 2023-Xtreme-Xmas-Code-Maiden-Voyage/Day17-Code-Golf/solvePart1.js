@@ -94,11 +94,6 @@ const pseudoSolvePart1 = async () => {
   const lowestPossibleHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
 
   console.log(
-    machinePartsFactory.finalNode,
-    machinePartsFactory.minimumRouteHeatLoss
-  );
-
-  console.log(
     `Part 1: The lowest possible heat loss is ${lowestPossibleHeatLoss}.`
   );
 
