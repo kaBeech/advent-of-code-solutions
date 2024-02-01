@@ -122,7 +122,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
-  const visitedBlocks = currentNode.visitedBlocks.slice();
+  const visitedBlocks = currentNode.visitedBlocks;
   // const visitedBlocks = currentNode.visitedBlocks.slice();
   visitedBlocks.push(currentNode.block.coordinates);
 
