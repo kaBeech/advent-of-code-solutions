@@ -11,32 +11,32 @@ export default (
   const adjacentCoordinates = getAdjacentCoordinates(currentTile.coordinates);
 
   switch (beamIsTravelingToThe) {
-    case `North`:
+    case `north`:
       processBeamIfWithinRange(
         grid,
         adjacentCoordinates.east,
-        `East`,
+        `east`,
       );
       break;
-    case `East`:
+    case `east`:
       processBeamIfWithinRange(
         grid,
         adjacentCoordinates.north,
-        `North`,
+        `north`,
       );
       break;
-    case `South`:
+    case `south`:
       processBeamIfWithinRange(
         grid,
         adjacentCoordinates.west,
-        `West`,
+        `west`,
       );
       break;
-    case `West`:
+    case `west`:
       processBeamIfWithinRange(
         grid,
         adjacentCoordinates.south,
-        `South`,
+        `south`,
       );
       break;
   }

@@ -10,12 +10,12 @@ export default (
     const numberOfEastgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: 0, y: i },
-      `East`,
+      `east`,
     );
     const numberOfWestgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: contraption.length - 1, y: i },
-      `West`,
+      `west`,
     );
     maximumNumberOfEnergizedTiles = Math.max(
       maximumNumberOfEnergizedTiles,
@@ -28,12 +28,12 @@ export default (
     const numberOfNorthgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: i, y: 0 },
-      `South`,
+      `south`,
     );
     const numberOfSouthgoingEnergizedTiles = getNumberOfEnergizedTiles(
       contraption,
       { x: i, y: contraption[0].length - 1 },
-      `North`,
+      `north`,
     );
     maximumNumberOfEnergizedTiles = Math.max(
       maximumNumberOfEnergizedTiles,

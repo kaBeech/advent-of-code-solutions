@@ -8,7 +8,7 @@ export default (async function (): Promise<number> {
   const totalNumberOfEnergizedTiles = getNumberOfEnergizedTiles(
     contraption,
     { x: 0, y: 0 },
-    "East",
+    "east",
   );
 
   console.log(`Part 1: ${totalNumberOfEnergizedTiles} tiles are energized.`);
