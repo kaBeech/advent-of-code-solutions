@@ -134,7 +134,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   // const visitedBlocks = currentNode.visitedBlocks.slice();
   // visitedBlocks.push(currentNode.block.coordinates);
 
-  if (y > 0) {
+  if (y > 0 && currentNode.direction !== "south") {
     neighbors.push({
       block: cityMap[y - 1][x],
       direction: "north",
@@ -153,7 +153,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (x < cityMap[0].length - 1) {
+  if (x < cityMap[0].length - 1 && currentNode.direction !== "west") {
     neighbors.push({
       block: cityMap[y][x + 1],
       direction: "east",
@@ -172,7 +172,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (y < cityMap.length - 1) {
+  if (y < cityMap.length - 1 && currentNode.direction !== "north") {
     neighbors.push({
       block: cityMap[y + 1][x],
       direction: "south",
@@ -191,7 +191,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       ],
     });
   }
-  if (x > 0) {
+  if (x > 0 && currentNode.direction !== "east") {
     neighbors.push({
       block: cityMap[y][x - 1],
       direction: "west",
