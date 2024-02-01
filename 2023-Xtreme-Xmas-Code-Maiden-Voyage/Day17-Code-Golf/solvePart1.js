@@ -195,10 +195,7 @@ const getNeighbors = (currentNode, cityMap) => {
 
 const parseInput = async () => {
   const cityMap = [];
-  const cityMapString = await convertMultiLineFileToDoubleArray(
-    // "./i.dat"
-    "./t.dat"
-  );
+  const cityMapString = await convertMultiLineFileToDoubleArray("./i.dat");
   let y = 0;
 
   for (const rawCityRow of cityMapString) {
