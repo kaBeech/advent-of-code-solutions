@@ -131,7 +131,6 @@ export default (function () {
 
     for (const neighborNode of neighbors) {
       if (
-        neighborNode &&
         neighborNode.consecutiveStepsInSameDirection < 11 &&
         neighborNode.routeHeatLoss < endMinimumRouteHeatLoss
       ) {
