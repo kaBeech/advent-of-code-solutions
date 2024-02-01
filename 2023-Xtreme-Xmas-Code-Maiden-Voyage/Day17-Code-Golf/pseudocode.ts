@@ -1,15 +1,12 @@
 import { Heap } from "npm:heap-js";
 
-import { CardinalDirection } from "../../tools/commonTypes.ts";
+import { CardinalDirection, XYCoordinates } from "../../tools/commonTypes.ts";
 import { convertMultiLineFileToDoubleArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
 interface CityBlock {
   heatLoss: number;
   minimumRouteHeatLoss: number;
-  coordinates: {
-    x: number;
-    y: number;
-  };
+  coordinates: XYCoordinates;
   finalNode?: Node;
 }
 
@@ -28,7 +25,7 @@ interface Node {
   direction: CardinalDirection;
   consecutiveStepsInSameDirection: number;
   routeHeatLoss: number;
-  visitedBlocks: CityBlock[];
+  visitedBlocks: XYCoordinates[];
   heatLossRecord: NodeRecord[];
 }
 
@@ -45,7 +42,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     direction: "east",
     consecutiveStepsInSameDirection: 1,
     routeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
-    visitedBlocks: [cityMap[0][0]],
+    visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[0][1].heatLoss,
       cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
@@ -58,7 +55,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
     direction: "south",
     consecutiveStepsInSameDirection: 1,
     routeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
-    visitedBlocks: [cityMap[0][0]],
+    visitedBlocks: [{ x: 0, y: 0 }],
     heatLossRecord: [{
       nodeHeatLoss: cityMap[1][0].heatLoss,
       cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
@@ -93,7 +90,8 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       if (
         neighborNode && neighborNode.consecutiveStepsInSameDirection < 4 &&
         neighborNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss &&
-        !currentNode.visitedBlocks.includes(neighborNode.block)
+        neighborNode.routeHeatLoss < 105 &&
+        !currentNode.visitedBlocks.includes(neighborNode.block.coordinates)
       ) {
         if (
           neighborNode.block === machinePartsFactory
@@ -124,9 +122,9 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
   const neighbors: Node[] = [];
   const { x, y } = currentNode.block.coordinates;
-  const visitedBlocks = currentNode.visitedBlocks;
+  const visitedBlocks = currentNode.visitedBlocks.slice();
   // const visitedBlocks = currentNode.visitedBlocks.slice();
-  visitedBlocks.push(currentNode.block);
+  visitedBlocks.push(currentNode.block.coordinates);
 
   if (y > 0) {
     neighbors.push({
