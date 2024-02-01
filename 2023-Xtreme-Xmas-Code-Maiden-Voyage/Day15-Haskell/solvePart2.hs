@@ -41,9 +41,13 @@ addLensToBox box lens = box ++ [lens]
 -- Convert Box --
 
 -- Replace the box label of each string with its hashed value
-convertBox = map (\x -> show (runHASHAlgorithm (getLabel x)) ++ drop 2 x)
+convertBox = map convertLens
+
+convertLens lens = show (runHASHAlgorithm (getLabel lens)) ++ "=" ++ getFocalLength lens
 
 getLabel step = head (splitStringOn (== '=') (filter (/= '-') step))
+
+getFocalLength step = last (splitStringOn (== '=') (filter (/= '-') step))
 
 runHASHAlgorithm = foldl runHASHAlgorithmOnChar 0
 
@@ -55,18 +59,12 @@ getTotalLensValue box
   -- otherwise remove all the lenses with labels that have the same label as the first lens, get their total lens value, and run getTotalLensValue recursively on the remaining lenses
   | otherwise = getTotalLensValueOfHomogeneousBox (filter (\x -> getBoxNumber x == getBoxNumber (head box)) box) + getTotalLensValue (filter (\x -> getBoxNumber x /= getBoxNumber (head box)) box)
 
--- Update this - currently we just treat each lens as having index 0
 doAllLensesHaveTheSameBoxNumber box = all (\x -> getBoxNumber x == getBoxNumber (head box)) box
 
 getBoxNumber lens = head (splitStringOn (== '=') (filter (/= '-') lens))
 
-getLensValuesOfHomogeneousBox = map (\lens -> getFocusingPower lens (read (getBoxNumber lens)) 0)
-
 getTotalLensValueOfHomogeneousBox box
   | null box = 0
-  | length box == 1 = getFocusingPower (head box) (read (getBoxNumber (head box))) (length box)
   | otherwise = getFocusingPower (last box) (read (getBoxNumber (last box))) (length box) + getTotalLensValueOfHomogeneousBox (init box)
 
 getFocusingPower lens boxNumber slotIndex = (boxNumber + 1) * read (getFocalLength lens) * slotIndex
-
-getFocalLength step = splitStringOn (== '=') (filter (/= '-') step) !! 1
