@@ -14,6 +14,7 @@ interface CityBlock {
 interface NodeRecord {
   nodeHeatLoss: number;
   cumulativeHeatLoss: number;
+  consecutiveStepsInSameDirection: number;
 }
 
 interface Node {
@@ -47,6 +48,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       heatLossRecord: [{
         nodeHeatLoss: cityMap[0][1].heatLoss,
         cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[0][1].heatLoss,
+        consecutiveStepsInSameDirection: 1,
       }],
     },
     {
@@ -58,6 +60,7 @@ const pseudoSolvePart1 = async (): Promise<number> => {
       heatLossRecord: [{
         nodeHeatLoss: cityMap[1][0].heatLoss,
         cumulativeHeatLoss: cityMap[0][0].heatLoss + cityMap[1][0].heatLoss,
+        consecutiveStepsInSameDirection: 1,
       }],
     },
   ];
@@ -144,6 +147,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           nodeHeatLoss: cityMap[y - 1][x].heatLoss,
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y - 1][x].heatLoss,
+          consecutiveStepsInSameDirection: 1,
         },
       ],
     };
@@ -161,6 +165,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           nodeHeatLoss: cityMap[y][x + 1].heatLoss,
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y][x + 1].heatLoss,
+          consecutiveStepsInSameDirection: 1,
         },
       ],
     };
@@ -178,6 +183,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           nodeHeatLoss: cityMap[y + 1][x].heatLoss,
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y + 1][x].heatLoss,
+          consecutiveStepsInSameDirection: 1,
         },
       ],
     };
@@ -195,13 +201,20 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
           nodeHeatLoss: cityMap[y][x - 1].heatLoss,
           cumulativeHeatLoss: currentNode.routeHeatLoss +
             cityMap[y][x - 1].heatLoss,
+          consecutiveStepsInSameDirection: 1,
         },
       ],
     };
   }
 
   if (neighbors[currentNode.direction]) {
-    neighbors[currentNode.direction]!.consecutiveStepsInSameDirection++;
+    neighbors[currentNode.direction]!.consecutiveStepsInSameDirection =
+      currentNode.consecutiveStepsInSameDirection + 1;
+    neighbors[currentNode.direction]!
+      .heatLossRecord[
+        neighbors[currentNode.direction]!.heatLossRecord.length - 1
+      ].consecutiveStepsInSameDirection =
+        currentNode.consecutiveStepsInSameDirection + 1;
   }
 
   return neighbors;
