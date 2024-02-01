@@ -59,10 +59,18 @@ const pseudoSolvePart1 = async (): Promise<number> => {
 
     const neighbors = getNeighbors(currentNode, cityMap);
 
-    for (const rawNeighbor of neighbors) {
-      const neighbor = rawNeighbor.block;
-      const straightLine = calculateStraightLine(currentNode, neighbor);
-      const direction = straightLine[0] as "N" | "E" | "S" | "W";
+    for (const direction in neighbors) {
+      const neighbor: Node = neighbors[direction];
+
+      // Optimization possible in this if statement
+      if (
+        neighbor && neighbor.consecutiveStepsInSameDirection < 4 &&
+        neighbor.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
+      ) {
+        nodesToVisit.push(neighbor);
+      }
+
+      const block = rawNeighbor.block;
 
       neighbor.routesByDirection[direction] = compareDistance(
         currentNode,
@@ -101,6 +109,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       block: cityMap[y - 1][x],
       direction: "north",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y - 1][x].heatLoss,
     };
   }
   if (x < cityMap[0].length - 1) {
@@ -108,6 +117,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       block: cityMap[y][x + 1],
       direction: "east",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x + 1].heatLoss,
     };
   }
   if (y < cityMap.length - 1) {
@@ -115,6 +125,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       block: cityMap[y + 1][x],
       direction: "south",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y + 1][x].heatLoss,
     };
   }
   if (x > 0) {
@@ -122,6 +133,7 @@ const getNeighbors = (currentNode: Node, cityMap: CityBlock[][]) => {
       block: cityMap[y][x - 1],
       direction: "west",
       consecutiveStepsInSameDirection: 1,
+      routeHeatLoss: currentNode.routeHeatLoss + cityMap[y][x - 1].heatLoss,
     };
   }
 
