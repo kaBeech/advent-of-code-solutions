@@ -28,7 +28,7 @@ const getNeighbors = (currentNode, cityMap) => {
   }
   if (
     y < cityMap.length - 1 &&
-    currentNode.direction !== "north" &&
+    d !== "north" &&
     (d === "south" || minStepsReached)
   ) {
     neighbors.push({
@@ -105,29 +105,27 @@ export default (function () {
 
   while (nodesToVisit.length > 0) {
     const currentNode = nodesToVisit.pop();
+    const { block, routeHeatLoss, direction, consecutiveStepsInSameDirection } =
+      currentNode;
+    const { x, y } = block.coordinates;
+    let endMinimumRouteHeatLoss = machinePartsFactory.minimumRouteHeatLoss;
 
-    if (currentNode.block === machinePartsFactory) {
-      if (
-        currentNode.routeHeatLoss < machinePartsFactory.minimumRouteHeatLoss
-      ) {
+    if (block === machinePartsFactory) {
+      if (routeHeatLoss < endMinimumRouteHeatLoss) {
         machinePartsFactory.finalNode = currentNode;
       }
-      machinePartsFactory.minimumRouteHeatLoss = Math.min(
-        currentNode.routeHeatLoss,
-        machinePartsFactory.minimumRouteHeatLoss
+      endMinimumRouteHeatLoss = Math.min(
+        routeHeatLoss,
+        endMinimumRouteHeatLoss
       );
-
       continue;
     }
 
-    const cacheKey = `${currentNode.block.coordinates.x}-${currentNode.block.coordinates.y}-${currentNode.direction}-${currentNode.consecutiveStepsInSameDirection}`;
-    if (
-      visited.has(cacheKey) &&
-      visited.get(cacheKey) <= currentNode.routeHeatLoss
-    ) {
+    const cacheKey = `${x}-${y}-${direction}-${consecutiveStepsInSameDirection}`;
+    if (visited.has(cacheKey) && visited.get(cacheKey) <= routeHeatLoss) {
       continue;
     }
-    visited.set(cacheKey, currentNode.routeHeatLoss);
+    visited.set(cacheKey, routeHeatLoss);
 
     const neighbors = getNeighbors(currentNode, m);
 
@@ -141,7 +139,7 @@ export default (function () {
           neighborNode.block.finalNode = currentNode;
         }
         neighborNode.block.minimumRouteHeatLoss =
-          currentNode.routeHeatLoss + neighborNode.block.heatLoss;
+          routeHeatLoss + neighborNode.block.heatLoss;
         nodesToVisit.push(neighborNode);
       }
     }
