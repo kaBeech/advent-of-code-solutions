@@ -1,19 +1,21 @@
 import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 import { XYCoordinates } from "../../tools/commonTypes.ts";
 
-export interface Elf {
-  id: number;
-  coordinates: XYCoordinates;
+type ModuleId = string;
+
+interface Pulse {
+  amplitude: "high" | "low";
 }
 
-export type ElfMap = Elf[];
+interface Module {
+  id: ModuleId;
+  variety: ModuleVariety;
+  // functionality
+  inputs: ModuleId[];
+  outputs: ModuleId[];
+}
 
-const selectElfNumber42 = (
-  elfMap: ElfMap,
-): Elf => {
-  const elfNumber42 = elfMap.find((elf) => elf.id === 42)!;
-  return elfNumber42;
-};
+type ModuleVariety = "button" | "broadcaster" | "flip-flop" | "conjunction";
 
 const parseInput = async (): Promise<ElfMap> => {
   const elfMap: ElfMap = [];
@@ -27,6 +29,13 @@ const parseInput = async (): Promise<ElfMap> => {
     });
   });
   return elfMap;
+};
+
+const selectElfNumber42 = (
+  elfMap: ElfMap,
+): Elf => {
+  const elfNumber42 = elfMap.find((elf) => elf.id === 42)!;
+  return elfNumber42;
 };
 
 export default (async function(): Promise<Elf> {
