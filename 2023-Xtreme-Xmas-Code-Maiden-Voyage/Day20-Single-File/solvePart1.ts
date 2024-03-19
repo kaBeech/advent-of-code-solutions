@@ -58,6 +58,7 @@ const pulseEmitter = (state: ModuleState) => ({
       counterPulseLow++;
       const pulse = { emittedBy: state.id, amplitude: "low" as Amplitude };
       callStack.push({ pulse, targetModuleId });
+      console.log("Call Stack += ", pulse, targetModuleId, counterPulseLow, counterPulseHigh);
     }
   }
 });
@@ -72,6 +73,7 @@ const broadcaster = (state: ModuleState) => ({
       }
       const newPulse = { ...pulse, emittedBy: state.id };
       callStack.push({ pulse: newPulse, targetModuleId });
+      console.log("Call Stack += ", newPulse, targetModuleId, counterPulseLow, counterPulseHigh);
     }
   }
 });
@@ -84,6 +86,7 @@ const flipFlopper = (state: ModuleState) => ({
       for (const targetModuleId of state.outputs) {
         newAmplitude === "high" ? counterPulseHigh++ : counterPulseLow++
         callStack.push({ pulse: { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId });
+        console.log("Call Stack += ", { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     }
   }
@@ -102,12 +105,13 @@ const conjunctor = (state: ModuleState) => ({
       for (const targetModuleId of state.outputs) {
         counterPulseLow++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId });
+        console.log("Call Stack += ", { pulse: { emittedBy: state.id, amplitude: "low" } }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     } else {
       for (const targetModuleId of state.outputs) {
         counterPulseHigh++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId });
-        // One final extra flip flop is happening
+        console.log("Call Stack += ", { emittedBy: state.id, amplitude: "high" }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     }
   }
@@ -173,15 +177,16 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
 // Functions
 
 const parseInput = async (): Promise<Module[]> => {
-  const inputFile = "./testInput1.dat"
+  const inputFile = "./challengeInput.dat"
 
   // Read each line of the input file into an array
-  const inputLines = await Deno.readTextFile(inputFile).then((text) => text.split("\n"));
+  const inputLines = await Deno.readTextFile(inputFile).then((text) => text.trim().split("\n"));
   const modules = inputLines.map((line: string) => {
     const lineSplits = line.split(" ");
     const id = lineSplits.shift();
     lineSplits.shift();
     const outputs = lineSplits.map((output: string) => output.replace(",", ""));
+    console.log(id);
     switch (id![0]) {
       case "b":
         return broadcasterModule(outputs);
@@ -239,7 +244,7 @@ export default (async function(): Promise<number> {
 
   const previousStates: ApplicationStateSerialized[] = [];
   const button = buttonModule();
-  let buttonPresses = 1;
+  let buttonPresses = 1000;
 
   while (buttonPresses > 0) {
     button.emitPulse();
@@ -249,8 +254,20 @@ export default (async function(): Promise<number> {
       const targetModule = modules.find((module) => module.getState().id === targetModuleId);
       if (targetModule) {
         targetModule.processPulse(pulse);
+        // } else if (targetModuleId === "output") {
       } else {
-        throw new Error(`Module not found: ${targetModuleId}`);
+        switch (pulse.amplitude) {
+          case "low":
+            // counterPulseLow++;
+            break;
+          case "high":
+            // counterPulseHigh++;
+            break;
+          default:
+            throw new Error(`Unknown amplitude: ${pulse.amplitude}`);
+        }
+        // } else {
+        // throw new Error(`Module not found: ${targetModuleId}`);
       }
     }
 
@@ -258,6 +275,8 @@ export default (async function(): Promise<number> {
   }
 
   const solutionPart1 = counterPulseLow * counterPulseHigh;
+
+  console.log(counterPulseLow, counterPulseHigh);
 
   console.log(`Part 1: Elf Number 42 is ${solutionPart1}`);
 
