@@ -20,6 +20,8 @@ interface ModuleState {
 interface Module {
   state: ModuleState;
   processPulse: (pulse: Pulse) => void;
+  getState: () => ModuleState;
+  addInput?: (input: ModuleId) => void;
 }
 
 interface PulseEvent {
@@ -36,6 +38,19 @@ let counterPulseLow = 0;
 let counterPulseHigh = 0;
 
 //Methods
+
+const stateGetter = (state: ModuleState) => ({
+  getState: () => state,
+});
+
+const inputSetter = (state: ModuleState) => ({
+  setInputs: (inputs: ModuleId[]) => {
+    state.inputs = inputs;
+    if (state.pulseRecord) {
+      state.pulseRecord = inputs.map((moduleId) => ({ emittedBy: moduleId, amplitude: "low" as Amplitude }));
+    }
+  }
+});
 
 const pulseEmitter = (state: ModuleState) => ({
   emitPulse: () => {
@@ -67,7 +82,7 @@ const flipFlopper = (state: ModuleState) => ({
       state.isOn = !state.isOn;
       const newAmplitude = state.isOn ? "high" : "low";
       for (const targetModuleId of state.outputs) {
-        counterPulseLow++;
+        newAmplitude === "high" ? counterPulseHigh++ : counterPulseLow++
         callStack.push({ pulse: { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId });
       }
     }
@@ -92,6 +107,7 @@ const conjunctor = (state: ModuleState) => ({
       for (const targetModuleId of state.outputs) {
         counterPulseHigh++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId });
+        // One final extra flip flop is happening
       }
     }
   }
@@ -110,6 +126,7 @@ const buttonModule = () => {
     ...pulseEmitter(state),
   };
 }
+const previousStates: ApplicationStateSerialized[] = [];
 
 const broadcasterModule = (outputs: ModuleId[]) => {
   const state = {
@@ -118,6 +135,7 @@ const broadcasterModule = (outputs: ModuleId[]) => {
     outputs,
   };
   return {
+    ...stateGetter(state),
     ...broadcaster(state),
   };
 }
@@ -131,6 +149,8 @@ const flipFlopModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]) =
     outputs,
   };
   return {
+    ...stateGetter(state),
+    ...inputSetter(state),
     ...flipFlopper(state),
   };
 }
@@ -141,9 +161,11 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
     id,
     inputs,
     outputs,
-    pulseRecord: inputs.map((moduleId) => ({ emittedBy: moduleId, amplitude: "low" as Amplitude })),
+    pulseRecord: [] as Pulse[],
   };
   return {
+    ...stateGetter(state),
+    ...inputSetter(state),
     ...conjunctor(state),
   };
 }
@@ -151,7 +173,7 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
 // Functions
 
 const parseInput = async (): Promise<Module[]> => {
-  const inputFile = "./challengeInput.dat"
+  const inputFile = "./testInput1.dat"
 
   // Read each line of the input file into an array
   const inputLines = await Deno.readTextFile(inputFile).then((text) => text.split("\n"));
@@ -171,15 +193,25 @@ const parseInput = async (): Promise<Module[]> => {
         throw new Error(`Unknown module type: ${id}`);
     }
   })
+
+  for (const module of modules) {
+    if (module.getState().id !== "broadcaster") {
+      const inputs = modules.filter((m) => m.getState().outputs.includes(module.getState().id)).map((m) => m.getState().id);
+      module.setInputs!(inputs);
+    }
+  }
+
+
+
   return modules;
 };
 
 const serializeState = (modules: Module[]): ApplicationStateSerialized => {
   let serializedState = "";
   for (const module of modules) {
-    serializedState += module.state.id;
-    if (module.state.pulseRecord) {
-      for (const pulse of module.state.pulseRecord) {
+    serializedState += module.getState().id;
+    if (module.getState().pulseRecord) {
+      for (const pulse of module.getState().pulseRecord!) {
         if (pulse.amplitude === "low") {
           serializedState += "!"
         } else {
@@ -187,9 +219,9 @@ const serializeState = (modules: Module[]): ApplicationStateSerialized => {
         }
         serializedState += pulse.emittedBy + pulse.amplitude;
       }
-    } else if (module.state.isOn) {
+    } else if (module.getState().isOn) {
       serializedState += "+";
-    } else if (module.state.isOn === false) {
+    } else if (module.getState().isOn === false) {
       serializedState += "-";
     }
   }
@@ -204,6 +236,7 @@ export default (async function(): Promise<number> {
   callStack.length = 0;
 
   const modules: Module[] = await parseInput();
+
   const previousStates: ApplicationStateSerialized[] = [];
   const button = buttonModule();
   let buttonPresses = 1;
@@ -213,7 +246,7 @@ export default (async function(): Promise<number> {
 
     while (callStack.length > 0) {
       const { pulse, targetModuleId } = callStack.shift()!;
-      const targetModule = modules.find((module) => module.state.id === targetModuleId);
+      const targetModule = modules.find((module) => module.getState().id === targetModuleId);
       if (targetModule) {
         targetModule.processPulse(pulse);
       } else {
