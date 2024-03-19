@@ -198,7 +198,7 @@ const serializeState = (modules: Module[]): ApplicationStateSerialized => {
 
 // Main
 
-export default (async function() {
+export default (async function(): number {
   counterPulseLow = 0;
   counterPulseHigh = 0;
   callStack.length = 0;
@@ -224,7 +224,9 @@ export default (async function() {
     buttonPresses--;
   }
 
-  // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
+  const solutionPart1 = counterPulseLow * counterPulseHigh;
 
-  return 0;
+  console.log(`Part 1: Elf Number 42 is ${solutionPart1}`);
+
+  return solutionPart1;
 })();
