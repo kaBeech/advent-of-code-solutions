@@ -198,7 +198,7 @@ const serializeState = (modules: Module[]): ApplicationStateSerialized => {
 
 // Main
 
-export default (async function(): number {
+export default (async function(): Promise<number> {
   counterPulseLow = 0;
   counterPulseHigh = 0;
   callStack.length = 0;
