@@ -49,40 +49,43 @@ const onOffToggler = (state) => ({
   }
 });
 
+const broadcaster = (state: ModuleState) => ({
+  processPulse: (pulse) => {
+    for (const targetModuleId of state.outputs) {
+      const newPulse = { ...pulse, emittedBy: state.id };
+      callStack.push({ pulse: newPulse, targetModuleId });
+    }
+  }
+});
+
 const flipFlopper = (state: ModuleState) => ({
   processPulse: (pulse) => {
     if (pulse.amplitude === "low") {
       state.isOn = !state.isOn;
-      if (state.isOn) {
-        for (const moduleId of state.outputs) {
-          state.emitPulse({ emittedBy: state.id, amplitude: "high" }, moduleId);
-        }
-      } else {
-        for (const moduleId of state.outputs) {
-          state.emitPulse({ emittedBy: state.id, amplitude: "low" }, moduleId);
-        }
+      const newAmplitude = state.isOn ? "high" : "low";
+      for (const targetModuleId of state.outputs) {
+        callStack.push({ pulse: { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId });
       }
     }
   }
 });
 
-const conjunctor = (state) => ({
-  conjunct: () => {
-    const pulse = state.pulseQueue.shift();
-    state.pulseRecord = state.pulseRecord.map((record: Pulse) => {
+const conjunctor = (state: ModuleState) => ({
+  processPulse: (pulse: Pulse) => {
+    state.pulseRecord = state.pulseRecord!.map((record: Pulse) => {
       if (record.emittedBy === pulse.emittedBy) {
-        record.amplitude = pulse;
+        record.amplitude = pulse.amplitude;
       }
       return record;
     }
     );
     if (state.pulseRecord.every((record: Pulse) => record.amplitude === "high")) {
-      for (const moduleId of state.outputs) {
-        callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId: moduleId });
+      for (const targetModuleId of state.outputs) {
+        callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId });
       }
     } else {
-      for (const moduleId of state.outputs) {
-        callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId: moduleId });
+      for (const targetModuleId of state.outputs) {
+        callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId });
       }
     }
   }
