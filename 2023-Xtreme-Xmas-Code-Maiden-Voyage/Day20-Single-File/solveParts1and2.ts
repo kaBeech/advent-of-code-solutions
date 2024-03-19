@@ -58,7 +58,6 @@ const pulseEmitter = (state: ModuleState) => ({
       counterPulseLow++;
       const pulse = { emittedBy: state.id, amplitude: "low" as Amplitude };
       callStack.push({ pulse, targetModuleId });
-      console.log("Call Stack += ", pulse, targetModuleId, counterPulseLow, counterPulseHigh);
     }
   }
 });
@@ -73,7 +72,6 @@ const broadcaster = (state: ModuleState) => ({
       }
       const newPulse = { ...pulse, emittedBy: state.id };
       callStack.push({ pulse: newPulse, targetModuleId });
-      console.log("Call Stack += ", newPulse, targetModuleId, counterPulseLow, counterPulseHigh);
     }
   }
 });
@@ -86,7 +84,6 @@ const flipFlopper = (state: ModuleState) => ({
       for (const targetModuleId of state.outputs) {
         newAmplitude === "high" ? counterPulseHigh++ : counterPulseLow++
         callStack.push({ pulse: { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId });
-        console.log("Call Stack += ", { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     }
   }
@@ -105,13 +102,11 @@ const conjunctor = (state: ModuleState) => ({
       for (const targetModuleId of state.outputs) {
         counterPulseLow++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId });
-        console.log("Call Stack += ", { pulse: { emittedBy: state.id, amplitude: "low" } }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     } else {
       for (const targetModuleId of state.outputs) {
         counterPulseHigh++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId });
-        console.log("Call Stack += ", { emittedBy: state.id, amplitude: "high" }, targetModuleId, counterPulseLow, counterPulseHigh);
       }
     }
   }
@@ -179,14 +174,12 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
 const parseInput = async (): Promise<Module[]> => {
   const inputFile = "./challengeInput.dat"
 
-  // Read each line of the input file into an array
   const inputLines = await Deno.readTextFile(inputFile).then((text) => text.trim().split("\n"));
   const modules = inputLines.map((line: string) => {
     const lineSplits = line.split(" ");
     const id = lineSplits.shift();
     lineSplits.shift();
     const outputs = lineSplits.map((output: string) => output.replace(",", ""));
-    console.log(id);
     switch (id![0]) {
       case "b":
         return broadcasterModule(outputs);
@@ -233,9 +226,9 @@ const serializeState = (modules: Module[]): ApplicationStateSerialized => {
   return serializedState;
 }
 
-// Main
+// Solvers
 
-export default (async function(): Promise<number> {
+const solvePart1 = async (): Promise<number> => {
   counterPulseLow = 0;
   counterPulseHigh = 0;
   callStack.length = 0;
@@ -244,9 +237,10 @@ export default (async function(): Promise<number> {
 
   const previousStates: ApplicationStateSerialized[] = [];
   const button = buttonModule();
-  let buttonPresses = 1000;
+  let buttonPresses = 0;
 
-  while (buttonPresses > 0) {
+  while (buttonPresses < 1000) {
+    buttonPresses++;
     button.emitPulse();
 
     while (callStack.length > 0) {
@@ -254,31 +248,78 @@ export default (async function(): Promise<number> {
       const targetModule = modules.find((module) => module.getState().id === targetModuleId);
       if (targetModule) {
         targetModule.processPulse(pulse);
-        // } else if (targetModuleId === "output") {
-      } else {
-        switch (pulse.amplitude) {
-          case "low":
-            // counterPulseLow++;
-            break;
-          case "high":
-            // counterPulseHigh++;
-            break;
-          default:
-            throw new Error(`Unknown amplitude: ${pulse.amplitude}`);
-        }
-        // } else {
-        // throw new Error(`Module not found: ${targetModuleId}`);
       }
     }
-
-    buttonPresses--;
   }
 
   const solutionPart1 = counterPulseLow * counterPulseHigh;
 
-  console.log(counterPulseLow, counterPulseHigh);
+  return solutionPart1;
+}
+
+const solvePart2 = async (): Promise<number> => {
+  counterPulseLow = 0;
+  counterPulseHigh = 0;
+  callStack.length = 0;
+
+  const modules: Module[] = await parseInput();
+  const finalModuleId = modules.find((module) => module.getState().outputs.includes("rx"))!.getState().id;
+  const penultimateModules = modules.filter((module) => module.getState().outputs.includes(finalModuleId)).map((module) => {
+    return { id: module.getState().id, period: 0 };
+  });
+
+  const previousStates: ApplicationStateSerialized[] = [];
+  const button = buttonModule();
+  let buttonPresses = 0;
+
+  while (!penultimateModules.every((module) => module.period > 0)) {
+    buttonPresses++;
+    // if (buttonPresses % 10000 === 0) {
+    // console.log(buttonPresses);
+    // }
+    button.emitPulse();
+
+    // 4 Modules feed into rx (all Conjunction Modules)
+    // These are their ids, as well as the period length (in button presses)
+    // between their high pulse emissions:
+    // lk -> 4003
+    // fn -> 3847
+    // fh -> 3851
+    // hh -> 4027
+
+    while (callStack.length > 0) {
+      const { pulse, targetModuleId } = callStack.shift()!;
+      const targetModule = modules.find((module) => module.getState().id === targetModuleId);
+      if (targetModule) {
+        if (targetModuleId === finalModuleId && pulse.amplitude === "high") {
+          const emittingModule = penultimateModules.find((module) => module.id === pulse.emittedBy)!;
+          if (emittingModule.period === 0) {
+            emittingModule.period = buttonPresses;
+          }
+        }
+        targetModule.processPulse(pulse);
+      }
+    }
+  }
+  const solutionPart2 = penultimateModules.reduce(
+    (accumulator, module) => accumulator * module.period,
+    1,
+  );
+
+
+  return solutionPart2;
+}
+
+
+// Main
+
+export default (async function(): Promise<{ solutionPart1: number, solutionPart2: number }> {
+
+  const solutionPart1 = await solvePart1();
+  const solutionPart2 = await solvePart2();
 
   console.log(`Part 1: Elf Number 42 is ${solutionPart1}`);
+  console.log(`Part 2: Elf Number 42 is ${solutionPart2}`);
 
-  return solutionPart1;
+  return { solutionPart1, solutionPart2 };
 })();
