@@ -1,5 +1,3 @@
-import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-
 // Types
 
 type ModuleId = string;
@@ -33,11 +31,7 @@ type ApplicationStateSerialized = string;
 
 // Globals
 
-const modules: ModuleState[] = [];
-
 const callStack: PulseEvent[] = [];
-
-const previousStates: ApplicationStateSerialized[] = [];
 
 //Methods
 
@@ -143,18 +137,40 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
   };
 }
 
-const parseInput = async () => {
-  const playerMapString: string[] = await convertMultiLineFileToArray(
-    "./challengeInput.dat",
-  );
-  playerMapString.forEach((rawPlayer, index) => {
-    return 0;
+// Functions
+
+const parseInput = async (): Promise<Module[]> => {
+  const inputFile = "./challengeInput.dat"
+
+  // Read each line of the input file into an array
+  const inputLines = await Deno.readTextFile(inputFile).then((text) => text.split("\n"));
+  const modules = inputLines.map((line: string) => {
+    const lineSplits = line.split(" ");
+    const id = lineSplits.shift();
+    lineSplits.shift();
+    const outputs = lineSplits.map((output: string) => output.replace(",", ""));
+    switch (id![0]) {
+      case "b":
+        return broadcasterModule(outputs);
+      case "%":
+        return flipFlopModule(id!.slice(1,), [] as ModuleId[], outputs);
+      case "&":
+        return conjunctionModule(id!.slice(1,), [] as ModuleId[], outputs);
+      default:
+        throw new Error(`Unknown module type: ${id}`);
+    }
   })
+  return modules;
 };
 
+// Main
 
 export default (async function() {
-  const example = await parseInput();
+  const modules: Module[] = await parseInput();
+
+  const button = buttonModule();
+
+  const previousStates: ApplicationStateSerialized[] = [];
 
   // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
 
