@@ -1,21 +1,89 @@
 import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
-import { XYCoordinates } from "../../tools/commonTypes.ts";
 
 type ModuleId = string;
 
 interface Pulse {
+  emittedBy: ModuleId;
   amplitude: "high" | "low";
 }
 
 interface Module {
   id: ModuleId;
+  pulseQueue: Pulse[];
+  receivePulse: (pulse: Pulse) => void;
   variety: ModuleVariety;
   // functionality
   inputs: ModuleId[];
   outputs: ModuleId[];
 }
 
+
+const pulseReceiver = (state) => ({
+  receivePulse: (pulse: Pulse) => {
+    state.pulseQueue.push(pulse);
+  },
+});
+
+const pulseEmitter = () => ({
+  emitPulse: (pulse: Pulse, targetModule: Module) => {
+    targetModule.receivePulse(pulse);
+  }
+});
+
+const onOffToggler = (state) => ({
+  toggleOnOff: () => {
+    state.isOn = !state.isOn;
+  }
+});
+
 type ModuleVariety = "button" | "broadcaster" | "flip-flop" | "conjunction";
+
+const button = () => {
+  const state = {
+    pulseQueue: [] as Pulse[],
+  };
+  return {
+    ...pulseEmitter(),
+  };
+}
+
+const broadcaster = (outputs: ModuleId[]) => {
+  const state = {
+    pulseQueue: [] as Pulse[],
+    outputs,
+  };
+  return {
+    ...pulseReceiver(state),
+    ...pulseEmitter(),
+  };
+}
+
+const flipFlop = (inputs: ModuleId[], outputs: ModuleId[]) => {
+  const state = {
+    pulseQueue: [] as Pulse[],
+    isOn: false,
+    inputs,
+    outputs,
+  };
+  return {
+    ...pulseReceiver(state),
+    ...onOffToggler(state),
+    ...pulseEmitter(),
+  };
+}
+
+const conjunction = (inputs: ModuleId[], outputs: ModuleId[]) => {
+  const state = {
+    pulseQueue: [] as Pulse[],
+    inputs,
+    outputs,
+    pulseRecord: inputs.map((moduleId) => ({ moduleId, pulse: { amplitude: "low" } })),
+  };
+  return {
+    ...pulseReceiver(state),
+    ...pulseEmitter(),
+  };
+}
 
 const parseInput = async (): Promise<ElfMap> => {
   const elfMap: ElfMap = [];
