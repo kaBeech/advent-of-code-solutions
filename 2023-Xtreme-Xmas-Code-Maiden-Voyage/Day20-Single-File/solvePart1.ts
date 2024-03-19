@@ -8,15 +8,17 @@ interface Pulse {
 }
 
 interface Module {
-  id: ModuleId;
-  pulseQueue: Pulse[];
-  receivePulse: (pulse: Pulse) => void;
-  variety: ModuleVariety;
-  // functionality
-  inputs: ModuleId[];
-  outputs: ModuleId[];
+  state: {
+    id: ModuleId;
+    pulseQueue: Pulse[];
+    inputs: ModuleId[];
+    outputs: ModuleId[];
+    receivePulse: (pulse: Pulse) => void;
+    emitPulse: (pulse: Pulse, targetModuleId: ModuleId) => void;
+  }
 }
 
+const modules: Module[] = [];
 
 const pulseReceiver = (state) => ({
   receivePulse: (pulse: Pulse) => {
@@ -25,8 +27,9 @@ const pulseReceiver = (state) => ({
 });
 
 const pulseEmitter = () => ({
-  emitPulse: (pulse: Pulse, targetModule: Module) => {
-    targetModule.receivePulse(pulse);
+  emitPulse: (pulse: Pulse, targetModuleId: ModuleId) => {
+    const targetModule = modules.find((module) => module.state.id === targetModuleId)!;
+    targetModule.state.receivePulse(pulse);
   }
 });
 
@@ -36,20 +39,69 @@ const onOffToggler = (state) => ({
   }
 });
 
+const flipFlopper = (state) => ({
+  flipFlop: () => {
+    const pulse = state.pulseQueue.shift();
+    if (pulse && pulse.amplitude === "low") {
+      state.isOn = !state.isOn;
+      if (state.isOn) {
+        for (const moduleId of state.outputs) {
+          state.emitPulse({ emittedBy: state.id, amplitude: "high" }, moduleId);
+        }
+      } else {
+        for (const moduleId of state.outputs) {
+          state.emitPulse({ emittedBy: state.id, amplitude: "low" }, moduleId);
+        }
+      }
+    }
+  }
+});
+
+const conjunctor = (state) => ({
+  conjunct: () => {
+    const pulse = state.pulseQueue.shift();
+    state.pulseRecord = state.pulseRecord.map((record: Pulse) => {
+      if (record.emittedBy === pulse.emittedBy) {
+        record.amplitude = pulse;
+      }
+      return record;
+    }
+    );
+    if (state.pulseRecord.every((record: Pulse) => record.amplitude === "high")) {
+      for (const moduleId of state.outputs) {
+        state.emitPulse({ emittedBy: state.id, amplitude: "low" }, moduleId);
+      }
+    } else {
+      for (const moduleId of state.outputs) {
+        state.emitPulse({ emittedBy: state.id, amplitude: "high" }, moduleId);
+      }
+    }
+  }
+});
+
+
 type ModuleVariety = "button" | "broadcaster" | "flip-flop" | "conjunction";
+
+// const broadcaster = (state) => ({
+// broadcast: () => {
+
 
 const button = () => {
   const state = {
+    id: "button",
     pulseQueue: [] as Pulse[],
+    outputs: "broadcaster",
   };
   return {
     ...pulseEmitter(),
   };
 }
 
-const broadcaster = (outputs: ModuleId[]) => {
+const broadcasterModule = (outputs: ModuleId[]) => {
   const state = {
+    id: "broadcaster",
     pulseQueue: [] as Pulse[],
+    inputs: ["button"],
     outputs,
   };
   return {
@@ -58,8 +110,9 @@ const broadcaster = (outputs: ModuleId[]) => {
   };
 }
 
-const flipFlop = (inputs: ModuleId[], outputs: ModuleId[]) => {
+const flipFlopModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]) => {
   const state = {
+    id,
     pulseQueue: [] as Pulse[],
     isOn: false,
     inputs,
@@ -72,12 +125,13 @@ const flipFlop = (inputs: ModuleId[], outputs: ModuleId[]) => {
   };
 }
 
-const conjunction = (inputs: ModuleId[], outputs: ModuleId[]) => {
+const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]) => {
   const state = {
+    id,
     pulseQueue: [] as Pulse[],
     inputs,
     outputs,
-    pulseRecord: inputs.map((moduleId) => ({ moduleId, pulse: { amplitude: "low" } })),
+    pulseRecord: inputs.map((moduleId) => ({ emittedBy: moduleId, amplitude: "low" })),
   };
   return {
     ...pulseReceiver(state),
