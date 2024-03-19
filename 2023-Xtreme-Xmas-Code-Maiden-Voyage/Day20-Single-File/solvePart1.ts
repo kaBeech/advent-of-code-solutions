@@ -9,14 +9,13 @@ interface Pulse {
   amplitude: "high" | "low";
 }
 
-interface Module {
-  state: {
-    id: ModuleId;
-    inputs: ModuleId[];
-    outputs: ModuleId[];
-    receivePulse: (pulse: Pulse) => void;
-    emitPulse: (pulse: Pulse, targetModuleId: ModuleId) => void;
-  }
+interface ModuleState {
+  id: ModuleId;
+  inputs: ModuleId[];
+  outputs: ModuleId[];
+  processPulse: (pulse: Pulse) => void;
+  isOn?: boolean;
+  pulseRecord?: Pulse[];
 }
 
 interface PulseEvent {
@@ -26,7 +25,7 @@ interface PulseEvent {
 
 // Globals
 
-const modules: Module[] = [];
+const modules: ModuleState[] = [];
 
 const callStack: PulseEvent[] = [];
 
@@ -34,7 +33,7 @@ const callStack: PulseEvent[] = [];
 
 const pulseReceiver = (state) => ({
   receivePulse: (pulse: Pulse) => {
-    state.pulseQueue.push(pulse);
+    state.processPulse(pulse, state);
   },
 });
 
@@ -50,10 +49,9 @@ const onOffToggler = (state) => ({
   }
 });
 
-const flipFlopper = (state) => ({
-  flipFlop: () => {
-    const pulse = state.pulseQueue.shift();
-    if (pulse && pulse.amplitude === "low") {
+const flipFlopper = (state: ModuleState) => ({
+  processPulse: (pulse) => {
+    if (pulse.amplitude === "low") {
       state.isOn = !state.isOn;
       if (state.isOn) {
         for (const moduleId of state.outputs) {
@@ -80,11 +78,11 @@ const conjunctor = (state) => ({
     );
     if (state.pulseRecord.every((record: Pulse) => record.amplitude === "high")) {
       for (const moduleId of state.outputs) {
-        state.emitPulse({ emittedBy: state.id, amplitude: "low" }, moduleId);
+        callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId: moduleId });
       }
     } else {
       for (const moduleId of state.outputs) {
-        state.emitPulse({ emittedBy: state.id, amplitude: "high" }, moduleId);
+        callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId: moduleId });
       }
     }
   }
@@ -106,7 +104,6 @@ const button = () => {
 const broadcasterModule = (outputs: ModuleId[]) => {
   const state = {
     id: "broadcaster",
-    pulseQueue: [] as Pulse[],
     inputs: ["button"],
     outputs,
   };
