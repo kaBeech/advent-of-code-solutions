@@ -205,8 +205,24 @@ export default (async function() {
 
   const modules: Module[] = await parseInput();
   const previousStates: ApplicationStateSerialized[] = [];
-
   const button = buttonModule();
+  let buttonPresses = 1;
+
+  while (buttonPresses > 0) {
+    button.emitPulse();
+
+    while (callStack.length > 0) {
+      const { pulse, targetModuleId } = callStack.shift()!;
+      const targetModule = modules.find((module) => module.state.id === targetModuleId);
+      if (targetModule) {
+        targetModule.processPulse(pulse);
+      } else {
+        throw new Error(`Module not found: ${targetModuleId}`);
+      }
+    }
+
+    buttonPresses--;
+  }
 
   // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
 
