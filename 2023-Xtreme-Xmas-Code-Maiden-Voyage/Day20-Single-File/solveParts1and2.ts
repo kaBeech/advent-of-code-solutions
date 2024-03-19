@@ -29,8 +29,6 @@ interface PulseEvent {
   targetModuleId: ModuleId;
 }
 
-type ApplicationStateSerialized = string;
-
 // Globals
 
 const callStack: PulseEvent[] = [];
@@ -125,7 +123,6 @@ const buttonModule = () => {
     ...pulseEmitter(state),
   };
 }
-const previousStates: ApplicationStateSerialized[] = [];
 
 const broadcasterModule = (outputs: ModuleId[]) => {
   const state = {
@@ -204,28 +201,6 @@ const parseInput = async (): Promise<Module[]> => {
   return modules;
 };
 
-const serializeState = (modules: Module[]): ApplicationStateSerialized => {
-  let serializedState = "";
-  for (const module of modules) {
-    serializedState += module.getState().id;
-    if (module.getState().pulseRecord) {
-      for (const pulse of module.getState().pulseRecord!) {
-        if (pulse.amplitude === "low") {
-          serializedState += "!"
-        } else {
-          serializedState += "^"
-        }
-        serializedState += pulse.emittedBy + pulse.amplitude;
-      }
-    } else if (module.getState().isOn) {
-      serializedState += "+";
-    } else if (module.getState().isOn === false) {
-      serializedState += "-";
-    }
-  }
-  return serializedState;
-}
-
 // Solvers
 
 const solvePart1 = async (): Promise<number> => {
@@ -235,7 +210,6 @@ const solvePart1 = async (): Promise<number> => {
 
   const modules: Module[] = await parseInput();
 
-  const previousStates: ApplicationStateSerialized[] = [];
   const button = buttonModule();
   let buttonPresses = 0;
 
@@ -268,15 +242,11 @@ const solvePart2 = async (): Promise<number> => {
     return { id: module.getState().id, period: 0 };
   });
 
-  const previousStates: ApplicationStateSerialized[] = [];
   const button = buttonModule();
   let buttonPresses = 0;
 
   while (!penultimateModules.every((module) => module.period > 0)) {
     buttonPresses++;
-    // if (buttonPresses % 10000 === 0) {
-    // console.log(buttonPresses);
-    // }
     button.emitPulse();
 
     // 4 Modules feed into rx (all Conjunction Modules)
