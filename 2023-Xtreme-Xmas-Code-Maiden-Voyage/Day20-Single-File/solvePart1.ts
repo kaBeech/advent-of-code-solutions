@@ -163,14 +163,34 @@ const parseInput = async (): Promise<Module[]> => {
   return modules;
 };
 
+const serializeState = (modules: Module[]): ApplicationStateSerialized => {
+  let serializedState = "";
+  for (const module of modules) {
+    serializedState += module.state.id;
+    if (module.state.pulseRecord) {
+      for (const pulse of module.state.pulseRecord) {
+        if (pulse.amplitude === "low") {
+          serializedState += "!"
+        } else {
+          serializedState += "^"
+        }
+        serializedState += pulse.emittedBy + pulse.amplitude;
+      }
+    } else if (module.state.isOn) {
+      serializedState += "+";
+    } else if (module.state.isOn === false) {
+      serializedState += "-";
+    }
+  }
+  return serializedState;
+}
+
 // Main
 
 export default (async function() {
   const modules: Module[] = await parseInput();
-
-  const button = buttonModule();
-
   const previousStates: ApplicationStateSerialized[] = [];
+  const button = buttonModule();
 
   // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
 
