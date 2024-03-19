@@ -29,23 +29,24 @@ interface PulseEvent {
   targetModuleId: ModuleId;
 }
 
+type ApplicationStateSerialized = string;
+
 // Globals
 
 const modules: ModuleState[] = [];
 
 const callStack: PulseEvent[] = [];
 
+const previousStates: ApplicationStateSerialized[] = [];
+
 //Methods
 
-const pulseReceiver = (state) => ({
-  receivePulse: (pulse: Pulse) => {
-    state.processPulse(pulse, state);
-  },
-});
-
-const pulseEmitter = () => ({
-  emitPulse: (pulse: Pulse, targetModuleId: ModuleId) => {
-    callStack.push({ pulse, targetModuleId });
+const pulseEmitter = (state: ModuleState) => ({
+  emitPulse: () => {
+    for (const targetModuleId of state.outputs) {
+      const pulse = { emittedBy: state.id, amplitude: "low" as Amplitude };
+      callStack.push({ pulse, targetModuleId });
+    }
   }
 });
 
@@ -93,14 +94,15 @@ const conjunctor = (state: ModuleState) => ({
 
 // Constructors
 
-const button = () => {
+const buttonModule = () => {
   const state = {
     id: "button",
     pulseQueue: [] as Pulse[],
-    outputs: "broadcaster",
+    inputs: [],
+    outputs: ["broadcaster"],
   };
   return {
-    ...pulseEmitter(),
+    ...pulseEmitter(state),
   };
 }
 
