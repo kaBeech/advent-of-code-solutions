@@ -1,5 +1,7 @@
 import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
 
+// Types
+
 type ModuleId = string;
 
 interface Pulse {
@@ -10,7 +12,6 @@ interface Pulse {
 interface Module {
   state: {
     id: ModuleId;
-    pulseQueue: Pulse[];
     inputs: ModuleId[];
     outputs: ModuleId[];
     receivePulse: (pulse: Pulse) => void;
@@ -18,7 +19,18 @@ interface Module {
   }
 }
 
+interface PulseEvent {
+  pulse: Pulse;
+  targetModuleId: ModuleId;
+}
+
+// Globals
+
 const modules: Module[] = [];
+
+const callStack: PulseEvent[] = [];
+
+//Methods
 
 const pulseReceiver = (state) => ({
   receivePulse: (pulse: Pulse) => {
@@ -28,8 +40,7 @@ const pulseReceiver = (state) => ({
 
 const pulseEmitter = () => ({
   emitPulse: (pulse: Pulse, targetModuleId: ModuleId) => {
-    const targetModule = modules.find((module) => module.state.id === targetModuleId)!;
-    targetModule.state.receivePulse(pulse);
+    callStack.push({ pulse, targetModuleId });
   }
 });
 
@@ -79,12 +90,7 @@ const conjunctor = (state) => ({
   }
 });
 
-
-type ModuleVariety = "button" | "broadcaster" | "flip-flop" | "conjunction";
-
-// const broadcaster = (state) => ({
-// broadcast: () => {
-
+// Constructors
 
 const button = () => {
   const state = {
@@ -139,35 +145,20 @@ const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]
   };
 }
 
-const parseInput = async (): Promise<ElfMap> => {
-  const elfMap: ElfMap = [];
+const parseInput = async () => {
   const playerMapString: string[] = await convertMultiLineFileToArray(
     "./challengeInput.dat",
   );
   playerMapString.forEach((rawPlayer, index) => {
-    elfMap.push({
-      id: index,
-      coordinates: { x: parseInt(rawPlayer), y: index },
-    });
-  });
-  return elfMap;
+    return 0;
+  })
 };
 
-const selectElfNumber42 = (
-  elfMap: ElfMap,
-): Elf => {
-  const elfNumber42 = elfMap.find((elf) => elf.id === 42)!;
-  return elfNumber42;
-};
 
-export default (async function(): Promise<Elf> {
-  const elfMap: ElfMap = await parseInput();
+export default (async function() {
+  const example = await parseInput();
 
-  const elfNumber42 = selectElfNumber42(
-    elfMap,
-  );
+  // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
 
-  console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
-
-  return elfNumber42;
+  return 0;
 })();
