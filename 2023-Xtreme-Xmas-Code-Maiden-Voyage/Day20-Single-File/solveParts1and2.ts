@@ -293,8 +293,8 @@ export default (async function(): Promise<{ solutionPart1: number, solutionPart2
   const solutionPart1 = await solvePart1();
   const solutionPart2 = await solvePart2();
 
-  console.log(`Part 1: Elf Number 42 is ${solutionPart1}`);
-  console.log(`Part 2: Elf Number 42 is ${solutionPart2}`);
+  console.log(`Part 1: The total number of low pulses sent multiplied by the total number of high pulses sent equals ${solutionPart1}`);
+  console.log(`Part 2: The fewest number of button presses required to deliver a low pulse to the module named "rx" is ${solutionPart2}`);
 
   return { solutionPart1, solutionPart2 };
 })();
