@@ -32,12 +32,15 @@ type ApplicationStateSerialized = string;
 // Globals
 
 const callStack: PulseEvent[] = [];
+let counterPulseLow = 0;
+let counterPulseHigh = 0;
 
 //Methods
 
 const pulseEmitter = (state: ModuleState) => ({
   emitPulse: () => {
     for (const targetModuleId of state.outputs) {
+      counterPulseLow++;
       const pulse = { emittedBy: state.id, amplitude: "low" as Amplitude };
       callStack.push({ pulse, targetModuleId });
     }
@@ -47,6 +50,11 @@ const pulseEmitter = (state: ModuleState) => ({
 const broadcaster = (state: ModuleState) => ({
   processPulse: (pulse: Pulse) => {
     for (const targetModuleId of state.outputs) {
+      if (pulse.amplitude === "low") {
+        counterPulseLow++;
+      } else {
+        counterPulseHigh++;
+      }
       const newPulse = { ...pulse, emittedBy: state.id };
       callStack.push({ pulse: newPulse, targetModuleId });
     }
@@ -59,6 +67,7 @@ const flipFlopper = (state: ModuleState) => ({
       state.isOn = !state.isOn;
       const newAmplitude = state.isOn ? "high" : "low";
       for (const targetModuleId of state.outputs) {
+        counterPulseLow++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: newAmplitude }, targetModuleId });
       }
     }
@@ -76,10 +85,12 @@ const conjunctor = (state: ModuleState) => ({
     );
     if (state.pulseRecord.every((record: Pulse) => record.amplitude === "high")) {
       for (const targetModuleId of state.outputs) {
+        counterPulseLow++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "low" }, targetModuleId });
       }
     } else {
       for (const targetModuleId of state.outputs) {
+        counterPulseHigh++;
         callStack.push({ pulse: { emittedBy: state.id, amplitude: "high" }, targetModuleId });
       }
     }
@@ -188,8 +199,13 @@ const serializeState = (modules: Module[]): ApplicationStateSerialized => {
 // Main
 
 export default (async function() {
+  counterPulseLow = 0;
+  counterPulseHigh = 0;
+  callStack.length = 0;
+
   const modules: Module[] = await parseInput();
   const previousStates: ApplicationStateSerialized[] = [];
+
   const button = buttonModule();
 
   // console.log(`Part 1: Elf Number 42 is ${JSON.stringify(elfNumber42)}`);
