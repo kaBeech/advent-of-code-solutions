@@ -4,18 +4,24 @@ import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/con
 
 type ModuleId = string;
 
+type Amplitude = "high" | "low";
+
 interface Pulse {
   emittedBy: ModuleId;
-  amplitude: "high" | "low";
+  amplitude: Amplitude;
 }
 
 interface ModuleState {
   id: ModuleId;
   inputs: ModuleId[];
   outputs: ModuleId[];
-  processPulse: (pulse: Pulse) => void;
   isOn?: boolean;
   pulseRecord?: Pulse[];
+}
+
+interface Module {
+  state: ModuleState;
+  processPulse: (pulse: Pulse) => void;
 }
 
 interface PulseEvent {
@@ -43,14 +49,8 @@ const pulseEmitter = () => ({
   }
 });
 
-const onOffToggler = (state) => ({
-  toggleOnOff: () => {
-    state.isOn = !state.isOn;
-  }
-});
-
 const broadcaster = (state: ModuleState) => ({
-  processPulse: (pulse) => {
+  processPulse: (pulse: Pulse) => {
     for (const targetModuleId of state.outputs) {
       const newPulse = { ...pulse, emittedBy: state.id };
       callStack.push({ pulse: newPulse, targetModuleId });
@@ -59,7 +59,7 @@ const broadcaster = (state: ModuleState) => ({
 });
 
 const flipFlopper = (state: ModuleState) => ({
-  processPulse: (pulse) => {
+  processPulse: (pulse: Pulse) => {
     if (pulse.amplitude === "low") {
       state.isOn = !state.isOn;
       const newAmplitude = state.isOn ? "high" : "low";
@@ -111,8 +111,7 @@ const broadcasterModule = (outputs: ModuleId[]) => {
     outputs,
   };
   return {
-    ...pulseReceiver(state),
-    ...pulseEmitter(),
+    ...broadcaster(state),
   };
 }
 
@@ -125,23 +124,20 @@ const flipFlopModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]) =
     outputs,
   };
   return {
-    ...pulseReceiver(state),
-    ...onOffToggler(state),
-    ...pulseEmitter(),
+    ...flipFlopper(state),
   };
 }
 
 const conjunctionModule = (id: ModuleId, inputs: ModuleId[], outputs: ModuleId[]) => {
+
   const state = {
     id,
-    pulseQueue: [] as Pulse[],
     inputs,
     outputs,
-    pulseRecord: inputs.map((moduleId) => ({ emittedBy: moduleId, amplitude: "low" })),
+    pulseRecord: inputs.map((moduleId) => ({ emittedBy: moduleId, amplitude: "low" as Amplitude })),
   };
   return {
-    ...pulseReceiver(state),
-    ...pulseEmitter(),
+    ...conjunctor(state),
   };
 }
 
