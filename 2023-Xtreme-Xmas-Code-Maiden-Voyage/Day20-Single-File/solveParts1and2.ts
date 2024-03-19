@@ -237,7 +237,14 @@ const solvePart2 = async (): Promise<number> => {
   callStack.length = 0;
 
   const modules: Module[] = await parseInput();
+
+  // We can do this because we know that only one final module will output to rx
   const finalModuleId = modules.find((module) => module.getState().outputs.includes("rx"))!.getState().id;
+
+  // We can do this because we know the penultimate modules will all be 
+  // Conjunction Modules, they all have a set period in which they emit a 
+  // high pulse to the final module, and the first node of that period is
+  // at the starting position (0)
   const penultimateModules = modules.filter((module) => module.getState().outputs.includes(finalModuleId)).map((module) => {
     return { id: module.getState().id, period: 0 };
   });
@@ -248,14 +255,6 @@ const solvePart2 = async (): Promise<number> => {
   while (!penultimateModules.every((module) => module.period > 0)) {
     buttonPresses++;
     button.emitPulse();
-
-    // 4 Modules feed into rx (all Conjunction Modules)
-    // These are their ids, as well as the period length (in button presses)
-    // between their high pulse emissions:
-    // lk -> 4003
-    // fn -> 3847
-    // fh -> 3851
-    // hh -> 4027
 
     while (callStack.length > 0) {
       const { pulse, targetModuleId } = callStack.shift()!;
@@ -271,6 +270,12 @@ const solvePart2 = async (): Promise<number> => {
       }
     }
   }
+
+  // We can now calculate at which button press all penultimate modules will 
+  // emit a high pulse to the final module. Theoretically, this might not the 
+  // first button press in which this happens (if all the periods of the 
+  // penultimate modules share a common divisor there would be an earlier 
+  // one), but for this puzzle it will be.
   const solutionPart2 = penultimateModules.reduce(
     (accumulator, module) => accumulator * module.period,
     1,
