@@ -21,35 +21,35 @@ let input_challenge = read_file_to_string "challengeInput.dat";;
 (* The starting position is in a black section *)
 
 (*
-let get_black_squares_in_red_section str x y =
-  let rec get_black_squares_in_red_section' str x y i acc =
+let count_black_squares_in_red_section str x y =
+  let rec count_black_squares_in_red_section' str x y i acc =
     if i = String.length str then acc
-    else if str.[i] = '\n' then get_black_squares_in_red_section' str (-64) (y - 1) (i + 1) acc
-    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then get_black_squares_in_red_section' str (x + 1) y (i + 1) (acc + 1)
-    else get_black_squares_in_red_section' str (x + 1) y (i + 1) acc
+    else if str.[i] = '\n' then count_black_squares_in_red_section' str (-64) (y - 1) (i + 1) acc
+    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then count_black_squares_in_red_section' str (x + 1) y (i + 1) (acc + 1)
+    else count_black_squares_in_red_section' str (x + 1) y (i + 1) acc
   in
-  get_black_squares_in_red_section' str x y 0 0;;
+  count_black_squares_in_red_section' str x y 0 0;;
 
-let get_black_squares_in_black_section str x y =
-  let rec get_black_squares_in_black_section' str x y i acc =
+let count_black_squares_in_black_section str x y =
+  let rec count_black_squares_in_black_section' str x y i acc =
     if i = String.length str then acc
-    else if str.[i] = '\n' then get_black_squares_in_black_section' str (-64) (y - 1) (i + 1) acc
-    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then get_black_squares_in_black_section' str (x + 1) y (i + 1) (acc + 1)
-    else get_black_squares_in_black_section' str (x + 1) y (i + 1) acc
+    else if str.[i] = '\n' then count_black_squares_in_black_section' str (-64) (y - 1) (i + 1) acc
+    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then count_black_squares_in_black_section' str (x + 1) y (i + 1) (acc + 1)
+    else count_black_squares_in_black_section' str (x + 1) y (i + 1) acc
   in
-  get_black_squares_in_black_section' str x y 0 0;;
+  count_black_squares_in_black_section' str x y 0 0;;
 *)
 
-let get_black_tiles_in_black_section_within_diamond str x y =
-  let rec get_black_tiles_in_black_section_within_diamond' str x y i acc =
+let count_black_tiles_in_black_section_within_diamond str x y =
+  let rec count_black_tiles_in_black_section_within_diamond' str x y i acc =
     if i = String.length str then acc
-    else if str.[i] = '\n' then get_black_tiles_in_black_section_within_diamond' str (-64) (y - 1) (i + 1) acc
-    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then get_black_tiles_in_black_section_within_diamond' str (x + 1) y (i + 1) (acc + 1)
-    else get_black_tiles_in_black_section_within_diamond' str (x + 1) y (i + 1) acc
+    else if str.[i] = '\n' then count_black_tiles_in_black_section_within_diamond' str (-64) (y - 1) (i + 1) acc
+    else if str.[i] = '.' && abs x + abs y <= 64 && (abs x + abs y) mod 2 == 0 then count_black_tiles_in_black_section_within_diamond' str (x + 1) y (i + 1) (acc + 1)
+    else count_black_tiles_in_black_section_within_diamond' str (x + 1) y (i + 1) acc
   in
-  get_black_tiles_in_black_section_within_diamond' str x y 0 0;;
+  count_black_tiles_in_black_section_within_diamond' str x y 0 0;;
 
-let black_tiles_in_black_section_within_diamond = get_black_tiles_in_black_section_within_diamond input_challenge (-64) 64;;
+let black_tiles_in_black_section_within_diamond = count_black_tiles_in_black_section_within_diamond input_challenge (-64) 64;;
 
 print_string "Part 2: the Elf could reach ";
   print_string (string_of_int black_tiles_in_black_section_within_diamond);
