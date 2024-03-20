@@ -42,6 +42,24 @@ let black_tiles_in_black_section = count_colored_tiles_in_colored_section input_
 let black_tiles_in_black_section_within_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' true false ;;
 let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' false true;;
 
+(* Step Math:
+  26501365 - 65 = 26501300
+  26501300 / 131 = 202300
+  202300 * 131 = 26501300
+  *)
+
+(* Solution is equal to the number of red tiles contained in: 
+   + all the black and red sections reachable that aren't on a side or corner
+   + 2 black sections (for the corners) 
+   + 2 black diamonds (also for the corners)
+   + 1 red outside_diamond (for the extra red side length piece next to thr corners)
+   + 3 * side_length black sections
+   + 1 * side_length black diamonds
+   + 1 * side_length red outside_diamonds
+   *)
+
+(* side_length = 202300 - 1 = 202299 *)
+
 print_string "Part 2: the Elf could reach ";
   print_string (string_of_int black_tiles_in_black_section_within_diamond);
   print_endline " garden plots in 26501365 steps";;
