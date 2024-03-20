@@ -132,17 +132,6 @@ let input_challenge = ".........................................................
 .#...#..........#..#.................#.............#.........................................................................##....
 ..................................................................................................................................."
 
-let count_dots str =
-  let rec count_dots' str i =
-    if i = String.length str then 0
-    else if str.[i] = '.' then 1 + count_dots' str (i + 1)
-    else count_dots' str (i + 1)
-  in
-  count_dots' str 0;;
-
-let dots_proto = count_dots my_string;;
-let dots_challenge = count_dots input_challenge;;
-
 let solve_part_1 str x y =
   let rec solve_part_1' str x y i acc =
     if i = String.length str then acc
@@ -156,9 +145,6 @@ let solution_part_1 = solve_part_1 input_challenge (-64) 64;;
 
 (* Print *)
 
-print_endline "hello";
-  print_endline "world";
-  print_endline my_string;
-  print_endline (string_of_int dots_proto);
-  print_endline (string_of_int dots_challenge);
-  print_endline (string_of_int solution_part_1);;
+print_string "Part 1: the Elf could reach ";
+  print_string (string_of_int solution_part_1);
+  print_endline " garden plots in 64 steps";;
