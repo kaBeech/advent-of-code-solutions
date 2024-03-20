@@ -34,7 +34,9 @@ X
 
 ### Notes
 
-- To get the solutions...
+- To build the program, run `ocamlc -o solve_part_[1-2] solve_part_1.ml` from this directory
+
+- To run the program, run `./solve_part_[1-2]` from this directory after building the program
 
 ### Retrospective
 
