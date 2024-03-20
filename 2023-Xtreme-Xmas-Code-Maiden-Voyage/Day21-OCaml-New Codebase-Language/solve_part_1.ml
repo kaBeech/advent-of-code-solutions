@@ -143,15 +143,16 @@ let count_dots str =
 let dots_proto = count_dots my_string;;
 let dots_challenge = count_dots input_challenge;;
 
-let solve_part_1 str =
-  let rec solve_part_1' str i acc =
+let solve_part_1 str x y =
+  let rec solve_part_1' str x y i acc =
     if i = String.length str then acc
-    else if str.[i] = '.' then solve_part_1' str (i + 1) (acc + 1)
-    else solve_part_1' str (i + 1) acc
+    else if str.[i] = '\n' then solve_part_1' str (-64) (y - 1) (i + 1) acc
+    else if str.[i] = '.' && (x + y < 64) then solve_part_1' str (x + 1) y (i + 1) (acc + 1)
+    else solve_part_1' str (x + 1) y (i + 1) acc
   in
-  solve_part_1' str 0 0;;
+  solve_part_1' str x y 0 0;;
 
-let solution_part_1 = solve_part_1 my_string;;
+let solution_part_1 = solve_part_1 my_string (-64) 64;;
 
 (* Print *)
 
