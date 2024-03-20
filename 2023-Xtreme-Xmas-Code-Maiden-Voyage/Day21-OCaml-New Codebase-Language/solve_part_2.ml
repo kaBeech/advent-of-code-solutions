@@ -49,7 +49,7 @@ let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colore
   *)
 
 (* Solution is equal to the number of red tiles contained in: 
-   + all the black and red sections reachable that aren't on a side or corner
+   + all the black and red sections reachable that aren't on a side or corner = 71618852901 red sections + 10231322500 black sections
    + 2 black sections (for the corners) 
    + 2 black diamonds (also for the corners)
    + 1 red outside_diamond (for the extra red side length piece next to thr corners)
@@ -58,7 +58,10 @@ let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colore
    + 1 * side_length red outside_diamonds
    *)
 
-(* side_length = 202300 - 1 = 202299 *)
+(* side_length = big_steps - 1 = 202300 - 1 = 202299 *)
+(* number_of_inside_sections = 2 * (big_steps^2) - 2 * big_steps + 1 = 2 * (202300^2) - 2 * 202300 + 1 = 81850175401 *)
+(* number_of_black_inside_sections = big_steps divided by 2, then rounded up, then squared = (202300 / 2)^2 = 10231322500 *)
+(* number_of_red_inside_sections = number_of_inside_sections - number_of_black_inside_sections = 71618852901 *)
 
 print_string "Part 2: the Elf could reach ";
   print_string (string_of_int black_tiles_in_black_section_within_diamond);
