@@ -147,7 +147,7 @@ let solve_part_1 str x y =
   let rec solve_part_1' str x y i acc =
     if i = String.length str then acc
     else if str.[i] = '\n' then solve_part_1' str (-64) (y - 1) (i + 1) acc
-    else if str.[i] = '.' && (abs x + abs y < 64) then solve_part_1' str (x + 1) y (i + 1) (acc + 1)
+    else if str.[i] = '.' && abs x + abs y < 64 && (abs x + abs y) mod 2 == 0 then solve_part_1' str (x + 1) y (i + 1) (acc + 1)
     else solve_part_1' str (x + 1) y (i + 1) acc
   in
   solve_part_1' str x y 0 0;;
