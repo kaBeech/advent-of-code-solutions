@@ -157,7 +157,7 @@ let solution_part_1 = solve_part_1 my_string;;
 
 print_endline "hello";
   print_endline "world";
-  print_endline my_string;;
-  print_endline (string_of_int dots_proto);;
-  print_endline (string_of_int dots_challenge);;
+  print_endline my_string;
+  print_endline (string_of_int dots_proto);
+  print_endline (string_of_int dots_challenge);
   print_endline (string_of_int solution_part_1);;
