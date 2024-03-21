@@ -5,7 +5,7 @@ export interface XYZKoordinat {
 }
 
 export interface Suara {
-    bata: number;
+    penegalBata: number;
     koordinat: XYZKoordinat;
 }
 
