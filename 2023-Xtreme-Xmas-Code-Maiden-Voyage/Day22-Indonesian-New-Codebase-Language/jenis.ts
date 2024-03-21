@@ -11,5 +11,7 @@ export interface Suara {
 
 export interface Bata {
     pengenal: number;
+    zTertinggi: number;
+    zTerendah: number;
     suara: Suara[];
 }
