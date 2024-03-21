@@ -44,12 +44,14 @@ let count_color_tiles_in_color_section section_map x y tile_color section_color 
   in
   count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond 0 0 0;;
 
-let red_tiles_in_red_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' false false;;
-let red_tiles_in_black_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' false false;;
-let red_tiles_in_black_section_within_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' true false;;
-let red_tiles_in_red_section_outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' false true;;
-let red_tiles_in_red_section_within_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' true false;;
-let red_tiles_in_black_section_outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' false true;;
+let count_tiles_for_input_challenge tile_color section_color within_diamond outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps tile_color section_color within_diamond outside_diamond;;
+
+let red_tiles_in_red_section = count_tiles_for_input_challenge 'r' 'r' false false;;
+let red_tiles_in_black_section = count_tiles_for_input_challenge 'r' 'b' false false;;
+let red_tiles_in_black_section_within_diamond = count_tiles_for_input_challenge 'r' 'b' true false;;
+let red_tiles_in_red_section_outside_diamond = count_tiles_for_input_challenge 'r' 'r' false true;;
+let red_tiles_in_red_section_within_diamond = count_tiles_for_input_challenge 'r' 'r' true false;;
+let red_tiles_in_black_section_outside_diamond = count_tiles_for_input_challenge 'r' 'b' false true;;
 
 (* Step Math:
   26501365 total steps - 65 steps to reach edge of map = 26501300 subtotal steps
