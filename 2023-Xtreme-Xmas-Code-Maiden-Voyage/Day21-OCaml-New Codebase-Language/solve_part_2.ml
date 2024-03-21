@@ -30,12 +30,39 @@ let input_challenge = read_file_to_lines "challengeInput.dat";;
 let little_steps = 65;;
 let neg_little_steps = -1 * little_steps;;
 
+(*
 (* For tile_color and section_color, use 'r' for red and 'b' for black *)
 let count_color_tiles_in_color_section section_map x y tile_color section_color within_diamond outside_diamond =
   let rec count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond i j acc =
     if i = List.length section_map then acc
     else if j = String.length (List.nth section_map i) then count_color_tiles_in_color_section' section_map (neg_little_steps) (y - 1) tile_color section_color within_diamond outside_diamond (i + 1) 0 acc
     else if (List.nth section_map i).[j] = '.' then
+      if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+    else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+  in
+  count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond 0 0 0;;
+
+*)
+
+(* For tile_color and section_color, use 'r' for red and 'b' for black *)
+let count_color_tiles_in_color_section section_map x y tile_color section_color within_diamond outside_diamond =
+  let rec count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond i j acc =
+    (* print_string (string_of_int i); *)
+    (* print_string " "; *)
+    (* print_endline (string_of_int j); *)
+    if i = List.length section_map then acc
+    else if j = String.length (List.nth section_map i) then count_color_tiles_in_color_section' section_map (neg_little_steps) (y - 1) tile_color section_color within_diamond outside_diamond (i + 1) 0 acc
+    else if i = 0 || j == 0 || i = 130 || j == 130 then 
+      if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+    else if (List.nth section_map i).[j] = 'S' || (List.nth section_map i).[j] = '.' && ((List.nth section_map (i + 1)).[j] = '.' || (List.nth section_map i).[j + 1] = '.' || (List.nth section_map (i - 1)).[j] = '.' || (List.nth section_map i).[j - 1] = '.') then
       if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
       else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
       else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
