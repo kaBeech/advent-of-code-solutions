@@ -1,8 +1,9 @@
 import type { Bata, Suara } from "./jenis";
 
 export default async (): Promise<Bata[]> => {
-    const daftarBatuBata: Bata[] = [];
-    const daftarBatuRangkaianMasukan: string[] = await Deno.readTextFile("./masukanPengujian.dat").trimEnd().split(/\n/);
+    const daftarBatuBata: Bata[] = [];;
+    const daftarBatuRangkaianMasukanMentah = await Deno.readTextFile("./masukanPengujian.dat")
+    const daftarBatuRangkaianMasukan: string[] = daftarBatuRangkaianMasukanMentah.trimEnd().split(/\n/);
     let i = 0;
     for (const bataMentah of daftarBatuRangkaianMasukan) {
         const bata: Bata = {
