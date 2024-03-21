@@ -11,6 +11,30 @@ let read_file_to_string filename =
 
 let input_challenge = read_file_to_string "challengeInput.dat";;
 
+let read_file_to_lines filename =
+  let chan = open_in filename in
+  let rec read_lines acc =
+    try
+      let line = input_line chan in
+      read_lines (line :: acc)
+    with End_of_file ->
+      close_in chan;
+      List.rev acc
+  in
+  read_lines []
+
+(* let input_challenge = read_file_to_string "challengeInput.dat";; *)
+(* let my_string = List.nth input_challenge 5;; *)
+(* let my_char = my_string.[4];; *)
+
+(* print_endline my_string;; *)
+(* print_char my_char;; *)
+
+(* Print my_data to the console *)
+(* List.iter print_endline my_data;; *)
+
+(* print_char my_data.[0];; *)
+
 
 (* A black square is a space that can be moved to in an even number of steps *)
 (* A red square is a space that can be moved to in an odd number of steps *)
