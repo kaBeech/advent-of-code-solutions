@@ -25,10 +25,10 @@ let input_challenge = read_file_to_string "challengeInput.dat";;
 let count_colored_tiles_in_colored_section section_map x y tile_color section_color only_within_diamond only_outside_diamond =
   let rec count_colored_tiles_in_colored_section' section_map x y tile_color section_color only_within_diamond only_outside_diamond i acc =
     if i = String.length section_map then acc
-    else if section_map.[i] = '\n' then count_colored_tiles_in_colored_section' section_map (-64) (y - 1) tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
+    else if section_map.[i] = '\n' then count_colored_tiles_in_colored_section' section_map (-65) (y - 1) tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
     else if section_map.[i] = '.' then
-      if only_within_diamond == true && abs x + abs y > 64 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
-      else if only_outside_diamond == true && abs x + abs y <= 64 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
+      if only_within_diamond == true && abs x + abs y > 65 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
+      else if only_outside_diamond == true && abs x + abs y <= 65 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
       else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) (acc + 1)
       else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) (acc + 1)
       else count_colored_tiles_in_colored_section' section_map (x + 1) y tile_color section_color only_within_diamond only_outside_diamond (i + 1) acc
@@ -36,12 +36,14 @@ let count_colored_tiles_in_colored_section section_map x y tile_color section_co
   in
   count_colored_tiles_in_colored_section' section_map x y tile_color section_color only_within_diamond only_outside_diamond 0 0;;
 
-let red_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'r' 'r' false false;;
-let red_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'r' false false;;
-let black_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' false false;;
-let black_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'r' 'b' false false;;
-let black_tiles_in_black_section_within_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' true false ;;
-let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' false true;;
+let red_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-65) 65 'r' 'r' false false;;
+let red_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-65) 65 'b' 'r' false false;;
+(* let black_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-65) 65 'b' 'b' false false;; *)
+let black_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-65) 65 'b' 'r' false false;;
+(* let black_tiles_in_black_section_within_diamond = count_colored_tiles_in_colored_section input_challenge (-65) 65 'b' 'b' true false ;; *)
+(* let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colored_section input_challenge (-65) 65 'b' 'b' false true;; *)
+let red_tiles_in_black_section_within_diamond = count_colored_tiles_in_colored_section input_challenge (-65) 65 'r' 'b' true false;;
+let red_tiles_in_red_section_outside_diamond = count_colored_tiles_in_colored_section input_challenge (-65) 65 'r' 'r' false true;;
 
 (* Step Math:
   26501365 - 65 = 26501300
@@ -65,21 +67,33 @@ let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colore
    RS = number of red tiles in red sections
    BD = number of red tiles *inside* the diamond in black sections
    RD = number of red tiles *outside* the diamond in red sections 
-   I = number of black inside sections (the math to find this is below, but the shorthand is useful for defining the number of red inside sections)
+   BI = number of black inside sections (the math to find this is below, but the shorthand is useful for defining the number of red inside sections)
    *)
-(* Solution = <inside sections> (x/2)^2BS + (2x^2 - 2x + 1 - I) </> + <corner sections> 2BS + 2BD + 1RD </> + <side sections> 3xBS + 1xBD + 1xRD </>*)
+(* Solution = <inside sections> ((x/2)^2)BS + (2x^2 - 2x + 1 - BI) </>  + <side sections> 3xBS + 1xBD + 1xRD </> + <corner sections> 2BS + 2BD + 1RD </> *)
+
+let x = 202300;;
+let bs = red_tiles_in_black_section;;
+let rs = red_tiles_in_red_section;;
+let bd = red_tiles_in_black_section_within_diamond;; 
+let rd = red_tiles_in_red_section_outside_diamond;;
+
+let inside_sections = 2 * (x * x) - 2 * x + 1;;
+let black_inside_sections = (x / 2) * (x / 2);;
+let red_inside_sections = inside_sections - black_inside_sections;;
+
+let solution_part_2 = (black_inside_sections * bs) + (red_inside_sections * rs) + (3 * x * bs) + (x * bd) + (x * rd) + (2 * bs) + (2 * bd) + rd;;
 
 (* side_length = big_steps - 1 = 202300 - 1 = 202299 *)
 (* number_of_inside_sections = 2 * (big_steps^2) - 2 * big_steps + 1 = 2 * (202300^2) - 2 * 202300 + 1 = 81850175401 *)
 (* number_of_black_inside_sections = big_steps divided by 2, then rounded up, then squared = (202300 / 2)^2 = 10231322500 *)
 (* number_of_red_inside_sections = number_of_inside_sections - number_of_black_inside_sections = 71618852901 *)
 
-print_endline (string_of_int red_tiles_in_red_section);
-  print_endline (string_of_int red_tiles_in_black_section);
-  print_endline (string_of_int black_tiles_in_red_section);
-  print_endline (string_of_int black_tiles_in_black_section);
-  print_endline (string_of_int black_tiles_in_black_section_within_diamond);
-  print_endline (string_of_int black_tiles_in_black_section_outside_diamond);
-  print_string "Part 2: the Elf could reach ";
-  print_string (string_of_int black_tiles_in_black_section_within_diamond);
+(* print_endline (string_of_int red_tiles_in_red_section); *)
+  (* print_endline (string_of_int red_tiles_in_black_section); *)
+  (* print_endline (string_of_int black_tiles_in_red_section); *)
+  (* print_endline (string_of_int black_tiles_in_black_section); *)
+  (* print_endline (string_of_int black_tiles_in_black_section_within_diamond); *)
+  (* print_endline (string_of_int black_tiles_in_black_section_outside_diamond); *)
+print_string "Part 2: the Elf could reach ";
+  print_string (string_of_int solution_part_2);
   print_endline " garden plots in 26501365 steps";;
