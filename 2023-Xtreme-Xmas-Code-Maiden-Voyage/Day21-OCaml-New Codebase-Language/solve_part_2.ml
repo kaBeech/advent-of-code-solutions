@@ -10,7 +10,7 @@ let read_file_to_lines filename =
   in
   read_lines []
 
-let input_challenge = read_file_to_lines "challengeInput.dat";;
+let challenge_input = read_file_to_lines "challengeInput.dat";;
 
 (* A black square is a space that can be moved to in an even number of steps *)
 (* A red square is a space that can be moved to in an odd number of steps *)
@@ -45,14 +45,14 @@ let count_color_tiles_in_color_section section_map x y tile_color section_color 
   in
   count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond 0 0 0;;
 
-let count_tiles_for_input_challenge tile_color section_color within_diamond outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps tile_color section_color within_diamond outside_diamond;;
+let count_tiles_for_challenge_input tile_color section_color within_diamond outside_diamond = count_color_tiles_in_color_section challenge_input (neg_little_steps) little_steps tile_color section_color within_diamond outside_diamond;;
 
-let red_tiles_in_red_section = count_tiles_for_input_challenge 'r' 'r' false false;;
-let red_tiles_in_black_section = count_tiles_for_input_challenge 'r' 'b' false false;;
-let red_tiles_in_black_section_within_diamond = count_tiles_for_input_challenge 'r' 'b' true false;;
-let red_tiles_in_red_section_outside_diamond = count_tiles_for_input_challenge 'r' 'r' false true;;
-let red_tiles_in_red_section_within_diamond = count_tiles_for_input_challenge 'r' 'r' true false;;
-let red_tiles_in_black_section_outside_diamond = count_tiles_for_input_challenge 'r' 'b' false true;;
+let red_tiles_in_red_section = count_tiles_for_challenge_input 'r' 'r' false false;;
+let red_tiles_in_black_section = count_tiles_for_challenge_input 'r' 'b' false false;;
+let red_tiles_in_black_section_within_diamond = count_tiles_for_challenge_input 'r' 'b' true false;;
+let red_tiles_in_red_section_outside_diamond = count_tiles_for_challenge_input 'r' 'r' false true;;
+let red_tiles_in_red_section_within_diamond = count_tiles_for_challenge_input 'r' 'r' true false;;
+let red_tiles_in_black_section_outside_diamond = count_tiles_for_challenge_input 'r' 'b' false true;;
 
 (* Step Math:
   26501365 total steps - 65 steps to reach edge of map = 26501300 subtotal steps

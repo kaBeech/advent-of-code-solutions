@@ -9,7 +9,7 @@ let read_file_to_string filename =
     close_in chan;
     String.concat "\n" (List.rev !lines);;
 
-let input_challenge = read_file_to_string "challengeInput.dat";;
+let challenge_input = read_file_to_string "challengeInput.dat";;
 
 let count_garden_plots_inside_diamond str x y =
   let rec count_garden_plots_inside_diamond' str x y i acc =
@@ -20,7 +20,7 @@ let count_garden_plots_inside_diamond str x y =
   in
   count_garden_plots_inside_diamond' str x y 0 0;;
 
-let solution_part_1 = count_garden_plots_inside_diamond input_challenge (-64) 64;;
+let solution_part_1 = count_garden_plots_inside_diamond challenge_input (-64) 64;;
 
 print_string "Part 1: the Elf could reach ";
   print_string (string_of_int solution_part_1);
