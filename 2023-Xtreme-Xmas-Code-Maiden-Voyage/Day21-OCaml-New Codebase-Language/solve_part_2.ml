@@ -1,16 +1,3 @@
-let read_file_to_string filename =
-  let lines = ref [] in
-  let chan = open_in filename in
-  try
-    while true; do
-      lines := input_line chan :: !lines
-    done; ""
-  with End_of_file ->
-    close_in chan;
-    String.concat "\n" (List.rev !lines);;
-
-let input_challenge = read_file_to_string "challengeInput.dat";;
-
 let read_file_to_lines filename =
   let chan = open_in filename in
   let rec read_lines acc =
@@ -23,7 +10,7 @@ let read_file_to_lines filename =
   in
   read_lines []
 
-let input_challenge2 = read_file_to_lines "challengeInput.dat";;
+let input_challenge = read_file_to_lines "challengeInput.dat";;
 (* let my_string = List.nth input_challenge 5;; *)
 (* let my_char = my_string.[4];; *)
 
@@ -45,44 +32,29 @@ let neg_little_steps = -1 * little_steps;;
 
 (* For tile_color and section_color, use 'r' for red and 'b' for black *)
 let count_color_tiles_in_color_section section_map x y tile_color section_color within_diamond outside_diamond =
-  let rec count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond i acc =
-    if i = String.length section_map then acc
-    else if section_map.[i] = '\n' then count_color_tiles_in_color_section' section_map (neg_little_steps) (y - 1) tile_color section_color within_diamond outside_diamond (i + 1) acc
-    else if section_map.[i] = '.' then
-      if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) acc
-      else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) acc
-      else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) (acc + 1)
-      else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) (acc + 1)
-      else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) acc
-    else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond (i + 1) acc
-  in
-  count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond 0 0;;
-
-(* For tile_color and section_color, use 'r' for red and 'b' for black *)
-let count_color_tiles_in_color_section2 section_map x y tile_color section_color within_diamond outside_diamond =
-  let rec count_color_tiles_in_color_section2' section_map x y tile_color section_color within_diamond outside_diamond i j acc =
+  let rec count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond i j acc =
     if i = List.length section_map then acc
-    else if j = String.length (List.nth section_map i) then count_color_tiles_in_color_section2' section_map (neg_little_steps) (y - 1) tile_color section_color within_diamond outside_diamond (i + 1) 0 acc
+    else if j = String.length (List.nth section_map i) then count_color_tiles_in_color_section' section_map (neg_little_steps) (y - 1) tile_color section_color within_diamond outside_diamond (i + 1) 0 acc
     else if (List.nth section_map i).[j] = '.' then
-      if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
-      else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
-      else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
-      else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
-      else count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
-    else count_color_tiles_in_color_section2' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      if within_diamond == true && abs x + abs y > little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if outside_diamond == true && abs x + abs y <= little_steps then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+      else if tile_color == section_color && (abs x + abs y) mod 2 == 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else if tile_color != section_color && (abs x + abs y) mod 2 != 0 then count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) (acc + 1)
+      else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
+    else count_color_tiles_in_color_section' section_map (x + 1) y tile_color section_color within_diamond outside_diamond i (j + 1) acc
   in
-  count_color_tiles_in_color_section2' section_map x y tile_color section_color within_diamond outside_diamond 0 0 0;;
+  count_color_tiles_in_color_section' section_map x y tile_color section_color within_diamond outside_diamond 0 0 0;;
 
-let red_tiles_in_red_section = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'r' false false;;
-let red_tiles_in_black_section = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'b' false false;;
-(* let black_tiles_in_black_section = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'b' 'b' false false;; *)
-(* let black_tiles_in_red_section = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'b' 'r' false false;; *)
-(* let black_tiles_in_black_section_within_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'b' 'b' true false ;; *)
-(* let black_tiles_in_black_section_outside_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'b' 'b' false true;; *)
-let red_tiles_in_black_section_within_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'b' true false;;
-let red_tiles_in_red_section_outside_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'r' false true;;
-let red_tiles_in_red_section_within_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'r' true false;;
-let red_tiles_in_black_section_outside_diamond = count_color_tiles_in_color_section2 input_challenge2 (neg_little_steps) little_steps 'r' 'b' false true;;
+let red_tiles_in_red_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' false false;;
+let red_tiles_in_black_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' false false;;
+(* let black_tiles_in_black_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'b' 'b' false false;; *)
+(* let black_tiles_in_red_section = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'b' 'r' false false;; *)
+(* let black_tiles_in_black_section_within_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'b' 'b' true false ;; *)
+(* let black_tiles_in_black_section_outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'b' 'b' false true;; *)
+let red_tiles_in_black_section_within_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' true false;;
+let red_tiles_in_red_section_outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' false true;;
+let red_tiles_in_red_section_within_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'r' true false;;
+let red_tiles_in_black_section_outside_diamond = count_color_tiles_in_color_section input_challenge (neg_little_steps) little_steps 'r' 'b' false true;;
 
 (* Step Math:
   26501365 total steps - 65 steps to reach edge of map = 26501300 subtotal steps
