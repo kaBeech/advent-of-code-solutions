@@ -39,6 +39,7 @@ let count_colored_tiles_in_colored_section section_map x y tile_color section_co
 let red_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'r' 'r' false false;;
 let red_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'r' false false;;
 let black_tiles_in_black_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' false false;;
+let black_tiles_in_red_section = count_colored_tiles_in_colored_section input_challenge (-64) 64 'r' 'b' false false;;
 let black_tiles_in_black_section_within_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' true false ;;
 let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colored_section input_challenge (-64) 64 'b' 'b' false true;;
 
@@ -52,17 +53,33 @@ let black_tiles_in_black_section_outside_diamond = count_colored_tiles_in_colore
    + all the black and red sections reachable that aren't on a side or corner = 71618852901 red sections + 10231322500 black sections
    + 2 black sections (for the corners) 
    + 2 black diamonds (also for the corners)
-   + 1 red outside_diamond (for the extra red side length piece next to thr corners)
-   + 3 * side_length black sections
-   + 1 * side_length black diamonds
-   + 1 * side_length red outside_diamonds
+   + 1 red outside_diamond (for the extra red side length piece next to the corners)
+   + 3 * side_length black sections (for the sides)
+   + 1 * side_length black diamonds (for the sides)
+   + 1 * side_length red outside_diamonds (for the sides)
    *)
+
+(* Variables for solution equation:
+   x = big steps
+   BS = number of red tiles in black sections
+   RS = number of red tiles in red sections
+   BD = number of red tiles *inside* the diamond in black sections
+   RD = number of red tiles *outside* the diamond in red sections 
+   I = number of black inside sections (the math to find this is below, but the shorthand is useful for defining the number of red inside sections)
+   *)
+(* Solution = <inside sections> (x/2)^2BS + (2x^2 - 2x + 1 - I) </> + <corner sections> 2BS + 2BD + 1RD </> + <side sections> 3xBS + 1xBD + 1xRD </>*)
 
 (* side_length = big_steps - 1 = 202300 - 1 = 202299 *)
 (* number_of_inside_sections = 2 * (big_steps^2) - 2 * big_steps + 1 = 2 * (202300^2) - 2 * 202300 + 1 = 81850175401 *)
 (* number_of_black_inside_sections = big_steps divided by 2, then rounded up, then squared = (202300 / 2)^2 = 10231322500 *)
 (* number_of_red_inside_sections = number_of_inside_sections - number_of_black_inside_sections = 71618852901 *)
 
-print_string "Part 2: the Elf could reach ";
+print_endline (string_of_int red_tiles_in_red_section);
+  print_endline (string_of_int red_tiles_in_black_section);
+  print_endline (string_of_int black_tiles_in_red_section);
+  print_endline (string_of_int black_tiles_in_black_section);
+  print_endline (string_of_int black_tiles_in_black_section_within_diamond);
+  print_endline (string_of_int black_tiles_in_black_section_outside_diamond);
+  print_string "Part 2: the Elf could reach ";
   print_string (string_of_int black_tiles_in_black_section_within_diamond);
   print_endline " garden plots in 26501365 steps";;
