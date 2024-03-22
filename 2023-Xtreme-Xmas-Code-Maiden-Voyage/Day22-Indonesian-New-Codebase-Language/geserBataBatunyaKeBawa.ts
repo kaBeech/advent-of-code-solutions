@@ -1,4 +1,6 @@
+import geserBata from "./geserBata";
 import type { Bata } from "./jenis";
+import periksaBataDapatGeser from "./periksaBataDapatGeser";
 
 export default (daftarBatuBata: Bata[]): Bata[] => {
     const daftarBatuBataYangDiurutkan = daftarBatuBata.sort((a, b) => {
@@ -6,9 +8,26 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
     });
 
     for (const bata of daftarBatuBataYangDiurutkan) {
-        // Check if all the voxels have empty space beneath them. If so, shift them down. Recursively do this until a voxel has a non-empty space beneath it.
+        if (bata.zTertinggi !== bata.zTerendah) {
+            let suaraBataTerendah = bata.suara.find((suara) => suara.koordinat.z === bata.zTerendah)!;
+            while (!periksaBataDapatGeser(daftarBatuBataYangDiurutkan, suaraBataTerendah)) {
+                geserBata(bata, -1)
+            }
+        } else {
+            let dapatGeser = true;
+            while (dapatGeser) {
+                for (const suara of bata.suara) {
+                    if (periksaBataDapatGeser(daftarBatuBataYangDiurutkan, suara)) {
+                        dapatGeser = false
+                    }
+                }
+            }
+            if (dapatGeser) {
+                geserBata(bata, -1);
+            }
+        }
     }
 
-    // console.log(`Bagian Satu: ${JSON.stringify(daftarBatuBataYangDiurutkan)} batu bata mungkin hancur`);
+    console.log(`Bagian Satu: ${JSON.stringify(daftarBatuBataYangDiurutkan)} batu bata mungkin hancur`);
     return daftarBatuBataYangDiurutkan;
 };
