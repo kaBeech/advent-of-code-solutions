@@ -6,7 +6,7 @@ https://www.xtremexmascode.com/game/public/13/day/22/
 
 ### Challenge Modifier
 
-"Your challenge is to write a program to complete today's puzzle while making declarations in a natural language not yet used in this codebase (e.g. Spanish)"h
+"Your challenge is to write a program to complete today's puzzle while making declarations in a natural language not yet used in this codebase (e.g. Spanish)"
 
 Wow. Alright y'all. I've already used my top three languages (English, Spanish, and Arabic) in this codebase, and my fourth language (Hawai'ian) has a grammar structure that seems like it would be difficult for a novice to use while coding. So we're gonna do Indonesian! Apologies in advance for any/all mistakes =)
 
@@ -38,9 +38,19 @@ XXC.23 Day 22: New Natural Language - Indonesian
 
 _This post is an entry documenting my journey working through the Advent of Code 2023 challenges using my Xtreme Xmas Code mod_
 
-Witty Heading
+JavaScript* in Javanese*
 
 Challenge Modifier: "Your challenge is to write a program to complete today's puzzle while making declarations in a natural language not yet used in this codebase (e.g. Spanish)"
+
+*Okay, neither of those are technically true. But "TypeScript in Indonesian" just didn't have the same ring to it
+
+...
+Sometimes you just have to step back and appreciate those moments in life when you realize that not only does Indonesian have a seemingly endimic word for "voxel" but that it will be indelibly etched into your mind from now on.
+
+(The word is "suara" by the way. If anyone knows its etymology I'd love to hear about it!)
+...
+Wow, this is hard. It's a useful practice. Really encourages you to think about what should be moved into another function or not.
+...
 
 🎄 Happy Coding Everyone! 🎄
 
