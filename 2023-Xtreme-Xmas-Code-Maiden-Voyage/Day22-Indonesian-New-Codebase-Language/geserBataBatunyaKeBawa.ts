@@ -8,6 +8,7 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
     });
 
     for (const bata of daftarBatuBataYangDiurutkan) {
+        // I think,we could just remove this first wholw if block, and start woth the 'if' after else a few words down. hitungBatuBataDiBawahnya won't mis-identify bricks as being below themselves, even vertically-standing bricks
         if (bata.zTertinggi !== bata.zTerendah) {
             let suaraBataTerendah = bata.suara.find((suara) => suara.koordinat.z === bata.zTerendah)!;
             while (!hitungBatuBataDiBawahnya(daftarBatuBataYangDiurutkan, suaraBataTerendah)) {
