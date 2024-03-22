@@ -10,14 +10,14 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
     for (const bata of daftarBatuBataYangDiurutkan) {
         if (bata.zTertinggi !== bata.zTerendah) {
             let suaraBataTerendah = bata.suara.find((suara) => suara.koordinat.z === bata.zTerendah)!;
-            while (hitungBatuBataDiBawahnya(daftarBatuBataYangDiurutkan, suaraBataTerendah).length === 0) {
+            while (!hitungBatuBataDiBawahnya(daftarBatuBataYangDiurutkan, suaraBataTerendah)) {
                 geserBata(bata, -1)
             }
         } else if (bata.zTerendah > 1) {
             let dapatGeser = true;
             while (dapatGeser) {
                 for (const suara of bata.suara) {
-                    if (hitungBatuBataDiBawahnya(daftarBatuBataYangDiurutkan, suara).length > 0) {
+                    if (hitungBatuBataDiBawahnya(daftarBatuBataYangDiurutkan, suara)) {
                         dapatGeser = false
                     }
                 }
