@@ -11,6 +11,7 @@ export default async (): Promise<Bata[]> => {
             zTertinggi: 0,
             zTerendah: 0,
             suara: [] as Suara[],
+            dapatHancur: false,
         };
         const ujungBata = bataMentah.split("~");
         const ujungBata1 = ujungBata[0].split(",");

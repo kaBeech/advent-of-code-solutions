@@ -14,4 +14,5 @@ export interface Bata {
     zTertinggi: number;
     zTerendah: number;
     suara: Suara[];
+    dapatHancur: boolean;
 }
