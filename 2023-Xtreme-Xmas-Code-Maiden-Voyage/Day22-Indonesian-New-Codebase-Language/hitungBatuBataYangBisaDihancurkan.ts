@@ -1,3 +1,4 @@
+import hitungBatuBataDiAtas from "./hitungBatuBataDiAtas.ts";
 import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya.ts";
 import type { Bata } from "./jenis";
 
