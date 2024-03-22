@@ -5,6 +5,6 @@ export default (bata: Bata, jumlah: number) => {
         suara.koordinat.z += jumlah
     }
     bata.zTertinggi += jumlah
-    bata.zTerendah -= jumlah
+    bata.zTerendah += jumlah
     return bata
 }
