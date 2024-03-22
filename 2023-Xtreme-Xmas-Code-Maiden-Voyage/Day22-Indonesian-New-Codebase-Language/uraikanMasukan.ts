@@ -2,7 +2,7 @@ import type { Bata, Suara } from "./jenis";
 
 export default async (): Promise<Bata[]> => {
     const daftarBatuBata: Bata[] = [];;
-    const daftarBatuRangkaianMasukanMentah = await Deno.readTextFile("./masukanPengujian.dat")
+    const daftarBatuRangkaianMasukanMentah = await Deno.readTextFile("./masukanTeka-tekinya.dat")
     const daftarBatuRangkaianMasukan: string[] = daftarBatuRangkaianMasukanMentah.trimEnd().split(/\n/);
     let i = 0;
     for (const bataMentah of daftarBatuRangkaianMasukan) {
@@ -11,7 +11,7 @@ export default async (): Promise<Bata[]> => {
             zTertinggi: 0,
             zTerendah: 0,
             suara: [] as Suara[],
-            dapatHancur: false,
+            dapatHancur: true,
         };
         const ujungBata = bataMentah.split("~");
         const ujungBata1 = ujungBata[0].split(",");

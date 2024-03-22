@@ -7,21 +7,23 @@ export default (daftarBatuBata: Bata[]): number => {
 
     for (const bata of daftarBatuBata) {
         const batuBataDiBawahnya = [] as Bata[]
-        const batuBataDiAtas = [] as Bata[]
+        // const batuBataDiAtas = [] as Bata[]
         for (const suara of bata.suara) {
             const bataRendah = hitungBatuBataDiBawahnya(daftarBatuBata, suara)
             if (bataRendah) { batuBataDiBawahnya.push(bataRendah) }
-            const bataTinggi = hitungBatuBataDiAtas(daftarBatuBata, suara)
-            if (bataTinggi) { batuBataDiAtas.push(bataTinggi) }
+            // const bataTinggi = hitungBatuBataDiAtas(daftarBatuBata, suara)
+            // if (bataTinggi) { batuBataDiAtas.push(bataTinggi) }
         }
-        if (batuBataDiBawahnya.length > 1) {
-            for (const bataRendah of batuBataDiBawahnya) {
-                bataRendah.dapatHancur = true
-            }
+        if (batuBataDiBawahnya.length === 1) {
+            batuBataDiBawahnya[0].dapatHancur = false
+            // for (const bataRendah of batuBataDiBawahnya) {
+            // bataRendah.dapatHancur = false
+            // }
         }
-        if (batuBataDiAtas.length === 0) {
-            bata.dapatHancur = true
-        }
+        // if (batuBataDiAtas.length === 0) {
+        // bata.dapatHancur = true
+        // console.count("143")
+        // }
     }
 
     for (const bata of daftarBatuBata) {
