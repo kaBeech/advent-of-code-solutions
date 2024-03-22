@@ -13,21 +13,24 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
             while (!periksaBataDapatGeser(daftarBatuBataYangDiurutkan, suaraBataTerendah)) {
                 geserBata(bata, -1)
             }
-        } else {
+        } else if (bata.zTerendah > 1) {
             let dapatGeser = true;
             while (dapatGeser) {
+                console.log(bata.zTerendah)
                 for (const suara of bata.suara) {
                     if (periksaBataDapatGeser(daftarBatuBataYangDiurutkan, suara)) {
                         dapatGeser = false
                     }
                 }
-            }
-            if (dapatGeser) {
-                geserBata(bata, -1);
+                if (dapatGeser) {
+                    geserBata(bata, -1);
+                }
             }
         }
     }
 
-    console.log(`Bagian Satu: ${JSON.stringify(daftarBatuBataYangDiurutkan)} batu bata mungkin hancur`);
+    for (const batu of daftarBatuBataYangDiurutkan) {
+        console.log(JSON.stringify(batu));
+    }
     return daftarBatuBataYangDiurutkan;
 };
