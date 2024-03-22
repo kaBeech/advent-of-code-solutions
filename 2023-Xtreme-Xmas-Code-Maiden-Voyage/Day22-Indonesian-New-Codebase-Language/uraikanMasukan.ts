@@ -69,6 +69,7 @@ export default async (): Promise<Bata[]> => {
                 penegalBata: i,
                 koordinat: { x: +ujungBata1[0], y: +ujungBata1[1], z: +ujungBata1[2] },
             };
+            bata.suara.push(suara);
         }
         // console.log(bata);
         daftarBatuBata.push(bata);
