@@ -19,19 +19,24 @@ export default (daftarBatuBata: Bata[]): number => {
             // for (const bataRendah of batuBataDiBawahnya) {
             // bataRendah.dapatHancur = false
             // }
+        } else if (batuBataDiBawahnya.length > 1 && batuBataDiBawahnya.every((batu) => batu.pengenal === batuBataDiBawahnya[0].pengenal)) {
+            batuBataDiBawahnya[0].dapatHancur = false
+            console.log(batuBataDiBawahnya)
         }
-        // if (batuBataDiAtas.length === 0) {
-        // bata.dapatHancur = true
-        // console.count("143")
-        // }
+
     }
+    // if (batuBataDiAtas.length === 0) {
+    // bata.dapatHancur = true
+    // console.count("143")
+    // }
+    // }
 
     for (const bata of daftarBatuBata) {
         if (bata.dapatHancur) { jumlahBatuBataYangDapatHancur++ }
     }
 
     for (const bata of daftarBatuBata) {
-        console.log(JSON.stringify(bata))
+        // console.log(JSON.stringify(bata))
     }
 
     return jumlahBatuBataYangDapatHancur;
