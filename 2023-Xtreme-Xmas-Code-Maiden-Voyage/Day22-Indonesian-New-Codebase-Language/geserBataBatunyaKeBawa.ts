@@ -1,6 +1,6 @@
-import geserBata from "./geserBata";
-import type { Bata } from "./jenis";
-import periksaBataDapatGeser from "./periksaBataDapatGeser";
+import geserBata from "./geserBata.ts";
+import type { Bata } from "./jenis.ts";
+import periksaBataDapatGeser from "./periksaBataDapatGeser.ts";
 
 export default (daftarBatuBata: Bata[]): Bata[] => {
     const daftarBatuBataYangDiurutkan = daftarBatuBata.sort((a, b) => {
