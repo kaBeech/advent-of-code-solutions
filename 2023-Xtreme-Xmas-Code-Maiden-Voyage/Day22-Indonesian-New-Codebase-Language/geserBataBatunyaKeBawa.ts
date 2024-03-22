@@ -16,7 +16,6 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
         } else if (bata.zTerendah > 1) {
             let dapatGeser = true;
             while (dapatGeser) {
-                console.log(bata.zTerendah)
                 for (const suara of bata.suara) {
                     if (periksaBataDapatGeser(daftarBatuBataYangDiurutkan, suara)) {
                         dapatGeser = false
@@ -29,8 +28,8 @@ export default (daftarBatuBata: Bata[]): Bata[] => {
         }
     }
 
-    for (const batu of daftarBatuBataYangDiurutkan) {
-        console.log(JSON.stringify(batu));
-    }
+    // for (const batu of daftarBatuBataYangDiurutkan) {
+    // console.log(JSON.stringify(batu));
+    // }
     return daftarBatuBataYangDiurutkan;
 };

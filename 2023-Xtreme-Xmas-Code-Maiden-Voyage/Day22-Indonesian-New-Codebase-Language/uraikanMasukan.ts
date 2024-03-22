@@ -69,7 +69,7 @@ export default async (): Promise<Bata[]> => {
                 koordinat: { x: +ujungBata1[0], y: +ujungBata1[1], z: +ujungBata1[2] },
             };
         }
-        console.log(bata);
+        // console.log(bata);
         daftarBatuBata.push(bata);
         i++;
     }
