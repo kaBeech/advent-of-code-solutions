@@ -1,4 +1,4 @@
-import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya";
+import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya.ts";
 import type { Bata } from "./jenis";
 
 export default (daftarBatuBata: Bata[]): number => {
