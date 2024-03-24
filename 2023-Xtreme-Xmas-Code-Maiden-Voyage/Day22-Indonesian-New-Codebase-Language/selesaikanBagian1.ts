@@ -6,7 +6,7 @@ import uraikanMasukan from './uraikanMasukan.ts';
 export default (async function(): Promise<number> {
     const daftarBatuBata: Bata[] = await uraikanMasukan()
 
-    const daftarBatuBataYangDiurutkan = geserBataBatunyaKeBawa(daftarBatuBata)
+    const daftarBatuBataYangDiurutkan = geserBataBatunyaKeBawa(daftarBatuBata).daftarBatuBataYangDiurutkan
 
     const jumlahBatuBataYangDapatHancur = hitungBatuBataYangBisaDihancurkan(daftarBatuBataYangDiurutkan);
 
