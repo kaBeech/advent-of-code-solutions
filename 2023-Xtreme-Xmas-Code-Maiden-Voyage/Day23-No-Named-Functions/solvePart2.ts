@@ -6,7 +6,6 @@ interface Tile {
   coordinates: XYCoordinates;
   value: "#" | "." | "<" | ">" | "^" | "v";
   distanceFromStart: number;
-  reachableTiles: XYCoordinates[];
 }
 
 interface TrailMap {
@@ -20,7 +19,7 @@ interface Path {
 
 // Parse Input
 
-const inputFile = "./testInput.dat"
+const inputFile = "./challengeInput.dat"
 
 const inputLines = await Deno.readTextFile(inputFile).then((text: string) => text.trim().split("\n"));
 
@@ -42,7 +41,6 @@ for (const [y, line] of inputLines.entries()) {
       coordinates: { x, y },
       value,
       distanceFromStart: 0,
-      reachableTiles: []
     });
   }
 }
@@ -75,9 +73,9 @@ export default (async function(): Promise<number> {
       { x, y: y + 1 }
     ];
 
-    // if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
-    //   console.log(JSON.stringify(currentPath.visitedTiles));
-    // }
+    if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
+      console.log(JSON.stringify(currentPath.visitedTiles));
+    }
 
     for (const adjacentTileCoordinates of adjacentTiles) {
 
@@ -98,7 +96,7 @@ export default (async function(): Promise<number> {
       )!;
 
       // Skip paths that are shorter than the longest known path for the adjacent tile
-      if (adjacentTile.distanceFromStart > currentTile.distanceFromStart + 1) {
+      if (adjacentTile.distanceFromStart > currentPath.visitedTiles.length + 1) {
         continue;
       }
 
@@ -108,55 +106,60 @@ export default (async function(): Promise<number> {
       // and add nextPath to the call stack.
       // Since all steep slope tiles are now reachable, we can reach all tiles 
       // that aren't forest tiles
-      if (adjacentTile.value !== "#") {
-        // For some reason the distanceFromStart calculation we were using 
-        // gives values too large now, so set it based on the length of the 
-        // visitedTiles array.
-        // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-        adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-        pathsToExplore.push(nextPath);
-      }
-      // switch (adjacentTile.value) {
-      //
-      //   // Skip forest tiles
-      //   case "#":
-      //     break;
-      //
-      //   // Add clear path tiles
-      //   case ".":
-      //     adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      //     pathsToExplore.push(nextPath);
-      //     break
-      //
-      //   // Add steep slope tiles only if not at the bottom of the slope
-      //   case "<":
-      //     // if (adjacentTileCoordinates.x <= x) {
-      //     adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      //     pathsToExplore.push(nextPath);
-      //     // }
-      //     break;
-      //   case ">":
-      //     // if (adjacentTileCoordinates.x >= x) {
-      //     adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      //     pathsToExplore.push(nextPath);
-      //     // }
-      //     break;
-      //   case "^":
-      //     // if (adjacentTileCoordinates.y <= y) {
-      //     adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      //     pathsToExplore.push(nextPath);
-      //     // }
-      //     break;
-      //   case "v":
-      //     // if (adjacentTileCoordinates.y >= y) {
-      //     adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      //     pathsToExplore.push(nextPath);
-      //     // }
-      //     break;
-      //
-      //   default:
-      //     throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
+      // if (adjacentTile.value !== "#") {
+      // For some reason the distanceFromStart calculation we were using 
+      // gives values too large now, so set it based on the length of the 
+      // visitedTiles array.
+      // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+      // adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+      //   pathsToExplore.push(nextPath);
       // }
+      switch (adjacentTile.value) {
+
+        // Skip forest tiles
+        case "#":
+          break;
+
+        // Add clear path tiles
+        case ".":
+          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+          pathsToExplore.push(nextPath);
+          break
+
+        // Add steep slope tiles only if not at the bottom of the slope
+        case "<":
+          // if (adjacentTileCoordinates.x <= x) {
+          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+          pathsToExplore.push(nextPath);
+          // }
+          break;
+        case ">":
+          // if (adjacentTileCoordinates.x >= x) {
+          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+          pathsToExplore.push(nextPath);
+          // }
+          break;
+        case "^":
+          // if (adjacentTileCoordinates.y <= y) {
+          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+          pathsToExplore.push(nextPath);
+          // }
+          break;
+        case "v":
+          // if (adjacentTileCoordinates.y >= y) {
+          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
+          pathsToExplore.push(nextPath);
+          // }
+          break;
+
+        default:
+          throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
+      }
 
     }
   }
