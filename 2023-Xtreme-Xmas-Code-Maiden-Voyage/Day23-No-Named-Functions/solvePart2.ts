@@ -5,6 +5,7 @@ import { XYCoordinates } from "../../tools/commonTypes.ts";
 interface Tile {
   coordinates: XYCoordinates;
   value: "#" | "." | "<" | ">" | "^" | "v";
+  adjacentTiles: XYCoordinates[];
   distanceFromStart: number;
 }
 
@@ -42,8 +43,38 @@ for (const [y, line] of inputLines.entries()) {
         coordinates: { x, y },
         value,
         distanceFromStart: 0,
+        adjacentTiles: []
       });
     }
+  }
+}
+
+for (const tile of trailMap.tiles) {
+  const { x, y } = tile.coordinates;
+  const adjacentTiles = [
+    { x: x - 1, y },
+    { x: x + 1, y },
+    { x, y: y - 1 },
+    { x, y: y + 1 }
+  ];
+
+  for (const adjacentTileCoordinates of adjacentTiles) {
+
+    // Skip paths that are shorter than the longest known path for the adjacent tile
+    if (adjacentTileCoordinates.x < 0 || adjacentTileCoordinates.y < 0 || adjacentTileCoordinates.x >= inputLines[0].length || adjacentTileCoordinates.y >= inputLines.length) {
+      continue;
+    }
+
+    const adjacentTile = trailMap.tiles.find(
+      (t) =>
+        t.coordinates.x === adjacentTileCoordinates.x && t.coordinates.y === adjacentTileCoordinates.y
+    );
+
+    // Skip the coordinates if they're not in the trailMap
+    if (!adjacentTile) {
+      continue;
+    }
+    tile.adjacentTiles.push(adjacentTileCoordinates);
   }
 }
 
@@ -68,23 +99,14 @@ export default (async function(): Promise<number> {
         t.coordinates.y === currentPath.currentTileCoordinates.y
     )!;
     const { x, y } = currentTile.coordinates;
-    const adjacentTiles = [
-      { x: x - 1, y },
-      { x: x + 1, y },
-      { x, y: y - 1 },
-      { x, y: y + 1 }
-    ];
+
 
     if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
       console.log(JSON.stringify(currentPath.visitedTiles));
     }
 
-    for (const adjacentTileCoordinates of adjacentTiles) {
+    for (const adjacentTileCoordinates of currentTile.adjacentTiles) {
 
-      // Skip the coordinates if they're out of bounds
-      if (adjacentTileCoordinates.x < 0 || adjacentTileCoordinates.y < 0 || adjacentTileCoordinates.x >= inputLines[0].length || adjacentTileCoordinates.y >= inputLines.length) {
-        continue;
-      }
 
       // Skip tiles that have already been visited in this path
       if (currentPath.visitedTiles.find((t) => t.x === adjacentTileCoordinates.x && t.y === adjacentTileCoordinates.y)) {
@@ -95,10 +117,10 @@ export default (async function(): Promise<number> {
       const adjacentTile = trailMap.tiles.find(
         (t) =>
           t.coordinates.x === adjacentTileCoordinates.x && t.coordinates.y === adjacentTileCoordinates.y
-      );
+      )!;
 
       // Skip paths that are shorter than the longest known path for the adjacent tile
-      if (!adjacentTile) {
+      if (adjacentTile.distanceFromStart > currentPath.visitedTiles.length + 1) {
         continue;
       }
 
