@@ -75,9 +75,9 @@ export default (async function(): Promise<number> {
       { x, y: y + 1 }
     ];
 
-    if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
-      console.log(JSON.stringify(currentPath.visitedTiles));
-    }
+    // if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
+    //   console.log(JSON.stringify(currentPath.visitedTiles));
+    // }
 
     for (const adjacentTileCoordinates of adjacentTiles) {
 
