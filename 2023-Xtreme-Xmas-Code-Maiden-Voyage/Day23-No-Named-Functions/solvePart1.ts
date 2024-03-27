@@ -20,7 +20,7 @@ interface Path {
 
 // Parse Input
 
-const inputFile = "./testInput.dat"
+const inputFile = "./challengeInput.dat"
 
 const inputLines = await Deno.readTextFile(inputFile).then((text: string) => text.trim().split("\n"));
 
