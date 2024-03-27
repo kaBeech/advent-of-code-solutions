@@ -3,6 +3,8 @@ import { XYCoordinates } from "../../tools/commonTypes.ts";
 interface Tile {
   coordinates: XYCoordinates;
   value: "#" | "." | "<" | ">" | "^" | "v";
+  visited: boolean;
+  distanceFromStart: number;
   reachableTiles: XYCoordinates[];
 }
 
@@ -23,6 +25,8 @@ for (const [y, line] of inputLines.entries()) {
     trailMap.tiles.push({
       coordinates: { x, y },
       value,
+      visited: false,
+      distanceFromStart: 0,
       reachableTiles: []
     });
   }
@@ -80,6 +84,7 @@ for (const tile of trailMap.tiles) {
 }
 
 export default (async function(): Promise<number> {
+  let currentTileCoordinates = { x: 1, y: 0 };
 
   const longestHikeSteps = 0
 
