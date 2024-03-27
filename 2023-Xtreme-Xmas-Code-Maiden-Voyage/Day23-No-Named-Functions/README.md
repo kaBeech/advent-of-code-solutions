@@ -10,28 +10,24 @@ https://www.xtremexmascode.com/game/public/13/day/23/
 
 ### Points Earned
 
-X
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
-X
-
-### Notes
-
-This is where we put general notes, including on how to run the programs to get the solutions (if that is different than the instructions in `../README.md`)
+2
 
 ### Retrospective
 
-This is where we reflect on the day's challenge!
+- That was more interesting than I thought it would be. I almost rerolled my challenge modifier for this one. Having no named functions encouraged me to write more comments (especially during Part 1) and think more carefully in my object declaration (especially during Part 2). It was kinda fun working in a more OOP fashion for a change!
