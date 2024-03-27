@@ -37,11 +37,13 @@ const trailMap: TrailMap = {
 // record will keep us from backtracking and visiting the same tile twice.
 for (const [y, line] of inputLines.entries()) {
   for (const [x, value] of line.split("").entries()) {
-    trailMap.tiles.push({
-      coordinates: { x, y },
-      value,
-      distanceFromStart: 0,
-    });
+    if (value !== "#") {
+      trailMap.tiles.push({
+        coordinates: { x, y },
+        value,
+        distanceFromStart: 0,
+      });
+    }
   }
 }
 
@@ -93,10 +95,10 @@ export default (async function(): Promise<number> {
       const adjacentTile = trailMap.tiles.find(
         (t) =>
           t.coordinates.x === adjacentTileCoordinates.x && t.coordinates.y === adjacentTileCoordinates.y
-      )!;
+      );
 
       // Skip paths that are shorter than the longest known path for the adjacent tile
-      if (adjacentTile.distanceFromStart > currentPath.visitedTiles.length + 1) {
+      if (!adjacentTile) {
         continue;
       }
 
