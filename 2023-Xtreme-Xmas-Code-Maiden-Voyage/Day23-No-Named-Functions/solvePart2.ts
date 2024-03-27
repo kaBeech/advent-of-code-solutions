@@ -7,6 +7,7 @@ interface Tile {
   value: "#" | "." | "<" | ">" | "^" | "v";
   adjacentTiles: XYCoordinates[];
   distanceFromStart: number;
+  isNode: boolean;
 }
 
 interface TrailMap {
@@ -16,6 +17,16 @@ interface TrailMap {
 interface Path {
   currentTileCoordinates: XYCoordinates;
   visitedTiles: XYCoordinates[];
+}
+
+interface TrailNodeConnection {
+  destination: XYCoordinates;
+  distance: number;
+}
+
+interface TrailNode {
+  coordinates: XYCoordinates;
+  connections: TrailNodeConnection[];
 }
 
 // Parse Input
@@ -43,7 +54,8 @@ for (const [y, line] of inputLines.entries()) {
         coordinates: { x, y },
         value,
         distanceFromStart: 0,
-        adjacentTiles: []
+        adjacentTiles: [],
+        isNode: false,
       });
     }
   }
@@ -75,6 +87,50 @@ for (const tile of trailMap.tiles) {
       continue;
     }
     tile.adjacentTiles.push(adjacentTileCoordinates);
+  }
+}
+
+const trailNodes: TrailNode[] = [];
+
+for (const tile of trailMap.tiles) {
+  if (tile.adjacentTiles.length > 2) {
+    tile.isNode = true;
+    trailNodes.push({
+      coordinates: tile.coordinates,
+      connections: []
+    });
+  }
+}
+
+for (const trailNode of trailNodes) {
+  const { x, y } = trailNode.coordinates;
+  const nodeTile = trailMap.tiles.find((t) => t.coordinates.x === x && t.coordinates.y === y)!;
+
+  for (const connectionRouteStartingCoordinates of nodeTile.adjacentTiles) {
+    const path = [trailNode.coordinates, connectionRouteStartingCoordinates];
+    let connectionMapped = false
+    let currentTileCoordinates = connectionRouteStartingCoordinates;
+
+    while (!connectionMapped) {
+      let currentTile = trailMap.tiles.find(
+        (tile) =>
+          tile.coordinates.x === currentTileCoordinates.x && tile.coordinates.y === currentTileCoordinates.y
+      )!;
+      if (currentTile.isNode) {
+        trailNode.connections.push({
+          destination: currentTileCoordinates,
+          distance: path.length - 1,
+        });
+        connectionMapped = true;
+      } else {
+        const nextTileCoordinates = currentTile.adjacentTiles.find(
+          (tile) =>
+            tile.x !== path[path.length - 2].x || tile.y !== path[path.length - 2].y
+        )!;
+        path.push(nextTileCoordinates);
+        currentTileCoordinates = nextTileCoordinates;
+      }
+    }
   }
 }
 
