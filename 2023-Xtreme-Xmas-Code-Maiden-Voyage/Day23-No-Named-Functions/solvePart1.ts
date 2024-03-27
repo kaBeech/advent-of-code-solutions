@@ -150,11 +150,7 @@ export default (async function(): Promise<number> {
   // puzzle, but practically it seems to always be at the penultimate index.
   let endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
 
-  console.log(JSON.stringify(endingNode));
-
   const longestHikeSteps = endingNode.distanceFromStart;
-
-  // console.log(JSON.stringify(trailMap.tiles));
 
   console.log(`Part 1: The longest hike is ${longestHikeSteps} steps long`);
 
