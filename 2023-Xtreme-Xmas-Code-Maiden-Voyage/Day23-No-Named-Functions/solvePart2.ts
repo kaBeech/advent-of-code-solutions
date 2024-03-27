@@ -17,6 +17,7 @@ interface TrailMap {
 interface Path {
   currentCoordinates: XYCoordinates;
   visitedCoordinates: XYCoordinates[];
+  distance: number;
 }
 
 interface TrailNodeConnection {
@@ -32,7 +33,7 @@ interface TrailNode {
 
 // Parse Input
 
-const inputFile = "./testInput.dat"
+const inputFile = "./challengeInput.dat"
 
 const inputLines = await Deno.readTextFile(inputFile).then((text: string) => text.trim().split("\n"));
 
@@ -166,36 +167,39 @@ for (const trailNode of trailNodes) {
 
 export default (async function(): Promise<number> {
 
-  // This will be our call stack. It relaces the unvisitedCoordinates array in a 
+  let longestPath: Path | null = null;
+
+  // This will be our call stack. It replaces the unvisitedCoordinates array in a 
   // regular Dijkstra's Algorithm.
   const pathsToExplore: Path[] = [];
 
   // The starting tile's exact X coordinate isn't explicitly stated in the 
   // puzzle, but practically it seems to always be 1.
   // Note: y=0 is the top row when looking at the puzzle input.
-  pathsToExplore.push({ currentCoordinates: { x: 1, y: 0 }, visitedCoordinates: [] });
+  pathsToExplore.push({ currentCoordinates: { x: 1, y: 0 }, visitedCoordinates: [{ x: 1, y: 0 }], distance: 0 });
 
   while (pathsToExplore.length > 0) {
-    let currentPath = pathsToExplore.pop()!
+    const currentPath = pathsToExplore.pop()!
     const currentNode = trailNodes.find(
       (node) =>
         node.coordinates.x === currentPath.currentCoordinates.x &&
         node.coordinates.y === currentPath.currentCoordinates.y
     )!;
     const { x, y } = currentNode.coordinates;
-
-
-    if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
-      // console.log(JSON.stringify(currentPath.visitedCoordinates));
+    if (currentNode.coordinates === endingTile.coordinates) {
     }
+
+    // if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
+    //   // console.log(JSON.stringify(currentPath.visitedCoordinates));
+    // }
 
     for (const connection of currentNode.connections) {
 
-
+      const tileInVisitedCoordinates = currentPath.visitedCoordinates.find((node) => node.x === connection.destination.x && node.y === connection.destination.y);
       // Skip tiles that have already been visited in this path
-      if (currentPath.visitedCoordinates.find((node) => node.x === connection.destination.x && node.y === connection.destination.y)) {
-        continue;
-      }
+      // if (tileInVisitedCoordinates) {
+      //   continue;
+      // }
 
 
       const destinationNode = trailNodes.find(
@@ -204,11 +208,11 @@ export default (async function(): Promise<number> {
       )!;
 
       // Skip paths that are shorter than the longest known path for the adjacent tile
-      if (destinationNode.distanceFromStart > currentNode.distanceFromStart + connection.distance) {
-        continue;
-      }
+      // if (destinationNode.distanceFromStart > currentNode.distanceFromStart + connection.distance) {
+      //   continue;
+      // }
 
-      const nextPath = { currentCoordinates: connection.destination, visitedCoordinates: [...currentPath.visitedCoordinates, connection.destination] };
+      const nextPath = { currentCoordinates: connection.destination, visitedCoordinates: [...currentPath.visitedCoordinates, connection.destination], distance: currentPath.distance + connection.distance };
 
       // If the adjacent tile is reachable, update its distance from the start 
       // and add nextPath to the call stack.
@@ -218,20 +222,35 @@ export default (async function(): Promise<number> {
       // For some reason the distanceFromStart calculation we were using 
       // gives values too large now, so set it based on the length of the 
       // visitedCoordinates array.
-      destinationNode.distanceFromStart = currentNode.distanceFromStart + connection.distance;
-      // destinationNode.distanceFromStart = nextPath.visitedCoordinates.length;
-      pathsToExplore.push(nextPath);
+      // if (tileInVisitedCoordinates === undefined && nextPath.distance >= destinationNode.distanceFromStart) {
+      if (tileInVisitedCoordinates === undefined) {
+        // if (destinationNode.coordinates.y === 0) {
+        // console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        // console.log(JSON.stringify(currentPath.visitedCoordinates), connection.destination, currentNode.distanceFromStart, " ", connection.distance, JSON.stringify(currentNode));
+        // }
+        // destinationNode.distanceFromStart = nextPath.distance;
+        // destinationNode.distanceFromStart = nextPath.visitedCoordinates.length;
+        if (!longestPath || nextPath.distance > longestPath.distance) {
+          // console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+          // console.log(JSON.stringify(nextPath));
+          longestPath = nextPath;
+        }
+        pathsToExplore.push(nextPath);
+      }
     }
 
 
   }
   // Again, the ending tile's exact X coordinate isn't explicitly stated in the 
   // puzzle, but practically it seems to always be at the penultimate index.
-  let endingNode = trailNodes.find((node) => node.coordinates.x === endingTile.coordinates.x && node.coordinates.y === endingTile.coordinates.y)!;
+  const endingNode = trailNodes.find((node) => node.coordinates.x === endingTile.coordinates.x && node.coordinates.y === endingTile.coordinates.y)!;
+  const startingNode = trailNodes.find((node) => node.coordinates.x === startingTile.coordinates.x && node.coordinates.y === startingTile.coordinates.y)!;
 
-  const longestHikeSteps = endingNode.distanceFromStart;
+  const longestHikeSteps = longestPath.distance;
 
-  console.log(JSON.stringify(trailNodes));
+  // console.log(JSON.stringify(trailNodes));
+
+  // console.log(JSON.stringify(startingNode));
 
   console.log(`Part 2: The longest hike is ${longestHikeSteps} steps long`);
 
