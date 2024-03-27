@@ -15,8 +15,8 @@ interface TrailMap {
 }
 
 interface Path {
-  currentTileCoordinates: XYCoordinates;
-  visitedTiles: XYCoordinates[];
+  currentCoordinates: XYCoordinates;
+  visitedCoordinates: XYCoordinates[];
 }
 
 interface TrailNodeConnection {
@@ -27,6 +27,7 @@ interface TrailNodeConnection {
 interface TrailNode {
   coordinates: XYCoordinates;
   connections: TrailNodeConnection[];
+  distanceFromStart: number;
 }
 
 // Parse Input
@@ -43,9 +44,9 @@ const trailMap: TrailMap = {
 // Rather than finding the shortest path, we're looking for the longest.
 // Instead of marking distance as Infitinty to start, we make it as 0.
 // Since we ideally want to visit all reachable tiles in one path, we leave
-// out the unvisitedTiles array that would be common in a Dijkstra's implementation.
+// out the unvisitedCoordinates array that would be common in a Dijkstra's implementation.
 // Instead, we will create a call stack called pathsToExplore (declared later) 
-// and keep track of the visited tiles in the Path object. This visitedTiles 
+// and keep track of the visited tiles in the Path object. This visitedCoordinates 
 // record will keep us from backtracking and visiting the same tile twice.
 for (const [y, line] of inputLines.entries()) {
   for (const [x, value] of line.split("").entries()) {
@@ -97,28 +98,31 @@ for (const tile of trailMap.tiles) {
     tile.isNode = true;
     trailNodes.push({
       coordinates: tile.coordinates,
-      connections: []
+      connections: [],
+      distanceFromStart: 0,
     });
   }
 }
 
 // Add the starting node
-const startingNode = trailMap.tiles.find((t) => t.coordinates.x === 1 && t.coordinates.y === 0)!;
-startingNode.isNode = true;
+const startingTile = trailMap.tiles.find((t) => t.coordinates.x === 1 && t.coordinates.y === 0)!;
+startingTile.isNode = true;
 trailNodes.push({
-  coordinates: startingNode.coordinates,
-  connections: []
+  coordinates: startingTile.coordinates,
+  connections: [],
+  distanceFromStart: 0,
 });
 
 // Add the ending node
-const endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
-endingNode.isNode = true;
+const endingTile = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
+endingTile.isNode = true;
 trailNodes.push({
-  coordinates: endingNode.coordinates,
-  connections: []
+  coordinates: endingTile.coordinates,
+  connections: [],
+  distanceFromStart: 0,
 });
 
-console.log(JSON.stringify(endingNode));
+console.log(JSON.stringify(endingTile));
 
 for (const trailNode of trailNodes) {
   const { x, y } = trailNode.coordinates;
@@ -127,16 +131,16 @@ for (const trailNode of trailNodes) {
   for (const connectionRouteStartingCoordinates of nodeTile.adjacentTiles) {
     const path = [trailNode.coordinates, connectionRouteStartingCoordinates];
     let connectionMapped = false
-    let currentTileCoordinates = connectionRouteStartingCoordinates;
+    let currentCoordinates = connectionRouteStartingCoordinates;
 
     while (!connectionMapped) {
       let currentTile = trailMap.tiles.find(
         (tile) =>
-          tile.coordinates.x === currentTileCoordinates.x && tile.coordinates.y === currentTileCoordinates.y
+          tile.coordinates.x === currentCoordinates.x && tile.coordinates.y === currentCoordinates.y
       )!;
       if (currentTile.isNode) {
         trailNode.connections.push({
-          destination: currentTileCoordinates,
+          destination: currentCoordinates,
           distance: path.length - 1,
         });
         connectionMapped = true;
@@ -146,13 +150,13 @@ for (const trailNode of trailNodes) {
             tile.x !== path[path.length - 2].x || tile.y !== path[path.length - 2].y
         )!;
         if (!nextTileCoordinates) {
-          console.log(JSON.stringify(currentTileCoordinates));
+          console.log(JSON.stringify(currentCoordinates));
           console.log(inputLines.length);
           console.log(JSON.stringify(currentTile.adjacentTiles));
           throw new Error(`No next tile found}`);
         }
         path.push(nextTileCoordinates);
-        currentTileCoordinates = nextTileCoordinates;
+        currentCoordinates = nextTileCoordinates;
       }
     }
   }
@@ -162,49 +166,49 @@ for (const trailNode of trailNodes) {
 
 export default (async function(): Promise<number> {
 
-  // This will be our call stack. It relaces the unvisitedTiles array in a 
+  // This will be our call stack. It relaces the unvisitedCoordinates array in a 
   // regular Dijkstra's Algorithm.
   const pathsToExplore: Path[] = [];
 
   // The starting tile's exact X coordinate isn't explicitly stated in the 
   // puzzle, but practically it seems to always be 1.
   // Note: y=0 is the top row when looking at the puzzle input.
-  pathsToExplore.push({ currentTileCoordinates: { x: 1, y: 0 }, visitedTiles: [] });
+  pathsToExplore.push({ currentCoordinates: { x: 1, y: 0 }, visitedCoordinates: [] });
 
   while (pathsToExplore.length > 0) {
     let currentPath = pathsToExplore.pop()!
-    const currentTile = trailMap.tiles.find(
-      (t) =>
-        t.coordinates.x === currentPath.currentTileCoordinates.x &&
-        t.coordinates.y === currentPath.currentTileCoordinates.y
+    const currentNode = trailNodes.find(
+      (node) =>
+        node.coordinates.x === currentPath.currentCoordinates.x &&
+        node.coordinates.y === currentPath.currentCoordinates.y
     )!;
-    const { x, y } = currentTile.coordinates;
+    const { x, y } = currentNode.coordinates;
 
 
     if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
-      // console.log(JSON.stringify(currentPath.visitedTiles));
+      // console.log(JSON.stringify(currentPath.visitedCoordinates));
     }
 
-    for (const adjacentTileCoordinates of currentTile.adjacentTiles) {
+    for (const connection of currentNode.connections) {
 
 
       // Skip tiles that have already been visited in this path
-      if (currentPath.visitedTiles.find((t) => t.x === adjacentTileCoordinates.x && t.y === adjacentTileCoordinates.y)) {
+      if (currentPath.visitedCoordinates.find((node) => node.x === connection.destination.x && node.y === connection.destination.y)) {
         continue;
       }
 
 
-      const adjacentTile = trailMap.tiles.find(
-        (t) =>
-          t.coordinates.x === adjacentTileCoordinates.x && t.coordinates.y === adjacentTileCoordinates.y
+      const destinationNode = trailNodes.find(
+        (node) =>
+          node.coordinates.x === connection.destination.x && node.coordinates.y === connection.destination.y
       )!;
 
       // Skip paths that are shorter than the longest known path for the adjacent tile
-      if (adjacentTile.distanceFromStart > currentPath.visitedTiles.length + 1) {
+      if (destinationNode.distanceFromStart > currentNode.distanceFromStart + connection.distance) {
         continue;
       }
 
-      const nextPath = { currentTileCoordinates: adjacentTileCoordinates, visitedTiles: [...currentPath.visitedTiles, currentTile.coordinates] };
+      const nextPath = { currentCoordinates: connection.destination, visitedCoordinates: [...currentPath.visitedCoordinates, connection.destination] };
 
       // If the adjacent tile is reachable, update its distance from the start 
       // and add nextPath to the call stack.
@@ -213,64 +217,62 @@ export default (async function(): Promise<number> {
       // if (adjacentTile.value !== "#") {
       // For some reason the distanceFromStart calculation we were using 
       // gives values too large now, so set it based on the length of the 
-      // visitedTiles array.
-      // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-      // adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-      //   pathsToExplore.push(nextPath);
-      // }
-      switch (adjacentTile.value) {
-
-        // Skip forest tiles
-        case "#":
-          break;
-
-        // Add clear path tiles
-        case ".":
-          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-          pathsToExplore.push(nextPath);
-          break
-
-        // Add steep slope tiles only if not at the bottom of the slope
-        case "<":
-          // if (adjacentTileCoordinates.x <= x) {
-          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-          pathsToExplore.push(nextPath);
-          // }
-          break;
-        case ">":
-          // if (adjacentTileCoordinates.x >= x) {
-          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-          pathsToExplore.push(nextPath);
-          // }
-          break;
-        case "^":
-          // if (adjacentTileCoordinates.y <= y) {
-          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-          pathsToExplore.push(nextPath);
-          // }
-          break;
-        case "v":
-          // if (adjacentTileCoordinates.y >= y) {
-          // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-          adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
-          pathsToExplore.push(nextPath);
-          // }
-          break;
-
-        default:
-          throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
-      }
-
+      // visitedCoordinates array.
+      destinationNode.distanceFromStart = currentNode.distanceFromStart + connection.distance;
+      // destinationNode.distanceFromStart = nextPath.visitedCoordinates.length;
+      pathsToExplore.push(nextPath);
     }
-  }
+    // switch (adjacentTile.value) {
+    //
+    //   // Skip forest tiles
+    //   case "#":
+    //     break;
+    //
+    //   // Add clear path tiles
+    //   case ".":
+    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
+    //     pathsToExplore.push(nextPath);
+    //     break
+    //
+    //   // Add steep slope tiles only if not at the bottom of the slope
+    //   case "<":
+    //     // if (adjacentTileCoordinates.x <= x) {
+    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
+    //     pathsToExplore.push(nextPath);
+    //     // }
+    //     break;
+    //   case ">":
+    //     // if (adjacentTileCoordinates.x >= x) {
+    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
+    //     pathsToExplore.push(nextPath);
+    //     // }
+    //     break;
+    //   case "^":
+    //     // if (adjacentTileCoordinates.y <= y) {
+    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
+    //     pathsToExplore.push(nextPath);
+    //     // }
+    //     break;
+    //   case "v":
+    //     // if (adjacentTileCoordinates.y >= y) {
+    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
+    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
+    //     pathsToExplore.push(nextPath);
+    //     // }
+    //     break;
+    //
+    //   default:
+    //     throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
+    // }
 
+  }
   // Again, the ending tile's exact X coordinate isn't explicitly stated in the 
   // puzzle, but practically it seems to always be at the penultimate index.
-  let endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
+  let endingNode = trailNodes.find((node) => node.coordinates.x === endingTile.coordinates.x && node.coordinates.y === endingTile.coordinates.y)!;
 
   const longestHikeSteps = endingNode.distanceFromStart;
 
