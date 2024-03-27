@@ -74,32 +74,36 @@ export default (async function(): Promise<number> {
         continue;
       }
       if (adjacentTile.distanceFromStart < currentTile.distanceFromStart + 1) {
-        adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
       }
       const nextPath = { currentTileCoordinates: adjacentTileCoordinates, visitedTiles: [...currentPath.visitedTiles, currentTile.coordinates] };
       switch (adjacentTile.value) {
         case "#":
           break;
         case ".":
+          adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
           pathsToExplore.push(nextPath);
           break;
         case "<":
           if (adjacentTileCoordinates.x <= x) {
+            adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
             pathsToExplore.push(nextPath);
           }
           break;
         case ">":
           if (adjacentTileCoordinates.x >= x) {
+            adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
             pathsToExplore.push(nextPath);
           }
           break;
         case "^":
           if (adjacentTileCoordinates.y <= y) {
+            adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
             pathsToExplore.push(nextPath);
           }
           break;
         case "v":
           if (adjacentTileCoordinates.y >= y) {
+            adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
             pathsToExplore.push(nextPath);
           }
           break;
@@ -107,30 +111,6 @@ export default (async function(): Promise<number> {
           throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
       }
     }
-    // const reachableTiles = currentTile.reachableTiles.filter(
-    // (t) => !(trailMap.tiles.find((tile) => tile.coordinates.x === t.x && tile.coordinates.y === t.y)?.visited)
-    // );
-
-    // if (reachableTiles.length === 0) {
-    // break;
-    // }
-
-    // currentTileCoordinates = reachableTiles[0];
-
-    // for (const nextTileCoordinates of currentTile.reachableTiles) {
-    // const nextTile = trailMap.tiles.find(
-    // (t) =>
-    // t.coordinates.x === nextTileCoordinates.x &&
-    // t.coordinates.y === nextTileCoordinates.y
-    // )!;
-    // if (nextTile.distanceFromStart <= currentTile.distanceFromStart) {
-    // nextTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    // if (!tilesToVisit.find((t) => t.x === nextTileCoordinates.x && t.y === nextTileCoordinates.y)) {
-    // tilesToVisit.push(nextTileCoordinates);
-    // }
-    // }
-    // }
-
   }
 
   let endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
