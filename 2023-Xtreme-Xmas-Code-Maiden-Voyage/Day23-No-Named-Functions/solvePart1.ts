@@ -28,6 +28,14 @@ const trailMap: TrailMap = {
   tiles: []
 };
 
+// Basically what we're setting up is a reverse of Dijkstra's Algorithm.
+// Rather than finding the shortest path, we're looking for the longest.
+// Instead of marking distance as Infitinty to start, we make it as 0.
+// Since we ideally want to visit all reachable tiles in one path, we leave
+// out the unvisitedTiles array that would be common in a Dijkstra's implementation.
+// Instead, we will create a call stack called pathsToExplore (declared later) 
+// and keep track of the visited tiles in the Path object. This visitedTiles 
+// record will keep us from backtracking and visiting the same tile twice.
 for (const [y, line] of inputLines.entries()) {
   for (const [x, value] of line.split("").entries()) {
     trailMap.tiles.push({
@@ -39,8 +47,17 @@ for (const [y, line] of inputLines.entries()) {
   }
 }
 
+// Reverse Dijsktra's Algorithm
+
 export default (async function(): Promise<number> {
+
+  // This will be our call stack. It relaces the unvisitedTiles array in a 
+  // regular Dijkstra's Algorithm.
   const pathsToExplore: Path[] = [];
+
+  // The starting tile's exact X coordinate isn't explicitly stated in the 
+  // puzzle, but practically it seems to always be 1.
+  // Note: y=0 is the top row when looking at the puzzle input.
   pathsToExplore.push({ currentTileCoordinates: { x: 1, y: 0 }, visitedTiles: [] });
 
   while (pathsToExplore.length > 0) {
@@ -50,7 +67,6 @@ export default (async function(): Promise<number> {
         t.coordinates.x === currentPath.currentTileCoordinates.x &&
         t.coordinates.y === currentPath.currentTileCoordinates.y
     )!;
-
     const { x, y } = currentTile.coordinates;
     const adjacentTiles = [
       { x: x - 1, y },
@@ -60,29 +76,45 @@ export default (async function(): Promise<number> {
     ];
 
     for (const adjacentTileCoordinates of adjacentTiles) {
+
+      // Skip the coordinates if they're out of bounds
       if (adjacentTileCoordinates.x < 0 || adjacentTileCoordinates.y < 0 || adjacentTileCoordinates.x >= inputLines[0].length || adjacentTileCoordinates.y >= inputLines.length) {
         continue;
       }
+
+      // Skip tiles that have already been visited in this path
       if (currentPath.visitedTiles.find((t) => t.x === adjacentTileCoordinates.x && t.y === adjacentTileCoordinates.y)) {
         continue;
       }
+
+
       const adjacentTile = trailMap.tiles.find(
         (t) =>
           t.coordinates.x === adjacentTileCoordinates.x && t.coordinates.y === adjacentTileCoordinates.y
       )!;
+
+      // Skip paths that are shorter than the longest known path for the adjacent tile
       if (adjacentTile.distanceFromStart > currentTile.distanceFromStart + 1) {
         continue;
       }
-      if (adjacentTile.distanceFromStart < currentTile.distanceFromStart + 1) {
-      }
+
       const nextPath = { currentTileCoordinates: adjacentTileCoordinates, visitedTiles: [...currentPath.visitedTiles, currentTile.coordinates] };
+
+      // If the adjacent tile is reachable, update its distance from the start 
+      // and add nextPath to the call stack.
       switch (adjacentTile.value) {
+
+        // Skip forest tiles
         case "#":
           break;
+
+        // Add clear path tiles
         case ".":
           adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
           pathsToExplore.push(nextPath);
-          break;
+          break
+
+        // Add steep slope tiles only if not at the bottom of the slope
         case "<":
           if (adjacentTileCoordinates.x <= x) {
             adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
@@ -107,12 +139,15 @@ export default (async function(): Promise<number> {
             pathsToExplore.push(nextPath);
           }
           break;
+
         default:
           throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
       }
     }
   }
 
+  // Again, the ending tile's exact X coordinate isn't explicitly stated in the 
+  // puzzle, but practically it seems to always be at the penultimate index.
   let endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
 
   console.log(JSON.stringify(endingNode));
