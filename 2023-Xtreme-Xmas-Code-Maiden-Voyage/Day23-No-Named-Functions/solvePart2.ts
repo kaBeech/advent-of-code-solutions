@@ -32,7 +32,7 @@ interface TrailNode {
 
 // Parse Input
 
-const inputFile = "./challengeInput.dat"
+const inputFile = "./testInput.dat"
 
 const inputLines = await Deno.readTextFile(inputFile).then((text: string) => text.trim().split("\n"));
 
@@ -222,52 +222,7 @@ export default (async function(): Promise<number> {
       // destinationNode.distanceFromStart = nextPath.visitedCoordinates.length;
       pathsToExplore.push(nextPath);
     }
-    // switch (adjacentTile.value) {
-    //
-    //   // Skip forest tiles
-    //   case "#":
-    //     break;
-    //
-    //   // Add clear path tiles
-    //   case ".":
-    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
-    //     pathsToExplore.push(nextPath);
-    //     break
-    //
-    //   // Add steep slope tiles only if not at the bottom of the slope
-    //   case "<":
-    //     // if (adjacentTileCoordinates.x <= x) {
-    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
-    //     pathsToExplore.push(nextPath);
-    //     // }
-    //     break;
-    //   case ">":
-    //     // if (adjacentTileCoordinates.x >= x) {
-    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
-    //     pathsToExplore.push(nextPath);
-    //     // }
-    //     break;
-    //   case "^":
-    //     // if (adjacentTileCoordinates.y <= y) {
-    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
-    //     pathsToExplore.push(nextPath);
-    //     // }
-    //     break;
-    //   case "v":
-    //     // if (adjacentTileCoordinates.y >= y) {
-    //     // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
-    //     adjacentTile.distanceFromStart = nextPath.visitedCoordinates.length;
-    //     pathsToExplore.push(nextPath);
-    //     // }
-    //     break;
-    //
-    //   default:
-    //     throw new Error(`Unexpected tile value: ${adjacentTile.value}`);
-    // }
+
 
   }
   // Again, the ending tile's exact X coordinate isn't explicitly stated in the 
