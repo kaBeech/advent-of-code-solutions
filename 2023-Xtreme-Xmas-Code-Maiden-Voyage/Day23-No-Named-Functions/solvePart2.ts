@@ -109,6 +109,9 @@ export default (async function(): Promise<number> {
       // Since all steep slope tiles are now reachable, we can reach all tiles 
       // that aren't forest tiles
       if (adjacentTile.value !== "#") {
+        // For some reason the distanceFromStart implementation we were using 
+        // gives values too large now, so set it based on the length of the 
+        // visitedTiles array.
         // adjacentTile.distanceFromStart = currentTile.distanceFromStart + 1;
         adjacentTile.distanceFromStart = nextPath.visitedTiles.length;
         pathsToExplore.push(nextPath);
