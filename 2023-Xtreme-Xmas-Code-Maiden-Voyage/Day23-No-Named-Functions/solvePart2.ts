@@ -102,6 +102,24 @@ for (const tile of trailMap.tiles) {
   }
 }
 
+// Add the starting node
+const startingNode = trailMap.tiles.find((t) => t.coordinates.x === 1 && t.coordinates.y === 0)!;
+startingNode.isNode = true;
+trailNodes.push({
+  coordinates: startingNode.coordinates,
+  connections: []
+});
+
+// Add the ending node
+const endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
+endingNode.isNode = true;
+trailNodes.push({
+  coordinates: endingNode.coordinates,
+  connections: []
+});
+
+console.log(JSON.stringify(endingNode));
+
 for (const trailNode of trailNodes) {
   const { x, y } = trailNode.coordinates;
   const nodeTile = trailMap.tiles.find((t) => t.coordinates.x === x && t.coordinates.y === y)!;
@@ -127,6 +145,12 @@ for (const trailNode of trailNodes) {
           (tile) =>
             tile.x !== path[path.length - 2].x || tile.y !== path[path.length - 2].y
         )!;
+        if (!nextTileCoordinates) {
+          console.log(JSON.stringify(currentTileCoordinates));
+          console.log(inputLines.length);
+          console.log(JSON.stringify(currentTile.adjacentTiles));
+          throw new Error(`No next tile found}`);
+        }
         path.push(nextTileCoordinates);
         currentTileCoordinates = nextTileCoordinates;
       }
@@ -158,7 +182,7 @@ export default (async function(): Promise<number> {
 
 
     if (x === inputLines[0].length - 2 && y === inputLines.length - 1) {
-      console.log(JSON.stringify(currentPath.visitedTiles));
+      // console.log(JSON.stringify(currentPath.visitedTiles));
     }
 
     for (const adjacentTileCoordinates of currentTile.adjacentTiles) {
@@ -249,6 +273,8 @@ export default (async function(): Promise<number> {
   let endingNode = trailMap.tiles.find((t) => t.coordinates.x === inputLines[0].length - 2 && t.coordinates.y === inputLines.length - 1)!;
 
   const longestHikeSteps = endingNode.distanceFromStart;
+
+  console.log(JSON.stringify(trailNodes));
 
   console.log(`Part 2: The longest hike is ${longestHikeSteps} steps long`);
 
