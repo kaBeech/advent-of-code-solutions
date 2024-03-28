@@ -2,7 +2,7 @@ package tools
 
 import (
 	"bufio"
-	"github.com/kaBeech/advent-of-code-solutions/tree/main/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/tools"
+	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/tools"
 	"os"
 	"strings"
 )
