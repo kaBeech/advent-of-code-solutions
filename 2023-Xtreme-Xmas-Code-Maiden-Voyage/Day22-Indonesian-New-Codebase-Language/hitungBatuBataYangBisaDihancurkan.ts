@@ -3,8 +3,8 @@ import hitungBatuBataDiAtas from "./hitungBatuBataDiAtas.ts";
 import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya.ts";
 import type { Bata } from "./jenis";
 
-export default (daftarBatuBata: Bata[]): number => {
-    let jumlahBatuBataYangDapatHancur = 0
+export default (daftarBatuBata: Bata[]) => {
+    let jumlahBatuBataYangDapatHancurDenganTenang = 0
 
     for (const bata of daftarBatuBata) {
         const batuBataDiBawahnya = [] as Bata[]
@@ -32,11 +32,11 @@ export default (daftarBatuBata: Bata[]): number => {
     // }
     // }
 
-    let jumlah = 0
+    let jumlahBatuBataYangAkanGeser = 0
 
     for (const bata of daftarBatuBata) {
         if (bata.dapatHancur) {
-            jumlahBatuBataYangDapatHancur++
+            jumlahBatuBataYangDapatHancurDenganTenang++
         } else {
             const daftarBatuBata2 = daftarBatuBata.filter((bata2) => bata2.pengenal !== bata.pengenal)
             if (daftarBatuBata2.find((bata2) => bata2.pengenal === bata.pengenal)) {
@@ -46,16 +46,16 @@ export default (daftarBatuBata: Bata[]): number => {
             // Here's the issue. For some reason, geserBataBatunyaKeBawa is returning 0 bricks shifted when it is called here sometimes. This part of the code should not be reached if disintegrating a brick would result in 0 brick shifts.
             // The number of safely disintegratable bricks is coming back as correct, so that leads me to believe that geserBataBatunyaKeBawa is returning an inaccurate count of brick shifts.
             let count = geserBataBatunyaKeBawa(daftarBatuBata2).batuBataYangTelahDigeser;
-            if (count === 0) { console.log("0 ", JSON.stringify(bata)) }
-            jumlah += count
+            // if (count === 0) { console.log("0 ", JSON.stringify(bata)) }
+            jumlahBatuBataYangAkanGeser += count
         }
     }
 
-    console.log(jumlah)
+    console.log(jumlahBatuBataYangAkanGeser)
 
     for (const bata of daftarBatuBata) {
         // console.log(JSON.stringify(bata))
     }
 
-    return jumlahBatuBataYangDapatHancur;
+    return { jumlahBatuBataYangDapatHancurDenganTenang, jumlahBatuBataYangAkanGeser };
 };
