@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/types"
+	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-Go-No-Comments/pkg/types"
 	"math"
 )
 
