@@ -1,7 +1,7 @@
+import uraikanMasukan from './uraikanMasukan.ts';
 import geserBataBatunyaKeBawa from './geserBataBatunyaKeBawa.ts';
 import hitungBatuBataYangBisaDihancurkan from './hitungBatuBataYangBisaDihancurkan.ts';
 import type { Bata } from './jenis.ts';
-import uraikanMasukan from './uraikanMasukan.ts';
 
 export default (async function(): Promise<{ jumlahBatuBataYangDapatHancurDenganTenang: number, jumlahBatuBataYangAkanGeser: number }> {
 
