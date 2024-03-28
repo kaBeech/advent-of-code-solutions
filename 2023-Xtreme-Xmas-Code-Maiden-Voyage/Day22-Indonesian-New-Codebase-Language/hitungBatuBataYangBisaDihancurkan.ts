@@ -1,61 +1,81 @@
 import geserBataBatunyaKeBawa from "./geserBataBatunyaKeBawa.ts";
-import hitungBatuBataDiAtas from "./hitungBatuBataDiAtas.ts";
 import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya.ts";
-import type { Bata } from "./jenis";
+import type { Bata, Suara } from "./jenis";
 
-export default (daftarBatuBata: Bata[]): number => {
-    let jumlahBatuBataYangDapatHancur = 0
+export default (daftarBatuBata: Bata[]) => {
+    // Set the number of bricks that can be disintegrated calmly to 0
+    let jumlahBatuBataYangDapatHancurDenganTenang = 0
 
+    // Mark all bricks that are unable to be disintegrated calmly
     for (const bata of daftarBatuBata) {
+
+        // Keep a total of bricks below the current brick
         const batuBataDiBawahnya = [] as Bata[]
-        // const batuBataDiAtas = [] as Bata[]
+
+        // For each voxel in the current brick, check if there is a brick
+        // directly below it.
         for (const suara of bata.suara) {
             const bataRendah = hitungBatuBataDiBawahnya(daftarBatuBata, suara)
-            if (bataRendah) { batuBataDiBawahnya.push(bataRendah) }
-            // const bataTinggi = hitungBatuBataDiAtas(daftarBatuBata, suara)
-            // if (bataTinggi) { batuBataDiAtas.push(bataTinggi) }
+
+            // If there is a brick below the current brick and its ID is not 
+            // already on the list, add it to the list
+            if (bataRendah && !batuBataDiBawahnya.find((bata2) => bata2.pengenal === bataRendah.pengenal)) {
+                batuBataDiBawahnya.push(bataRendah)
+            }
         }
+
+        // If there is only one brick below the current brick, mark that brick 
+        // as unable to be calmly disintegrated
         if (batuBataDiBawahnya.length === 1) {
             batuBataDiBawahnya[0].dapatHancur = false
-            // for (const bataRendah of batuBataDiBawahnya) {
-            // bataRendah.dapatHancur = false
-            // }
-        } else if (batuBataDiBawahnya.length > 1 && batuBataDiBawahnya.every((batu) => batu.pengenal === batuBataDiBawahnya[0].pengenal)) {
-            batuBataDiBawahnya[0].dapatHancur = false
-            // console.log(batuBataDiBawahnya)
         }
-
     }
-    // if (batuBataDiAtas.length === 0) {
-    // bata.dapatHancur = true
-    // console.count("143")
-    // }
-    // }
 
-    let jumlah = 0
+    // Set the total sum posiibilities of bricks that could be shifted, if a 
+    // brick were be disintegrated, to 0
+    let jumlahBatuBataYangAkanGeser = 0
 
     for (const bata of daftarBatuBata) {
+
+        // If the brick can be disintegrated calmly, add it to the total sum of
+        // bricks that can be disintegrated calmly
         if (bata.dapatHancur) {
-            jumlahBatuBataYangDapatHancur++
+            jumlahBatuBataYangDapatHancurDenganTenang++
+
+            // Otherwise, find how many bricks would be shifted if it were 
+            // disintegrated
         } else {
-            const daftarBatuBata2 = daftarBatuBata.filter((bata2) => bata2.pengenal !== bata.pengenal)
-            if (daftarBatuBata2.find((bata2) => bata2.pengenal === bata.pengenal)) {
-                throw new Error("What?")
+
+            // Create a copy of the list of bricks that don't include the current brick
+            const daftarBatuBataYangDifilter = daftarBatuBata.slice().filter((bata2) => bata2.pengenal !== bata.pengenal)
+            const daftarBatuBataYangDifilterKlon: Bata[] = []
+
+            for (const bata of daftarBatuBataYangDifilter) {
+                const bataKlon = {
+                    pengenal: bata.pengenal.valueOf(),
+                    suara: [] as Suara[],
+                    dapatHancur: bata.dapatHancur.valueOf(),
+                    zTertinggi: bata.zTertinggi.valueOf(),
+                    zTerendah: bata.zTerendah.valueOf(),
+                }
+                for (const suara of bata.suara) {
+                    bataKlon.suara.push({
+                        penegalBata: suara.penegalBata.valueOf(),
+                        koordinat: {
+                            x: suara.koordinat.x.valueOf(),
+                            y: suara.koordinat.y.valueOf(),
+                            z: suara.koordinat.z.valueOf(),
+                        }
+                    })
+                }
+                daftarBatuBataYangDifilterKlon.push(bataKlon)
             }
-            // console.log(232, JSON.stringify(daftarBatuBata2))
-            // Here's the issue. For some reason, geserBataBatunyaKeBawa is returning 0 bricks shifted when it is called here sometimes. This part of the code should not be reached if disintegrating a brick would result in 0 brick shifts.
-            // The number of safely disintegratable bricks is coming back as correct, so that leads me to believe that geserBataBatunyaKeBawa is returning an inaccurate count of brick shifts.
-            let count = geserBataBatunyaKeBawa(daftarBatuBata2).batuBataYangTelahDigeser;
-            if (count === 0) { console.log("0 ", JSON.stringify(bata)) }
-            jumlah += count
+
+            // Add the number of bricks that would be shifted to the total sum 
+            // of possibile brick shifts
+            jumlahBatuBataYangAkanGeser += geserBataBatunyaKeBawa(daftarBatuBataYangDifilterKlon).batuBataYangTelahDigeser;
         }
     }
 
-    console.log(jumlah)
-
-    for (const bata of daftarBatuBata) {
-        // console.log(JSON.stringify(bata))
-    }
-
-    return jumlahBatuBataYangDapatHancur;
+    return { jumlahBatuBataYangDapatHancurDenganTenang, jumlahBatuBataYangAkanGeser };
 };
