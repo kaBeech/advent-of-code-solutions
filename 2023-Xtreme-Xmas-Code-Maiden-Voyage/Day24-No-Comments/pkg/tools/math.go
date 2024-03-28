@@ -7,7 +7,7 @@ import (
 
 type XY = types.XYFloatCoordinates
 
-func FindIntersectionOfTwoLines(line1, line2 types.Line2D) (bool, XY) {
+func GetIntersectionOfTwo2DLines(line1, line2 types.Line2D) (bool, XY) {
 	xIntersection := (line2.YIntercept - line1.YIntercept) / (line1.Slope - line2.Slope)
 	yIntersection := line1.Slope*xIntersection + line1.YIntercept
 
@@ -16,4 +16,11 @@ func FindIntersectionOfTwoLines(line1, line2 types.Line2D) (bool, XY) {
 	}
 
 	return false, XY{}
+}
+
+func Get2DLineEquationFromPositionAndVelocity(position, velocity XY) types.Line2D {
+	slope := velocity.Y / velocity.X
+	yIntercept := position.Y - slope*position.X
+
+	return types.Line2D{slope, yIntercept}
 }
