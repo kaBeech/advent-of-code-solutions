@@ -12,19 +12,19 @@ Wow. Alright y'all. I've already used my top three languages (English, Spanish, 
 
 ### Points Earned
 
-XX
+20
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: 0
 
 ### Tokens Earned
 
@@ -51,6 +51,9 @@ Sometimes you just have to step back and appreciate those moments in life when y
 ...
 Wow, this is hard. It's a useful practice. Really encourages you to think about what should be moved into another function or not.
 ...
+Good gracious that was hard. The puzzle itself wasn't that difficult. Idk how much of it was it being in Indonesian and 
+how much was JavaScript being weird, but man, the languages gave me a difficult 
+time with this one!
 
 🎄 Happy Coding Everyone! 🎄
 
