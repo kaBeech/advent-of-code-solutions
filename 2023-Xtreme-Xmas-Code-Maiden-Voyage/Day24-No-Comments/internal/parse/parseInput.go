@@ -17,11 +17,11 @@ func ParseInput(filePath string) []Hailstone {
 	input, err := os.Open(filePath)
 	tools.Check(err)
 	scanner := bufio.NewScanner(input)
-	const maxCapacity int = 1024
-	buf := make([]byte, maxCapacity)
-	scanner.Buffer(buf, maxCapacity)
+	const maxLinesInFile int = 1024
+	buffer := make([]byte, maxLinesInFile)
+	scanner.Buffer(buffer, maxLinesInFile)
 
-	var i int = 0
+	var currentID int = 0
 	for scanner.Scan() {
 		rawHailstone := scanner.Text()
 
@@ -34,7 +34,7 @@ func ParseInput(filePath string) []Hailstone {
 		velocitySplit := strings.Split(velocityString, ", ")
 
 		hailstone := Hailstone{
-			ID: i,
+			ID: currentID,
 			Position: XYZ{
 				X: tools.GetIntFromStringInput(positionSplit[0]),
 				Y: tools.GetIntFromStringInput(positionSplit[1]),
@@ -48,7 +48,7 @@ func ParseInput(filePath string) []Hailstone {
 		}
 
 		hailstones = append(hailstones, hailstone)
-		i++
+		currentID++
 	}
 
 	return hailstones
