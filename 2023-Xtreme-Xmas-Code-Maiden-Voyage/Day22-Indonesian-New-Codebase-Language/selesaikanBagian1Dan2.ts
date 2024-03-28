@@ -11,11 +11,6 @@ export default (async function(): Promise<{ jumlahBatuBataYangDapatHancurDenganT
     // Compress the bricks
     const daftarBatuBataYangDiurutkan = geserBataBatunyaKeBawa(daftarBatuBata).daftarBatuBataYangDiurutkan
 
-    for (const bata of daftarBatuBataYangDiurutkan) {
-        console.log(bata.suara[0].koordinat, " ", bata.suara[bata.suara.length - 1].koordinat)
-    }
-    // console.log(daftarBatuBataYangDiurutkan)
-
     // Assess the bricks' disintegration properties
     const hasil = hitungBatuBataYangBisaDihancurkan(daftarBatuBataYangDiurutkan);
 

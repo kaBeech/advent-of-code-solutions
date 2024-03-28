@@ -4,28 +4,7 @@ import type { Bata, Suara } from "./jenis";
 
 export default (daftarBatuBata: Bata[]) => {
 
-    const daftarBatuBata1: Bata[] = []
-
-    for (const bata of daftarBatuBata) {
-        const bataClone = {
-            pengenal: bata.pengenal.valueOf(),
-            suara: [] as Suara[],
-            dapatHancur: bata.dapatHancur.valueOf(),
-            zTertinggi: bata.zTertinggi.valueOf(),
-            zTerendah: bata.zTerendah.valueOf(),
-        }
-        for (const suara of bata.suara) {
-            bataClone.suara.push({
-                penegalBata: suara.penegalBata.valueOf(),
-                koordinat: {
-                    x: suara.koordinat.x.valueOf(),
-                    y: suara.koordinat.y.valueOf(),
-                    z: suara.koordinat.z.valueOf(),
-                }
-            })
-        }
-        daftarBatuBata1.push(bataClone)
-    }
+    const daftarBatuBata1 = daftarBatuBata.slice()
 
     // Set the number of bricks that can be disintegrated calmly to 0
     let jumlahBatuBataYangDapatHancurDenganTenang = 0
@@ -71,12 +50,12 @@ export default (daftarBatuBata: Bata[]) => {
             // disintegrated
         } else {
 
-            // Create a list of bricks that don't include the current brick
-            const daftarBatuBata3 = daftarBatuBata1.slice().filter((bata2) => bata2.pengenal !== bata.pengenal)
-            const daftarBatuBata2: Bata[] = []
+            // Create a copy of the list of bricks that don't include the current brick
+            const daftarBatuBataYangDifilter = daftarBatuBata1.slice().filter((bata2) => bata2.pengenal !== bata.pengenal)
+            const daftarBatuBataYangDifilterKlon: Bata[] = []
 
-            for (const bata of daftarBatuBata3) {
-                const bataClone = {
+            for (const bata of daftarBatuBataYangDifilter) {
+                const bataKlon = {
                     pengenal: bata.pengenal.valueOf(),
                     suara: [] as Suara[],
                     dapatHancur: bata.dapatHancur.valueOf(),
@@ -84,7 +63,7 @@ export default (daftarBatuBata: Bata[]) => {
                     zTerendah: bata.zTerendah.valueOf(),
                 }
                 for (const suara of bata.suara) {
-                    bataClone.suara.push({
+                    bataKlon.suara.push({
                         penegalBata: suara.penegalBata.valueOf(),
                         koordinat: {
                             x: suara.koordinat.x.valueOf(),
@@ -93,25 +72,13 @@ export default (daftarBatuBata: Bata[]) => {
                         }
                     })
                 }
-                daftarBatuBata2.push(bataClone)
-            }
-
-            // Throw an error if the current brick is in the new list of bricks
-            if (daftarBatuBata2.find((bata2) => bata2.pengenal === bata.pengenal)) {
-                throw new Error("?!")
+                daftarBatuBataYangDifilterKlon.push(bataKlon)
             }
 
             // Add the number of bricks that would be shifted to the total sum 
             // of possibile brick shifts
-            jumlahBatuBataYangAkanGeser += geserBataBatunyaKeBawa(daftarBatuBata2).batuBataYangTelahDigeser;
-            // console.log(jumlahBatuBataYangAkanGeser)
+            jumlahBatuBataYangAkanGeser += geserBataBatunyaKeBawa(daftarBatuBataYangDifilterKlon).batuBataYangTelahDigeser;
         }
-    }
-
-    // console.log(jumlahBatuBataYangAkanGeser)
-
-    for (const bata of daftarBatuBata1) {
-        // console.log(JSON.stringify(bata))
     }
 
     return { jumlahBatuBataYangDapatHancurDenganTenang, jumlahBatuBataYangAkanGeser };

@@ -90,8 +90,6 @@ export default async (): Promise<Bata[]> => {
             bata.suara.push(suara);
         }
 
-        // console.log(bata);
-
         // Add the brick to the list
         daftarBatuBata.push(bata);
         i++;
