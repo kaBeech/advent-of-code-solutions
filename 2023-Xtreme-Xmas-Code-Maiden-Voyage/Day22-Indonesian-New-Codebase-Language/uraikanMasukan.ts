@@ -2,10 +2,17 @@ import type { Bata, Suara } from "./jenis";
 
 export default async (): Promise<Bata[]> => {
     const daftarBatuBata: Bata[] = [];;
+
+    // Read the file into memory as an array of strings
     const daftarBatuRangkaianMasukanMentah = await Deno.readTextFile("./masukanTeka-tekinya.dat")
     const daftarBatuRangkaianMasukan: string[] = daftarBatuRangkaianMasukanMentah.trimEnd().split(/\n/);
+
+    // Parse that array of strings into an array of bricks
     let i = 0;
     for (const bataMentah of daftarBatuRangkaianMasukan) {
+
+        // Give each brick an ID, but set its highest and lowest points to 0,
+        // give it no voxels, and assume it can be calmly disintegrated for now
         const bata: Bata = {
             pengenal: i,
             zTertinggi: 0,
@@ -13,9 +20,13 @@ export default async (): Promise<Bata[]> => {
             suara: [] as Suara[],
             dapatHancur: true,
         };
+
+        // Designate the two ends of the brick
         const ujungBata = bataMentah.split("~");
         const ujungBata1 = ujungBata[0].split(",");
         const ujungBata2 = ujungBata[1].split(",");
+
+        // If the brick is horizontal, focus on adding each voxel to the brick
         if (ujungBata1[0] !== ujungBata2[0]) {
             bata.zTertinggi = +ujungBata1[2];
             bata.zTerendah = +ujungBata2[2];
@@ -25,6 +36,9 @@ export default async (): Promise<Bata[]> => {
             let xTertinggi = Math.max(+ujungBata1[0], +ujungBata2[0]);
             let xTerendah = Math.min(+ujungBata1[0], +ujungBata2[0]);
             let x = xTerendah;
+
+            // Here - give each voxel coordinates and a reference to its 
+            // brick's ID and add it to the brick
             while (x <= xTertinggi) {
                 const suara: Suara = {
                     penegalBata: i,
@@ -50,6 +64,8 @@ export default async (): Promise<Bata[]> => {
                 bata.suara.push(suara);
                 y++;
             }
+
+            // If the brick is vertical, set the lowest and higest coordinates
         } else if (ujungBata1[2] !== ujungBata2[2]) {
             bata.zTertinggi = Math.max(+ujungBata1[2], +ujungBata2[2]);
             bata.zTerendah = Math.min(+ujungBata1[2], +ujungBata2[2]);
@@ -62,6 +78,8 @@ export default async (): Promise<Bata[]> => {
                 bata.suara.push(suara);
                 z++;
             }
+
+            // If the brick has a single voxel, adding it is easy
         } else {
             bata.zTertinggi = +ujungBata1[2];
             bata.zTerendah = +ujungBata2[2];
@@ -71,7 +89,10 @@ export default async (): Promise<Bata[]> => {
             };
             bata.suara.push(suara);
         }
+
         // console.log(bata);
+
+        // Add the brick to the list
         daftarBatuBata.push(bata);
         i++;
     }
