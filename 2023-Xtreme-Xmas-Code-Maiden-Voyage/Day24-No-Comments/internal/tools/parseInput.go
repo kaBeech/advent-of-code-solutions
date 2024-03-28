@@ -2,8 +2,8 @@ package tools
 
 import (
 	"bufio"
+	"github.com/kaBeech/advent-of-code-solutions/tree/main/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/tools"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -25,24 +25,11 @@ type Hailstone struct {
 	Velocity XYZVelocity
 }
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
-func getIntFromStringInput(input string) int {
-	trimmedInput := strings.TrimSpace(input)
-	result, err := strconv.Atoi(trimmedInput)
-	check(err)
-	return result
-}
-
 func ParseInput(filePath string) []Hailstone {
 	var hailstones []Hailstone = []Hailstone{}
 
 	input, err := os.Open(filePath)
-	check(err)
+	tools.Check(err)
 	scanner := bufio.NewScanner(input)
 	const maxCapacity int = 1024
 	buf := make([]byte, maxCapacity)
@@ -57,14 +44,14 @@ func ParseInput(filePath string) []Hailstone {
 		velocityString := stringSplit[1]
 
 		positionSplit := strings.Split(positionString, ", ")
-		positionX := getIntFromStringInput(positionSplit[0])
-		positionY := getIntFromStringInput(positionSplit[1])
-		positionZ := getIntFromStringInput(positionSplit[2])
+		positionX := tools.GetIntFromStringInput(positionSplit[0])
+		positionY := tools.GetIntFromStringInput(positionSplit[1])
+		positionZ := tools.GetIntFromStringInput(positionSplit[2])
 
 		velocitySplit := strings.Split(velocityString, ", ")
-		velocityX := getIntFromStringInput(velocitySplit[0])
-		velocityY := getIntFromStringInput(velocitySplit[1])
-		velocityZ := getIntFromStringInput(velocitySplit[2])
+		velocityX := tools.GetIntFromStringInput(velocitySplit[0])
+		velocityY := tools.GetIntFromStringInput(velocitySplit[1])
+		velocityZ := tools.GetIntFromStringInput(velocitySplit[2])
 
 		hailstone := Hailstone{
 			ID: i,
