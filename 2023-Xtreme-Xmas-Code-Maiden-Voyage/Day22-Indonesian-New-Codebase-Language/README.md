@@ -32,6 +32,9 @@ Part 2: 0
 
 ### Notes
 
+- To get the solutions to both parts, run 
+`deno run --allow-read selesaikanBagian1Dan2.ts` in this directory
+
 ### Retrospective
 
 XXC.23 Day 22: New Natural Language - Indonesian
