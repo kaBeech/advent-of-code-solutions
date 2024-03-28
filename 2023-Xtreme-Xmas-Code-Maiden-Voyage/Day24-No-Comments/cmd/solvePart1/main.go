@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/internal/tools"
+	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/internal/parse"
 )
 
 func main() {
 	filePath := "testInput.dat"
-	var hailstones []tools.Hailstone = tools.ParseInput(filePath)
+	var hailstones []parse.Hailstone = parse.ParseInput(filePath)
 	fmt.Println(hailstones)
 }
