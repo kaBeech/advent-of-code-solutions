@@ -3,27 +3,13 @@ package tools
 import (
 	"bufio"
 	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/tools"
+	"github.com/kaBeech/advent-of-code-solutions/2023-Xtreme-Xmas-Code-Maiden-Voyage/Day24-No-Comments/pkg/types"
 	"os"
 	"strings"
 )
 
-type XYZPosition struct {
-	X int
-	Y int
-	Z int
-}
-
-type XYZVelocity struct {
-	X int
-	Y int
-	Z int
-}
-
-type Hailstone struct {
-	ID       int
-	Position XYZPosition
-	Velocity XYZVelocity
-}
+type Hailstone = types.Hailstone
+type XYZ = types.XYZIntegerCoordinates
 
 func ParseInput(filePath string) []Hailstone {
 	var hailstones []Hailstone = []Hailstone{}
@@ -49,12 +35,12 @@ func ParseInput(filePath string) []Hailstone {
 
 		hailstone := Hailstone{
 			ID: i,
-			Position: XYZPosition{
+			Position: XYZ{
 				X: tools.GetIntFromStringInput(positionSplit[0]),
 				Y: tools.GetIntFromStringInput(positionSplit[1]),
 				Z: tools.GetIntFromStringInput(positionSplit[2]),
 			},
-			Velocity: XYZVelocity{
+			Velocity: XYZ{
 				X: tools.GetIntFromStringInput(velocitySplit[0]),
 				Y: tools.GetIntFromStringInput(velocitySplit[1]),
 				Z: tools.GetIntFromStringInput(velocitySplit[2]),
