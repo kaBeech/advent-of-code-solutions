@@ -40,30 +40,24 @@ func ParseInput(filePath string) []Hailstone {
 		rawHailstone := scanner.Text()
 
 		stringSplit := strings.Split(rawHailstone, " @ ")
+
 		positionString := stringSplit[0]
 		velocityString := stringSplit[1]
 
 		positionSplit := strings.Split(positionString, ", ")
-		positionX := tools.GetIntFromStringInput(positionSplit[0])
-		positionY := tools.GetIntFromStringInput(positionSplit[1])
-		positionZ := tools.GetIntFromStringInput(positionSplit[2])
-
 		velocitySplit := strings.Split(velocityString, ", ")
-		velocityX := tools.GetIntFromStringInput(velocitySplit[0])
-		velocityY := tools.GetIntFromStringInput(velocitySplit[1])
-		velocityZ := tools.GetIntFromStringInput(velocitySplit[2])
 
 		hailstone := Hailstone{
 			ID: i,
 			Position: XYZPosition{
-				X: positionX,
-				Y: positionY,
-				Z: positionZ,
+				X: tools.GetIntFromStringInput(positionSplit[0]),
+				Y: tools.GetIntFromStringInput(positionSplit[1]),
+				Z: tools.GetIntFromStringInput(positionSplit[2]),
 			},
 			Velocity: XYZVelocity{
-				X: velocityX,
-				Y: velocityY,
-				Z: velocityZ,
+				X: tools.GetIntFromStringInput(velocitySplit[0]),
+				Y: tools.GetIntFromStringInput(velocitySplit[1]),
+				Z: tools.GetIntFromStringInput(velocitySplit[2]),
 			},
 		}
 
