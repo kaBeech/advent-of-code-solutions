@@ -1,14 +1,19 @@
 import type { Bata, Suara } from "./jenis.ts"
 
 export default (daftarBatuBata: Bata[], suara: Suara) => {
-    for (const brick of daftarBatuBata) {
-        if (brick.zTertinggi === suara.koordinat.z - 1) {
-            for (const voxel of brick.suara) {
-                if (voxel.koordinat.x === suara.koordinat.x && voxel.koordinat.y === suara.koordinat.y) {
-                    return brick
+
+    // If there is a brick with a voxel 1 below the current voxel, return that 
+    // brick
+    for (const bata of daftarBatuBata) {
+        if (bata.zTertinggi === suara.koordinat.z - 1) {
+            for (const suara2 of bata.suara) {
+                if (suara2.koordinat.x === suara.koordinat.x && suara2.koordinat.y === suara.koordinat.y && suara2.koordinat.z === suara.koordinat.z - 1) {
+                    return bata
                 }
             }
         }
     }
+
+    // Otherwise, return null
     return null
 }

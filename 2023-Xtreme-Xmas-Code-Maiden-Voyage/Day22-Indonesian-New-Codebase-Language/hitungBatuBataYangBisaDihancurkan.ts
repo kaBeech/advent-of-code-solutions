@@ -20,27 +20,15 @@ export default (daftarBatuBata: Bata[]) => {
 
             // If there is a brick below the current brick and its ID is not 
             // already on the list, add it to the list
-            if (bataRendah) { batuBataDiBawahnya.push(bataRendah) }
+            if (bataRendah && !batuBataDiBawahnya.find((bata2) => bata2.pengenal === bataRendah.pengenal)) {
+                batuBataDiBawahnya.push(bataRendah)
+            }
         }
 
         // If there is only one brick below the current brick, mark that brick 
         // as unable to be calmly disintegrated
         if (batuBataDiBawahnya.length === 1) {
             batuBataDiBawahnya[0].dapatHancur = false
-            // for (const bataRendah of batuBataDiBawahnya) {
-            // bataRendah.dapatHancur = false
-            // }
-
-            // Otherwise, if there seem to be multiple bricks below the current 
-            // brick, if all of those bricks are the same, mark the brick as unable 
-            // to be calmly disintegrated
-        } else if (batuBataDiBawahnya.length > 1 && batuBataDiBawahnya.every((batu) => batu.pengenal === batuBataDiBawahnya[0].pengenal)) {
-            batuBataDiBawahnya[0].dapatHancur = false
-            // console.log(batuBataDiBawahnya)
-            // } else {
-            //     for (const bataRendah of batuBataDiBawahnya) {
-            //         bataRendah.dapatHancur = true
-            //     }
         }
 
     }
