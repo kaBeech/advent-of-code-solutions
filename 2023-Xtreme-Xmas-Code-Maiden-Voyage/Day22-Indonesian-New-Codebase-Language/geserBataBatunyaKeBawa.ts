@@ -23,7 +23,7 @@ export default (daftarBatuBata: Bata[]): { daftarBatuBataYangDiurutkan: Bata[], 
 
             // If the brick has moved, add it to the list of shifted bricks 
             // and indicate that shifting is to continue
-            if (hasil.distance > 0) {
+            if (hasil.jarak > 0) {
                 if (batuBataYangTelahDigeserBerdasarkanId.indexOf(bata.pengenal) === -1) {
                     batuBataYangTelahDigeserBerdasarkanId.push(bata.pengenal)
                 }
