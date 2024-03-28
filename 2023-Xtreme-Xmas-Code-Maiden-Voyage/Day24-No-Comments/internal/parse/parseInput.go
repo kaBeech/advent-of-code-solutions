@@ -9,7 +9,7 @@ import (
 )
 
 type Hailstone = types.Hailstone
-type XYZ = types.XYZIntegerCoordinates
+type XYZ = types.XYZFloatCoordinates
 
 func ParseInput(filePath string) []Hailstone {
 	var hailstones []Hailstone = []Hailstone{}
@@ -17,38 +17,37 @@ func ParseInput(filePath string) []Hailstone {
 	input, err := os.Open(filePath)
 	tools.Check(err)
 	scanner := bufio.NewScanner(input)
-	const maxCapacity int = 1024
-	buf := make([]byte, maxCapacity)
-	scanner.Buffer(buf, maxCapacity)
+	const maxLinesInFile int = 1024
+	buffer := make([]byte, maxLinesInFile)
+	scanner.Buffer(buffer, maxLinesInFile)
 
-	var i int = 0
+	var currentID int = 0
 	for scanner.Scan() {
-		rawHailstone := scanner.Text()
+		rawHailstoneString := scanner.Text()
+		rawHailstoneSplit := strings.Split(rawHailstoneString, " @ ")
 
-		stringSplit := strings.Split(rawHailstone, " @ ")
-
-		positionString := stringSplit[0]
-		velocityString := stringSplit[1]
+		positionString := rawHailstoneSplit[0]
+		velocityString := rawHailstoneSplit[1]
 
 		positionSplit := strings.Split(positionString, ", ")
 		velocitySplit := strings.Split(velocityString, ", ")
 
 		hailstone := Hailstone{
-			ID: i,
+			ID: currentID,
 			Position: XYZ{
-				X: tools.GetIntFromStringInput(positionSplit[0]),
-				Y: tools.GetIntFromStringInput(positionSplit[1]),
-				Z: tools.GetIntFromStringInput(positionSplit[2]),
+				X: tools.GetFloatFromStringInput(positionSplit[0]),
+				Y: tools.GetFloatFromStringInput(positionSplit[1]),
+				Z: tools.GetFloatFromStringInput(positionSplit[2]),
 			},
 			Velocity: XYZ{
-				X: tools.GetIntFromStringInput(velocitySplit[0]),
-				Y: tools.GetIntFromStringInput(velocitySplit[1]),
-				Z: tools.GetIntFromStringInput(velocitySplit[2]),
+				X: tools.GetFloatFromStringInput(velocitySplit[0]),
+				Y: tools.GetFloatFromStringInput(velocitySplit[1]),
+				Z: tools.GetFloatFromStringInput(velocitySplit[2]),
 			},
 		}
 
 		hailstones = append(hailstones, hailstone)
-		i++
+		currentID++
 	}
 
 	return hailstones
