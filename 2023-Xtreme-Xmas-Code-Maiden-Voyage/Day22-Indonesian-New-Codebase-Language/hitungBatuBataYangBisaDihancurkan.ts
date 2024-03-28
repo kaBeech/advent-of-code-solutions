@@ -3,14 +3,11 @@ import hitungBatuBataDiBawahnya from "./hitungBatuBataDiBawahnya.ts";
 import type { Bata, Suara } from "./jenis";
 
 export default (daftarBatuBata: Bata[]) => {
-
-    const daftarBatuBata1 = daftarBatuBata.slice()
-
     // Set the number of bricks that can be disintegrated calmly to 0
     let jumlahBatuBataYangDapatHancurDenganTenang = 0
 
     // Mark all bricks that are unable to be disintegrated calmly
-    for (const bata of daftarBatuBata1) {
+    for (const bata of daftarBatuBata) {
 
         // Keep a total of bricks below the current brick
         const batuBataDiBawahnya = [] as Bata[]
@@ -18,7 +15,7 @@ export default (daftarBatuBata: Bata[]) => {
         // For each voxel in the current brick, check if there is a brick
         // directly below it.
         for (const suara of bata.suara) {
-            const bataRendah = hitungBatuBataDiBawahnya(daftarBatuBata1, suara)
+            const bataRendah = hitungBatuBataDiBawahnya(daftarBatuBata, suara)
 
             // If there is a brick below the current brick and its ID is not 
             // already on the list, add it to the list
@@ -32,14 +29,13 @@ export default (daftarBatuBata: Bata[]) => {
         if (batuBataDiBawahnya.length === 1) {
             batuBataDiBawahnya[0].dapatHancur = false
         }
-
     }
 
     // Set the total sum posiibilities of bricks that could be shifted, if a 
     // brick were be disintegrated, to 0
     let jumlahBatuBataYangAkanGeser = 0
 
-    for (const bata of daftarBatuBata1) {
+    for (const bata of daftarBatuBata) {
 
         // If the brick can be disintegrated calmly, add it to the total sum of
         // bricks that can be disintegrated calmly
@@ -51,7 +47,7 @@ export default (daftarBatuBata: Bata[]) => {
         } else {
 
             // Create a copy of the list of bricks that don't include the current brick
-            const daftarBatuBataYangDifilter = daftarBatuBata1.slice().filter((bata2) => bata2.pengenal !== bata.pengenal)
+            const daftarBatuBataYangDifilter = daftarBatuBata.slice().filter((bata2) => bata2.pengenal !== bata.pengenal)
             const daftarBatuBataYangDifilterKlon: Bata[] = []
 
             for (const bata of daftarBatuBataYangDifilter) {

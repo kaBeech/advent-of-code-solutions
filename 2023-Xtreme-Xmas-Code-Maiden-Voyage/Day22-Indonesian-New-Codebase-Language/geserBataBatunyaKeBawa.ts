@@ -19,7 +19,6 @@ export default (daftarBatuBata: Bata[]): { daftarBatuBataYangDiurutkan: Bata[], 
 
         // Try to shift each brick
         for (const bata of daftarBatuBataYangDiurutkan) {
-
             const hasil = geserBata(bata, daftarBatuBataYangDiurutkan)
 
             // If the brick has moved, add it to the list of shifted bricks 
