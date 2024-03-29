@@ -12,3 +12,8 @@ type Hailstone2DPathIntersection struct {
 	Hailstone2ID int
 	Intersection XYFloatCoordinates
 }
+
+type TestArea struct {
+	Min int
+	Max int
+}

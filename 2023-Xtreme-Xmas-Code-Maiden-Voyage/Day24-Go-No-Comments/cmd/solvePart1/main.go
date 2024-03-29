@@ -9,7 +9,9 @@ import (
 
 func main() {
 	filePath := "testInput.dat"
+	testArea := types.TestArea{Min: 7, Max: 27}
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var hailstoneIntersections []types.Hailstone2DPathIntersection = intersections.Get2DHailstonePathIntersections(hailstones)
-	fmt.Println(hailstoneIntersections)
+	var futureIntersectionsInTestArea []types.Hailstone2DPathIntersection = intersections.GetFutureIntersectionsInTestArea(hailstoneIntersections, testArea)
+	fmt.Println(futureIntersectionsInTestArea)
 }
