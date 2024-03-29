@@ -8,8 +8,10 @@ import (
 )
 
 func main() {
-	filePath := "testInput.dat"
-	testArea := types.TestArea{Min: 7, Max: 27}
+	// filePath := "testInput.dat"
+	// testArea := types.TestArea{Min: 7, Max: 27}
+	filePath := "challengeInput.dat"
+	testArea := types.TestArea{Min: 200000000000000, Max: 400000000000000}
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var hailstoneIntersections []types.Hailstone2DPathIntersection = intersections.Get2DHailstonePathIntersections(hailstones)
 	var futureIntersectionsInTestArea []types.Hailstone2DPathIntersection = intersections.GetFutureIntersectionsInTestArea(hailstoneIntersections, testArea)
