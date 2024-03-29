@@ -8,8 +8,8 @@ type Hailstone struct {
 
 type Hailstone2DPathIntersection struct {
 	ID           int
-	Hailstone1ID int
-	Hailstone2ID int
+	Hailstone1   Hailstone
+	Hailstone2   Hailstone
 	Intersection XYFloatCoordinates
 }
 
