@@ -26,3 +26,8 @@ type Line2D struct {
 	Slope      float64
 	YIntercept float64
 }
+
+type Line3D struct {
+	Position XYZFloatCoordinates
+	Velocity XYZFloatCoordinates
+}
