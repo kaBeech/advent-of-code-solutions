@@ -12,7 +12,7 @@ func GetIntersectionOfTwo2DLines(line1, line2 types.Line2D) (bool, XY) {
 	yIntersection := line1.Slope*xIntersection + line1.YIntercept
 
 	if !math.IsNaN(xIntersection) && !math.IsNaN(yIntersection) {
-		return true, XY{xIntersection, yIntersection}
+		return true, XY{X: xIntersection, Y: yIntersection}
 	}
 
 	return false, XY{}
@@ -22,5 +22,11 @@ func Get2DLineEquationFromPositionAndVelocity(position, velocity XY) types.Line2
 	slope := velocity.Y / velocity.X
 	yIntercept := position.Y - slope*position.X
 
-	return types.Line2D{slope, yIntercept}
+	return types.Line2D{Slope: slope, YIntercept: yIntercept}
+}
+
+func IsAApproachingB(a, b, aVelocity float64) bool {
+	distance1 := a - b
+	distance2 := a + aVelocity - b
+	return distance1 > distance2
 }
