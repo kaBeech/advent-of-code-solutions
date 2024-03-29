@@ -6,6 +6,11 @@ type Hailstone struct {
 	Velocity XYZFloatCoordinates
 }
 
+type PerfectRockTrajectory struct {
+	Position XYZFloatCoordinates
+	Velocity XYZFloatCoordinates
+}
+
 type Hailstone2DPathIntersection struct {
 	ID           int
 	Hailstone1   Hailstone
