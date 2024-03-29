@@ -13,5 +13,5 @@ func main() {
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var hailstoneIntersections []types.Hailstone2DPathIntersection = intersections.Get2DHailstonePathIntersections(hailstones)
 	var futureIntersectionsInTestArea []types.Hailstone2DPathIntersection = intersections.GetFutureIntersectionsInTestArea(hailstoneIntersections, testArea)
-	fmt.Println(futureIntersectionsInTestArea)
+	fmt.Println("Part 1:", len(futureIntersectionsInTestArea), "intersections occur in the test area")
 }
