@@ -55,8 +55,8 @@ func checkIfIntersectionIsInTestArea(intersection Intersection, testArea TestAre
 
 func checkIfIntersectionIsInEitherHailstonesFuturePath(intersection Intersection) bool {
 
-	intersectionIsInTheFuturePathOfHailstone1 := tools.IsAApproachingB(hailstone1Coordinates, intersection.Intersection, hailstone1Velocity)
-	intersectionIsInTheFuturePathOfHailstone2 := tools.IsAApproachingB(hailstone2Coordinates, intersection.Intersection, hailstone2Velocity)
+	intersectionIsInTheFuturePathOfHailstone1 := tools.IsAApproachingB(intersection.Hailstone1.Position.X, intersection.Intersection.X, intersection.Hailstone1.Velocity.X)
+	intersectionIsInTheFuturePathOfHailstone2 := tools.IsAApproachingB(intersection.Hailstone2.Position.X, intersection.Intersection.X, intersection.Hailstone2.Velocity.X)
 
 	return intersectionIsInTheFuturePathOfHailstone1 || intersectionIsInTheFuturePathOfHailstone2
 }
