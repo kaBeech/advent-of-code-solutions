@@ -13,5 +13,5 @@ func main() {
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var perfectRockTrajectory types.PerfectRockTrajectory = intersections.GetPerfectRockTrajectory(hailstones)
 	var result float64 = perfectRockTrajectory.Position.X + perfectRockTrajectory.Position.Y + perfectRockTrajectory.Position.Z
-	fmt.Println("Part 2: the sum of the coordinates of th perfect rock trajectory's starting position is", result)
+	fmt.Println("Part 2: The sum of the coordinates of th perfect rock trajectory's starting position is", result)
 }
