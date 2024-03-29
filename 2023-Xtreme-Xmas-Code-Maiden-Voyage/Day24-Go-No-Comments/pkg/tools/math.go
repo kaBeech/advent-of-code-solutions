@@ -26,7 +26,9 @@ func Get2DLineEquationFromPositionAndVelocity(position, velocity XY) types.Line2
 }
 
 func IsAApproachingB(a, b, aVelocity float64) bool {
-	distance1 := a - b
-	distance2 := a + aVelocity - b
-	return distance1 > distance2
+	if aVelocity > 0 {
+		return a < b
+	} else {
+		return a > b
+	}
 }
