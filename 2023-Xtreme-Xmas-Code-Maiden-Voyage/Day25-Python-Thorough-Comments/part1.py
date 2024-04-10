@@ -1,7 +1,7 @@
 from parse import parse_input
 
 def solve_part1():
-    components = parse_input()
+    components = parse_input("test_input.dat")
     result = 42 
     return result
 
