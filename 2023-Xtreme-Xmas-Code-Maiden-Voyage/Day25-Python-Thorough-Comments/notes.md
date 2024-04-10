@@ -30,6 +30,6 @@ So I don't have time to implement this right now*, but I rolled my Challenge Mod
 
 ## Closing notes
 
-These it is! It's non-deterministic, but it seems like it should work and sounds fun!
+There it is! It's non-deterministic, but it seems like it should work and sounds fun!
 
 As I mentioned in the README for Day 24, I'll be busy for a while, so it may be a while before I implement this, but it's here for now!
