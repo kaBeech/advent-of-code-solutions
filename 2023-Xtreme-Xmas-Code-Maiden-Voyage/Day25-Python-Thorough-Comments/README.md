@@ -42,11 +42,7 @@ X
 
 ### Notes
 
-- To run the program for Part 1, run `go run cmd/solvePart1/main.go` from this 
-directory
-
-- To run the program for Part 2, run `go run cmd/solvePart2/main.go` from this 
-directory
+To run the program, run `python part1.py` from this directory
 
 ### Retrospective
 
