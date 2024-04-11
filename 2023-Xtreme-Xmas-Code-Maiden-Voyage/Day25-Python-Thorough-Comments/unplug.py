@@ -1,4 +1,8 @@
-def unplug_hottest_connections(connections):
+from connection import Connection
+from component import Component
+from component import get_component_by_id
+
+def unplug_hottest_connections(connections: list[Connection], components: list[Component]) -> list[Connection]:
     # Sort the connections by heat in descending order
     connections.sort(key=lambda x: x.heat, reverse=True)
 
@@ -13,8 +17,10 @@ def unplug_hottest_connections(connections):
     while i < 3:
         current_connection = connections[i]
         unplugged_connections.append(current_connection)
-        component1 = current_connection.component1
-        component2 = current_connection.component2
+        component1 = get_component_by_id(current_connection.component1, components)
+        component2 = get_component_by_id(current_connection.component2, components)
+        if component1 is None or component2 is None:
+            raise ValueError(f"Component not found for connection {current_connection}")
         component1.connected_components.remove(component2.id)
         component2.connected_components.remove(component1.id)
         i += 1

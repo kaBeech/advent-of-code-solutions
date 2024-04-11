@@ -35,7 +35,7 @@ def solve_part1():
 
     # Make a new list of connections with the 3 hottest 
     #   connections removed
-    unplugged_connections = unplug_hottest_connections(connections)
+    unplugged_connections = unplug_hottest_connections(connections, components)
     
     print("Connections unplugged")
 
