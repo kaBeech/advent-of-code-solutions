@@ -8,10 +8,10 @@ def simulate_traffic(components, connections):
 
     print("Simulating traffic...")
     
-    # Simulate random paths until the 3rd hottest component has a heat value 
-    #   that is both greater than 10 and at least double the heat value of 
-    #   the 4th hottest component
-    while connections[2].heat <= 1.5 * connections[3].heat or connections[2].heat <= 1000:
+    # Simulate random paths until the hottest connection has a heat value 
+    #   that is greater than 100 and the 3rd hottest connection has at least 
+    #   double that of the 4th hottest component
+    while connections[0].heat <= 100 or connections[2].heat <= 1.5 * connections[3].heat:
 
         # Simulate a random path
         simulate_random_traffic_path(components, connections)
@@ -53,7 +53,7 @@ def find_path(component_start_id, component_end_id, components, connections):
     
     # print("Finding path...")
 
-    log_hottest = False
+    log_hottest = True
     for component in components:
         component.previous = None
 
@@ -109,13 +109,13 @@ def find_path(component_start_id, component_end_id, components, connections):
                 raise KeyError("Connected component", component_id, "not found")
             # Skip this component if it's already in a queue
             elif list_includes_string(visited, connected_component.id):
-                log_hottest = True
+                log_hottest = False
                 # print(f"Skipping {connected_component.id} because it exists in {visited}")
             elif list_includes_string(unvisited, connected_component.id):
-                log_hottest = True
+                log_hottest = False
                 # print(f"Skipping {connected_component.id} because it exists in {unvisited}")
             elif connected_component.previous is not None:
-                log_hottest = True
+                log_hottest = False
                 # print(f"Skipping {connected_component.id} because it has already has a previous value")
             else:
                 # Make a linked list of components
@@ -147,7 +147,9 @@ def find_path(component_start_id, component_end_id, components, connections):
             current_component = previous_component
 
     # print("...Pathfinding Complete")
-    if not log_hottest:
+    if connections[0].heat % 10 == 0:
+        log_hottest = True
+    if log_hottest:
         print("Top 5 hottest connection heats:", [connection.heat for connection in connections[:5]])
     # Return the path
     return path
