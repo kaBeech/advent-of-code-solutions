@@ -22,3 +22,11 @@ type TestArea struct {
 	Min int
 	Max int
 }
+
+type IntersectionMatrixRowValues struct {
+	RockPositionXCoeffiecient float64
+	RockPositionYCoeffiecient float64
+	RockVelocityXCoeffiecient float64
+	RockVelocityYCoeffiecient float64
+	Constant                  float64
+}

@@ -9,8 +9,6 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 	hailstone1 := hailstones[0]
 	var collisionTime1 float64
 
-	ExplainEquationReduction()
-
 	println(collisionTime1, " = ",
 		(perfectRockTrajectory.Position.X-hailstone1.Position.X)/
 			(hailstone1.Velocity.X-perfectRockTrajectory.Velocity.X))
