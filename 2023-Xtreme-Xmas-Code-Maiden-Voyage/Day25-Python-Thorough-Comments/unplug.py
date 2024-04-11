@@ -25,5 +25,5 @@ def unplug_hottest_connections(connections: list[Connection], components: list[C
         component2.connected_components.remove(component1.id)
         i += 1
 
-    
+    print(f"Unplugged connections: {unplugged_connections}")
     return unplugged_connections
