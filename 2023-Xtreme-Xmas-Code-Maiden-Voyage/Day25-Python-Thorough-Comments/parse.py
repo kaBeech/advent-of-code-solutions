@@ -48,15 +48,15 @@ def parse_input(file_location: str):
     # This is O(n^2) but we only have to do it once and the input is small-ish 
     #   so I'm okay with it
     for component in components:
-        for connection in component.connections:
+        for connection in component.connected_components:
             for connected_component in components:
                 if connected_component.id == connection:
-                    connected_component.connections.append(component.id)
+                    connected_component.connected_components.append(component.id)
                     connections.append(Connection(component, connected_component))
                     break
 
     print(components)
 
-    # Return the list of Components
-    return components
+    # Return the lists of Components and Connections
+    return components, connections
 
