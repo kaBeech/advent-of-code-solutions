@@ -1,9 +1,8 @@
 from random import choice as random_choice
+from component import get_component_by_id
+from connection import get_connection_by_component_ids
 
 def simulate_traffic(components, connections):
-    # I was going to use a to reduce sorting, but I'm not that familiar with 
-    #   heaps in python and my preliminary testing yielded errors when using 
-    #   duplicate priority values, so we'll just sort for now
     
     # Simulate random paths until the 3rd hottest component has a heat value 
     #   that is both greater than 10 and at least double the heat value of 
@@ -12,7 +11,9 @@ def simulate_traffic(components, connections):
         # Simulate a random path
         simulate_random_traffic_path(components, connections)
 
-        # Sort the connections by heat
+        # I was going to use a to reduce sorting, but I'm not that familiar with 
+        #   heaps in python and my preliminary testing yielded errors when using 
+        #   duplicate priority values, so we'll just sort by heat for now
         connections.sort(key=lambda connection: connection.heat, reverse=True)
 
      
@@ -30,15 +31,11 @@ def simulate_random_traffic_path(components, connections):
 
     # Increment the heat of each component in the path
     for component in path:
-        component.heat += 1
+        if component.previous is not None:
+            connection = get_connection_by_component_ids(component.id, component.previous.id, connections)
+            connection.heat += 1
 
-# This is based on Dijsktra's algorithm because I'm comfortable with it, but I 
-#   don't actually care about finding the shortest path, just any path, so it 
-#   terminates after finding the first path
 def find_path(component_start, component_end, components):
-    # Initialize the list of connections in the path
-    path = []
-
     # Initialize the list of visited components
     visited = []
 
@@ -50,10 +47,11 @@ def find_path(component_start, component_end, components):
 
     # Add the starting component to the list of unvisited components
     unvisited.append(component_start)
-    
-    path_found = False
 
-    # While a path has not yet been found
+    # This is based on Dijsktra's algorithm because I'm comfortable with it, but I 
+    #   don't actually care about finding the shortest path, just any path, so it 
+    #   terminates after finding the first path
+    path_found = False
     while not path_found:
         # Sort the unvisited components by distance
         unvisited.sort(key=lambda component: component.distance)
@@ -64,8 +62,10 @@ def find_path(component_start, component_end, components):
         # Add the current component to the list of visited components
         visited.append(current_component)
 
-        # If the current component is the ending component, break
+        # If the current component is the ending component, set path_found to 
+        #   True and break
         if current_component == component_end:
+            path_found = True
             break
 
         # For each connection of the current component
@@ -88,6 +88,9 @@ def find_path(component_start, component_end, components):
 
                     # Add the connected component to the list of unvisited components
                     unvisited.append(connected_component)
+
+    # Initialize the list of connections in the path
+    path = []
 
     # Get the path from the ending component to the starting component
     current_component = component_end
