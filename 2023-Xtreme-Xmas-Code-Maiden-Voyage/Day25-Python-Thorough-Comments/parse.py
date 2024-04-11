@@ -1,31 +1,3 @@
-# A Component will be an object with the following properties: id (a 
-#   3-character string), connected_components (a list of other Component ids), 
-#   and visited (a boolean initially set to False)
-class Component:
-    # Initialize the Component object
-    def __init__(self, id: str, connected_components: list):
-        self.id = id
-        self.connected_components = connected_components
-        self.visited = False
-
-    # Return a string representation of the Component object for printing
-    def __str__(self):
-        return f"Component {self.id} with connections {self.connected_components}"
-
-    # Return a string representation of the Component object for debugging
-    def __repr__(self):
-        return f"Component {self.id} with connections {self.connected_components}"
-
-    # Add equality comparison method
-    def __eq__(self, other):
-        if not isinstance(other, Component):
-            return False
-        return self.id == other.id
-
-    # Add hash method
-    def __hash__(self):
-        return hash(self.id)
-
 # A Connection will be an object with the following properties: component1 (a 
 #   Component object), component2 (a different Component object), and heat (an 
 #   integer initially set to 0)
