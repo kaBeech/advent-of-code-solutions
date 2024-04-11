@@ -56,7 +56,8 @@ def parse_input(file_location: str):
             if connected_component is None:
                 connected_component = Component(component_id, [])
                 components.append(connected_component)
-            connected_component.connected_components.append(component.id)
+            if not component.id in connected_component.connected_components:
+                connected_component.connected_components.append(component.id)
             connections.append(Connection(component.id, connected_component.id))
 
     print(components)
