@@ -6,9 +6,9 @@
 class Component:
     # Initialize the Component object
     def __init__(self, id: str, connected_components: list):
-        self.id = id
-        self.connected_components = connected_components
-        self.distance = float("inf")
+        self.id: str = id
+        self.connected_components: list[str] = connected_components
+        self.distance: float | int = float("inf")
         self.previous: str | None = None
 
     # Return a string representation of the Component object for printing
