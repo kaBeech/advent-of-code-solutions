@@ -4,7 +4,8 @@ from unplug import unplug_hottest_connections
 from groups import get_groups
 
 # Set the input file location as a string
-input_file_location = "test_input.dat"
+# input_file_location = "test_input.dat"
+input_file_location = "challenge_input.dat"
 
 def solve_part1():
 
