@@ -8,7 +8,7 @@ class Component:
     def __init__(self, id: str, connected_components: list):
         self.id = id
         self.connected_components = connected_components
-        self.distance = int("inf")
+        self.distance = float("inf")
         self.previous = None
 
     # Return a string representation of the Component object for printing
