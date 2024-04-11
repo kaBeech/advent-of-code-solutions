@@ -22,3 +22,7 @@ def get_groups(components, unplugged_connections):
                     group.append(connected_component_id)
                     if not list_includes_string(to_visit, connected_component_id):
                         to_visit.append(connected_component_id)
+
+    print("Group 1:", group1)
+    print("Group 2:", group2)
+    return group1, group2
