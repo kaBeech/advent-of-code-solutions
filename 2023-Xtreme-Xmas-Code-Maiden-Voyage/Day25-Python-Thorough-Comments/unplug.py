@@ -1,4 +1,4 @@
-def unplug_hottest_connections(connections, components):
+def unplug_hottest_connections(connections):
     # Sort the connections by heat in descending order
     connections.sort(key=lambda x: x.heat, reverse=True)
 
