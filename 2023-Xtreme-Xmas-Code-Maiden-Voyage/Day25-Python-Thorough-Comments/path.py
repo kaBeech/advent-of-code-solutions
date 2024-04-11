@@ -17,7 +17,8 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
     unvisited.append(component_start_id)
     
     # Explore paths until a path to the ending component is found. I guess this 
-    #  is sort of a breadth-first search
+    #  is sort of a breadth-first search. A depth-first search would probably 
+    #  be more efficient if I optimize this later
     path_found = False
     while not path_found:
         if not unvisited:
