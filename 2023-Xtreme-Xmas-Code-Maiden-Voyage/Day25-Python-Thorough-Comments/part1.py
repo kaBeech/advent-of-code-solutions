@@ -1,5 +1,6 @@
 from parse import parse_input
 from traffic import simulate_traffic
+from traffic import unplug_hottest_connections
 
 # Set the input file location as a string
 input_file_location = "test_input.dat"
