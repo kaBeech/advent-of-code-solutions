@@ -1,6 +1,7 @@
 from parse import parse_input
 from traffic import simulate_traffic
-from traffic import unplug_hottest_connections
+from unplug import unplug_hottest_connections
+from groups import get_groups
 
 # Set the input file location as a string
 input_file_location = "test_input.dat"
@@ -27,11 +28,11 @@ def solve_part1():
 
     # Make a new list of connections with the 3 hottest 
     #   connections removed
-    remaining_connections = unplug_hottest_connections(connections)
+    unplugged_connections = unplug_hottest_connections(connections)
     
     # Traverse the network until all components are visited, adding 
     #   each unvisited component to its corresponding group
-    group1, group2 = get_groups(components, remaining_connections)
+    group1, group2 = get_groups(components, unplugged_connections)
 
     # Multiply the number of components in each group together to 
     #   get the result
