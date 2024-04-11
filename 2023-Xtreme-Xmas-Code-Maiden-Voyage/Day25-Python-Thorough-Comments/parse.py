@@ -1,3 +1,5 @@
+from component import Component
+
 # A Connection will be an object with the following properties: component1 (a 
 #   Component object), component2 (a different Component object), and heat (an 
 #   integer initially set to 0)

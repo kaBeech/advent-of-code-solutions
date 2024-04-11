@@ -26,9 +26,74 @@ def simulate_random_traffic_path(components, connections):
         component_end = random_choice(components)
 
     # Find a path from the starting component to the ending component
-    path = find_path(component_start, component_end, connections)
+    path = find_path(component_start, component_end, components)
 
-    # Increment the heat of each connection in the path
+    # Increment the heat of each component in the path
     for component in path:
         component.heat += 1
 
+# This is based on Dijsktra's algorithm because I'm comfortable with it, but I 
+#   don't actually care about finding the shortest path, just any path, so it 
+#   terminates after finding the first path
+def find_path(component_start, component_end, components):
+    # Initialize the list of connections in the path
+    path = []
+
+    # Initialize the list of visited components
+    visited = []
+
+    # Initialize the list of unvisited components
+    unvisited = []
+
+    # Set the distance of the starting component to 0
+    component_start.distance = 0
+
+    # Add the starting component to the list of unvisited components
+    unvisited.append(component_start)
+    
+    path_found = False
+
+    # While a path has not yet been found
+    while not path_found:
+        # Sort the unvisited components by distance
+        unvisited.sort(key=lambda component: component.distance)
+
+        # Get the component with the smallest distance
+        current_component = unvisited.pop(0)
+
+        # Add the current component to the list of visited components
+        visited.append(current_component)
+
+        # If the current component is the ending component, break
+        if current_component == component_end:
+            break
+
+        # For each connection of the current component
+        for component_id in current_component.connected_components:
+            # Get the connected component
+            connected_component = get_component_by_id(component_id, components)
+
+            # If the connected component is not in the list of visited components
+            if connected_component not in visited:
+                # Calculate the new distance
+                new_distance = current_component.distance + 1
+
+                # If the new distance is less than the connected component's distance
+                if new_distance < connected_component.distance:
+                    # Update the connected component's distance
+                    connected_component.distance = new_distance
+
+                    # Update the connected component's previous component
+                    connected_component.previous = current_component
+
+                    # Add the connected component to the list of unvisited components
+                    unvisited.append(connected_component)
+
+    # Get the path from the ending component to the starting component
+    current_component = component_end
+    while current_component is not None:
+        path.insert(0, current_component)
+        current_component = current_component.previous
+
+    # Return the path
+    return path
