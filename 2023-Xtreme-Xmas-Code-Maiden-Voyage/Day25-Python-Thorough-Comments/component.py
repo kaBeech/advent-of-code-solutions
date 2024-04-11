@@ -9,7 +9,7 @@ class Component:
         self.id = id
         self.connected_components = connected_components
         self.distance = float("inf")
-        self.previous = None
+        self.previous: str | None = None
 
     # Return a string representation of the Component object for printing
     def __str__(self):
