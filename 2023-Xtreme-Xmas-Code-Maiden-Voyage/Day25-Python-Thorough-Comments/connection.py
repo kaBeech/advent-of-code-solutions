@@ -4,9 +4,9 @@
 class Connection:
         # Initialize the Connection object
         def __init__(self, component1: str, component2: str):
-            self.component1 = component1
-            self.component2 = component2
-            self.heat = 0
+            self.component1: str = component1
+            self.component2: str = component2
+            self.heat: int = 0
     
         # Return a string representation of the Connection object for printing
         def __str__(self):
