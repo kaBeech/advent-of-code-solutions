@@ -32,7 +32,12 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 		"(Rock.Position.X - Hailstone1.Position.X) / ",
 		"(Hailstone1.Velocity.X - Rock.Velocity.X)")
 
-	println("Similar equations can be used for the Y and Z coordinates")
+	println("A similar equation can be used for the Y coordinates. ",
+		"Since we know that the rock will collide with all the hailstones ",
+		"in a straight trajectory, we can assume that once the X and Y ",
+		"trajectories are set, the Z trajectory will line up as well. ",
+		"This means that we can treat this essentially as a 2D problem ",
+		"instead of a 3D one, and then extrapolate the Z trajectory later")
 
 	println("CollisionTime1 = ",
 		"(Rock.Position.Y - Hailstone1.Position.Y) / ",
