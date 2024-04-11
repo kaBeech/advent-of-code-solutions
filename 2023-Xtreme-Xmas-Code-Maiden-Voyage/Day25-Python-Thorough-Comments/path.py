@@ -15,10 +15,9 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
 
     # Add the starting component to the list of unvisited components
     unvisited.append(component_start_id)
-
-    # This is based on Dijsktra's algorithm because I'm comfortable with it, but I 
-    #   don't actually care about finding the shortest path, just any path, so it 
-    #   terminates after finding the first path
+    
+    # Explore paths until a path to the ending component is found. I guess this 
+    #  is sort of a breadth-first search
     path_found = False
     while not path_found:
         if not unvisited:
@@ -32,6 +31,8 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
             raise KeyError("Current component", current_component_id, "not found")
 
         # Add the current component to the list of visited components
+        # The current component should never already be in the visited list at 
+        #   this point, so rease an error if it is
         if current_component.id in visited: 
             raise ValueError(f"Component {current_component.id} already visited")
         else: 
@@ -42,10 +43,9 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
         if current_component.id == component_end_id:
             path_found = True
             break
-        
+
         if len(current_component.connected_components) == 0:
             raise ValueError(f"Component {current_component.id} has no connected components")
-       
 
         # Add the unvisitedconnected components of the current component to the 
         #   list of unvisited 596376components and set their previous component ids
@@ -95,5 +95,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
         log_hottest = True
     if log_hottest:
         print("Top 5 hottest connection heats:", [connection.heat for connection in connections[:5]])
+
     # Return the path
     return path
