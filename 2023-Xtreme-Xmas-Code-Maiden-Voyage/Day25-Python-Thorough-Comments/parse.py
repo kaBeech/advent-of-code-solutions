@@ -57,7 +57,7 @@ def parse_input(file_location: str):
                 connected_component = Component(component_id, [])
                 components.append(connected_component)
             connected_component.connected_components.append(component.id)
-            connections.append(Connection(component, connected_component.id))
+            connections.append(Connection(component.id, connected_component.id))
 
     print(components)
 
