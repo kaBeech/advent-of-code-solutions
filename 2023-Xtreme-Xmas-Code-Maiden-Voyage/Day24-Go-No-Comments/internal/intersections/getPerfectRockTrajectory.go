@@ -136,7 +136,16 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 		"+ H2.P.X * H2.V.Y ",
 		"- H2.P.Y * H2.V.X")
 
-	println("Now ")
+	println("Extract the Rock-specific terms")
+
+	println("R.P.Y * (H1.V.X - H2.V.X) ",
+		"+ R.P.X * (H2.V.Y - H1.V.Y) ",
+		"+ R.V.X * (H1.P.Y - H2.P.Y) ",
+		"+ R.V.Y * (H2.P.X - H1.P.X) ",
+		"= H1.P.Y * H1.V.X ",
+		"- H1.P.X * H1.V.Y ",
+		"+ H2.P.X * H2.V.Y ",
+		"- H2.P.Y * H2.V.X")
 
 	println(collisionTime1, " = ",
 		(perfectRockTrajectory.Position.X-hailstone1.Position.X)/
