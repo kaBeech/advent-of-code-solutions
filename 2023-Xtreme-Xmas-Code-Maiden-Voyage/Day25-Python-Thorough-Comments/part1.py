@@ -7,11 +7,16 @@ from groups import get_groups
 input_file_location = "test_input.dat"
 
 def solve_part1():
+
+    print("Solving Part 1")
+
     # We will represent the components as a list of interconnected nodes and 
     #   a list of the connections between them
     # Each Connection will include a heat value that will be incremented each 
     #   time traffic passes through it from one component to another
     components, connections = parse_input(input_file_location)
+
+    print("Input parsed")
 
     # Since we know there exist three connections that, if removed, will split 
     #   the network into two groups, it is likely that these will be the 3 
@@ -26,18 +31,26 @@ def solve_part1():
     #   hottest components
     simulate_traffic(components, connections)
 
+    print("Traffic simulated")
+
     # Make a new list of connections with the 3 hottest 
     #   connections removed
     unplugged_connections = unplug_hottest_connections(connections)
     
+    print("Connections unplugged")
+
     # Traverse the network until all components are visited, adding 
     #   each unvisited component to its corresponding group
     group1, group2 = get_groups(components, unplugged_connections)
+
+    print("Groups found")
 
     # Multiply the number of components in each group together to 
     #   get the result
     result = len(group1) * len(group2)
     
+    print("Result calculated")
+
     # Finally, return the result
     return result
 
