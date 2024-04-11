@@ -1,10 +1,12 @@
 # A Component will be an object with the following properties: id (a 
-#   3-character string) and connected_components (a list of other Component ids)
+#   3-character string), connected_components (a list of other Component ids), 
+#   and visited (a boolean initially set to False)
 class Component:
     # Initialize the Component object
     def __init__(self, id: str, connected_components: list):
         self.id = id
         self.connected_components = connected_components
+        self.visited = False
 
     # Return a string representation of the Component object for printing
     def __str__(self):
