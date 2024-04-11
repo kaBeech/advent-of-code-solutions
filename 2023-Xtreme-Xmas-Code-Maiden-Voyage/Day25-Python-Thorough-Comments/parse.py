@@ -60,7 +60,7 @@ def parse_input(file_location: str):
                 connected_component.connected_components.append(component.id)
             connections.append(Connection(component.id, connected_component.id))
 
-    print(components)
+    # print("Parsed Components:", components)
 
     # Return the lists of Components and Connections
     return components, connections

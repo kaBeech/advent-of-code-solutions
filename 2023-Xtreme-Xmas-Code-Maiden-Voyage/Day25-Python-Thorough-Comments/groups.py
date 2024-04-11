@@ -26,6 +26,6 @@ def get_groups(components: list[Component], unplugged_connections: list[Connecti
                     if not connected_component_id in to_visit:
                         to_visit.append(connected_component_id)
 
-    print("Group 1:", group1)
-    print("Group 2:", group2)
+    # print("Group 1:", group1)
+    # print("Group 2:", group2)
     return group1, group2
