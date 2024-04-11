@@ -1,5 +1,6 @@
 from component import Component
 from connection import Connection
+from component import get_component_by_id
 
 # Take the input file location as a string and return a list of Components
 #   and a list of Connections
@@ -40,6 +41,8 @@ def parse_input(file_location: str):
     # For each pair of Components in the list of Components, create a Connection
     # Since the input only list unidirectional connections, also add the 
     #   reverse connections to each Component
+    # If there is no Component with the id of the connected component, create 
+    #   one
     # Since we know that the input is perfectly formatted and there are no 
     #   duplicate ids, we can use this method: for each component, for each 
     #   connection, find the component with that connected component's id and 
@@ -48,12 +51,13 @@ def parse_input(file_location: str):
     # This is O(n^2) but we only have to do it once and the input is small-ish 
     #   so I'm okay with it
     for component in components:
-        for connection in component.connected_components:
-            for connected_component in components:
-                if connected_component.id == connection:
-                    connected_component.connected_components.append(component.id)
-                    connections.append(Connection(component, connected_component))
-                    break
+        for component_id in component.connected_components:
+            connected_component = get_component_by_id(component_id, components)
+            if connected_component is None:
+                connected_component = Component(component_id, [])
+                components.append(connected_component)
+            connected_component.connected_components.append(component.id)
+            connections.append(Connection(component, connected_component))
 
     print(components)
 
