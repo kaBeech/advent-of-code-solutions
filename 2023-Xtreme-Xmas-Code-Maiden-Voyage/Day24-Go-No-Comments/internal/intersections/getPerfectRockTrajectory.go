@@ -107,9 +107,7 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 
 	println("Set these two equations as equal to each other")
 
-	println("R.P.X * R.V.Y - ",
-		"R.P.Y * R.V.X  = ",
-		"R.P.X * H1.V.Y - ",
+	println("R.P.X * H1.V.Y - ",
 		"H1.P.X * H1.V.Y + ",
 		"H1.P.X * R.V.Y - ",
 		"R.P.Y * H1.V.X + ",
