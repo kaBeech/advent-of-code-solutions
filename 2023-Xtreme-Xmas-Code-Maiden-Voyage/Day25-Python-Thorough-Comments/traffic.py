@@ -5,7 +5,6 @@ from component import get_component_by_id
 from connection import get_connection_by_component_ids
 
 def simulate_traffic(components: list[Component], connections: list[Connection]) -> None:
-
     print("Simulating traffic...")
     
     # Simulate random paths until the hottest connection has a heat value 
@@ -25,8 +24,6 @@ def simulate_traffic(components: list[Component], connections: list[Connection])
 
      
 def simulate_random_traffic_path(components: list[Component], connections: list[Connection]) -> None:
-    # print("Simulating random traffic path...")
-    
     # Randomly choose starting and ending components
     component_start_id = random_choice(components).id
     component_end_id = random_choice(components).id
@@ -47,12 +44,7 @@ def simulate_random_traffic_path(components: list[Component], connections: list[
             else:
                 connection.heat += 1
     
-    # print("...Random Traffic Path Simulation Complete")
-
 def find_path(component_start_id: str, component_end_id: str, components: list[Component], connections: list[Connection]) -> list[Component]:
-    
-    # print("Finding path...")
-
     log_hottest = True
     for component in components:
         component.previous = None
@@ -71,8 +63,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
     #   terminates after finding the first path
     path_found = False
     while not path_found:
-        # print(visited)
-
         if not unvisited:
             last_visited = get_component_by_id(visited[-1], components)
             raise KeyError(f"No path found from {component_start_id} to {component_end_id}. Visited Components: {visited}. Last Visited Component: {last_visited}")
@@ -124,8 +114,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
                 # Add the connected component to the list of unvisited components
                 unvisited.append(connected_component.id)
 
-    # print("...Path found...")
-
     # Initialize the list of connections in the path
     path: list[Component] = []
 
@@ -136,7 +124,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
     else:
         current_component = component_end
         while current_component is not None:
-            # print("Setting path...", len(path), "Current component:", current_component, "Ending component:", component_end_id, "Visited:", visited)
             path.insert(0, current_component)
             if current_component.previous is None:
                 current_component = None
@@ -146,7 +133,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
                 raise KeyError("Previous component", current_component.previous, "not found")
             current_component = previous_component
 
-    # print("...Pathfinding Complete")
     if connections[0].heat % 10 == 0:
         log_hottest = True
     if log_hottest:
