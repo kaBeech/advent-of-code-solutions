@@ -2,16 +2,15 @@ from component import Component
 from random import choice as random_choice
 from component import get_component_by_id
 from connection import get_connection_by_component_ids
-from list_includes import list_includes_string
 
 def simulate_traffic(components, connections):
 
     print("Simulating traffic...")
     
     # Simulate random paths until the hottest connection has a heat value 
-    #   that is greater than 100 and the 3rd hottest connection has at least 
-    #   double that of the 4th hottest component
-    while connections[0].heat <= 100 or connections[2].heat <= 1.5 * connections[3].heat:
+    #   that is greater than 10 and the 3rd hottest connection has at least 
+    #   1.5 times that of the 4th hottest component
+    while connections[0].heat <= 10 or connections[2].heat <= 1.5 * connections[3].heat:
 
         # Simulate a random path
         simulate_random_traffic_path(components, connections)
@@ -85,7 +84,7 @@ def find_path(component_start_id, component_end_id, components, connections):
             raise KeyError("Current component", current_component_id, "not found")
 
         # Add the current component to the list of visited components
-        if list_includes_string(visited, current_component.id):
+        if current_component.id in visited: 
             raise ValueError(f"Component {current_component.id} already visited")
         else: 
             visited.append(current_component.id)
@@ -108,10 +107,10 @@ def find_path(component_start_id, component_end_id, components, connections):
             if connected_component is None:
                 raise KeyError("Connected component", component_id, "not found")
             # Skip this component if it's already in a queue
-            elif list_includes_string(visited, connected_component.id):
+            elif connected_component.id in visited:
                 log_hottest = False
                 # print(f"Skipping {connected_component.id} because it exists in {visited}")
-            elif list_includes_string(unvisited, connected_component.id):
+            elif connected_component.id in unvisited:
                 log_hottest = False
                 # print(f"Skipping {connected_component.id} because it exists in {unvisited}")
             elif connected_component.previous is not None:
