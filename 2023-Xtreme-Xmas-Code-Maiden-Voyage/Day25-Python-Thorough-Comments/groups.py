@@ -1,4 +1,4 @@
-from components import get_component_by_id
+from component import get_component_by_id
 
 def get_groups(components, unplugged_connections):
     # Add the components from one of the unplugged connections to initialize 
