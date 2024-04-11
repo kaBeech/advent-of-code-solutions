@@ -1,6 +1,8 @@
 from component import get_component_by_id
+from component import Component
+from connection import Connection
 
-def get_groups(components, unplugged_connections):
+def get_groups(components: list[Component], unplugged_connections: list[Connection]) -> tuple[list[str], list[str]]:
     # Add the components from one of the unplugged connections to initialize 
     #  the groups`
     group1 = [unplugged_connections[0].component1]
