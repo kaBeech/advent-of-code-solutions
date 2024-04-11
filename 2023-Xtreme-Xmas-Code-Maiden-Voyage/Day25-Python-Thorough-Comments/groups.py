@@ -1,4 +1,5 @@
 from component import get_component_by_id
+from list_includes import list_includes_string
 
 def get_groups(components, unplugged_connections):
     # Add the components from one of the unplugged connections to initialize 
@@ -12,9 +13,12 @@ def get_groups(components, unplugged_connections):
     for group in groups:
         to_visit = [group[0]]
         while to_visit:
-            current_component = to_visit.pop(0)
-            for component_id in current_component.connected_components:
-                connected_component = get_component_by_id(component_id, components)
-                if connected_component not in group:
-                    group.append(connected_component)
-                    to_visit.append(connected_component)
+            current_component_id = to_visit.pop(0)
+            current_component = get_component_by_id(current_component_id, components)
+            if current_component is None:
+                raise KeyError("Current component", current_component_id, "not found")
+            for connected_component_id in current_component.connected_components:
+                if not list_includes_string(group, connected_component_id):
+                    group.append(connected_component_id)
+                    if not list_includes_string(to_visit, connected_component_id):
+                        to_visit.append(connected_component_id)
