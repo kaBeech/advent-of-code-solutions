@@ -17,8 +17,10 @@ def get_groups(components, unplugged_connections):
             if current_component is None:
                 raise KeyError("Current component", current_component_id, "not found")
             for connected_component_id in current_component.connected_components:
+                # Skip this component if it's already in a group
                 if not connected_component_id in group:
                     group.append(connected_component_id)
+                    # Skip this component if it's already in a queue to be visited
                     if not connected_component_id in to_visit:
                         to_visit.append(connected_component_id)
 
