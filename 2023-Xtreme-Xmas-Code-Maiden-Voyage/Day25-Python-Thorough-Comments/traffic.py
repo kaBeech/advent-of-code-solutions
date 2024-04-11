@@ -67,7 +67,6 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
             last_visited = get_component_by_id(visited[-1], components)
             raise KeyError(f"No path found from {component_start_id} to {component_end_id}. Visited Components: {visited}. Last Visited Component: {last_visited}")
 
-
         current_component_id = unvisited.pop(0)
         current_component = get_component_by_id(current_component_id, components)
         
@@ -90,7 +89,8 @@ def find_path(component_start_id: str, component_end_id: str, components: list[C
             raise ValueError(f"Component {current_component.id} has no connected components")
        
 
-        # For each connection of the current component
+        # Add the unvisitedconnected components of the current component to the 
+        #   list of unvisited components and set their previous component ids
         for component_id in current_component.connected_components:
             # Get the connected component
             connected_component = get_component_by_id(component_id, components)
