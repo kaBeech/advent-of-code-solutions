@@ -7,7 +7,7 @@ from groups import get_groups
 # input_file_location = "test_input.dat"
 input_file_location = "challenge_input.dat"
 
-def solve_part1():
+def solve_part1() -> int:
 
     print("Solving Part 1")
 
