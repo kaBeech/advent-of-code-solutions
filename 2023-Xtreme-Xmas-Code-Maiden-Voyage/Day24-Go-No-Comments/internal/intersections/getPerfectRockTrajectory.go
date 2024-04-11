@@ -18,19 +18,27 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 		perfectRockTrajectory.Velocity.X, " = ",
 		hailstone1.Position.X+collisionTime1*hailstone1.Velocity.X)
 
+	println("For readibility we will abbreviate the terms in the equation: ",
+		"R.P.X = Rock.Position.X, CT1 = CollisionTime1, ",
+		"R.V.X = Rock.Velocity.X, H1.P.X = Hailstone1.Position.X, ",
+		"H1.V.X = Hailstone1.Velocity.X, and so on")
+
+	println("R.P.X + CT1 * R.V.X = ",
+		"H1.P.X + CT1 * H1.V.X")
+
 	println("Move the Collision Time to the left hand side of the equation...")
 
-	println("Rock.Position.X - Hailstone1.Position.X = ",
-		"CollisionTime1 * Hailstone1.Velocity.X - ",
-		"CollisionTime1 * Rock.Velocity.X")
+	println("R.P.X - H1.P.X = ",
+		"CT1 * H1.V.X - ",
+		"CT1 * R.V.X")
 
-	println("Rock.Position.X - Hailstone1.Position.X = ",
-		"CollisionTime1 * ",
-		"(Hailstone1.Velocity.X - Rock.Velocity.X)")
+	println("R.P.X - H1.P.X = ",
+		"CT1 * ",
+		"(H1.V.X - R.V.X)")
 
-	println("CollisionTime1 = ",
-		"(Rock.Position.X - Hailstone1.Position.X) / ",
-		"(Hailstone1.Velocity.X - Rock.Velocity.X)")
+	println("CT1 = ",
+		"(R.P.X - H1.P.X) / ",
+		"(H1.V.X - R.V.X)")
 
 	println("A similar equation can be used for the Y coordinates. ",
 		"Since we know that the rock will collide with all the hailstones ",
@@ -39,80 +47,80 @@ func GetPerfectRockTrajectory(hailstones []types.Hailstone) types.PerfectRockTra
 		"This means that we can treat this essentially as a 2D problem ",
 		"instead of a 3D one, and then extrapolate the Z trajectory later")
 
-	println("CollisionTime1 = ",
-		"(Rock.Position.Y - Hailstone1.Position.Y) / ",
-		"(Hailstone1.Velocity.Y - Rock.Velocity.Y)")
+	println("CT1 = ",
+		"(R.P.Y - H1.P.Y) / ",
+		"(H1.V.Y - R.V.Y)")
 
 	println("Set these equations as equal to each other")
 
-	println("CollisionTime1 = ",
-		"(Rock.Position.X - Hailstone1.Position.X) / ",
-		"(Hailstone1.Velocity.X - Rock.Velocity.X) = ",
-		"(Rock.Position.Y - Hailstone1.Position.Y) / ",
-		"(Hailstone1.Velocity.Y - Rock.Velocity.Y)")
+	println("CT1 = ",
+		"(R.P.X - H1.P.X) / ",
+		"(H1.V.X - R.V.X) = ",
+		"(R.P.Y - H1.P.Y) / ",
+		"(H1.V.Y - R.V.Y)")
 
 	println("Move all the Hailstone-specific terms to the right hand side ",
 		"of the equation")
 
-	println("(Rock.Position.X - Hailstone1.Position.X) * ",
-		"(Hailstone1.Velocity.Y - Rock.Velocity.Y) = ",
-		"(Rock.Position.Y - Hailstone1.Position.Y) * ",
-		"(Hailstone1.Velocity.X - Rock.Velocity.X)")
+	println("(R.P.X - H1.P.X) * ",
+		"(H1.V.Y - R.V.Y) = ",
+		"(R.P.Y - H1.P.Y) * ",
+		"(H1.V.X - R.V.X)")
 
-	println("Rock.Position.X * Hailstone1.Velocity.Y - ",
-		"Rock.Position.X * Rock.Velocity.Y - ",
-		"Hailstone1.Position.X * Hailstone1.Velocity.Y + ",
-		"Hailstone1.Position.X * Rock.Velocity.Y = ",
-		"Rock.Position.Y * Hailstone1.Velocity.X - ",
-		"Rock.Position.Y * Rock.Velocity.X - ",
-		"Hailstone1.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone1.Position.Y * Rock.Velocity.X")
+	println("R.P.X * H1.V.Y - ",
+		"R.P.X * R.V.Y - ",
+		"H1.P.X * H1.V.Y + ",
+		"H1.P.X * R.V.Y = ",
+		"R.P.Y * H1.V.X - ",
+		"R.P.Y * R.V.X - ",
+		"H1.P.Y * H1.V.X + ",
+		"H1.P.Y * R.V.X")
 
-	println("Rock.Position.X * Hailstone1.Velocity.Y - ",
-		"Hailstone1.Position.X * Hailstone1.Velocity.Y + ",
-		"Hailstone1.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone1.Position.Y * Hailstone1.Velocity.X - ",
-		"Hailstone1.Position.Y * Rock.Velocity.X = ",
-		"Rock.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Rock.Velocity.X")
+	println("R.P.X * H1.V.Y - ",
+		"H1.P.X * H1.V.Y + ",
+		"H1.P.X * R.V.Y - ",
+		"R.P.Y * H1.V.X + ",
+		"H1.P.Y * H1.V.X - ",
+		"H1.P.Y * R.V.X = ",
+		"R.P.X * R.V.Y - ",
+		"R.P.Y * R.V.X")
 
-	println("Rock.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Rock.Velocity.X  = ",
-		"Rock.Position.X * Hailstone1.Velocity.Y - ",
-		"Hailstone1.Position.X * Hailstone1.Velocity.Y + ",
-		"Hailstone1.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone1.Position.Y * Hailstone1.Velocity.X - ",
-		"Hailstone1.Position.Y * Rock.Velocity.X")
+	println("R.P.X * R.V.Y - ",
+		"R.P.Y * R.V.X  = ",
+		"R.P.X * H1.V.Y - ",
+		"H1.P.X * H1.V.Y + ",
+		"H1.P.X * R.V.Y - ",
+		"R.P.Y * H1.V.X + ",
+		"H1.P.Y * H1.V.X - ",
+		"H1.P.Y * R.V.X")
 
 	println("Use this same equation for a second hailstone")
 
-	println("Rock.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Rock.Velocity.X  = ",
-		"Rock.Position.X * Hailstone2.Velocity.Y - ",
-		"Hailstone2.Position.X * Hailstone2.Velocity.Y + ",
-		"Hailstone2.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone2.Position.Y * Hailstone2.Velocity.X - ",
-		"Hailstone2.Position.Y * Rock.Velocity.X")
+	println("R.P.X * R.V.Y - ",
+		"R.P.Y * R.V.X  = ",
+		"R.P.X * H2.V.Y - ",
+		"H2.P.X * H2.V.Y + ",
+		"H2.P.X * R.V.Y - ",
+		"R.P.Y * H1.V.X + ",
+		"H2.P.Y * H2.V.X - ",
+		"H2.P.Y * R.V.X")
 
 	println("Set these two equations as equal to each other")
 
-	println("Rock.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Rock.Velocity.X  = ",
-		"Rock.Position.X * Hailstone1.Velocity.Y - ",
-		"Hailstone1.Position.X * Hailstone1.Velocity.Y + ",
-		"Hailstone1.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone1.Position.Y * Hailstone1.Velocity.X - ",
-		"Hailstone1.Position.Y * Rock.Velocity.X = ",
-		"Rock.Position.X * Hailstone2.Velocity.Y - ",
-		"Hailstone2.Position.X * Hailstone2.Velocity.Y + ",
-		"Hailstone2.Position.X * Rock.Velocity.Y - ",
-		"Rock.Position.Y * Hailstone1.Velocity.X + ",
-		"Hailstone2.Position.Y * Hailstone2.Velocity.X - ",
-		"Hailstone2.Position.Y * Rock.Velocity.X")
+	println("R.P.X * R.V.Y - ",
+		"R.P.Y * R.V.X  = ",
+		"R.P.X * H1.V.Y - ",
+		"H1.P.X * H1.V.Y + ",
+		"H1.P.X * R.V.Y - ",
+		"R.P.Y * H1.V.X + ",
+		"H1.P.Y * H1.V.X - ",
+		"H1.P.Y * R.V.X = ",
+		"R.P.X * H2.V.Y - ",
+		"H2.P.X * H2.V.Y + ",
+		"H2.P.X * R.V.Y - ",
+		"R.P.Y * H1.V.X + ",
+		"H2.P.Y * H2.V.X - ",
+		"H2.P.Y * R.V.X")
 
 	println("Move all the Rock-specific terms to the right hand side ",
 		"of the equation")
