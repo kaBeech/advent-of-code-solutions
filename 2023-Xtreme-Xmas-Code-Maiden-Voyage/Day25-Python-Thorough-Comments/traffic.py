@@ -33,7 +33,10 @@ def simulate_random_traffic_path(components, connections):
     for component in path:
         if component.previous is not None:
             connection = get_connection_by_component_ids(component.id, component.previous.id, connections)
-            connection.heat += 1
+            if connection is None:
+                print("Connection between", component.id, "and", component.previous.id, "not found")
+            else:
+                connection.heat += 1
 
 def find_path(component_start, component_end, components):
     # Initialize the list of visited components
@@ -73,8 +76,10 @@ def find_path(component_start, component_end, components):
             # Get the connected component
             connected_component = get_component_by_id(component_id, components)
 
+            if connected_component is None:
+                print("Connected component", component_id, "not found")
             # If the connected component is not in the list of visited components
-            if connected_component not in visited:
+            elif connected_component not in visited:
                 # Calculate the new distance
                 new_distance = current_component.distance + 1
 
