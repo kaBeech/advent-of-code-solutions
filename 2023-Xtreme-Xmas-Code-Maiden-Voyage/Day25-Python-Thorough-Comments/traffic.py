@@ -1,9 +1,10 @@
 from component import Component
+from connection import Connection
 from random import choice as random_choice
 from component import get_component_by_id
 from connection import get_connection_by_component_ids
 
-def simulate_traffic(components, connections):
+def simulate_traffic(components: list[Component], connections: list[Connection]) -> None:
 
     print("Simulating traffic...")
     
@@ -23,7 +24,7 @@ def simulate_traffic(components, connections):
     print("...Traffic Simulation Complete")
 
      
-def simulate_random_traffic_path(components, connections):
+def simulate_random_traffic_path(components: list[Component], connections: list[Connection]) -> None:
     # print("Simulating random traffic path...")
     
     # Randomly choose starting and ending components
@@ -48,7 +49,7 @@ def simulate_random_traffic_path(components, connections):
     
     # print("...Random Traffic Path Simulation Complete")
 
-def find_path(component_start_id, component_end_id, components, connections):
+def find_path(component_start_id: str, component_end_id: str, components: list[Component], connections: list[Connection]) -> list[Component]:
     
     # print("Finding path...")
 
@@ -56,11 +57,11 @@ def find_path(component_start_id, component_end_id, components, connections):
     for component in components:
         component.previous = None
 
-    # Initialize the list of visited components
-    visited = []
+    # Initialize the list of visited components by id
+    visited: list[str] = []
 
-    # Initialize the list of unvisited components
-    unvisited = []
+    # Initialize the list of unvisited components by id
+    unvisited: list[str] = []
 
     # Add the starting component to the list of unvisited components
     unvisited.append(component_start_id)
@@ -126,7 +127,7 @@ def find_path(component_start_id, component_end_id, components, connections):
     # print("...Path found...")
 
     # Initialize the list of connections in the path
-    path = []
+    path: list[Component] = []
 
     # Get the path from the ending component to the starting component
     component_end = get_component_by_id(component_end_id, components)
