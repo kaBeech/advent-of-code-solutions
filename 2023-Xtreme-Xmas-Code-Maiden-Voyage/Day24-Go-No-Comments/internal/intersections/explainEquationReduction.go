@@ -116,10 +116,10 @@ func ExplainEquationReduction() {
 	println("Move all the Rock-specific terms to the left hand side ",
 		"of the equation")
 
-	println("R.P.Y * H1.V.X ",
-		"- R.P.Y * H2.V.X ",
-		"+ R.P.X * H2.V.Y ",
+	println("R.P.X * H2.V.Y ",
 		"- R.P.X * H1.V.Y ",
+		"+ R.P.Y * H1.V.X ",
+		"- R.P.Y * H2.V.X ",
 		"+ H1.P.Y * R.V.X ",
 		"- H2.P.Y * R.V.X ",
 		"+ H2.P.X * R.V.Y ",
@@ -132,8 +132,8 @@ func ExplainEquationReduction() {
 	println("Extract the Rock-specific terms - we now have the first of a ",
 		" system of equations")
 
-	println("R.P.Y * (H1.V.X - H2.V.X) ",
-		"+ R.P.X * (H2.V.Y - H1.V.Y) ",
+	println("R.P.X * (H2.V.Y - H1.V.Y) ",
+		"+ R.P.Y * (H1.V.X - H2.V.X) ",
 		"+ R.V.X * (H1.P.Y - H2.P.Y) ",
 		"+ R.V.Y * (H2.P.X - H1.P.X) ",
 		"= H1.P.Y * H1.V.X ",
