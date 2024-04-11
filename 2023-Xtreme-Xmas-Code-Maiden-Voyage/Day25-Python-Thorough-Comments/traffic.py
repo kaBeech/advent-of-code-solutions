@@ -29,6 +29,6 @@ def simulate_random_traffic_path(components, connections):
     path = find_path(component_start, component_end, connections)
 
     # Increment the heat of each connection in the path
-    for connection in path:
-        connection.heat += 1
+    for component in path:
+        component.heat += 1
 
