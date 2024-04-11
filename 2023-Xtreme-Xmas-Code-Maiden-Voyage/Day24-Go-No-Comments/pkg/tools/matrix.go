@@ -7,6 +7,7 @@ func SolveSystemOfEquations(matrix [][]float64) []float64 {
 	}
 
 	solvedEquationValues := SubstituteBackward(matrix)
+	println(solvedEquationValues[0], solvedEquationValues[1], solvedEquationValues[2], solvedEquationValues[3])
 
 	return solvedEquationValues
 }
@@ -57,12 +58,22 @@ func MakeAllValuesInThisColumnBelowThisValueZero(matrix [][]float64, i int) {
 
 func SubstituteBackward(matrix [][]float64) []float64 {
 	solvedEquationValues := make([]float64, len(matrix))
+	var result []float64
+	if result == nil {
+		println("result is true")
+	}
+	var solvedEquationValuesi float64
 	for i := len(matrix) - 1; i >= 0; i-- {
-		solvedEquationValues[i] = matrix[i][len(matrix)] / matrix[i][i]
+		solvedEquationValuesi = matrix[i][len(matrix)] / matrix[i][i]
+		result = append(result, solvedEquationValuesi)
+		println(solvedEquationValuesi)
 		for k := i - 1; k >= 0; k-- {
-			matrix[k][len(matrix)] -= matrix[k][i] * solvedEquationValues[i]
+			matrix[k][len(matrix)] -= matrix[k][i] * solvedEquationValuesi
 		}
 	}
+
+	println(result[0], result[1], result[2], result[3])
+	println(solvedEquationValues[0], solvedEquationValues[1], solvedEquationValues[2], solvedEquationValues[3])
 
 	return solvedEquationValues
 }
