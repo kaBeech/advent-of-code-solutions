@@ -145,14 +145,14 @@ func Explain2DIntersectionEquationReduction() {
 func ExplainTimeUntilImpactEquationReduction() {
 	println("Getting the time until the rock will impact a hailstone:")
 
-	println("For the position, a coordinate on any axis will do. ", 
-		"This program uses the X axis)",
+	println("For the position, a coordinate on any axis will do. ",
+		"This program uses the X axis)")
 
 	println("Rock Position + Rock Velocity * Time ",
 		"= Hailstone Position + Hailstone Velocity * Time")
-	
+
 	println("For readibility we will abbreviate the terms in the equation: ",
-		"R.P = Rock Position, R.V = Rock Velocity, t = Time, ", 
+		"R.P = Rock Position, R.V = Rock Velocity, t = Time, ",
 		"H.P = Hailstone Position, and H.V = Hailstone Velocity)")
 
 	println("R.P.X + t*R.V.X = H1.P.X + t*H1.V.X")
@@ -163,6 +163,6 @@ func ExplainTimeUntilImpactEquationReduction() {
 
 	println("t = (R.P.X - H1.P.X) / (H.V.X - R.V.X)")
 
-	println("Time Until Impact = (Rock Position - Hailstone Position) ", 
-			"/ (Hailstone Velocity - Rock Velocity)")
+	println("Time Until Impact = (Rock Position - Hailstone Position) ",
+		"/ (Hailstone Velocity - Rock Velocity)")
 }
