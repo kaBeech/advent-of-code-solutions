@@ -11,6 +11,11 @@ type PerfectRockTrajectory struct {
 	Velocity XYZFloatCoordinates
 }
 
+type PerfectRockTrajectory2D struct {
+	Position XYFloatCoordinates
+	Velocity XYFloatCoordinates
+}
+
 type Hailstone2DPathIntersection struct {
 	ID           int
 	Hailstone1   Hailstone
@@ -21,4 +26,17 @@ type Hailstone2DPathIntersection struct {
 type TestArea struct {
 	Min int
 	Max int
+}
+
+type IntersectionMatrixRowValues struct {
+	RockPositionXCoeffiecient float64
+	RockPositionYCoeffiecient float64
+	RockVelocityXCoeffiecient float64
+	RockVelocityYCoeffiecient float64
+	Constant                  float64
+}
+
+type LinearEquation struct {
+	Variables []float64
+	Constant  float64
 }
