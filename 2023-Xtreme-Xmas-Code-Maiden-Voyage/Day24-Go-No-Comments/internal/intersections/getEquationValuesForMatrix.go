@@ -5,7 +5,7 @@ import (
 )
 
 func GetEquationValuesForMatrix(hailstone1 types.Hailstone, hailstone2 types.Hailstone) types.IntersectionMatrixRowValues {
-	ExplainEquationReduction()
+	Explain2DIntersectionEquationReduction()
 
 	rockPositionXCoeffiecient := hailstone2.Velocity.Y - hailstone1.Velocity.Y
 	rockPositionYCoeffiecient := hailstone1.Velocity.X - hailstone2.Velocity.X

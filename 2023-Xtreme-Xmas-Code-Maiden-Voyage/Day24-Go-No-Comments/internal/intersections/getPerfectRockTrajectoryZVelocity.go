@@ -5,6 +5,7 @@ import (
 )
 
 func GetPerfectRockTrajectoryZVelocity(hailstone1 types.Hailstone, hailstone2 types.Hailstone, perfectRockTrajectory types.PerfectRockTrajectory) float64 {
+	ExplainTimeUntilImpactEquationReduction()
 	timeUntilImpact1 := (perfectRockTrajectory.Position.X - hailstone1.Position.X) / (hailstone1.Velocity.X - perfectRockTrajectory.Velocity.X)
 	timeUntilImpact2 := (perfectRockTrajectory.Position.X - hailstone2.Position.X) / (hailstone2.Velocity.X - perfectRockTrajectory.Velocity.X)
 	impact1ZPosition := hailstone1.Position.Z + hailstone1.Velocity.Z*timeUntilImpact1

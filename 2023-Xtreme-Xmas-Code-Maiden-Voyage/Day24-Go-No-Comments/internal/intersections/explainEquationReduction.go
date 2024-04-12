@@ -1,8 +1,11 @@
 package intersections
 
-func ExplainEquationReduction() {
+func Explain2DIntersectionEquationReduction() {
+	println("Getting the 2D trajectory for the rock:")
+
 	println("Since we know the rock and all the hailstones will collide, we ",
-		"can just solve for their trajectories")
+		"can just take a few of their trajectories and solve for the line ",
+		"of intersection")
 
 	println("Rock.Position.X + CollisionTime1 * Rock.Velocity.X ",
 		"= Hailstone1.Position.X + CollisionTime1 * Hailstone1.Velocity.X")
@@ -86,6 +89,7 @@ func ExplainEquationReduction() {
 	println("Use this same equation for a second hailstone")
 
 	println("R.P.X * R.V.Y ",
+
 		"- R.P.Y * R.V.X  ",
 		"= R.P.X * H2.V.Y ",
 		"- H2.P.X * H2.V.Y ",
@@ -136,4 +140,29 @@ func ExplainEquationReduction() {
 		"- H1.P.X * H1.V.Y ",
 		"+ H2.P.X * H2.V.Y ",
 		"- H2.P.Y * H2.V.X")
+}
+
+func ExplainTimeUntilImpactEquationReduction() {
+	println("Getting the time until the rock will impact a hailstone:")
+
+	println("For the position, a coordinate on any axis will do. ", 
+		"This program uses the X axis)",
+
+	println("Rock Position + Rock Velocity * Time ",
+		"= Hailstone Position + Hailstone Velocity * Time")
+	
+	println("For readibility we will abbreviate the terms in the equation: ",
+		"R.P = Rock Position, R.V = Rock Velocity, t = Time, ", 
+		"H.P = Hailstone Position, and H.V = Hailstone Velocity)")
+
+	println("R.P.X + t*R.V.X = H1.P.X + t*H1.V.X")
+
+	println("t*H.V.X - t*R.V.X = R.P.X - H.P.X")
+
+	println("t(H.V.X - R.V.X) = R.P.X - H.P.X")
+
+	println("t = (R.P.X - H1.P.X) / (H.V.X - R.V.X)")
+
+	println("Time Until Impact = (Rock Position - Hailstone Position) ", 
+			"/ (Hailstone Velocity - Rock Velocity)")
 }
