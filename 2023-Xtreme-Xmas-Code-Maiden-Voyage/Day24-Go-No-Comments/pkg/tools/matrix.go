@@ -1,18 +1,16 @@
 package tools
 
 func SolveSystemOfEquations(matrix [][]float64) []float64 {
-
 	for i := 0; i < len(matrix); i++ {
-		EliminateForward(matrix, i)
+		EliminateForwards(matrix, i)
 	}
 
-	solvedEquationValues := SubstituteBackward(matrix)
-	println(solvedEquationValues[0], solvedEquationValues[1], solvedEquationValues[2], solvedEquationValues[3])
+	solvedEquationValues := SubstituteBackwards(matrix)
 
 	return solvedEquationValues
 }
 
-func EliminateForward(matrix [][]float64, i int) {
+func EliminateForwards(matrix [][]float64, i int) {
 	maxRowIndex := FindRowWithLargestElement(matrix, i)
 
 	if maxRowIndex != i {
@@ -56,24 +54,13 @@ func MakeAllValuesInThisColumnBelowThisValueZero(matrix [][]float64, i int) {
 	}
 }
 
-func SubstituteBackward(matrix [][]float64) []float64 {
+func SubstituteBackwards(matrix [][]float64) []float64 {
 	solvedEquationValues := make([]float64, len(matrix))
-	var result []float64
-	if result == nil {
-		println("result is true")
-	}
-	var solvedEquationValuesi float64
 	for i := len(matrix) - 1; i >= 0; i-- {
-		solvedEquationValuesi = matrix[i][len(matrix)] / matrix[i][i]
-		result = append(result, solvedEquationValuesi)
-		println(solvedEquationValuesi)
+		solvedEquationValues[i] = matrix[i][len(matrix)] / matrix[i][i]
 		for k := i - 1; k >= 0; k-- {
-			matrix[k][len(matrix)] -= matrix[k][i] * solvedEquationValuesi
+			matrix[k][len(matrix)] -= matrix[k][i] * solvedEquationValues[i]
 		}
 	}
-
-	println(result[0], result[1], result[2], result[3])
-	println(solvedEquationValues[0], solvedEquationValues[1], solvedEquationValues[2], solvedEquationValues[3])
-
 	return solvedEquationValues
 }
