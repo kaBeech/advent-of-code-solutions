@@ -13,7 +13,6 @@ func main() {
 	filePath := "challengeInput.dat"
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var perfectRockTrajectory types.PerfectRockTrajectory = intersections.GetPerfectRockTrajectory(hailstones)
-	println(perfectRockTrajectory.Position.X, perfectRockTrajectory.Position.Y, perfectRockTrajectory.Position.Z, perfectRockTrajectory.Velocity.X, perfectRockTrajectory.Velocity.Y, perfectRockTrajectory.Velocity.Z)
 	var result int = tools.GetInt(perfectRockTrajectory.Position.X + perfectRockTrajectory.Position.Y + perfectRockTrajectory.Position.Z)
 	fmt.Println("Part 2: The sum of the coordinates of the perfect rock trajectory's starting position is", result)
 }
