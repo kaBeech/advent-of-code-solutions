@@ -5,7 +5,7 @@ import (
 )
 
 func GetPerfectRockTrajectoryZPosition(hailstone types.Hailstone, perfectRockTrajectory types.PerfectRockTrajectory) float64 {
-	timeUntilImpact := (perfectRockTrajectory.Position.X - hailstone.Position.X) / (perfectRockTrajectory.Velocity.X - hailstone.Velocity.X)
+	timeUntilImpact := (perfectRockTrajectory.Position.X - hailstone.Position.X) / (hailstone.Velocity.X - perfectRockTrajectory.Velocity.X)
 	impactZPosition := hailstone.Position.Z + hailstone.Velocity.Z*timeUntilImpact
 	perfectRockTrajectoryZPosition := impactZPosition - perfectRockTrajectory.Velocity.Z*timeUntilImpact
 	return perfectRockTrajectoryZPosition
