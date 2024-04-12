@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	filePath := "testInput.dat"
-	// filePath := "challengeInput.dat"
+	// filePath := "testInput.dat"
+	filePath := "challengeInput.dat"
 	var hailstones []types.Hailstone = parse.ParseInput(filePath)
 	var perfectRockTrajectory types.PerfectRockTrajectory = intersections.GetPerfectRockTrajectory(hailstones)
 	println(perfectRockTrajectory.Position.X, perfectRockTrajectory.Position.Y, perfectRockTrajectory.Position.Z, perfectRockTrajectory.Velocity.X, perfectRockTrajectory.Velocity.Y, perfectRockTrajectory.Velocity.Z)
