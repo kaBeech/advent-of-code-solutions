@@ -22,23 +22,24 @@ Let's also do this one in Python
 
 ### Points Earned
 
-X
+0
 
 ### Rerolls
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: N/A
 
 #### Tokens Spent
 
-Part 1: X
+Part 1: 0
 
-Part 2: X
+Part 2: N/A
 
 ### Tokens Earned
 
-X
+2 (Come to think of it... should we earn tokens for the final day Part 2? 
+    I might change that later. But I'm kind of in favor of keeping them ^_^)
 
 ### Notes
 
