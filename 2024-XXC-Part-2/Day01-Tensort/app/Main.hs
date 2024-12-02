@@ -11,7 +11,5 @@ main = do
   let (listL, listR) = parseInput input
   let sortedL = tensort listL
   let sortedR = tensort listR
-  print sortedL
-  print sortedR
   let diffs = getDiffs sortedL sortedR
-  print diffs
+  print $ sum diffs
