@@ -65,7 +65,7 @@ executable Day01-Tensort
 
     -- Modules included in this executable, other than Main.
     other-modules: ParseInput,
-                   GetDiffs
+                   Diffs
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

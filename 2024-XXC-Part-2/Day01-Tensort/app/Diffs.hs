@@ -1,4 +1,4 @@
-module GetDiffs
+module Diffs
   ( getDiffs,
   )
 where
