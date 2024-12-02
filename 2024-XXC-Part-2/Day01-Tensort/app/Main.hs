@@ -1,6 +1,7 @@
 module Main where
 
 import Data.Tensort (tensort)
+import GetDiffs (getDiffs)
 import ParseInput (parseInput)
 
 main :: IO ()
@@ -12,3 +13,5 @@ main = do
   let sortedR = tensort listR
   print sortedL
   print sortedR
+  let diffs = getDiffs sortedL sortedR
+  print diffs
