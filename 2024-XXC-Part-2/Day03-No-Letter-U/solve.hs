@@ -9,8 +9,6 @@ main :: IO ()
 main = do
   -- programMemory <- readFile "challenge.dat"
   programMemory <- readFile "test.dat"
-  -- This may match "mtl(X,Y)" and "mvl(X,Y)" however I don't have those
-  --    patterns in my programMemory. This may be solved with a second regex.
   let matches = getInsts programMemory
   print "Part 1: Adding the answers together yields: "
   print (calcProds matches)
@@ -22,6 +20,8 @@ main = do
   print "Part 2: Adding the enabled answers together yields: "
   print (calcProds enabledMatches)
 
+-- This may match "mtl(X,Y)" and "mvl(X,Y)" however I don't have those
+-- patterns in my programMemory. This may be solved with a second regex.
 getInsts :: String -> [String]
 getInsts s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
 
