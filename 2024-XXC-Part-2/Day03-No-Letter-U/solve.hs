@@ -15,6 +15,10 @@ main = do
   let total = calcProds matches
   print "Part 1: Adding the answers together yields: "
   print total
+  let (start, _, _) = programMemory =~ "don't[(][)]" :: (String, String, String)
+  print start
+  let middle = getAllTextMatches (programMemory =~ "do[(][)].+don't[(][)]") :: [String]
+  print middle
 
 calcProds :: [String] -> Int
 calcProds = acc 0
