@@ -11,15 +11,17 @@ main = do
   programMemory <- readFile "test.dat"
   -- This may match "mtl(X,Y)" and "mvl(X,Y)" however I don't have those
   --    patterns in my programMemory. This may be solved with a second regex.
-  let matches = getAllTextMatches (programMemory =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
-  let total = calcProds matches
+  let matches = getInsts programMemory
   print "Part 1: Adding the answers together yields: "
-  print total
+  print (calcProds matches)
   let dontSplits = splitOn "don't()" programMemory
   let start = head dontSplits
   let doBlocks = map getDoBlock (tail dontSplits)
   let doBlocksString = concat (start : doBlocks)
-  print doBlocksString
+  print "Part 2: Adding the enabled answers together yields: "
+
+getInsts :: String -> [String]
+getInsts s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
 
 calcProds :: [String] -> Int
 calcProds = acc 0
