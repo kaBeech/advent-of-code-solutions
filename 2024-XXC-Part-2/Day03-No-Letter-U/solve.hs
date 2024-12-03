@@ -20,8 +20,8 @@ main = do
   let dontSplits = splitOn "don't()" programMemory
   let start = head dontSplits
   let doBlocks = map getDoBlock (tail dontSplits)
-  print start
-  print dontSplits
+  let doBlocksString = concat (start : doBlocks)
+  print doBlocksString
 
 calcProds :: [String] -> Int
 calcProds = acc 0
