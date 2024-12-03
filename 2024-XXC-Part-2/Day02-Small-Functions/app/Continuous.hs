@@ -29,5 +29,4 @@ isContinuous :: [Int] -> Bool
 isContinuous [] = True
 isContinuous [_] = True
 isContinuous [x, y] = x /= y
-isContinuous [x, y, z] = (y - x) * (z - y) > 0
 isContinuous (x : y : z : xs) = (y - x) * (z - y) > 0 && isContinuous (y : z : xs)
