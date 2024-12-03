@@ -8,9 +8,7 @@ import Text.Regex.TDFA.Text ()
 main :: IO ()
 main = do
   -- programMemory <- readFile "challenge.dat"
-  rawProgramMemory <- readFile "test.dat"
-  -- Concatenate lines in the in file
-  let programMemory = filter (/= '\n') rawProgramMemory
+  programMemory <- readFile "test.dat"
   -- This may match "mtl(X,Y)" and "mvl(X,Y)" however I don't have those
   --    patterns in my programMemory. This may be solved with a second regex.
   let matches = getAllTextMatches (programMemory =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
