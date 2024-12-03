@@ -21,7 +21,10 @@ main = do
   print (calcProds enabledMatches)
 
 -- This may match "mtl(X,Y)" and "mvl(X,Y)" however I don't have those
--- patterns in my programMemory. This may be solved with a second regex.
+-- patterns in my programMemory. This may be solved with another regex, or with
+-- lookaheads if those are supported (I didn't figure out how do to them in
+-- tdfa but something like /m(?=[^t])(?=[^v])[t-v]l/ should work instead of
+-- /m[t-v]l/)
 getInsts :: String -> [String]
 getInsts s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
 
