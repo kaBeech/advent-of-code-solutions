@@ -1,5 +1,7 @@
 -- To make this work with no modvles,
--- do `cabal install --lib regex-tdfa --package-env .` in this directory
+-- do `cabal install --lib regex-tdfa split --package-env .` in this directory
+
+import Data.List.Split
 import Text.Regex.TDFA
 import Text.Regex.TDFA.Text ()
 
@@ -15,10 +17,11 @@ main = do
   let total = calcProds matches
   print "Part 1: Adding the answers together yields: "
   print total
-  let (start, _, _) = programMemory =~ "don't[(][)]" :: (String, String, String)
+  let dontSplits = splitOn "don't()" programMemory
+  let start = head dontSplits
+  let doBlocks = map getDoBlock (tail dontSplits)
   print start
-  let middle = getAllTextMatches (programMemory =~ "do[(][)].+don't[(][)]") :: [String]
-  print middle
+  print dontSplits
 
 calcProds :: [String] -> Int
 calcProds = acc 0
@@ -32,3 +35,8 @@ calcProd inst = do
   let x = read (inst =~ "[0-9]{1,3}" :: String) :: Int
   let y = read (drop 1 (inst =~ ",[0-9]{1,3}" :: String)) :: Int
   x * y
+
+getDoBlock :: String -> String
+getDoBlock s = do
+  let (_, _, doBlock) = ((s =~ "do[(][)]") :: (String, String, String))
+  doBlock
