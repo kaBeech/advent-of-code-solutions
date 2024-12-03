@@ -18,7 +18,9 @@ main = do
   let start = head dontSplits
   let doBlocks = map getDoBlock (tail dontSplits)
   let doBlocksString = concat (start : doBlocks)
+  let enabledMatches = getInsts doBlocksString
   print "Part 2: Adding the enabled answers together yields: "
+  print (calcProds enabledMatches)
 
 getInsts :: String -> [String]
 getInsts s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
