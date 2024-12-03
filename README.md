@@ -8,6 +8,12 @@ If you're interested, [I also built a mod to add a bonus layer of randomized cha
 
 Note that these years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
 
+### 2024-XXC-Part-2
+
+This year I'm using my [Xtreme Xmas Code](https://www.xtremexmascode.com/) mod again!
+
+I'll probably use Haskell for my base language for most of these days.
+
 ### 2023-Xtreme-Xmas-Code-Maiden-Voyage
 
 This year I'm using my [Xtreme Xmas Code](https://www.xtremexmascode.com/) mod for the first (official) time!
