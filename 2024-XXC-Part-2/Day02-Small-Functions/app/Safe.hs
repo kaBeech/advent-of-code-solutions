@@ -1,5 +1,6 @@
 module Safe
   ( isSafe,
+    isSemiSafe,
   )
 where
 
@@ -24,3 +25,37 @@ import Gradual (isGradual)
 --   False
 isSafe :: [Int] -> Bool
 isSafe xs = isGradual xs && isContinuous xs
+
+-- | Same as isSafe but returns True if the list would be safe if one element
+--   were removed. Takes an extra Boolean argument to determine whether the
+--   element removal rule has been used.
+
+-- | ==== __Examples__
+--  >>> isSemiSafe [1, 3, 2, 4, 5] False
+--  True
+--
+--  >>> isSemiSafe [8, 6, 4, 4, 1] False
+--  True
+--
+--  >>> isSemiSafe [1, 2, 7, 8, 9] False
+--  False
+--
+--  >>> isSemiSafe [9, 7, 6, 2, 1] False
+--  False
+--
+--  >>> isSemiSafe [1, 3, 2, 4, 5] True
+--  False
+-- isSemiSafe :: [Int] -> Bool -> Bool
+-- isSemiSafe xs elemRemoved = isSemiGradual xs elemRemoved && isSemiContinuous xs elemRemoved
+isSemiSafe :: [Int] -> Bool
+isSemiSafe [] = True
+isSemiSafe [_] = True
+isSemiSafe [_, _] = True
+isSemiSafe [x, y, z] = isSafe [x, y] || isSafe [y, z] || isSafe [x, z]
+isSemiSafe (w : x : y : z : xs) = 
+          (isSafe [w, x, y, z]
+              && isSemiSafe (x : y : z : xs))
+          || isSafe (x : y : z : xs)
+          || isSafe (w : y : z : xs)
+          || isSafe (w : x : z : xs)
+          || isSafe (w : x : y : xs)
