@@ -20,7 +20,7 @@ import Types (WordMap)
 countWords :: String -> WordMap -> Int
 -- For each letter in the WordMap, check if the word appears starting from that
 -- letter.
-countWords word wordMap = sum [countWordsFromLetter word wordMap (x, y) | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
+countWords word wordMap = sum [countWordsFromLetter word (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
 
 -- | Takes a word, a starting XYCoord, and a WordMap, and returns the number of
 --   times the word appears in the WordMap starting from the given XYCoord.
