@@ -1,4 +1,4 @@
-module Search (countWords) where
+module Search (countWords, countXWords) where
 
 import Types (WordMap)
 
@@ -21,6 +21,21 @@ countWords :: String -> WordMap -> Int
 -- For each letter in the WordMap, check if the word appears starting from that
 -- letter.
 countWords word wordMap = sum [countWordsFromLetter word (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
+
+-- | Takes a word and a WordMap and returns the number of times the word
+--   appears in the WordMap in an "X" shape.
+
+-- | ==== __Examples__
+--   "MXS\nXAX\nMXS"
+--   >>> countXWords "MAS" [[('M',(0,0)),('X',(1,0)),('S',(2,0))],[('X',(0,1)),('A',(1,1)),('X',(2,1))],[('M',(0,2)),('X',(1,2)),('S',(2,2))]
+--   1
+--
+--   >>> countWords "XMAS" [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('A',(0,2)),('M',(1,2)),('S',(2,2)),('M',(3,2))],[('S',(0,3)),('M',(1,3)),('M',(2,3)),('S',(3,3))]]
+--   0
+countXWords :: String -> WordMap -> Int
+countXWords word wordMap =
+  let (semiword1, semiword2) = getSemiwords word
+   in sum [countXWordsFromLetter semiword1 semiword2 (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
 
 -- | Takes a word, a starting XYCoord, and a WordMap, and returns the number of
 --   times the word appears in the WordMap starting from the given XYCoord.
