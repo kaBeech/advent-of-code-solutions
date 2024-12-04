@@ -1,4 +1,4 @@
-module Solve (solvePart1) where
+module Solve (solvePart1, solvePart2) where
 
 import Parse (parseInput)
 import Search (countWords, countXWords)
