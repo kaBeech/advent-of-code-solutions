@@ -20,7 +20,12 @@ import Types (WordMap)
 countWords :: String -> WordMap -> Int
 -- For each letter in the WordMap, check if the word appears starting from that
 -- letter.
-countWords word wordMap = sum [countWordsFromLetter word (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
+countWords word wordMap =
+  sum
+    [ countWordsFromLetter word (x, y) wordMap
+      | x <- [0 .. length (head wordMap) - 1],
+        y <- [0 .. length wordMap - 1]
+    ]
 
 -- | Takes a word and a WordMap and returns the number of times the word
 --   appears in the WordMap in an "X" shape.
@@ -35,7 +40,11 @@ countWords word wordMap = sum [countWordsFromLetter word (x, y) wordMap | x <- [
 countXWords :: String -> WordMap -> Int
 countXWords word wordMap =
   let (semiword1, semiword2) = getSemiwords word
-   in sum [countXWordsFromLetter semiword1 semiword2 (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
+   in sum
+        [ countXWordsFromLetter semiword1 semiword2 (x, y) wordMap
+          | x <- [0 .. length (head wordMap) - 1],
+            y <- [0 .. length wordMap - 1]
+        ]
 
 -- | Takes a word and returns the two semiwords that make up the word.
 --
@@ -62,9 +71,9 @@ getSemiwords word =
   if even (length word)
     then error "Word length must be odd"
     else
-      let (forwardSemiword1, semiword2) = splitAt ((length word `div` 2) + 1) word
-          semiword1 = reverse forwardSemiword1
-       in (semiword1, semiword2)
+      let (semiword1, semiword2) = splitAt ((length word `div` 2) + 1) word
+          semiword1' = reverse semiword1
+       in (semiword1', semiword2)
 
 -- | Takes a word, a starting XYCoord, and a WordMap, and returns the number of
 --   times the word appears in the WordMap starting from the given XYCoord.
@@ -89,7 +98,11 @@ countWordsFromLetter word (x, y) wordMap =
   let firstLetterCorrect = checkLetter word (x, y) wordMap
       word' = drop 1 word
    in if firstLetterCorrect
-        then sum [checkWord word' (x, y) direction wordMap | direction <- [0 .. 7]]
+        then
+          sum
+            [ checkWord word' (x, y) direction wordMap
+              | direction <- [0 .. 7]
+            ]
         else 0
 
 -- | Takes two semiwords, a starting XYCoord, and a WordMap, and returns the
@@ -107,7 +120,13 @@ countXWordsFromLetter semiword1 semiword2 (x, y) wordMap =
   let firstLetterCorrect = checkLetter semiword1 (x, y) wordMap
       semiword1' = drop 1 semiword1
    in if firstLetterCorrect
-        then (sum [checkSemiwords semiword1' semiword2 (x, y) direction wordMap | direction <- [1, 3, 5, 7]]) `div` 2
+        then
+          ( sum
+              [ checkSemiwords semiword1' semiword2 (x, y) direction wordMap
+                | direction <- [1, 3, 5, 7]
+              ]
+          )
+            `div` 2
         else 0
 
 -- | Takes a word, an XYCoord, and a WordMap, and returns True if the first
