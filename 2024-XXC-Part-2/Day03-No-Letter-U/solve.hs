@@ -9,17 +9,17 @@ main :: IO ()
 main = do
   -- programMemory <- readFile "challenge.dat"
   programMemory <- readFile "test.dat"
-  let matches = getInstns programMemory
+  let instns = getInstns programMemory
   print "Part 1: Adding the answers together yields: "
-  print (addProds matches)
+  print (addProds instns)
   let dontSplits = splitOn "don't()" programMemory
   let start = head dontSplits -- The program starts enabled
   let dontBlocks = tail dontSplits -- `don't()` commands disable instns
   let doBlocks = map getDoBlock dontBlocks -- `do()` commands re-enable instns
   let instnString = concat (start : doBlocks)
-  let enabledMatches = getInstns instnString
+  let enabledInstns = getInstns instnString
   print "Part 2: Adding the enabled answers together yields: "
-  print (addProds enabledMatches)
+  print (addProds enabledInstns)
 
 -- | Get matches of "mxl(X,Y)" where 'x' is the letter that cannot be named in
 --   this file and 'X' and 'Y' are both 1- to 3-digit Integers.
