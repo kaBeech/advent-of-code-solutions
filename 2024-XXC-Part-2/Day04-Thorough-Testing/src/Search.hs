@@ -62,7 +62,10 @@ countWordsFromLetter word (x, y) wordMap =
 --   >>> checkLetter "XMAS" (1, 0) [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('A',(0,2)),('M',(1,2)),('S',(2,2)),('M',(3,2))],[('S',(0,3)),('M',(1,3)),('M',(2,3)),('S',(3,3)]]
 --   False
 checkLetter :: String -> (Int, Int) -> WordMap -> Bool
-checkLetter word (x, y) wordMap = fst ((wordMap !! y) !! x) == head word
+checkLetter word (x, y) wordMap =
+  let inRange = (x >= 0 && y >= 0 && x < length (head wordMap) && y < length wordMap)
+      letterMatches = (fst ((wordMap !! y) !! x) == head word)
+   in inRange && letterMatches
 
 -- | Takes a word, an XYCoord, a direction, and a WordMap, and returns 1 if the
 --   word appears in the WordMap starting from the given XYCoord and following
@@ -94,8 +97,6 @@ checkWord word currentCoord direction wordMap =
         6 -> (x, y - 1)
         7 -> (x + 1, y - 1)
         _ -> error "Invalid direction"
-      nextLetterInRange = (x >= 0 && y >= 0 && x < length (head wordMap) && y < length wordMap)
-      nextLetterCorrect = (nextLetterInRange && checkLetter word nextCoord wordMap)
-   in if nextLetterCorrect
+   in if checkLetter word nextCoord wordMap
         then checkWord (drop 1 word) nextCoord direction wordMap
         else 0
