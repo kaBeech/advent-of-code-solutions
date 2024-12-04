@@ -1,7 +1,7 @@
 module Solve (solvePart1) where
 
 import Parse (parseInput)
-import Search (countWords)
+import Search (countWords, countXWords)
 
 -- | Takes a string representation of a WordMap (including newLines) and
 --   returns the number of times the word "XMAS" appears in it, Word Search
@@ -26,3 +26,17 @@ solvePart1 :: String -> Int
 solvePart1 input =
   let wordMap = parseInput input
    in countWords "XMAS" wordMap
+
+-- | Takes a string representation of a WordMap (including newLines) and
+--   returns the number of times the word "MAS" appears in it in an "X" shape.
+
+-- | ==== __Examples__
+--   >>> solvePart2 "MXS\nXAX\nMXS"
+--   1
+--
+--   >>> solvePart2 "XMAS\nMMMM\nAMAM\nSMMS"
+--   0
+solvePart2 :: String -> Int
+solvePart2 input =
+  let wordMap = parseInput input
+   in countXWords "MAS" wordMap
