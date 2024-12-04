@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Solve (solvePart1)
+import Test.TestCheck (check)
 
 main :: IO ()
 main = do
@@ -9,8 +10,4 @@ main = do
    in if t1 then putStrLn "All tests passed!" else putStrLn "Some tests failed!"
 
 testPart1Solution :: String -> Bool
-testPart1Solution input =
-  let result = solvePart1 input
-   in ( (result == 18)
-          || error ("Testing solvePart1 failed: Expected 18, but got " ++ show result)
-      )
+testPart1Solution input = check "solvePart1" 18 (solvePart1 input) input
