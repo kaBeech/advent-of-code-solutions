@@ -31,7 +31,7 @@ main = do
 getInstns :: String -> [String]
 getInstns s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
 
--- | Get the total off adding the prods from all instns
+-- | Get the total of adding the prods from all instns
 addProds :: [String] -> Int
 addProds = acc 0
   where
