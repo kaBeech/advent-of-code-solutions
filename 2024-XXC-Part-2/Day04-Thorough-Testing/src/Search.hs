@@ -92,6 +92,24 @@ countWordsFromLetter word (x, y) wordMap =
         then sum [checkWord word' (x, y) direction wordMap | direction <- [0 .. 7]]
         else 0
 
+-- | Takes two semiwords, a starting XYCoord, and a WordMap, and returns the
+--   number of times the word appears in the WordMap in an 'X' pattern starting
+--   from the given XYCoord.
+
+-- | ==== __Examples__
+--   >>> countXWordsFromLetter "AM" "S" (0, 0) [[('M',(0,0)),('X',(1,0)),('S',(2,0))],[('X',(0,1)),('A',(1,1)),('X',(2,1))],[('M',(0,2)),('X',(1,2)),('S',(2,2))]
+--   1
+--
+--   >>> countXWordsFromLetter "AM" "S" (1, 0) [[('M',(0,0)),('X',(1,0)),('S',(2,0))],[('X',(0,1)),('A',(1,1)),('X',(2,1))],[('M',(0,2)),('X',(1,2)),('S',(2,2))]
+--   0
+countXWordsFromLetter :: String -> String -> (Int, Int) -> WordMap -> Int
+countXWordsFromLetter semiword1 semiword2 (x, y) wordMap =
+  let firstLetterCorrect = checkLetter semiword1 (x, y) wordMap
+      semiword1' = drop 1 semiword1
+   in if firstLetterCorrect
+        then (sum [checkSemiwords semiword1' semiword2 (x, y) direction wordMap | direction <- [1, 3, 5, 7]]) `div` 2
+        else 0
+
 -- | Takes a word, an XYCoord, and a WordMap, and returns True if the first
 --   letter of the word appears in the WordMap at the given XYCoord. Otherwise,
 --   returns False.
