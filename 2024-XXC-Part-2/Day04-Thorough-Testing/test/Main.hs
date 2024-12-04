@@ -1,13 +1,9 @@
 module Main (main) where
 
-import Solve (solvePart1)
-import Test.TestCheck (check)
+import Test.SolveSpec (testSolve)
 
 main :: IO ()
 main = do
   input <- readFile "test_input.dat"
-  let t1 = testPart1Solution input
-   in if t1 then putStrLn "All tests passed!" else putStrLn "Some tests failed!"
-
-testPart1Solution :: String -> Bool
-testPart1Solution input = check "solvePart1" 18 (solvePart1 input) input
+  let solvePasses = testSolve input
+   in if and [solvePasses] then putStrLn "All tests passed! Make sure to run DocTest as well!" else putStrLn "Some tests failed!"
