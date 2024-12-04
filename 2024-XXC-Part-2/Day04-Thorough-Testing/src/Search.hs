@@ -42,8 +42,11 @@ countWords word wordMap = sum [countWordsFromLetter word wordMap (x, y) | x <- [
 --   1
 countWordsFromLetter :: String -> (Int, Int) -> WordMap -> Int
 countWordsFromLetter word (x, y) wordMap =
-  let firstLetterCorrect = fst ((wordMap !! y) !! x) == head word
+  let firstLetterCorrect = checkLetter word (x, y) wordMap
       word' = drop 1 word
    in if firstLetterCorrect
-        then sum [checkWord word' 1 (x, y) direction wordMap | direction <- [0 .. 7]]
+        then sum [checkWord word' (x, y) direction wordMap | direction <- [0 .. 7]]
         else 0
+
+checkLetter :: String -> (Int, Int) -> WordMap -> Bool
+checkLetter word (x, y) wordMap = fst ((wordMap !! y) !! x) == head word
