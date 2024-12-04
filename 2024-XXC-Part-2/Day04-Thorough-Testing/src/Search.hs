@@ -64,6 +64,22 @@ countWordsFromLetter word (x, y) wordMap =
 checkLetter :: String -> (Int, Int) -> WordMap -> Bool
 checkLetter word (x, y) wordMap = fst ((wordMap !! y) !! x) == head word
 
+-- | Takes a word, an XYCoord, a direction, and a WordMap, and returns 1 if the
+--   word appears in the WordMap starting from the given XYCoord and following
+--   the given direction. Otherwise, returns 0.
+
+-- | ==== __Examples__
+--   >>> checkWord "XMAS" (0, 0) 0 [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('M',(0,2)),('M',(1,2)),('M',(2,2)),('M',(3,2))],[('M',(0,3)),('M',(1,3)),('M',(2,3)),('M',(3,3)]]
+--   1
+--
+--   >>> checkWord "XMAS" (0, 0) 1 [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('M',(0,2)),('M',(1,2)),('M',(2,2)),('M',(3,2))],[('M',(0,3)),('M',(1,3)),('M',(2,3)),('M',(3,3)]]
+--   0
+--
+--   >>> checkWord "MAS" (1, 0) 0 [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('M',(0,2)),('M',(1,2)),('M',(2,2)),('M',(3,2))],[('M',(0,3)),('M',(1,3)),('M',(2,3)),('M',(3,3)]]
+--   1
+--
+--   >>> checkWord "" (0, 0) 0 [[('X',(0,0)),('M',(1,0)),('A',(2,0)),('S',(3,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('M',(3,1))],[('M',(0,2)),('M',(1,2)),('M',(2,2)),('M',(3,2))],[('M',(0,3)),('M',(1,3)),('M',(2,3)),('M',(3,3)]]
+--   1
 checkWord :: String -> (Int, Int) -> Int -> WordMap -> Int
 checkWord [] _ _ _ = 1
 checkWord word currentCoord direction wordMap =
