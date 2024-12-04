@@ -162,3 +162,21 @@ checkWord word currentCoord direction wordMap =
    in if checkLetter word nextCoord wordMap
         then checkWord (drop 1 word) nextCoord direction wordMap
         else 0
+
+-- | Takes two semiwords, a starting XYCoord, a direction, and a WordMap, and
+--   returns 1 if the word appears in the WordMap starting from the given
+--   XYCoord and following the given direction for the first semiword.
+--   Otherwise, returns 0.
+
+-- | ==== __Examples__
+--   >>> checkSemiwords "M" "S" (1, 1) 3 [[('M',(0,0)),('X',(1,0)),('S',(2,0))],[('X',(0,1)),('A',(1,1)),('X',(2,1))],[('M',(0,2)),('X',(1,2)),('S',(2,2))]
+--   1
+--
+--   >>> checkSemiwords "M" "S" (1, 1) 1 [[('M',(0,0)),('X',(1,0)),('S',(2,0))],[('X',(0,1)),('A',(1,1)),('X',(2,1))],[('M',(0,2)),('X',(1,2)),('S',(2,2))]
+--   0
+checkSemiwords :: String -> String -> (Int, Int) -> Int -> WordMap -> Int
+checkSemiwords semiword1 semiword2 currentCoord direction wordMap =
+  let crossDirection = (direction + 4) `mod` 8
+      semiword1Found = checkWord semiword1 currentCoord direction wordMap
+      semiword2Found = checkWord semiword2 currentCoord crossDirection wordMap
+   in semiword1Found * semiword2Found
