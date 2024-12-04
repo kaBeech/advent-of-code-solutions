@@ -12,6 +12,7 @@ main = do
   let instns = getInstns programMemory
   print "Part 1: Adding the answers together yields: "
   print (addProds instns)
+  -- tdfa doesn't provide doesn't provide a find-and-replace tool, so we do this
   let dontSplits = splitOn "don't()" programMemory
   let start = head dontSplits -- The program starts enabled
   let dontBlocks = tail dontSplits -- `don't()` commands disable instns
