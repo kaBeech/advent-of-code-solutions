@@ -37,6 +37,35 @@ countXWords word wordMap =
   let (semiword1, semiword2) = getSemiwords word
    in sum [countXWordsFromLetter semiword1 semiword2 (x, y) wordMap | x <- [0 .. length (head wordMap) - 1], y <- [0 .. length wordMap - 1]]
 
+-- | Takes a word and returns the two semiwords that make up the word.
+--
+--   Semiwords are the two halves of a word, with the first half reversed. The
+--   first semiword starts with the middle letter.
+--
+--   In order to be reducable into semiwords, the word must contain an odd
+--   number of letters.
+
+-- | ==== __Examples__
+--  >>> getSemiwords "MAS"
+--  ("AM", "S")
+--
+--  >>> getSemiwords "X"
+--  ("X", "")
+--
+--  >>> getSemiwords "XMAS"
+--  error "Word length must be odd"
+--
+--  >>> getSemiwords ""
+--  error "Word length must be odd"
+getSemiwords :: String -> (String, String)
+getSemiwords word =
+  if even (length word)
+    then error "Word length must be odd"
+    else
+      let (forwardSemiword1, semiword2) = splitAt ((length word `div` 2) + 1) word
+          semiword1 = reverse forwardSemiword1
+       in (semiword1, semiword2)
+
 -- | Takes a word, a starting XYCoord, and a WordMap, and returns the number of
 --   times the word appears in the WordMap starting from the given XYCoord.
 
