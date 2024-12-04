@@ -41,3 +41,9 @@ countWords word wordMap = sum [countWordsFromLetter word wordMap (x, y) | x <- [
 --   >>> countWords "XMAS" [[('M',(0,0)),('M',(1,0)),('M',(2,0)),('M',(3,0)),('M',(4,0))],[('M',(0,1)),('M',(1,1)),('M',(2,1)),('S',(3,1)),('X',(4,1))],[('M',(0,2)),('M',(1,2)),('A',(2,2)),('M',(3,2)),('M',(4,2))],[('M',(0,3)),('M',(1,3)),('A',(2,3)),('A',(M,3)),('M',(4,3))],[('X',(0,4)),('S',(1,4)),('S',(2,4)),('M',(3,4)),('M',(4,4))]] (0, 4)
 --   1
 countWordsFromLetter :: String -> (Int, Int) -> WordMap -> Int
+countWordsFromLetter word (x, y) wordMap =
+  let firstLetterCorrect = fst ((wordMap !! y) !! x) == head word
+      word' = drop 1 word
+   in if firstLetterCorrect
+        then sum [checkWord word' 1 (x, y) direction wordMap | direction <- [0 .. 7]]
+        else 0
