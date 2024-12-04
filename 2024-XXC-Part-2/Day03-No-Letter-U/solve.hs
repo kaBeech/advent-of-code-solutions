@@ -11,7 +11,7 @@ main = do
   programMemory <- readFile "test.dat"
   let matches = getInstns programMemory
   print "Part 1: Adding the answers together yields: "
-  print (calcProds matches)
+  print (addProds matches)
   let dontSplits = splitOn "don't()" programMemory
   let start = head dontSplits -- The program starts enabled
   let dontBlocks = tail dontSplits -- `don't()` commands disable instns
@@ -19,7 +19,7 @@ main = do
   let instnString = concat (start : doBlocks)
   let enabledMatches = getInstns instnString
   print "Part 2: Adding the enabled answers together yields: "
-  print (calcProds enabledMatches)
+  print (addProds enabledMatches)
 
 -- | Get matches of "mxl(X,Y)" where 'x' is the letter that cannot be named in
 --   this file and 'X' and 'Y' are both 1- to 3-digit Integers.
@@ -32,8 +32,8 @@ getInstns :: String -> [String]
 getInstns s = getAllTextMatches (s =~ "m[t-v]l[(][0-9]{1,3},[0-9]{1,3}[)]") :: [String]
 
 -- | Get the total off adding the prods from all instns
-calcProds :: [String] -> Int
-calcProds = acc 0
+addProds :: [String] -> Int
+addProds = acc 0
   where
     acc :: Int -> [String] -> Int
     acc total [] = total
