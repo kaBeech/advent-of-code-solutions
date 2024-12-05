@@ -19,3 +19,33 @@ export const snafuToDecimal = (snafu: string): number => {
         return decimal;
     }
 }
+
+export const decimalToSNAFU = (decimal: number): string => {
+    let snafu = "";
+    let exponent = Math.floor(Math.log(decimal) / Math.log(5))
+    while (decimal > 0) {
+        let digit = decimal % (5 ** exponent)
+        switch (digit) {
+            case 0:
+                snafu = snafu + "0"
+                break;
+            case 1:
+                snafu = snafu + "1"
+                break;
+            case 2:
+                snafu = snafu + "2"
+                break;
+            case 3:
+                snafu = carry(snafu, 1)
+                break;
+            case 4:
+                snafu = carry(snafu, 2)
+                break;
+            default:
+                throw new Error("Unexpected digit: " + digit)
+        }
+        decimal = decimal - digit * (5 ** exponent)
+        exponent--
+    }
+    return snafu;
+}
