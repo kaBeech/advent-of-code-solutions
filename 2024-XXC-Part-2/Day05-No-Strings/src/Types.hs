@@ -5,6 +5,6 @@ type Rule = (Int, Int)
 
 type BeforeGroup = [Rule]
 
-type Trie = [BeforeGroup]
+type RulesDict = [(Int, [Int])]
 
 type Update = [Int]
