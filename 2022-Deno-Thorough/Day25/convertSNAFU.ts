@@ -49,3 +49,28 @@ export const decimalToSNAFU = (decimal: number): string => {
     }
     return snafu;
 }
+
+const carry = (snafu: string, digit: number): string => {
+    if (digit !== 1 && digit !== 2) {
+        throw new Error("Expected digit amount of 1 or 2; got: " + digit)
+    }
+    if (snafu.length === 0) {
+        digit === 1 ? "=" : "-"
+    }
+    const lastDigit = snafu.slice(-1)
+    const allButLastDigit = snafu.slice(0, -1)
+    switch (lastDigit) {
+        case "=":
+            return digit === 1 ? allButLastDigit + "-" : allButLastDigit + "0"
+        case "-":
+            return digit === 1 ? allButLastDigit + "0" : allButLastDigit + "1"
+        case "0":
+            return digit === 1 ? allButLastDigit + "1" : allButLastDigit + "2"
+        case "1":
+            if (digit === 1) { return allButLastDigit + "2" } else { return carry(allButLastDigit, 1) + "=" }
+        case "2":
+            return digit === 1 ? carry(allButLastDigit, 1) + "=" : carry(allButLastDigit, 2) + "-"
+        default:
+            throw new Error("Unexpected digit: " + lastDigit)
+    }
+}
