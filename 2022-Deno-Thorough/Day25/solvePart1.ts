@@ -1,13 +1,18 @@
 
 import { convertMultiLineFileToArray } from "../../tools/conversionFunctions/convertFileToArray.ts";
+import { snafuToDecimal, decimalToSNAFU } from "./convertSNAFU.ts"
 
 const solvePart1 = async (challengeInput: string): Promise<number> => {
-    let indexSum = 0;
-    const packetPairArray = await convertMultiLineFileToArray(
+    let sum = 0;
+    const fuelReqs = await convertMultiLineFileToArray(
         challengeInput,
     ) as string[];
 
-    return indexSum + packetPairArray.length;
+    fuelReqs.forEach((fuelReqSNAFU) => {
+        sum += snafuToDecimal(fuelReqSNAFU);
+    });
+
+    return decimalToSNAFU(sum);
 };
 
 export { solvePart1 };
