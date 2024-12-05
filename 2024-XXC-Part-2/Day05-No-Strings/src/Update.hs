@@ -18,19 +18,20 @@ sortUpdate :: RulesDict -> Update -> Update
 sortUpdate = acc []
   where
     acc :: [Int] -> RulesDict -> Update -> Update
-    acc acced rulesDict [] = if checkIfUpdateIsOrdered acced
-                               then acced
-                               else sortUpdate acced
-    acc acced rulesDict (page : pages) = case lookup page rulesDict of
-      Nothing -> acc (page : acced) rulesDict pages
+    acc sorted rulesDict [] =
+      if checkIfUpdateIsOrdered rulesDict sorted
+        then sorted
+        else sortUpdate rulesDict sorted
+    acc sorted rulesDict (page : unsorted) = case lookup page rulesDict of
+      Nothing -> acc (page : sorted) rulesDict unsorted
       Just befores ->
-        let unsortedPagesBefore = filter (`elem` befores) pages
-            unsortedPagesOther = filter (not . (`elem` befores)) pages
-            sortedPagesBefore = filter (`elem` befores) acced
-            sortedPagesOther = filter (not . (`elem` befores)) acced
+        let unsortedPagesBefore = filter (`elem` befores) unsorted
+            unsortedPagesOther = filter (not . (`elem` befores)) unsorted
+            sortedPagesBefore = filter (`elem` befores) sorted
+            sortedPagesOther = filter (not . (`elem` befores)) sorted
          in if null unsortedPagesBefore
-              then acc (sortedPagesBefore ++ [page] ++ sortedPagesOther) rulesDict pages
-              else acc acced rulesDict (unsortedPagesBefore ++ [page] ++ unsortedPagesOther)
+              then acc (sortedPagesBefore ++ [page] ++ sortedPagesOther) rulesDict unsorted
+              else acc sorted rulesDict (unsortedPagesBefore ++ [page] ++ unsortedPagesOther)
 
 sumMiddlePages :: [Update] -> Int
 sumMiddlePages = sum . map getMiddlePage
