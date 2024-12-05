@@ -7,9 +7,9 @@ getOrderedUpdates rulesDict = filter (checkIfUpdateIsOrdered rulesDict)
 
 checkIfUpdateIsOrdered :: RulesDict -> Update -> Bool
 checkIfUpdateIsOrdered _ [] = True
-checkIfUpdateIsOrdered rulesDict (x : xs) = case lookup x rulesDict of
-  Nothing -> checkIfUpdateIsOrdered rulesDict xs
-  Just befores -> not (any (`elem` befores) xs) && checkIfUpdateIsOrdered rulesDict xs
+checkIfUpdateIsOrdered rulesDict (update : updates) = case lookup update rulesDict of
+  Nothing -> checkIfUpdateIsOrdered rulesDict updates
+  Just befores -> not (any (`elem` befores) updates) && checkIfUpdateIsOrdered rulesDict updates
 
 sumMiddlePages :: [Update] -> Int
 sumMiddlePages = sum . map getMiddlePage
