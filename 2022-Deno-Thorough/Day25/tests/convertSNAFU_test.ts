@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.167.0/testing/asserts.ts";
-import { snafuToDecimal, decimalToSNAFU } from "./convertSNAFU.ts";
+import { snafuToDecimal, decimalToSNAFU } from "../convertSNAFU.ts";
 
 //   Decimal          SNAFU
 //         1              1

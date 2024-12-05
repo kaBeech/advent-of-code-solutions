@@ -16,8 +16,8 @@ export const snafuToDecimal = (snafu: string): number => {
         }
         exponent++
         snafu = snafu.slice(0, -1)
-        return decimal;
     }
+    return decimal;
 }
 
 export const decimalToSNAFU = (decimal: number): string => {
