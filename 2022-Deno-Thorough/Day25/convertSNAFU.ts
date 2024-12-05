@@ -23,8 +23,8 @@ export const snafuToDecimal = (snafu: string): number => {
 export const decimalToSNAFU = (decimal: number): string => {
     let snafu = "";
     let exponent = Math.floor(Math.log(decimal) / Math.log(5))
-    while (decimal > 0) {
-        let digit = decimal % (5 ** exponent)
+    while (exponent > 0) {
+        let digit = Math.floor(decimal / (5 ** exponent))
         switch (digit) {
             case 0:
                 snafu = snafu + "0"
@@ -36,16 +36,38 @@ export const decimalToSNAFU = (decimal: number): string => {
                 snafu = snafu + "2"
                 break;
             case 3:
-                snafu = carry(snafu, 1)
+                snafu = carry(snafu, 1) + "="
                 break;
             case 4:
-                snafu = carry(snafu, 2)
+                snafu = carry(snafu, 1) + "-"
                 break;
             default:
                 throw new Error("Unexpected digit: " + digit)
         }
         decimal = decimal - digit * (5 ** exponent)
         exponent--
+    }
+    switch (decimal) {
+        case 5:
+            snafu = carry(snafu, 1) + "0"
+            break;
+        case 4:
+            snafu = carry(snafu, 1) + "-"
+            break;
+        case 3:
+            snafu = carry(snafu, 1) + "="
+            break;
+        case 2:
+            snafu = snafu + "2"
+            break;
+        case 1:
+            snafu = snafu + "1"
+            break;
+        case 0:
+            snafu = snafu + "0"
+            break;
+        default:
+            break;
     }
     return snafu;
 }
@@ -54,8 +76,8 @@ const carry = (snafu: string, digit: number): string => {
     if (digit !== 1 && digit !== 2) {
         throw new Error("Expected digit amount of 1 or 2; got: " + digit)
     }
-    if (snafu.length === 0) {
-        digit === 1 ? "=" : "-"
+    if (snafu === "") {
+        return "1"
     }
     const lastDigit = snafu.slice(-1)
     const allButLastDigit = snafu.slice(0, -1)
