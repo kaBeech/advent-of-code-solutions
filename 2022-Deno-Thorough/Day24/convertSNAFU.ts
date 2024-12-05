@@ -36,10 +36,10 @@ export const decimalToSNAFU = (decimal: number): string => {
                 snafu = snafu + "2"
                 break;
             case 3:
-                snafu = carry(snafu, 1) + "="
+                snafu = carry(snafu) + "="
                 break;
             case 4:
-                snafu = carry(snafu, 1) + "-"
+                snafu = carry(snafu) + "-"
                 break;
             default:
                 throw new Error("Unexpected digit: " + digit)
@@ -49,13 +49,13 @@ export const decimalToSNAFU = (decimal: number): string => {
     }
     switch (decimal) {
         case 5:
-            snafu = carry(snafu, 1) + "0"
+            snafu = carry(snafu) + "0"
             break;
         case 4:
-            snafu = carry(snafu, 1) + "-"
+            snafu = carry(snafu) + "-"
             break;
         case 3:
-            snafu = carry(snafu, 1) + "="
+            snafu = carry(snafu) + "="
             break;
         case 2:
             snafu = snafu + "2"
@@ -72,10 +72,7 @@ export const decimalToSNAFU = (decimal: number): string => {
     return snafu;
 }
 
-const carry = (snafu: string, digit: number): string => {
-    if (digit !== 1 && digit !== 2) {
-        throw new Error("Expected digit amount of 1 or 2; got: " + digit)
-    }
+const carry = (snafu: string): string => {
     if (snafu === "") {
         return "1"
     }
@@ -83,15 +80,15 @@ const carry = (snafu: string, digit: number): string => {
     const allButLastDigit = snafu.slice(0, -1)
     switch (lastDigit) {
         case "=":
-            return digit === 1 ? allButLastDigit + "-" : allButLastDigit + "0"
+            return allButLastDigit + "-"
         case "-":
-            return digit === 1 ? allButLastDigit + "0" : allButLastDigit + "1"
+            return allButLastDigit + "0"
         case "0":
-            return digit === 1 ? allButLastDigit + "1" : allButLastDigit + "2"
+            return allButLastDigit + "1"
         case "1":
-            if (digit === 1) { return allButLastDigit + "2" } else { return carry(allButLastDigit, 1) + "=" }
+            return allButLastDigit + "2"
         case "2":
-            return digit === 1 ? carry(allButLastDigit, 1) + "=" : carry(allButLastDigit, 2) + "-"
+            return carry(allButLastDigit) + "="
         default:
             throw new Error("Unexpected digit: " + lastDigit)
     }
