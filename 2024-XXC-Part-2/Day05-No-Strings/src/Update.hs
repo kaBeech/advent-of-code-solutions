@@ -18,7 +18,9 @@ sortUpdate :: RulesDict -> Update -> Update
 sortUpdate = acc []
   where
     acc :: [Int] -> RulesDict -> Update -> Update
-    acc acced _ [] = acced
+    acc acced rulesDict [] = if checkIfUpdateIsOrdered acced
+                               then acced
+                               else sortUpdate acced
     acc acced rulesDict (page : pages) = case lookup page rulesDict of
       Nothing -> acc (page : acced) rulesDict pages
       Just befores ->
