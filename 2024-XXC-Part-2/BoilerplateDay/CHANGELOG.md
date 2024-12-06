@@ -1,4 +1,4 @@
-# Revision history for Day05-No-Strings
+# Revision history for Boilerplate
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
