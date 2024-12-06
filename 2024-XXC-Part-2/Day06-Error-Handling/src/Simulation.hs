@@ -13,3 +13,9 @@ runSimulation sim =
    in if simFinished
         then sim
         else runSimulation (visitedCount', currentPos', currentDir', areaMap')
+
+isInBounds :: XYCoord -> AreaMap -> Bool
+isInBounds (x, y) areaMap =
+  let maxX = length (head areaMap) - 1
+      maxY = length areaMap - 1
+   in x >= 0 && x <= maxX && y >= 0 && y <= maxY
