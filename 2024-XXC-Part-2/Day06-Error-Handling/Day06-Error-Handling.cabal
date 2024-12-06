@@ -60,6 +60,7 @@ library
 
     -- Modules exported by the library.
     exposed-modules:  Parse,
+                      Simulation,
                       Solve,
                       Types,
 
