@@ -8,7 +8,7 @@ runSimulation sim =
       simFinished = not (isInBounds currentPos areaMap)
       (newlyVisitedTiles, areaMap') = visitTile currentPos areaMap
       visitedCount' = visitedCount + newlyVisitedTiles
-      currentDir' = findSafeStep currentPos currentDir areaMap'
+      currentDir' = findSafeStep currentPos currentDir 0 areaMap'
       currentPos' = step currentPos currentDir'
    in if simFinished
         then sim
@@ -56,3 +56,31 @@ visitTile (x, y) areaMap =
           if alreadyVisited
             then (0, areaMap)
             else (1, areaMap')
+
+findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
+findSafeStep (x, y) currentDir turnsCount areaMap =
+  let stepIsSafe =
+        not (isInBounds (x, y) areaMap)
+          || isEmpty (x, y) areaMap
+      allStepsTried =
+        turnsCount > 3
+          && error
+            ( "No safe steps found after "
+                ++ show turnsCount
+                ++ " turns for position ("
+                ++ show x
+                ++ ", "
+                ++ show y
+                ++ ") in AreaMap: "
+                ++ show areaMap
+            )
+      invalidDir = currentDir < 0 || currentDir > 3 && error ("Direction must be between 0 and 3. Got: " ++ show currentDir)
+   in if not allStepsTried && not invalidDir && stepIsSafe
+        then currentDir
+        else findSafeStep (x, y) ((currentDir + 1) `mod` 4) (turnsCount + 1) areaMap
+
+isEmpty :: XYCoord -> AreaMap -> Bool
+isEmpty (x, y) areaMap =
+  let tile = areaMap !! y !! x
+      (empty, _, _) = tile
+   in empty
