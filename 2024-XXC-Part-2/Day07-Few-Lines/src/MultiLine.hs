@@ -17,29 +17,42 @@ solvePart1 input =
       solvableEquations = filter equationIsSolvable parsedInput
    in length solvableEquations
 
--- | TODO: This is a stub. Implement this function.
 equationIsSolvable :: Equation -> Bool
-equationIsSolvable (result, operands) = tryEquation (result, operands) "+*"
+equationIsSolvable (result, operands) =
+  let operators = genOperators "*+" operands
+   in any (tryEquation (result, operands)) operators
+
+-- | Takes a list of valid operators and a list of operands and returns a list
+--   of all possible combinations of operators that can be inserted between them.
+
+-- | ==== __Examples__
+--   >>> genOperators "*+" [1, 2, 3]
+--   ["**","+*","*+","++"]
+genOperators :: [Char] -> [Int] -> [[Char]]
+genOperators validOperators operands = acc (length operands - 2)
+  where
+    acc 0 = [[op] | op <- validOperators]
+    acc n = do
+      rest <- acc (n - 1)
+      operator <- validOperators
+      return (operator : rest)
 
 tryEquation :: Equation -> [Char] -> Bool
-tryEquation (result, operands) operators =
-  let operatorsValid = all (`elem` "+*") operators || error ("Invalid operator in list. Got: " ++ show operators)
-      lengthsMatch = length operands == length operators - 1
-      valid = operatorsValid && lengthsMatch
-   in if valid then acc operands operators 0 else error "See errors above."
+tryEquation (result, operands) operators = acc operands operators 0
   where
     acc [] _ total = total == result
     acc _ [] total = total == result
     acc (x : xs) (o : os) total
       | total > result = False
       | o == '+' = acc xs os (total + x)
-      | otherwise = acc xs os (total * x)
+      | o == '*' = acc xs os (total * x)
+      | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
 
 -- | Takes a raw string input and returns a list of equations.
 
 -- | ==== __Examples__
 --   >>> parseInput "190: 10 19\n83: 17 5"
---   [[(190,[10,19])],[(83,[17,5])]]
+--   [(190,[10,19]),(83,[17,5])]
 parseInput :: String -> [Equation]
 parseInput input = map parseLine (lines input)
 
