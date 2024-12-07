@@ -5,7 +5,17 @@ where
 
 type Equation = (Int, [Int])
 
-solvePart1 = 1
+-- | Takes a string representation of a list of equations and returns the
+--   number of solvable equations.
+
+-- | ==== __Examples__
+--   >>> solvePart1 "190: 10 19\n83: 17 5"
+--   1
+solvePart1 :: String -> Int
+solvePart1 input =
+  let parsedInput = parseInput input
+      solvableEquations = filter equationIsSolvable parsedInput
+   in length solvableEquations
 
 -- | Takes a raw string input and returns a list of equations.
 
