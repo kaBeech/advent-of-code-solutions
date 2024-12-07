@@ -84,3 +84,12 @@ isEmpty (x, y) areaMap =
   let tile = areaMap !! y !! x
       (empty, _, _) = tile
    in empty
+
+step :: XYCoord -> Int -> XYCoord
+step (x, y) dir =
+  case dir of
+    0 -> (x + 1, y)
+    1 -> (x, y + 1)
+    2 -> (x - 1, y)
+    3 -> (x, y - 1)
+    _ -> error ("Direction must be between 0 and 3. Got: " ++ show dir)
