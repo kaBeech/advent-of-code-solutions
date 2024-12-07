@@ -59,9 +59,10 @@ visitTile (x, y) areaMap =
 
 findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
 findSafeStep (x, y) currentDir turnsCount areaMap =
-  let stepIsSafe =
-        not (isInBounds (x, y) areaMap)
-          || isEmpty (x, y) areaMap
+  let nextPos = step (x, y) currentDir
+      stepIsSafe =
+        not (isInBounds nextPos areaMap)
+          || isEmpty nextPos areaMap
       allStepsTried =
         turnsCount > 3
           && error
