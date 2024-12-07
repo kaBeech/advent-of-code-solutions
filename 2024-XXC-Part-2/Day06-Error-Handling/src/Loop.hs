@@ -16,4 +16,6 @@ countLoopOpps = acc 0
           sim' = (False, startPos, 3, areaMap')
           (simulationLoops, _, _, _) = runSimulation sim'
           count' = if not isStartingTile && simulationLoops then count + 1 else count
-       in acc count' tiles sim
+          countIsNonNegative = count >= 0
+          valid = countIsNonNegative
+       in if valid then acc count' tiles sim else error "See above errors"
