@@ -1,19 +1,22 @@
 module Simulation (runSimulation) where
 
-import Types (AreaMap, LoopRecord, Simulation, Tile, XYCoord)
+import Types (AreaMap, Simulation, XYCoord)
 
 runSimulation :: Simulation -> Simulation
 runSimulation sim =
-  let (loopOppCount, currentPos, prevDir, areaMap) = sim
-      simFinished = not (isInBounds currentPos areaMap)
+  let (_, currentPos@(x, y), prevDir, areaMap) = sim
+      (_, _, pathsAlreadyTaken, _) = areaMap !! y !! x
+      guardLeft = not (isInBounds currentPos areaMap)
+      guardLoops = nextDir `elem` pathsAlreadyTaken
       nextDir = findSafeStep currentPos prevDir 0 areaMap
-      (loopMap, addToCount) = checkLoopOpp currentPos nextDir areaMap
-      areaMap' = recordVisit currentPos nextDir areaMap loopMap
+      areaMap' = recordVisit currentPos nextDir areaMap
       nextPos = step currentPos nextDir
-      loopOppCount' = loopOppCount + addToCount
-   in if simFinished
+   in if guardLeft
         then sim
-        else runSimulation (loopOppCount', nextPos, nextDir, areaMap')
+        else
+          if guardLoops
+            then (True, currentPos, prevDir, areaMap)
+            else runSimulation (False, nextPos, nextDir, areaMap')
 
 isInBounds :: XYCoord -> AreaMap -> Bool
 isInBounds (x, y) areaMap =
@@ -32,19 +35,18 @@ isInBounds (x, y) areaMap =
 --
 --   >>> recordVisit (0, 0) [[(True, True, [])]]
 --   (0, [[(True, True, [])]])
-recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap -> AreaMap
-recordVisit (x, y) direction areaMap loopMap =
+recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap
+recordVisit (x, y) direction areaMap =
   let tile = areaMap !! y !! x
-      (empty, _, paths, loopRecord, coords) = tile
+      (empty, _, paths, coords) = tile
       paths' = if direction `elem` paths then paths else direction : paths
       areaMap' =
         take y areaMap
           ++ [ take x (areaMap !! y)
-                 ++ [(empty, True, paths', loopRecord, coords)]
+                 ++ [(empty, True, paths', coords)]
                  ++ drop (x + 1) (areaMap !! y)
              ]
           ++ drop (y + 1) areaMap
-      areaMap'' = updateLoopRecords areaMap' (getLoopUpdates areaMap' loopMap)
    in if not empty
         then
           error
@@ -55,58 +57,15 @@ recordVisit (x, y) direction areaMap loopMap =
                 ++ ") in AreaMap: "
                 ++ show areaMap
             )
-        else areaMap''
-
--- | Takes two area maps and returns a list of tiles that have been visited
---   in the second map but not in the first.
-getLoopUpdates :: AreaMap -> AreaMap -> [Tile]
-getLoopUpdates areaMap loopMap =
-  let loopMap' = concat loopMap
-      areaMap' = concat areaMap
-   in filter
-        ( \(_, visited, _, _, _) ->
-            visited
-              && not
-                ( any
-                    ( \(_, visited', _, _, coords) ->
-                        visited' && coords == coords
-                    )
-                    areaMap'
-                )
-        )
-        loopMap'
-
--- | Updates loop records for tiles in the area map.
-updateLoopRecords :: AreaMap -> [Tile] -> AreaMap
-updateLoopRecords = foldl update
-  where
-    update :: AreaMap -> Tile -> AreaMap
-    update areaMap (_, _, _, loopRecord', (x, y)) =
-      let tile = areaMap !! y !! x
-          (empty, visited, paths, loopRecord, _) = tile
-          loopRecord'' = updateLoopRecord loopRecord loopRecord'
-          areaMap' =
-            take y areaMap
-              ++ [ take x (areaMap !! y)
-                     ++ [(empty, visited, paths, loopRecord'', (x, y))]
-                     ++ drop (x + 1) (areaMap !! y)
-                 ]
-              ++ drop (y + 1) areaMap
-       in areaMap'
-
-updateLoopRecord :: LoopRecord -> LoopRecord -> LoopRecord
-updateLoopRecord lrOld lrNew =
-  let (old0, old1, old2, old3) = lrOld
-      (new0, new1, new2, new3) = lrNew
-      update old new = if null old then new else old
-   in (update old0 new0, update old1 new1, update old2 new2, update old3 new3)
+        else areaMap'
 
 findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
 findSafeStep (x, y) currentDir turnsCount areaMap =
   let nextPos = step (x, y) currentDir
-      stepIsSafe =
-        not (isInBounds nextPos areaMap)
-          || isEmpty nextPos areaMap
+      stepIsSafe
+        | not (isInBounds nextPos areaMap) = True
+        | isEmpty nextPos areaMap = True
+        | otherwise = False
       allStepsTried =
         turnsCount > 3
           && error
@@ -130,7 +89,7 @@ turn dir = (dir + 1) `mod` 4
 isEmpty :: XYCoord -> AreaMap -> Bool
 isEmpty (x, y) areaMap =
   let tile = areaMap !! y !! x
-      (empty, _, _, _, _) = tile
+      (empty, _, _, _) = tile
    in empty
 
 step :: XYCoord -> Int -> XYCoord
