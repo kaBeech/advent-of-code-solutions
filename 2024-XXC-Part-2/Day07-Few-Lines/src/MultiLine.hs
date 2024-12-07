@@ -17,6 +17,24 @@ solvePart1 input =
       solvableEquations = filter equationIsSolvable parsedInput
    in length solvableEquations
 
+-- | TODO: This is a stub. Implement this function.
+equationIsSolvable :: Equation -> Bool
+equationIsSolvable (result, operands) = tryEquation (result, operands) "+*"
+
+tryEquation :: Equation -> [Char] -> Bool
+tryEquation (result, operands) operators =
+  let operatorsValid = all (`elem` "+*") operators || error ("Invalid operator in list. Got: " ++ show operators)
+      lengthsMatch = length operands == length operators - 1
+      valid = operatorsValid && lengthsMatch
+   in if valid then acc operands operators 0 else error "See errors above."
+  where
+    acc [] _ total = total == result
+    acc _ [] total = total == result
+    acc (x : xs) (o : os) total
+      | total > result = False
+      | o == '+' = acc xs os (total + x)
+      | otherwise = acc xs os (total * x)
+
 -- | Takes a raw string input and returns a list of equations.
 
 -- | ==== __Examples__
