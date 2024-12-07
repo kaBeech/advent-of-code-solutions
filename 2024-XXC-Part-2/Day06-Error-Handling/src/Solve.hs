@@ -1,5 +1,6 @@
 module Solve (solve) where
 
+import Loop (countLoopOpps)
 import Parse (parseInput)
 import Simulation (runSimulation)
 
@@ -13,6 +14,7 @@ solve :: String -> (Int, Int)
 solve input =
   let simulationInit = parseInput input
       simulationFinal = runSimulation simulationInit
-      (loopOppsCount, _, _, areaMap) = simulationFinal
-      visitedCount = length (filter (\(_, visited, _, _, _) -> visited) (concat areaMap))
-   in (visitedCount, loopOppsCount)
+      (_, _, _, areaMap) = simulationFinal
+      visitedTiles = (filter (\(_, visited, _, _) -> visited) (concat areaMap))
+      loopOppsCount = countLoopOpps visitedTiles simulationInit
+   in (length visitedTiles, loopOppsCount)

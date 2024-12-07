@@ -59,7 +59,8 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Parse,
+    exposed-modules:  Loop,
+                      Parse,
                       Simulation,
                       Solve,
                       Types,
