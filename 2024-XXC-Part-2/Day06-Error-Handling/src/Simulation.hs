@@ -4,15 +4,16 @@ import Types (AreaMap, Simulation, XYCoord)
 
 runSimulation :: Simulation -> Simulation
 runSimulation sim =
-  let (visitedCount, currentPos, currentDir, areaMap) = sim
+  let (loopOppCount, currentPos, prevDir, areaMap) = sim
       simFinished = not (isInBounds currentPos areaMap)
-      (newlyVisitedTiles, areaMap') = visitTile currentPos areaMap
-      visitedCount' = visitedCount + newlyVisitedTiles
-      currentDir' = findSafeStep currentPos currentDir 0 areaMap'
-      currentPos' = step currentPos currentDir'
+      nextDir = findSafeStep currentPos prevDir 0 areaMap
+      (loopMap, addToCount) = checkLoopOpp currentPos nextDir areaMap
+      areaMap' = recordVisit currentPos nextDir areaMap loopMap
+      nextPos = step currentPos nextDir
+      loopOppCount' = loopOppCount + addToCount
    in if simFinished
         then sim
-        else runSimulation (visitedCount', currentPos', currentDir', areaMap')
+        else runSimulation (loopOppCount', nextPos, nextDir, areaMap')
 
 isInBounds :: XYCoord -> AreaMap -> Bool
 isInBounds (x, y) areaMap =
@@ -31,10 +32,10 @@ isInBounds (x, y) areaMap =
 --
 --   >>> recordVisit (0, 0) [[(True, True, [])]]
 --   (0, [[(True, True, [])]])
-recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap
-recordVisit (x, y) direction areaMap =
+recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap -> AreaMap
+recordVisit (x, y) direction areaMap loopMap =
   let tile = areaMap !! y !! x
-      (empty, _, paths, loopRecord, coords) = tile
+      (empty, visited, paths, loopRecord, coords) = tile
       paths' = if direction `elem` paths then paths else direction : paths
       areaMap' =
         take y areaMap
@@ -43,6 +44,7 @@ recordVisit (x, y) direction areaMap =
                  ++ drop (x + 1) (areaMap !! y)
              ]
           ++ drop (y + 1) areaMap
+      areaMap'' = updateLoopRecords areaMap' loopMap
    in if not empty
         then
           error
@@ -53,7 +55,7 @@ recordVisit (x, y) direction areaMap =
                 ++ ") in AreaMap: "
                 ++ show areaMap
             )
-        else areaMap'
+        else areaMap''
 
 findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
 findSafeStep (x, y) currentDir turnsCount areaMap =
