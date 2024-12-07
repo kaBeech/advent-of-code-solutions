@@ -29,17 +29,17 @@ isInBounds (x, y) areaMap =
 --  the list of paths already taken.
 
 -- | ==== __Examples__
---   >>> recordVisit (0, 0) 1 [[(True, False, [], (0,0))]]
---   [[(True,True,[1],(0,0))]]
+--   >>> recordVisit (0, 0) 3 [[(True, False, [], (0,0))]]
+--   [[(True,True,[3],(0,0))]]
 --
---   >>> recordVisit (0, 0) 1 [[(True, True, [], (0,0))]]
---   [[(True,True,[1],(0,0))]]
+--   >>> recordVisit (0, 0) 3 [[(True, True, [], (0,0))]]
+--   [[(True,True,[3],(0,0))]]
 --
---   >>> recordVisit (0, 0) 1 [[(True, True, [2], (0,0))]]
---   [[(True,True,[2,1],(0,0))]]
+--   >>> recordVisit (0, 0) 3 [[(True, True, [0], (0,0))]]
+--   [[(True,True,[3,0],(0,0))]]
 --
---   >>> recordVisit (0, 0) 1 [[(True, True, [1], (0,0))]]
---   [[(True,True,[1],(0,0))]]
+--   >>> recordVisit (0, 0) 3 [[(True, True, [1], (0,0))]]
+--   [[(True,True,[3,1],(0,0))]]
 recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap
 recordVisit (x, y) direction areaMap =
   let tile = areaMap !! y !! x
@@ -83,19 +83,25 @@ findSafeStep (x, y) currentDir turnsCount areaMap =
                 ++ ") in AreaMap: "
                 ++ show areaMap
             )
-      invalidDir = currentDir < 0 || currentDir > 3 && error ("Direction must be between 0 and 3. Got: " ++ show currentDir)
-   in if not allStepsTried && not invalidDir && stepIsSafe
+      validDir = validateDir currentDir
+   in if not allStepsTried && validDir && stepIsSafe
         then currentDir
         else findSafeStep (x, y) (turn currentDir) (turnsCount + 1) areaMap
 
 turn :: Int -> Int
-turn dir = (dir + 1) `mod` 4
+turn dir = if validateDir dir then (dir + 1) `mod` 4 else error "See above errors"
+
+validateDir :: Int -> Bool
+validateDir dir =
+  (dir >= 0 && dir <= 3)
+    || error ("Direction must be between 0 and 3. Got: " ++ show dir)
 
 isEmpty :: XYCoord -> AreaMap -> Bool
 isEmpty (x, y) areaMap =
   let tile = areaMap !! y !! x
       (empty, _, _, _) = tile
-   in empty
+      validPos = isInBounds (x, y) areaMap || error "Position is out of bounds"
+   in if validPos then empty else error "See above errors"
 
 step :: XYCoord -> Int -> XYCoord
 step (x, y) dir =
