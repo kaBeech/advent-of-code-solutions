@@ -1,4 +1,4 @@
-module Solve (solvePart1) where
+module Solve (solve) where
 
 import Parse (parseInput)
 import Simulation (runSimulation)
@@ -7,11 +7,12 @@ import Simulation (runSimulation)
 --   returns the number of positions visited by the guard.
 
 -- | ==== __Examples__
---   >>> solvePart1 ".#.\n.^.\n#.#"
+--   >>> solve ".#.\n.^.\n#.#"
 --   2
-solvePart1 :: String -> Int
-solvePart1 input =
+solve :: String -> (Int, Int)
+solve input =
   let simulationInit = parseInput input
       simulationFinal = runSimulation simulationInit
-      (visitedCount, _, _, _) = simulationFinal
-   in visitedCount
+      (loopOppsCount, _, _, areaMap) = simulationFinal
+      visitedCount = length (filter (\(_, visited, _, _, _) -> visited) (concat areaMap))
+   in (visitedCount, loopOppsCount)

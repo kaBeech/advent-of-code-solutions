@@ -26,19 +26,20 @@ isInBounds (x, y) areaMap =
 --   visited.
 
 -- | ==== __Examples__
---   >>> visitTile (0, 0) [[(True, False, [])]]
+--   >>> recordVisit (0, 0) [[(True, False, [])]]
 --   (1, [[(True, True, [])]])
 --
---   >>> visitTile (0, 0) [[(True, True, [])]]
+--   >>> recordVisit (0, 0) [[(True, True, [])]]
 --   (0, [[(True, True, [])]])
-visitTile :: XYCoord -> AreaMap -> (Int, AreaMap)
-visitTile (x, y) areaMap =
+recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap
+recordVisit (x, y) direction areaMap =
   let tile = areaMap !! y !! x
-      (empty, alreadyVisited, coords) = tile
+      (empty, _, paths, loopRecord, coords) = tile
+      paths' = if direction `elem` paths then paths else direction : paths
       areaMap' =
         take y areaMap
           ++ [ take x (areaMap !! y)
-                 ++ [(empty, True, coords)]
+                 ++ [(empty, True, paths', loopRecord, coords)]
                  ++ drop (x + 1) (areaMap !! y)
              ]
           ++ drop (y + 1) areaMap
@@ -52,10 +53,7 @@ visitTile (x, y) areaMap =
                 ++ ") in AreaMap: "
                 ++ show areaMap
             )
-        else
-          if alreadyVisited
-            then (0, areaMap)
-            else (1, areaMap')
+        else areaMap'
 
 findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
 findSafeStep (x, y) currentDir turnsCount areaMap =
@@ -78,12 +76,15 @@ findSafeStep (x, y) currentDir turnsCount areaMap =
       invalidDir = currentDir < 0 || currentDir > 3 && error ("Direction must be between 0 and 3. Got: " ++ show currentDir)
    in if not allStepsTried && not invalidDir && stepIsSafe
         then currentDir
-        else findSafeStep (x, y) ((currentDir + 1) `mod` 4) (turnsCount + 1) areaMap
+        else findSafeStep (x, y) (turn currentDir) (turnsCount + 1) areaMap
+
+turn :: Int -> Int
+turn dir = (dir + 1) `mod` 4
 
 isEmpty :: XYCoord -> AreaMap -> Bool
 isEmpty (x, y) areaMap =
   let tile = areaMap !! y !! x
-      (empty, _, _) = tile
+      (empty, _, _, _, _) = tile
    in empty
 
 step :: XYCoord -> Int -> XYCoord

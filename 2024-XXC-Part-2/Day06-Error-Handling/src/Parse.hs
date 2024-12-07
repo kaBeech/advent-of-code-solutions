@@ -15,8 +15,8 @@ parseInput input =
   let areaMap = getAreaMap input
       currentPos = getCurrentPos areaMap input
       currentDir = 3 -- 3 = Up
-      visitedCount = 1
-   in (visitedCount, currentPos, currentDir, areaMap)
+      loopOppCount = 0
+   in (loopOppCount, currentPos, currentDir, areaMap)
 
 -- | Takes an AreaMap and a raw input string, validates the AreaMap, and
 --   returns the starting position.
@@ -29,9 +29,9 @@ parseInput input =
 --   (1,1)
 getCurrentPos :: AreaMap -> String -> (Int, Int)
 getCurrentPos areaMap input =
-  case filter (\(_, visited, _) -> visited) (concat areaMap) of
+  case filter (\(_, visited, _, _, _) -> visited) (concat areaMap) of
     [] -> error ("No valid starting position found in input: " ++ input)
-    [(_, _, (x, y))] -> (x, y)
+    [(_, _, _, _, (x, y))] -> (x, y)
     positions ->
       error
         ( "Multiple valid starting positions found in input. Input: \""
@@ -49,7 +49,7 @@ getAreaMap :: String -> AreaMap
 getAreaMap input =
   zipWith
     ( \y row ->
-        zipWith (\x c -> (fst (parseChar c), snd (parseChar c), (x, y))) [0 ..] row
+        zipWith (\x c -> (fst (parseChar c), snd (parseChar c), [], ([], [], [], []), (x, y))) [0 ..] row
     )
     [0 ..]
     (lines input)
