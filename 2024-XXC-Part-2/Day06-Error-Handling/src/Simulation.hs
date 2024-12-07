@@ -1,6 +1,6 @@
 module Simulation (runSimulation) where
 
-import Types (AreaMap, Simulation, XYCoord)
+import Types (AreaMap, LoopRecord, Simulation, Tile, XYCoord)
 
 runSimulation :: Simulation -> Simulation
 runSimulation sim =
@@ -35,7 +35,7 @@ isInBounds (x, y) areaMap =
 recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap -> AreaMap
 recordVisit (x, y) direction areaMap loopMap =
   let tile = areaMap !! y !! x
-      (empty, visited, paths, loopRecord, coords) = tile
+      (empty, _, paths, loopRecord, coords) = tile
       paths' = if direction `elem` paths then paths else direction : paths
       areaMap' =
         take y areaMap
@@ -44,7 +44,7 @@ recordVisit (x, y) direction areaMap loopMap =
                  ++ drop (x + 1) (areaMap !! y)
              ]
           ++ drop (y + 1) areaMap
-      areaMap'' = updateLoopRecords areaMap' loopMap
+      areaMap'' = updateLoopRecords areaMap' (getLoopUpdates areaMap' loopMap)
    in if not empty
         then
           error
@@ -56,6 +56,50 @@ recordVisit (x, y) direction areaMap loopMap =
                 ++ show areaMap
             )
         else areaMap''
+
+-- | Takes two area maps and returns a list of tiles that have been visited
+--   in the second map but not in the first.
+getLoopUpdates :: AreaMap -> AreaMap -> [Tile]
+getLoopUpdates areaMap loopMap =
+  let loopMap' = concat loopMap
+      areaMap' = concat areaMap
+   in filter
+        ( \(_, visited, _, _, _) ->
+            visited
+              && not
+                ( any
+                    ( \(_, visited', _, _, coords) ->
+                        visited' && coords == coords
+                    )
+                    areaMap'
+                )
+        )
+        loopMap'
+
+-- | Updates loop records for tiles in the area map.
+updateLoopRecords :: AreaMap -> [Tile] -> AreaMap
+updateLoopRecords = foldl update
+  where
+    update :: AreaMap -> Tile -> AreaMap
+    update areaMap (_, _, _, loopRecord', (x, y)) =
+      let tile = areaMap !! y !! x
+          (empty, visited, paths, loopRecord, _) = tile
+          loopRecord'' = updateLoopRecord loopRecord loopRecord'
+          areaMap' =
+            take y areaMap
+              ++ [ take x (areaMap !! y)
+                     ++ [(empty, visited, paths, loopRecord'', (x, y))]
+                     ++ drop (x + 1) (areaMap !! y)
+                 ]
+              ++ drop (y + 1) areaMap
+       in areaMap'
+
+updateLoopRecord :: LoopRecord -> LoopRecord -> LoopRecord
+updateLoopRecord lrOld lrNew =
+  let (old0, old1, old2, old3) = lrOld
+      (new0, new1, new2, new3) = lrNew
+      update old new = if null old then new else old
+   in (update old0 new0, update old1 new1, update old2 new2, update old3 new3)
 
 findSafeStep :: XYCoord -> Int -> Int -> AreaMap -> Int
 findSafeStep (x, y) currentDir turnsCount areaMap =
