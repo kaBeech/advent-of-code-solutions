@@ -9,7 +9,7 @@ import Types (AreaMap, Simulation)
 
 -- | ==== __Examples__
 --   >>> parseInput ".#.\n.^.\n#.#"
---   (1,(1,1),3,[[(True,False,(0,0)),(False,False,(1,0)),(True,False,(2,0))],[(True,False,(0,1)),(True,True,(1,1)),(True,False,(2,1))],[(False,False,(0,2)),(True,False,(1,2)),(False,False,(2,2))]])
+--   (False,(1,1),3,[[(True,False,[],(0,0)),(False,False,[],(1,0)),(True,False,[],(2,0))],[(True,False,[],(0,1)),(True,True,[],(1,1)),(True,False,[],(2,1))],[(False,False,[],(0,2)),(True,False,[],(1,2)),(False,False,[],(2,2))]])
 parseInput :: String -> Simulation
 parseInput input =
   let areaMap = getAreaMap input
@@ -25,7 +25,7 @@ parseInput input =
 --   validation, the input string can be printed in the error message.
 
 -- | ==== __Examples__
---   >>> getCurrentPos [[(True,False,(0,0)),(False,False,(1,0)),(True,False,(2,0))],[(True,False,(0,1)),(True,True,(1,1)),(True,False,(2,1))],[(False,False,(0,2)),(True,False,(1,2)),(False,False,(2,2))]] ".#.\n.^.\n#.#"
+--   >>> getCurrentPos [[(True,False,[],(0,0)),(False,False,[],(1,0)),(True,False,[],(2,0))],[(True,False,[],(0,1)),(True,True,[],(1,1)),(True,False,[],(2,1))],[(False,False,[],(0,2)),(True,False,[],(1,2)),(False,False,[],(2,2))]] ".#.\n.^.\n#.#"
 --   (1,1)
 getCurrentPos :: AreaMap -> String -> (Int, Int)
 getCurrentPos areaMap input =
@@ -44,7 +44,7 @@ getCurrentPos areaMap input =
 
 -- | ==== __Examples__
 --   >>> getAreaMap ".#.\n.^.\n#.#"
---   [[(True,False,(0,0)),(False,False,(1,0)),(True,False,(2,0))],[(True,False,(0,1)),(True,True,(1,1)),(True,False,(2,1))],[(False,False,(0,2)),(True,False,(1,2)),(False,False,(2,2))]]
+--   [[(True,False,[],(0,0)),(False,False,[],(1,0)),(True,False,[],(2,0))],[(True,False,[],(0,1)),(True,True,[],(1,1)),(True,False,[],(2,1))],[(False,False,[],(0,2)),(True,False,[],(1,2)),(False,False,[],(2,2))]]
 getAreaMap :: String -> AreaMap
 getAreaMap input =
   zipWith

@@ -9,7 +9,7 @@ import Simulation (runSimulation)
 
 -- | ==== __Examples__
 --   >>> solve ".#.\n.^.\n#.#"
---   2
+--   (2,0)
 solve :: String -> (Int, Int)
 solve input =
   let simulationInit = parseInput input

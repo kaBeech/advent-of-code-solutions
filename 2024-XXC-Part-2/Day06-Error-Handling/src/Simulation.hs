@@ -24,17 +24,22 @@ isInBounds (x, y) areaMap =
       maxY = length areaMap - 1
    in x >= 0 && x <= maxX && y >= 0 && y <= maxY
 
--- | Takes a position and an area map and checks whether the position has
---   already been visited. If it has, it returns 0 and the original area map.
---   If it hasn't, it returns 1 and the area map with the position marked as
---   visited.
+-- | Takes a position, a direction, and an area map and returns an updated
+--  area map with the position marked as visited and the direction added to
+--  the list of paths already taken.
 
 -- | ==== __Examples__
---   >>> recordVisit (0, 0) [[(True, False, [])]]
---   (1, [[(True, True, [])]])
+--   >>> recordVisit (0, 0) 1 [[(True, False, [], (0,0))]]
+--   [[(True,True,[1],(0,0))]]
 --
---   >>> recordVisit (0, 0) [[(True, True, [])]]
---   (0, [[(True, True, [])]])
+--   >>> recordVisit (0, 0) 1 [[(True, True, [], (0,0))]]
+--   [[(True,True,[1],(0,0))]]
+--
+--   >>> recordVisit (0, 0) 1 [[(True, True, [2], (0,0))]]
+--   [[(True,True,[2,1],(0,0))]]
+--
+--   >>> recordVisit (0, 0) 1 [[(True, True, [1], (0,0))]]
+--   [[(True,True,[1],(0,0))]]
 recordVisit :: XYCoord -> Int -> AreaMap -> AreaMap
 recordVisit (x, y) direction areaMap =
   let tile = areaMap !! y !! x
