@@ -2,6 +2,15 @@ module Simulation (runSimulation) where
 
 import Types (AreaMap, Simulation, XYCoord)
 
+-- | Takes a Simulation and returns the final Simulation after the guard has
+--   either left the area or entered a loop. When returning the final
+--   Simulation, the guard's path is recorded as visited tiles in the AreaMap
+--   and whether or not a loop was entered is recorded as the Simulation's
+--   first element.
+
+-- | ==== __Examples__
+--   >>> runSimulation (False, (1, 1), 3, [[(True, False, [], (0, 0)), (False, False, [], (1, 0)), (True, False, [], (2, 0))], [(True, False, [], (0, 1)), (True, True, [], (1, 1)), (True, False, [], (2, 1))], [(False, False, [], (0, 2)), (True, False, [], (1, 2)), (False, False, [], (2, 2))]])
+--   (False,(3,1),0,[[(True,False,[],(0,0)),(False,False,[],(1,0)),(True,False,[],(2,0))],[(True,False,[],(0,1)),(True,True,[0],(1,1)),(True,True,[0],(2,1))],[(False,False,[],(0,2)),(True,False,[],(1,2)),(False,False,[],(2,2))]])
 runSimulation :: Simulation -> Simulation
 runSimulation sim =
   let (_, currentPos@(x, y), prevDir, areaMap) = sim
