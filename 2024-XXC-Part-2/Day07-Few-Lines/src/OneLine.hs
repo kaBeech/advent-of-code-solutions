@@ -6,12 +6,12 @@ where
 solveParts input = (solvePart1 input, solvePart2 input)
 
 solvePart1 input =
-  let parsedInput = parseInput input
+  let parsedInput = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
       solvableEquations = filter (equationIsSolvable "*+") parsedInput
    in sum (map fst solvableEquations)
 
 solvePart2 input =
-  let parsedInput = parseInput input
+  let parsedInput = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
       solvableEquations = filter (equationIsSolvable "*+|") parsedInput
    in sum (map fst solvableEquations)
 
@@ -38,5 +38,3 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
       | o == '+' = acc xs os (total + x)
       | o == '*' = acc xs os (total * x)
       | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
-
-parseInput input = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
