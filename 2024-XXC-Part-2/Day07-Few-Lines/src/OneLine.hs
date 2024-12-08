@@ -6,8 +6,7 @@ where
 solveParts input = (solvePart input "*+", solvePart input "*+|")
 
 solvePart input validOperators =
-  let parsedInput = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
-      solvableEquations = filter (equationIsSolvable validOperators) parsedInput
+  let solvableEquations = filter (equationIsSolvable validOperators) (map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input))
    in sum (map fst solvableEquations)
 
 equationIsSolvable validOperators (result, operands) =
