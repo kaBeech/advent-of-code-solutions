@@ -39,6 +39,4 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
       | o == '*' = acc xs os (total * x)
       | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
 
-parseInput input = map parseLine (lines input)
-
-parseLine line = (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))
+parseInput input = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
