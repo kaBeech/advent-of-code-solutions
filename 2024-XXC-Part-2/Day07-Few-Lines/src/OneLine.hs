@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-missing-signatures #-}
-
 module OneLine
   ( solveParts,
   )
