@@ -17,6 +17,14 @@ solvePart1 input =
       solvableEquations = filter equationIsSolvable parsedInput
    in length solvableEquations
 
+-- | Takes an equation and returns whether it can be solved.
+
+-- | ==== __Examples__
+--   >>> equationIsSolvable (190, [10, 19])
+--   True
+--
+--   >>> equationIsSolvable (83, [17, 5])
+--   False
 equationIsSolvable :: Equation -> Bool
 equationIsSolvable (result, operands) =
   let operators = genOperators "*+" operands
@@ -37,8 +45,18 @@ genOperators validOperators operands = acc (length operands - 2)
       operator <- validOperators
       return (operator : rest)
 
+-- | Takes an equation and a list of operators and returns whether the equation
+--   can be solved with the given operators.
+
+-- | ==== __Examples__
+--   >>> tryEquation (190, [10, 19]) "*"
+--   True
+--
+--   >>> tryEquation (190, [10, 19]) "+"
+--   False
 tryEquation :: Equation -> [Char] -> Bool
-tryEquation (result, operands) operators = acc operands operators 0
+tryEquation (_, []) _ = error "No operands provided."
+tryEquation (result, firstOp : operands) operators = acc operands operators firstOp
   where
     acc [] _ total = total == result
     acc _ [] total = total == result
