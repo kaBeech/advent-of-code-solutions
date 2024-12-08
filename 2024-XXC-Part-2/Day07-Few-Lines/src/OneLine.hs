@@ -3,16 +3,11 @@ module OneLine
   )
 where
 
-solveParts input = (solvePart1 input, solvePart2 input)
+solveParts input = (solvePart input "*+", solvePart input "*+|")
 
-solvePart1 input =
+solvePart input validOperators =
   let parsedInput = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
-      solvableEquations = filter (equationIsSolvable "*+") parsedInput
-   in sum (map fst solvableEquations)
-
-solvePart2 input =
-  let parsedInput = map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input)
-      solvableEquations = filter (equationIsSolvable "*+|") parsedInput
+      solvableEquations = filter (equationIsSolvable validOperators) parsedInput
    in sum (map fst solvableEquations)
 
 equationIsSolvable validOperators (result, operands) =
