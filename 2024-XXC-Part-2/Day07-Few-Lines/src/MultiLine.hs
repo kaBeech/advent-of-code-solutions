@@ -22,7 +22,7 @@ solvePart1 input =
 --   sum of the results of the equations.
 
 -- | ==== __Examples__
---   >>> solvePart1 "190: 10 19\n83: 17 5\n156: 15 6"
+--   >>> solvePart2 "190: 10 19\n83: 17 5\n156: 15 6"
 --   346
 solvePart2 :: String -> Int
 solvePart2 input =
@@ -33,11 +33,17 @@ solvePart2 input =
 -- | Takes an equation and returns whether it can be solved.
 
 -- | ==== __Examples__
---   >>> equationIsSolvable (190, [10, 19])
+--   >>> equationIsSolvable "*+" (190, [10, 19])
 --   True
 --
---   >>> equationIsSolvable (83, [17, 5])
+--   >>> equationIsSolvable "*+" (83, [17, 5])
 --   False
+--
+--   >>> equationIsSolvable "*+" (156, [15, 6])
+--   False
+--
+--   >>> equationIsSolvable "*+|" (156, [15, 6])
+--   True
 equationIsSolvable :: [Char] -> Equation -> Bool
 equationIsSolvable validOperators (result, operands) =
   let operators = genOperators validOperators operands
