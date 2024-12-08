@@ -5,9 +5,7 @@ where
 
 solveParts input = (solvePart input "*+", solvePart input "*+|")
 
-solvePart input validOperators =
-  let solvableEquations = filter (equationIsSolvable validOperators) (map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input))
-   in sum (map fst solvableEquations)
+solvePart input validOperators = sum (map fst (filter (equationIsSolvable validOperators) (map (\line -> (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))) (lines input))))
 
 equationIsSolvable validOperators (result, operands) =
   let operators = genOperators (length operands - 2)
