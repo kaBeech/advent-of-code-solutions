@@ -41,6 +41,4 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
 
 parseInput input = map parseLine (lines input)
 
-parseLine line = (read (head split), map read (tail split))
-  where
-    split = words (map (\c -> if c == ':' then ' ' else c) line)
+parseLine line = (read (head (words (map (\c -> if c == ':' then ' ' else c) line))), map read (tail (words (map (\c -> if c == ':' then ' ' else c) line))))
