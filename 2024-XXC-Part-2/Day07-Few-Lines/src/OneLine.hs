@@ -22,7 +22,6 @@ genOperators validOperators operands = acc (length operands - 2)
       operator <- validOperators
       return (operator : rest)
 
-tryEquation (_, []) _ = error "No operands provided."
 tryEquation (result, firstX : operands) operators = acc operands operators firstX
   where
     acc [] _ total = total == result
@@ -32,4 +31,3 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
       | o == '|' = acc xs os (read (show total ++ show x))
       | o == '+' = acc xs os (total + x)
       | o == '*' = acc xs os (total * x)
-      | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
