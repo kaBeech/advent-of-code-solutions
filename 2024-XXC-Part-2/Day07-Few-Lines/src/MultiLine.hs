@@ -1,5 +1,6 @@
 module MultiLine
   ( solvePart1,
+    solvePart2,
   )
 where
 
@@ -9,12 +10,24 @@ type Equation = (Int, [Int])
 --   sum of the results of the equations.
 
 -- | ==== __Examples__
---   >>> solvePart1 "190: 10 19\n83: 17 5"
+--   >>> solvePart1 "190: 10 19\n83: 17 5\n156: 15 6"
 --   190
 solvePart1 :: String -> Int
 solvePart1 input =
   let parsedInput = parseInput input
-      solvableEquations = filter equationIsSolvable parsedInput
+      solvableEquations = filter (equationIsSolvable "*+") parsedInput
+   in sum (map fst solvableEquations)
+
+-- | Takes a string representation of a list of equations and returns the
+--   sum of the results of the equations.
+
+-- | ==== __Examples__
+--   >>> solvePart1 "190: 10 19\n83: 17 5\n156: 15 6"
+--   346
+solvePart2 :: String -> Int
+solvePart2 input =
+  let parsedInput = parseInput input
+      solvableEquations = filter (equationIsSolvable "*+|") parsedInput
    in sum (map fst solvableEquations)
 
 -- | Takes an equation and returns whether it can be solved.
@@ -25,9 +38,9 @@ solvePart1 input =
 --
 --   >>> equationIsSolvable (83, [17, 5])
 --   False
-equationIsSolvable :: Equation -> Bool
-equationIsSolvable (result, operands) =
-  let operators = genOperators "*+" operands
+equationIsSolvable :: [Char] -> Equation -> Bool
+equationIsSolvable validOperators (result, operands) =
+  let operators = genOperators validOperators operands
    in any (tryEquation (result, operands)) operators
 
 -- | Takes a list of valid operators and a list of operands and returns a list
