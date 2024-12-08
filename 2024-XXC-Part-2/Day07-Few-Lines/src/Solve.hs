@@ -1,5 +1,5 @@
 module Solve (solve) where
 
-import OneLine (solvePart1, solvePart2)
+import OneLine (solveParts)
 
-solve input = (solvePart1 input, solvePart2 input)
+solve = solveParts

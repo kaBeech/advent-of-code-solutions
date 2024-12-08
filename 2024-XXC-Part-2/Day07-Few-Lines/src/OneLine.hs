@@ -1,8 +1,9 @@
 module OneLine
-  ( solvePart1,
-    solvePart2,
+  ( solveParts,
   )
 where
+
+solveParts input = (solvePart1 input, solvePart2 input)
 
 solvePart1 input =
   let parsedInput = parseInput input

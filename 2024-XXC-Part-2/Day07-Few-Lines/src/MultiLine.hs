@@ -1,10 +1,12 @@
 module MultiLine
-  ( solvePart1,
-    solvePart2,
+  ( solveParts,
   )
 where
 
 type Equation = (Int, [Int])
+
+solveParts :: String -> (Int, Int)
+solveParts input = (solvePart1 input, solvePart2 input)
 
 -- | Takes a string representation of a list of equations and returns the
 --   sum of the results of the equations.
