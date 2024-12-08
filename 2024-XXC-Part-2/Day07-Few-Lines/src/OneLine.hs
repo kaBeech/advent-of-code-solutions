@@ -4,26 +4,20 @@ module OneLine
   )
 where
 
-type Equation = (Int, [Int])
-
-solvePart1 :: String -> Int
 solvePart1 input =
   let parsedInput = parseInput input
       solvableEquations = filter (equationIsSolvable "*+") parsedInput
    in sum (map fst solvableEquations)
 
-solvePart2 :: String -> Int
 solvePart2 input =
   let parsedInput = parseInput input
       solvableEquations = filter (equationIsSolvable "*+|") parsedInput
    in sum (map fst solvableEquations)
 
-equationIsSolvable :: [Char] -> Equation -> Bool
 equationIsSolvable validOperators (result, operands) =
   let operators = genOperators validOperators operands
    in any (tryEquation (result, operands)) operators
 
-genOperators :: [Char] -> [Int] -> [[Char]]
 genOperators validOperators operands = acc (length operands - 2)
   where
     acc 0 = [[op] | op <- validOperators]
@@ -32,7 +26,6 @@ genOperators validOperators operands = acc (length operands - 2)
       operator <- validOperators
       return (operator : rest)
 
-tryEquation :: Equation -> [Char] -> Bool
 tryEquation (_, []) _ = error "No operands provided."
 tryEquation (result, firstX : operands) operators = acc operands operators firstX
   where
@@ -45,13 +38,10 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
       | o == '*' = acc xs os (total * x)
       | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
 
-concatInt :: [Int] -> Int
 concatInt = read . concatMap show
 
-parseInput :: String -> [Equation]
 parseInput input = map parseLine (lines input)
 
-parseLine :: String -> Equation
 parseLine line = (read (head split), map read (tail split))
   where
     split = words (map (\c -> if c == ':' then ' ' else c) line)
