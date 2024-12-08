@@ -6,16 +6,16 @@ where
 type Equation = (Int, [Int])
 
 -- | Takes a string representation of a list of equations and returns the
---   number of solvable equations.
+--   sum of the results of the equations.
 
 -- | ==== __Examples__
 --   >>> solvePart1 "190: 10 19\n83: 17 5"
---   1
+--   190
 solvePart1 :: String -> Int
 solvePart1 input =
   let parsedInput = parseInput input
       solvableEquations = filter equationIsSolvable parsedInput
-   in length solvableEquations
+   in sum (map fst solvableEquations)
 
 -- | Takes an equation and returns whether it can be solved.
 
