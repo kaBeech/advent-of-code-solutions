@@ -68,22 +68,35 @@ genOperators validOperators operands = acc (length operands - 2)
 --   can be solved with the given operators.
 
 -- | ==== __Examples__
+--   >>> tryEquation (190, [190]) ""
+--   True
+--
 --   >>> tryEquation (190, [10, 19]) "*"
+--   True
+--
+--   >>> tryEquation (29, [10, 19]) "+"
 --   True
 --
 --   >>> tryEquation (190, [10, 19]) "+"
 --   False
+--
+--   >>> tryEquation (156, [15, 6]) "|"
+--   True
 tryEquation :: Equation -> [Char] -> Bool
 tryEquation (_, []) _ = error "No operands provided."
-tryEquation (result, firstOp : operands) operators = acc operands operators firstOp
+tryEquation (result, firstX : operands) operators = acc operands operators firstX
   where
     acc [] _ total = total == result
     acc _ [] total = total == result
     acc (x : xs) (o : os) total
       | total > result = False
+      | o == '|' = acc xs os (concatInt [total, x])
       | o == '+' = acc xs os (total + x)
       | o == '*' = acc xs os (total * x)
       | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
+
+concatInt :: [Int] -> Int
+concatInt = read . concatMap show
 
 -- | Takes a raw string input and returns a list of equations.
 
