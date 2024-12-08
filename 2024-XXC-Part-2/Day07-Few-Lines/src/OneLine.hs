@@ -34,12 +34,10 @@ tryEquation (result, firstX : operands) operators = acc operands operators first
     acc _ [] total = total == result
     acc (x : xs) (o : os) total
       | total > result = False
-      | o == '|' = acc xs os (concatInt [total, x])
+      | o == '|' = acc xs os (read (show total ++ show x))
       | o == '+' = acc xs os (total + x)
       | o == '*' = acc xs os (total * x)
       | otherwise = error ("Invalid operator. Valid operators are: " ++ show operators ++ ". Got: " ++ [o])
-
-concatInt = read . concatMap show
 
 parseInput input = map parseLine (lines input)
 
