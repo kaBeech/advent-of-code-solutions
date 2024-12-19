@@ -42,13 +42,23 @@ process_line([Char|Rest], X, Y, [char(Char, X, Y)|RestChars]) :-
     X1 is X + 1,
     process_line(Rest, X1, Y, RestChars).
 
-% Get nodes from antenna pairs
-get_nodes(AntennaMap, Nodes) :-
+% Get nodes from antenna pairs (unique by coordinates)
+get_nodes(AntennaMap, UniqueNodes) :-
     group_by_frequency(AntennaMap, GroupedAntennas),
     findall(Node, 
         (member(FreqGroup, GroupedAntennas),
          antenna_pair_to_nodes(FreqGroup, Node)),
-        Nodes).
+        AllNodes),
+    remove_duplicate_nodes(AllNodes, UniqueNodes).
+
+% Remove duplicate nodes (nodes with same coordinates)
+remove_duplicate_nodes([], []).
+remove_duplicate_nodes([Node|Rest], UniqueNodes) :-
+    Node = node(X, Y),
+    member(node(X, Y), Rest), !,  % If node with same coordinates exists in rest
+    remove_duplicate_nodes(Rest, UniqueNodes).
+remove_duplicate_nodes([Node|Rest], [Node|UniqueNodes]) :-
+    remove_duplicate_nodes(Rest, UniqueNodes).
 
 % Group antennas by their frequency
 group_by_frequency([], []).
