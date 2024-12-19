@@ -5,13 +5,14 @@
 $testInput = file_get_contents('test_input.dat');
 $challengeInput = file_get_contents('challenge_input.dat');
 
+// $disk = parseInput($challengeInput);
 $disk = parseInput($testInput);
 
 $compactedDisk = compactDisk($disk);
 
-// $checksum = getChecksum($compactedDisk);
+$checksum = getChecksum($compactedDisk);
 
-// echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
+echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
 
 function parseInput(string $input): array
 {
@@ -46,11 +47,22 @@ function compactDisk(array $disk): array
             while (end($disk) == '.' && $i < count($disk)) {
                 array_pop($disk);
             }
-            $compactedDisk[] = array_pop($disk);
+            $compactedDisk[] = (integer) array_pop($disk);
         } else {
-            $compactedDisk[] = $disk[$i];
+            $compactedDisk[] = (integer) $disk[$i];
         }
             $i++;
     }
     return $compactedDisk;
+}
+
+function getChecksum(array $disk): int
+{
+    $checksum = 0;
+    $i = 0;
+    while ($i < count($disk)) {
+        $checksum += $disk[$i] * $i;
+        $i++;
+    }
+    return $checksum;
 }
