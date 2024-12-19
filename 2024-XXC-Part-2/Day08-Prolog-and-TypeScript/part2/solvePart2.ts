@@ -1,0 +1,15 @@
+import parseInput from "./parseInput.ts";
+import selectElfNumber24 from "./selectElfNumber24.ts";
+import { Elf, ElfMap } from "./types.ts";
+
+export default (async function(): Promise<Elf> {
+  const elfMap: ElfMap = await parseInput();
+
+  const elfNumber24 = selectElfNumber24(
+    elfMap,
+  );
+
+  console.log(`Part 2: How many unique locations within the bounds of the map contain an antinode? Answer: ${JSON.stringify(elfNumber24)}`);
+
+  return elfNumber24;
+})();
