@@ -12,3 +12,25 @@ $compactedDisk = compactDisk($disk);
 $checksum = getChecksum($compactedDisk);
 
 echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
+
+function parseInput(string $input): array
+{
+    $segments = explode("", $input);
+    $disk = [];
+    $i = 0;
+    $freeSpace = False;
+    foreach ($segments as $segment) {
+        $size = (int) $segment;
+        while ($size > 0) {
+            if ($freeSpace) {
+                $disk[] = '.';
+            } else {
+                $disk[] = $i;
+            }
+            $size--;
+        }
+        $freeSpace = !$freeSpace;
+        $i++;
+    }
+    return $disk;
+}
