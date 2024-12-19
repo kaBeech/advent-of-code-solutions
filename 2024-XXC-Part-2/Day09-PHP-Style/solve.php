@@ -130,3 +130,14 @@ function findFreeSpace(array $disk, int $fileStart, int $fileSize): int
     }
     return -1;
 }
+
+function swap(array $disk, int $fileStart, int $fileSize, int $freeSpaceStart): array
+{
+    $left = array_slice($disk, 0, $fileStart);
+    $swap1 = array_slice($disk, $freeSpaceStart, $fileSize);
+    $middleStart = $fileStart + $fileSize
+    $middle = array_slice($disk, $middleStart, $freeSpaceStart - $middleStart);
+    $swap2 = array_slice($disk, $fileStart, $fileSize);
+    $right = array_slice($disk, $freeSpaceStart + $fileSize);
+    return array_merge($left, $swap2, $middle, $swap1, $right);
+}
