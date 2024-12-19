@@ -7,6 +7,7 @@ include 'attemptSwap.php';
 include 'checksum.php';
 include 'compact.php';
 include 'compactNoFrag.php';
+include 'freeSpace.php';
 include 'parse.php';
 include 'solve.php';
 
