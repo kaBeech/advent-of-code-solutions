@@ -9,13 +9,13 @@ $disk = parseInput($testInput);
 
 $compactedDisk = compactDisk($disk);
 
-$checksum = getChecksum($compactedDisk);
+// $checksum = getChecksum($compactedDisk);
 
-echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
+// echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
 
 function parseInput(string $input): array
 {
-    $segments = explode("", $input);
+    $segments = str_split($input);
     $disk = [];
     $i = 0;
     $freeSpace = False;
@@ -30,7 +30,9 @@ function parseInput(string $input): array
             $size--;
         }
         $freeSpace = !$freeSpace;
-        $i++;
+        if ($freeSpace) {
+            $i++;
+        }
     }
     return $disk;
 }
