@@ -1,15 +1,15 @@
 import parseInput from "./parseInput.ts";
-import selectElfNumber24 from "./selectElfNumber24.ts";
-import { Elf, ElfMap } from "./types.ts";
+import getUniqueNodes from "./getUniqueNodes.ts";
+import { Antenna, AntennaMap } from "./types.ts";
 
-export default (async function(): Promise<Elf> {
-  const elfMap: ElfMap = await parseInput();
+export default (async function(): Promise<Antenna> {
+  const antennaMap: AntennaMap = await parseInput();
 
-  const elfNumber24 = selectElfNumber24(
-    elfMap,
+  const uniqueNodes = getUniqueNodes(
+    antennaMap,
   );
 
-  console.log(`Part 2: How many unique locations within the bounds of the map contain an antinode? Answer: ${JSON.stringify(elfNumber24)}`);
+  console.log(`Part 2: How many unique locations within the bounds of the map contain an antinode? Answer: ${JSON.stringify(uniqueNodes.length)}`);
 
-  return elfNumber24;
+  return uniqueNodes.length;
 })();
