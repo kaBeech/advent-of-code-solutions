@@ -11,11 +11,9 @@ export default (
       nodesDict[antenna.coordinates.x.toString()].push(antenna.coordinates.y);
     }
   });
-  const nodes: number[] = [];
+  let nodes: number[] = [];
   for (const key in nodesDict) {
-    for (const node of nodesDict[key]) {
-      nodes.push(node);
-    }
+    nodes = nodes.concat(nodesDict[key]);
   }
   return nodes;
 };
