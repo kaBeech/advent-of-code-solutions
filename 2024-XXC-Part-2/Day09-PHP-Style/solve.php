@@ -33,9 +33,9 @@ function compactDisk(array $disk): array
             while (end($disk) == '.' && $i < count($disk)) {
                 array_pop($disk);
             }
-            $compactedDisk[] = (integer) array_pop($disk);
+            $compactedDisk[] = (int) array_pop($disk);
         } else {
-            $compactedDisk[] = (integer) $disk[$i];
+            $compactedDisk[] = (int) $disk[$i];
         }
             $i++;
     }
