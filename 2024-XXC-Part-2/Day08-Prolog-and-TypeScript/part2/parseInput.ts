@@ -3,8 +3,8 @@ import { AntennaMap } from "./types.ts";
 
 export default async (): Promise<AntennaMap> => {
   const playerMapString: string[] = await convertMultiLineFileToArray(
-    // "./test_input.dat",
-    "./challenge_input.dat",
+    "./test_input.dat",
+    // "./challenge_input.dat",
   );
   const antennaMap: AntennaMap = {
     antennas: [],
