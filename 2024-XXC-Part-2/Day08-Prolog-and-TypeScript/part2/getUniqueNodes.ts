@@ -1,8 +1,8 @@
-import { Elf, ElfMap } from "./types.ts";
+import { Antenna, AntennaMap } from "./types.ts";
 
 export default (
-  elfMap: ElfMap,
-): Elf => {
-  const elfNumber24 = elfMap.find((elf) => elf.id === 24)!;
-  return elfNumber24;
+  antennaMap: AntennaMap,
+): Antenna[] => {
+  const uniqueNodes = antennaMap;
+  return uniqueNodes;
 };
