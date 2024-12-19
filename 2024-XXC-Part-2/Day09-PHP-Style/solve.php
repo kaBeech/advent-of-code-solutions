@@ -82,7 +82,10 @@ function attemptSwap(array $disk, int $fileEnd): array
     if ($freeSpaceStart < 0) {
         return [$disk, $fileStart - 1];
     } else {
-        return [swap($disk, $fileStart, $fileSize, $freeSpaceStart), $fileStart - 1];
+        return [
+            swap($disk, $fileStart, $fileSize, $freeSpaceStart),
+            $fileStart - 1
+        ];
     }
 }
 
