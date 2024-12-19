@@ -79,7 +79,7 @@ function getChecksum(array $disk): int
 // TODO: Make sure this $disk arg isn't interfering with the global $disk variable
 function compactDiskNoFrag(array $disk): array
 {
-    $compactedDisk = $disk
+    $compactedDisk = $disk;
     $i = count($compactedDisk) - 1;
     while ($i > 0) {
         if ($compactedDisk[$i] == '.') {
@@ -103,7 +103,7 @@ function attemptSwap(array $disk, int $fileEnd): array
     $fileSize = $fileEnd - $fileStart + 1;
     $freeSpaceStart = findFreeSpace($disk, $fileStart, $fileSize);
     if ($freeSpaceStart < 0) {
-        return $disk
+        return $disk;
     } else {
         return swap($disk, $fileStart, $fileSize, $freeSpaceStart);
     }
@@ -113,7 +113,7 @@ function attemptSwap(array $disk, int $fileEnd): array
 function findFreeSpace(array $disk, int $fileStart, int $fileSize): int
 {
     $i = 0;
-    while ($i < $fileStart)) {
+    while ($i < $fileStart) {
         if ($disk[$i] == '.' && $i + $fileSize < $fileStart) {
             $j = 1;
             while ($j < $fileSize) {
@@ -135,7 +135,7 @@ function swap(array $disk, int $fileStart, int $fileSize, int $freeSpaceStart): 
 {
     $left = array_slice($disk, 0, $fileStart);
     $swap1 = array_slice($disk, $freeSpaceStart, $fileSize);
-    $middleStart = $fileStart + $fileSize
+    $middleStart = $fileStart + $fileSize;
     $middle = array_slice($disk, $middleStart, $freeSpaceStart - $middleStart);
     $swap2 = array_slice($disk, $fileStart, $fileSize);
     $right = array_slice($disk, $freeSpaceStart + $fileSize);
