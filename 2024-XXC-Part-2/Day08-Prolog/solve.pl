@@ -2,8 +2,10 @@
 
 % Solve Part 1
 solve :-
-    read_file('test_input.dat', AntennaMap),
+    % read_file('test_input.dat', AntennaMap),
+    read_file('challenge_input.dat', AntennaMap),
     get_nodes(AntennaMap, Nodes),
+    sum_nodes(Nodes, Sum),
     writeln(Nodes).
 
 % Read file and convert to list of char(Char, X, Y)
@@ -96,3 +98,7 @@ antenna_pair_to_nodes(Group, node(NodeX, NodeY)) :-
         NodeX is X1 - DiffX,
         NodeY is Y1 - DiffY
     ).
+
+% Count the number of nodes in the list
+sum_nodes(Nodes, Count) :-
+    length(Nodes, Count).
