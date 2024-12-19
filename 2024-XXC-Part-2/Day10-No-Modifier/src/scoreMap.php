@@ -9,7 +9,7 @@ function scoreMap(array $trailMap): int
     $y = 0;
     while ($y <= $maxY) {
         if ($trailMap[$y][$x] === '0') {
-            $score += scoreTrail($trailMap, $x, $y, 0, 0);
+            $score += scoreTrail($trailMap, $x, $y, $maxX, $maxY, -1, 0);
         }
         $x++;
         if ($x > $maxX) {

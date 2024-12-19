@@ -3,6 +3,7 @@
 
 include 'src/parse.php';
 include 'src/scoreMap.php';
+include 'src/scoreTrail.php';
 
 echo 'Part 1: What is the sum of the scores of all trailheads on your topographic map? Answer: ' .
     parseInput(
