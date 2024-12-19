@@ -7,12 +7,19 @@ $challengeInput = file_get_contents('challenge_input.dat');
 
 // $disk = parseInput($challengeInput);
 $disk = parseInput($testInput);
+$diskCopy = $disk;
 
-$compactedDisk = compactDisk($disk);
+$compactedDisk1 = compactDisk($disk);
 
-$checksum = getChecksum($compactedDisk);
+$checksum1 = getChecksum($compactedDisk1);
 
-echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum . PHP_EOL;
+echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . $checksum1 . PHP_EOL;
+
+$compactedDisk2 = compactDiskNoFrag($diskCopy);
+
+$checksum2 = getChecksum($compactedDisk2);
+
+echo 'Part 2: What is the resulting filesystem checksum? Answer: ' . $checksum2 . PHP_EOL;
 
 function parseInput(string $input): array
 {
