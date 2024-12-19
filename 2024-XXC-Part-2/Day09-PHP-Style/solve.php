@@ -76,16 +76,14 @@ function getChecksum(array $disk): int
     return $checksum;
 }
 
-// TODO: Make sure this $disk arg isn't interfering with the global $disk variable
 function compactDiskNoFrag(array $disk): array
 {
     $compactedDisk = $disk;
     $i = count($compactedDisk) - 1;
     while ($i > 0) {
-        if ($compactedDisk[$i] == '.') {
+        if (gettype($compactedDisk[$i]) != 'integer') {
             $i--;
         } else {
-            // TODO: Make sure this destructuring works how I think it does
             [$compactedDisk, $i] = attemptSwap($compactedDisk, $i);
         }
     }
@@ -113,11 +111,12 @@ function attemptSwap(array $disk, int $fileEnd): array
 function findFreeSpace(array $disk, int $fileStart, int $fileSize): int
 {
     $i = 0;
-    while ($i < $fileStart) {
-        if ($disk[$i] == '.' && $i + $fileSize <= $fileStart) {
+    while ($i + $fileSize <= $fileStart) {
+        assert($i >= 0);
+        if (gettype($disk[$i]) != 'integer') {
             $j = 1;
             while ($j < $fileSize) {
-                if ($disk[$i + $j] != '.') {
+                if (gettype($disk[$i + $j]) == 'integer') {
                     break;
                 }
                 $j++;
