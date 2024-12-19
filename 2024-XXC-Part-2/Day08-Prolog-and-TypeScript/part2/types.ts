@@ -1,8 +1,11 @@
-import { XYCoordinates } from "../../../tools/commonTypes.ts";
+import { HeightWidth, XYCoordinates } from "../../../tools/commonTypes.ts";
 
 export interface Antenna {
   frequency: string;
   coordinates: XYCoordinates;
 }
 
-export type AntennaMap = Antenna[];
+export interface AntennaMap {
+  antennas: Antenna[];
+  hw: HeightWidth;
+}
