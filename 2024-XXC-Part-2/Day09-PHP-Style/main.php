@@ -3,6 +3,7 @@
 // Uses the PSR-12: Extended Coding Style guide available at
 // https://www.php-fig.org/psr/psr-12/
 
+include 'compact.php';
 include 'parse.php';
 include 'solve.php';
 
