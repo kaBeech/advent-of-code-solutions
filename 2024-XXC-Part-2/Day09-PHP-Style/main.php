@@ -5,6 +5,7 @@
 
 include 'checksum.php';
 include 'compact.php';
+include 'compactNoFrag.php';
 include 'parse.php';
 include 'solve.php';
 
