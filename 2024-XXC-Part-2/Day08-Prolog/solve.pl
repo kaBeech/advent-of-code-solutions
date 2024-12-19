@@ -117,3 +117,15 @@ antenna_pair_to_nodes(Group, node(NodeX, NodeY)) :-
 % Count the number of nodes in the list
 sum_nodes(Nodes, Count) :-
     length(Nodes, Count).
+
+% Test case
+test :-
+    AntennaMap = [char('A',0,0), char('A',2,2), char('B',1,1), char('B',3,3)],
+    writeln('Test AntennaMap:'),
+    writeln(AntennaMap),
+    get_nodes(AntennaMap, Nodes),
+    writeln('Test Nodes:'),
+    writeln(Nodes),
+    sum_nodes(Nodes, Sum),
+    writeln('Test Sum:'),
+    writeln(Sum).
