@@ -3,6 +3,7 @@
 // Uses the PSR-12: Extended Coding Style guide available at
 // https://www.php-fig.org/psr/psr-12/
 
+include 'parse.php';
 include 'solve.php';
 
 echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . 
