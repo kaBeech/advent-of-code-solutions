@@ -63,6 +63,22 @@ function compactDisk(array $disk): array
     return $compactedDisk;
 }
 
+// TODO: Make sure this $disk arg isn't interfering with the global $disk variable
+function compactDiskNoFrag(array $disk): array
+{
+    $compactedDisk = $disk
+    $i = count($compactedDisk) - 1;
+    while ($i > 0) {
+        if ($compactedDisk[$i] == '.') {
+            $i--;
+        } else {
+            // TODO: Make sure this destructuring works how I think it does
+            [$compactedDisk, $i] = attemptSwap($compactedDisk, $i);
+        }
+    }
+    return $compactedDisk;
+}
+
 function getChecksum(array $disk): int
 {
     $checksum = 0;
