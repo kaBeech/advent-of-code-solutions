@@ -7,4 +7,5 @@ function parseInput(string $input): array
     foreach ($lines as $line) {
         $trailMap[] = str_split($line);
     }
+    return $trailMap;
 }
