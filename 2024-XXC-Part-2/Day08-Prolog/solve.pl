@@ -2,8 +2,8 @@
 
 % Solve Part 1
 solve :-
-    % read_file('test_input.dat', AntennaMap),
-    read_file('challenge_input.dat', AntennaMap),
+    read_file('test_input.dat', AntennaMap),
+    % read_file('challenge_input.dat', AntennaMap),
     get_nodes(AntennaMap, Nodes),
     sum_nodes(Nodes, Sum),
     writeln(Sum).
