@@ -3,6 +3,7 @@
 // Uses the PSR-12: Extended Coding Style guide available at
 // https://www.php-fig.org/psr/psr-12/
 
+include 'attemptSwap.php';
 include 'checksum.php';
 include 'compact.php';
 include 'compactNoFrag.php';
