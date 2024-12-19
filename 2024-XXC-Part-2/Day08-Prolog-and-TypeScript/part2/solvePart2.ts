@@ -2,7 +2,7 @@ import parseInput from "./parseInput.ts";
 import getUniqueNodes from "./getUniqueNodes.ts";
 import { Antenna, AntennaMap } from "./types.ts";
 
-export default (async function(): Promise<Antenna> {
+export default (async function(): Promise<number> {
   const antennaMap: AntennaMap = await parseInput();
 
   const uniqueNodes = getUniqueNodes(

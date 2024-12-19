@@ -9,3 +9,7 @@ export interface AntennaMap {
   antennas: Antenna[];
   hw: HeightWidth;
 }
+
+export interface NodeDict {
+  [x: string]: number[];
+}
