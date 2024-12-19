@@ -63,6 +63,19 @@ function compactDisk(array $disk): array
     return $compactedDisk;
 }
 
+function getChecksum(array $disk): int
+{
+    $checksum = 0;
+    $i = 0;
+    while ($i < count($disk)) {
+        if (gettype($disk[$i]) == 'integer') {
+            $checksum += $disk[$i] * $i;
+        }
+        $i++;
+    }
+    return $checksum;
+}
+
 // TODO: Make sure this $disk arg isn't interfering with the global $disk variable
 function compactDiskNoFrag(array $disk): array
 {
@@ -94,17 +107,4 @@ function attemptSwap(array $disk, int $fileEnd): array
     } else {
         return swap($disk, $fileStart, $fileSize, $freeSpaceStart);
     }
-}
-
-function getChecksum(array $disk): int
-{
-    $checksum = 0;
-    $i = 0;
-    while ($i < count($disk)) {
-        if (gettype($disk[$i]) == 'integer') {
-            $checksum += $disk[$i] * $i;
-        }
-        $i++;
-    }
-    return $checksum;
 }
