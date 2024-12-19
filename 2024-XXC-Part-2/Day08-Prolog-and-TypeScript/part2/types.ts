@@ -1,8 +1,8 @@
 import { XYCoordinates } from "../../../tools/commonTypes.ts";
 
-export interface Elf {
-  id: number;
+export interface Antenna {
+  frequency: string;
   coordinates: XYCoordinates;
 }
 
-export type ElfMap = Elf[];
+export type AntennaMap = Antenna[];
