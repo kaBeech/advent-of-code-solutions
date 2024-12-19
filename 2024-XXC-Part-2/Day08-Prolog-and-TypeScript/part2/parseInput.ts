@@ -1,19 +1,25 @@
 import { convertMultiLineFileToArray } from "../../../tools/conversionFunctions/convertFileToArray.ts";
-import { ElfMap } from "./types.ts";
+import { AntennaMap } from "./types.ts";
 
-export default async (): Promise<ElfMap> => {
-  const elfMap: ElfMap = [];
+export default async (): Promise<AntennaMap> => {
   const playerMapString: string[] = await convertMultiLineFileToArray(
-    "./challenge_input.dat",
+    "./test_input.dat",
+    // "./challenge_input.dat",
   );
-  let i = -1;
+  const antennaMap: AntennaMap = {
+    antennas: [],
+    hw: { height: playerMapString.length, width: playerMapString[0].length },
+  };
   playerMapString.forEach((line, yIndex) => {
-    line.split('').forEach((_rawPlayer, xIndex) => {
-      elfMap.push({
-        id: i++,
-        coordinates: { x: xIndex, y: yIndex },
-      });
+    line.split('').forEach((frequency, xIndex) => {
+      if (frequency !== '.') {
+        antennaMap.antennas.push({
+          frequency,
+          coordinates: { x: xIndex, y: yIndex },
+        });
+      }
     });
+
   });
-  return elfMap;
+  return antennaMap;
 };
