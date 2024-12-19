@@ -6,7 +6,7 @@ solve :-
     read_file('challenge_input.dat', AntennaMap),
     get_nodes(AntennaMap, Nodes),
     sum_nodes(Nodes, Sum),
-    writeln(Nodes).
+    writeln(Sum).
 
 % Read file and convert to list of char(Char, X, Y)
 % For example, an input file containing this data:
@@ -19,19 +19,26 @@ solve :-
 % [char(0,8,1),char(0,5,2),char(0,7,3),char(0,4,4),char(A,6,5),char(A,8,8),char(A,9,9)]
 read_file(Filename, AntennaMap) :-
     open(Filename, read, Stream),
-    read_lines(Stream, 0, AntennaMap),
+    read_lines(Stream, 0, AntennaMap, Width, Height),
+    retractall(grid_size(_, _)),  % Remove any existing grid_size facts
+    assert(grid_size(Width, Height)),
     close(Stream).
 
 % Read lines until end of file, accumulating characters with coordinates
-read_lines(Stream, Y, AntennaMap) :-
+read_lines(Stream, Y, AntennaMap, Width, Height) :-
     read_line_to_string(Stream, Line),
     (Line \= end_of_file
         -> (string_chars(Line, Chars),
+            length(Chars, LineWidth),
             process_line(Chars, 0, Y, ThisLineChars),
             Y1 is Y + 1,
-            read_lines(Stream, Y1, RestChars),
+            read_lines(Stream, Y1, RestChars, NextWidth, Height1),
+            (Y =:= 0 -> Width = LineWidth ; Width = NextWidth),
+            Height is max(Y1, Height1),
             append(ThisLineChars, RestChars, AntennaMap))
-        ; AntennaMap = []).
+        ; (AntennaMap = [],
+           Height = Y,
+           Width = 0)).
 
 % Process each character in a line (except '.' characters), 
 % recording its coordinates
@@ -78,6 +85,12 @@ add_to_frequency_group(char(Freq,X,Y), [Group|Rest], [Group|NewRest]) :-
     Freq \= OtherFreq,
     add_to_frequency_group(char(Freq,X,Y), Rest, NewRest).
 
+% Check if coordinates are within grid bounds
+in_bounds(X, Y) :-
+    grid_size(Width, Height),
+    X >= 0, X < Width,
+    Y >= 0, Y < Height.
+
 % Generate nodes from a group of same-frequency antennas
 antenna_pair_to_nodes(Group, node(NodeX, NodeY)) :-
     length(Group, Len),
@@ -90,13 +103,15 @@ antenna_pair_to_nodes(Group, node(NodeX, NodeY)) :-
         DiffX is X2 - X1,
         DiffY is Y2 - Y1,
         NodeX is X2 + DiffX,
-        NodeY is Y2 + DiffY
+        NodeY is Y2 + DiffY,
+        in_bounds(NodeX, NodeY)  % Only succeed if node is in bounds
     ;
         % Calculate second node
         DiffX is X2 - X1,
         DiffY is Y2 - Y1,
         NodeX is X1 - DiffX,
-        NodeY is Y1 - DiffY
+        NodeY is Y1 - DiffY,
+        in_bounds(NodeX, NodeY)  % Only succeed if node is in bounds
     ).
 
 % Count the number of nodes in the list
