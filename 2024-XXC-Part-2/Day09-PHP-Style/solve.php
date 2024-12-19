@@ -108,3 +108,25 @@ function attemptSwap(array $disk, int $fileEnd): array
         return swap($disk, $fileStart, $fileSize, $freeSpaceStart);
     }
 }
+
+
+function findFreeSpace(array $disk, int $fileStart, int $fileSize): int
+{
+    $i = 0;
+    while ($i < count($disk)) {
+        if ($disk[$i] == '.' && $i + $fileSize < count($disk)) {
+            $j = 1;
+            while ($j < $fileSize) {
+                if ($disk[$i + $j] != '.') {
+                    break;
+                }
+                $j++;
+            }
+            if ($j == $fileSize) {
+                return $i;
+            }
+        }
+        $i++;
+    }
+    return -1;
+}
