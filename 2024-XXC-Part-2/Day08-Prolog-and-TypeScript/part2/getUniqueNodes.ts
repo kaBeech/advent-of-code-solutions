@@ -71,7 +71,7 @@ const isInRange = (coords: XYCoordinates, hw: HeightWidth): boolean => {
 const addNode = (nodeDict: NodeDict, x: number, y: number): NodeDict => {
   if (!nodeDict[x.toString()]) {
     nodeDict[x.toString()] = [y];
-  } else {
+  } else if (!nodeDict[x.toString()].includes(y)) {
     nodeDict[x.toString()].push(y);
   }
   return nodeDict;
