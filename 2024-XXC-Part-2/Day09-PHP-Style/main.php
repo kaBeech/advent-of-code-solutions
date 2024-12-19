@@ -9,7 +9,7 @@ include 'compact.php';
 include 'compactNoFrag.php';
 include 'freeSpace.php';
 include 'parse.php';
-include 'solve.php';
+include 'swap.php';
 
 echo 'Part 1: What is the resulting filesystem checksum? Answer: ' . 
     getChecksum(compactDisk(parseInput(
