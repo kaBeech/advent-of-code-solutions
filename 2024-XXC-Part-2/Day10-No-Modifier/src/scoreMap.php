@@ -2,14 +2,16 @@
 
 function scoreMap(array $trailMap): int
 {
-    $score = 0;
+    $trailheads = [];
     $maxX = count($trailMap[0]) - 1;
     $maxY = count($trailMap) - 1;
     $x = 0;
     $y = 0;
     while ($y <= $maxY) {
-        if ($trailMap[$y][$x] === '0') {
-            $score += scoreTrail($trailMap, $x, $y, $maxX, $maxY, -1, 0);
+        // echo "x: $x, y: $y elevation: " . $trailMap[$y][$x] . PHP_EOL;
+        if ($trailMap[$y][$x][0] === 0) {
+            [$trailMap, $returnedTrailheads] = getTrails($trailMap, $x, $y, $maxX, $maxY, -1, []);
+            $trailheads = array_merge($trailheads, $returnedTrailheads);
         }
         $x++;
         if ($x > $maxX) {
@@ -17,5 +19,7 @@ function scoreMap(array $trailMap): int
             $y++;
         }
     }
+    $uniqueTrailheads = array_unique($trailheads);
+    $score = count($uniqueTrailheads);
     return $score;
 }
