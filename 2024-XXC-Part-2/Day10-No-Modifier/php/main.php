@@ -3,7 +3,6 @@
 
 include 'src/parse.php';
 include 'src/scoreMap.php';
-include 'src/scoreTrail.php';
 include 'src/getTrails.php';
 
 error_reporting(E_ERROR | E_PARSE);
