@@ -65,7 +65,8 @@ library
     exposed-modules:  SolvePart1,
                       SolvePart2,
                       Types,
-                      Parse
+                      Parse,
+                      GetTrailheads,
 
     -- Modules included in this library but not exported.
     -- other-modules:
