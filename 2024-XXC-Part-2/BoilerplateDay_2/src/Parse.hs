@@ -4,7 +4,7 @@ module Parse
   )
 where
 
-import Types (CharMap)
+import Types (CharFlatMap, CharMap)
 
 -- | Takes a string and returns a CharMap.
 
