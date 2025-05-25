@@ -7,7 +7,7 @@ applyBlink :: String -> [String]
 applyBlink stone
   | stone == "0" = ["1"]
   | even $ length stone = [simplify left, simplify right]
-  | otherwise = [show $ 2024 * read stone]
+  | otherwise = [show (2024 * read stone :: Integer)]
   where
     half = length stone `div` 2
     left = take half stone
