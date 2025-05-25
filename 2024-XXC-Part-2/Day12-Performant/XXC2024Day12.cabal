@@ -65,7 +65,7 @@ library
     exposed-modules:  Solve,
                       Types,
                       Parse,
-                      Perimeters,
+                      Score,
                       Neighbors,
                       Regions,
 

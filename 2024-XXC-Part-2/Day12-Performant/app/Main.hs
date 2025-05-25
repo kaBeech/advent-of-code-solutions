@@ -1,7 +1,6 @@
 module Main where
 
-import SolvePart1 (solvePart1)
-import SolvePart2 (solvePart2)
+import Solve (solvePart1, solvePart2)
 
 main :: IO ()
 main = do

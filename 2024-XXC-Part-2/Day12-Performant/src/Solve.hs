@@ -2,6 +2,7 @@ module Solve (solvePart1, solvePart2) where
 
 import Parse (parseInputFlat)
 import Regions (getRegions)
+import Score (scoreRegion)
 
 solvePart1 :: String -> String
 solvePart1 gardenMapRaw = show result
