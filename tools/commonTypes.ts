@@ -31,4 +31,9 @@ export interface MinMax {
   max: number;
 }
 
+export interface HeightWidth {
+  height: number;
+  width: number;
+}
+
 export type CardinalDirection = `north` | `east` | `south` | `west`;
