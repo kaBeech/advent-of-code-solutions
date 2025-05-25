@@ -6,7 +6,7 @@ type Perimeter = Int
 
 type Region = [Tile]
 
-type Tile = (Char, XYCoord, Perimeter)
+type Tile = (Char, XYCoord)
 
 type GardenMap = [[Tile]]
 
