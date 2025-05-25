@@ -1,4 +1,4 @@
-module ScoreTrailhead (scoreTrailhead) where
+module ScoreTrailhead (scoreTrailhead, getTrailheadRating) where
 
 import Data.Char (digitToInt)
 import qualified Data.Set as Set
@@ -25,3 +25,11 @@ getAccessibleTiles topoMap (c, (x, y)) = filter isAccessible adjacentTiles
     isAdjacent (_, (x', y')) = abs (x' - x) + abs (y' - y) == 1
     isAccessible ('.', _) = False
     isAccessible (c', _) = digitToInt c + 1 == digitToInt c'
+
+getTrailheadRating :: CharFlatMap -> Tile -> Int
+getTrailheadRating = getPaths
+
+getPaths :: CharFlatMap -> Tile -> Int
+getPaths _ ('9', _) = 1
+getPaths topoMap tile =
+  sum $ map (getPaths topoMap) (getAccessibleTiles topoMap tile)
