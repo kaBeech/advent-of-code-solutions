@@ -1,42 +1,29 @@
-module Blink (blink, blinkV2) where
+module Blink (blink) where
 
 import Data.MemoTrie (memoFix)
 import Types (Memo, Stone)
 
-blink :: [String] -> [String]
-blink = concatMap applyBlink
+blink :: Int -> [String] -> Integer
+blink n stones = sum $ map (applyBlink n) stones
 
-applyBlink :: String -> [String]
-applyBlink stone
-  | stone == "0" = ["1"]
-  | even $ length stone = [simplify left, simplify right]
-  | otherwise = [show (2024 * read stone :: Integer)]
-  where
-    half = length stone `div` 2
-    left = take half stone
-    right = drop half stone
-
-simplify :: String -> String
-simplify s = show (read s :: Integer)
-
-blinkV2 :: Int -> [String] -> Integer
-blinkV2 n stones = sum $ map (applyBlinkV2 n) stones
-
-applyBlinkV2 :: Int -> String -> Integer
-applyBlinkV2 n stoneRaw = blinkMemo (stoneRaw, n)
+applyBlink :: Int -> String -> Integer
+applyBlink n stoneRaw = blinkMemo (stoneRaw, n)
 
 blinkMemo :: Stone -> Integer
-blinkMemo = memoFix applyBlinkV2'
+blinkMemo = memoFix applyBlink'
 
-applyBlinkV2' :: Memo (Stone -> Integer)
-applyBlinkV2' applyBlinkV2' (engraving, n)
+applyBlink' :: Memo (Stone -> Integer)
+applyBlink' applyBlink' (engraving, n)
   | n == 0 = 1
-  | engraving == "0" = applyBlinkV2' ("1", n - 1)
-  | otherwise =
-      if even $ length engraving
-        then applyBlinkV2' (simplify left, n - 1) + applyBlinkV2' (simplify right, n - 1)
-        else applyBlinkV2' (show (2024 * read engraving :: Integer), n - 1)
+  | engraving == "0" = applyBlink' ("1", n - 1)
+  | even $ length engraving =
+      applyBlink' (simplify left, n - 1)
+        + applyBlink' (simplify right, n - 1)
+  | otherwise = applyBlink' (show (2024 * read engraving :: Integer), n - 1)
   where
     half = length engraving `div` 2
     left = take half engraving
     right = drop half engraving
+
+simplify :: String -> String
+simplify s = show (read s :: Integer)
