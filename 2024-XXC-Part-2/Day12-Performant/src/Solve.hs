@@ -15,5 +15,7 @@ solvePart1 gardenMapRaw = show result
 solvePart2 :: String -> String
 solvePart2 gardenMapRaw = show result
   where
-    result = gardenMap
+    result = sum prices
+    prices = map priceRegionDiscounted regions
+    regions = getRegions gardenMap
     gardenMap = parseInputFlat gardenMapRaw
