@@ -1,4 +1,4 @@
-module Neighbors (getNeighbors, matchPlant, isAdjacent) where
+module Neighbors (getNeighbors, matchPlant, isAdjacent, isAdjacentToAny) where
 
 import Types (GardenFlatMap, Tile)
 
@@ -6,7 +6,10 @@ getNeighbors :: GardenFlatMap -> Tile -> [Tile]
 getNeighbors gardenMap tile = filter (isAdjacent tile) gardenMap
 
 isAdjacent :: Tile -> Tile -> Bool
-isAdjacent (_, (x, y), _) (_, (x', y'), _) = abs (x - x') + abs (y - y') == 1
+isAdjacent (_, (x, y)) (_, (x', y')) = abs (x - x') + abs (y - y') == 1
+
+isAdjacentToAny :: [Tile] -> Tile -> Bool
+isAdjacentToAny tiles tile = any (isAdjacent tile) tiles
 
 matchPlant :: Tile -> Tile -> Bool
-matchPlant (plant, _, _) (plant', _, _) = plant' == plant
+matchPlant (plant, _) (plant', _) = plant' == plant
