@@ -1,10 +1,10 @@
 module SolvePart2 (solvePart2) where
 
-import Blink (blinkV2)
+import Blink (blink)
 import Parse (parseInput)
 
-solvePart2 :: Int -> String -> String
-solvePart2 n input = show result
+solvePart2 :: String -> String
+solvePart2 input = show result
   where
-    result = blinkV2 n stones
+    result = blink 75 stones
     stones = parseInput input
