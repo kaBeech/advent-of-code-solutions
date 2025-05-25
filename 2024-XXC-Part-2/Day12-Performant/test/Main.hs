@@ -8,9 +8,13 @@ import System.Exit
 main :: IO ()
 main = do
   input1 <- readFile "data/test_input_1.dat"
-  res1 <- test solvePart1 1 input1 "1"
-  res2 <- test solvePart2 2 input1 "2"
-  let allPassed = res1 && res2
+  input2 <- readFile "data/test_input_2.dat"
+  input3 <- readFile "data/test_input_3.dat"
+  res1 <- test solvePart1 1 input1 "140"
+  res2 <- test solvePart1 2 input2 "772"
+  res3 <- test solvePart1 3 input3 "1930"
+  res4 <- test solvePart2 4 input1 "2"
+  let allPassed = and [res1, res2, res3, res4]
   unless allPassed exitFailure
 
 test :: (String -> String) -> Int -> String -> String -> IO Bool
