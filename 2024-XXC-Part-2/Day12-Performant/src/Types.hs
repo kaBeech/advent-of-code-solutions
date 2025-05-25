@@ -2,8 +2,10 @@ module Types where
 
 type XYCoord = (Int, Int)
 
-type Tile = (Char, XYCoord)
+type Perimeter = Int
 
-type CharMap = [[Tile]]
+type Tile = (Char, XYCoord, Perimeter)
 
-type CharFlatMap = [Tile]
+type GardenMap = [[Tile]]
+
+type GardenFlatMap = [Tile]
