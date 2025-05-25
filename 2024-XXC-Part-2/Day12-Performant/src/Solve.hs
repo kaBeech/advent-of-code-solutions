@@ -1,7 +1,7 @@
 module Solve (solvePart1, solvePart2) where
 
 import Parse (parseInputFlat)
-import Price (priceRegion)
+import Price (priceRegion, priceRegionDiscounted)
 import Regions (getRegions)
 
 solvePart1 :: String -> String

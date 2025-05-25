@@ -1,4 +1,4 @@
-module Price (priceRegion) where
+module Price (priceRegion, priceRegionDiscounted) where
 
 import Neighbors (getNeighbors)
 import Types (GardenFlatMap)
@@ -14,3 +14,6 @@ getDimensions area perimeter (tile : rest) gardenMap =
   getDimensions (area + 1) (perimeter + borders) rest gardenMap
   where
     borders = 4 - length (getNeighbors gardenMap tile)
+
+priceRegionDiscounted :: GardenFlatMap -> Int
+priceRegionDiscounted = priceRegion
