@@ -1,5 +1,8 @@
 module Blink (blink, blinkV2) where
 
+import Data.MemoTrie (memoFix)
+import Types (Memo, Stone)
+
 blink :: [String] -> [String]
 blink = concatMap applyBlink
 
@@ -22,6 +25,9 @@ blinkV2 n stones = sum $ map (applyBlinkV2 n) stones
 applyBlinkV2 :: Int -> String -> Integer
 applyBlinkV2 n stoneRaw = blinkMemo (stoneRaw, n)
 
+blinkMemo :: Stone -> Integer
+blinkMemo = memoFix applyBlinkV2'
+
 applyBlinkV2' :: Memo (Stone -> Integer)
 applyBlinkV2' applyBlinkV2' (engraving, n)
   | n == 0 = 1
@@ -34,6 +40,3 @@ applyBlinkV2' applyBlinkV2' (engraving, n)
     half = length engraving `div` 2
     left = take half engraving
     right = drop half engraving
-
-blinkMemo :: Stone -> Integer
-blinkMemo = memoFix applyBlinkV2'
