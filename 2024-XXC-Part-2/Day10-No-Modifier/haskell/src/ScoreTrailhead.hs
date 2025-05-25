@@ -22,6 +22,6 @@ getAccessibleTiles :: CharFlatMap -> Tile -> [Tile]
 getAccessibleTiles topoMap (c, (x, y)) = filter isAccessible adjacentTiles
   where
     adjacentTiles = filter isAdjacent topoMap
-    isAdjacent (_, (x', y')) = (abs (x' - x) <= 1) && (abs (y' - y) <= 1)
+    isAdjacent (_, (x', y')) = abs (x' - x) + abs (y' - y) == 1
     isAccessible ('.', _) = False
     isAccessible (c', _) = digitToInt c + 1 == digitToInt c'
