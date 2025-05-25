@@ -1,5 +1,6 @@
 module SolvePart1 (solvePart1) where
 
+import Blink (blink)
 import Parse (parseInput)
 
 solvePart1 :: String -> String
