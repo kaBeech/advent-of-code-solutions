@@ -1,5 +1,6 @@
 module Parse
   ( parseInput,
+    parseInputFlat,
   )
 where
 
@@ -18,3 +19,6 @@ parseInput input =
     )
     [0 ..]
     (lines input)
+
+parseInputFlat :: String -> CharFlatMap
+parseInputFlat input = concat $ parseInput input

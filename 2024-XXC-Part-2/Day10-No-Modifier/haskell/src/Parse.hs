@@ -1,9 +1,10 @@
 module Parse
   ( parseInput,
+    parseInputFlat,
   )
 where
 
-import Types (CharMap)
+import Types (CharFlatMap, CharMap)
 
 -- | Takes a string and returns a CharMap.
 
@@ -18,3 +19,6 @@ parseInput input =
     )
     [0 ..]
     (lines input)
+
+parseInputFlat :: String -> CharFlatMap
+parseInputFlat input = concat $ parseInput input

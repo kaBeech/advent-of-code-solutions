@@ -67,6 +67,7 @@ library
                       Types,
                       Parse,
                       GetTrailheads,
+                      ScoreTrailhead,
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -75,7 +76,8 @@ library
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.19.2.0
+    build-depends:    containers ^>=0.6.8,
+                      base ^>=4.19.2.0
 
     -- Directories containing source files.
     hs-source-dirs:   src
