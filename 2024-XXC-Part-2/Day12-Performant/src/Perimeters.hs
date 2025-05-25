@@ -1,13 +1,14 @@
-module AddPerimeters (addPerimeters) where
+module Perimeters (addPerimeters) where
 
-import GetNeighbors (getNeighbors)
+import Neighbors (getNeighbors, matchPlant)
 import Types (GardenFlatMap, Tile)
 
 addPerimeters :: GardenFlatMap -> GardenFlatMap
 addPerimeters gardenMap = map (addPerimeters' gardenMap) gardenMap
 
 addPerimeters' :: GardenFlatMap -> Tile -> Tile
-addPerimeters' gardenMap tile@(plant, (x, y), score) = (plant, (x, y), borders)
+addPerimeters' gardenMap tile@(plant, (x, y), _) = (plant, (x, y), borders)
   where
-    borders = length $ filter (not matchPlant plant) neighbors
-    neighbors = getNeighbors gardenMap (x, y)
+    borders = length $ filter notMatchPlant neighbors
+    notMatchPlant neighbor = not (matchPlant tile neighbor)
+    neighbors = getNeighbors gardenMap tile
