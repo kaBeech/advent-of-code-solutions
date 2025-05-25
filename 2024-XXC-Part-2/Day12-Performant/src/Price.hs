@@ -1,19 +1,19 @@
 module Price (priceRegion, priceRegionDiscounted) where
 
 import Neighbors (getNeighbors)
-import Types (GardenFlatMap)
+import Types (Region, Tile)
 
-priceRegion :: GardenFlatMap -> Int
-priceRegion gardenMap = area * perimeter
+priceRegion :: Region -> Int
+priceRegion region = area * perimeter
   where
-    (area, perimeter) = getDimensions 0 0 gardenMap gardenMap
+    (area, perimeter) = getDimensions 0 0 region region
 
-getDimensions :: Int -> Int -> GardenFlatMap -> GardenFlatMap -> (Int, Int)
+getDimensions :: Int -> Int -> [Tile] -> Region -> (Int, Int)
 getDimensions area perimeter [] _ = (area, perimeter)
-getDimensions area perimeter (tile : rest) gardenMap =
-  getDimensions (area + 1) (perimeter + borders) rest gardenMap
+getDimensions area perimeter (tile : rest) region =
+  getDimensions (area + 1) (perimeter + borders) rest region
   where
-    borders = 4 - length (getNeighbors gardenMap tile)
+    borders = 4 - length (getNeighbors region tile)
 
-priceRegionDiscounted :: GardenFlatMap -> Int
+priceRegionDiscounted :: Region -> Int
 priceRegionDiscounted = priceRegion
