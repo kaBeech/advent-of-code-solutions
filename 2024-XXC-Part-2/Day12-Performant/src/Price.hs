@@ -1,10 +1,10 @@
-module Score (scoreRegion) where
+module Price (priceRegion) where
 
 import Neighbors (getNeighbors)
 import Types (GardenFlatMap)
 
-scoreRegion :: GardenFlatMap -> Int
-scoreRegion gardenMap = area * perimeter
+priceRegion :: GardenFlatMap -> Int
+priceRegion gardenMap = area * perimeter
   where
     (area, perimeter) = getDimensions 0 0 gardenMap gardenMap
 
