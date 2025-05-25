@@ -1,5 +1,6 @@
 module Solve (solvePart1, solvePart2) where
 
+import AddPerimeters (addPerimeters)
 import Parse (parseInputFlat)
 
 solvePart1 :: String -> String
