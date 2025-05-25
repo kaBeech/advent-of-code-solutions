@@ -1,8 +1,7 @@
 module Main (main) where
 
 import Control.Monad (unless)
-import SolvePart1 (solvePart1)
-import SolvePart2 (solvePart2)
+import Solve (solvePart1, solvePart2)
 import System.Exit
 
 main :: IO ()

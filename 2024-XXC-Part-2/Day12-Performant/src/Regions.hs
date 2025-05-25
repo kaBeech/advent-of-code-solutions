@@ -1,4 +1,4 @@
-module Regions (getRegions) where
+module Regions (getRegions, scoreRegion) where
 
 import Neighbors (getNeighbors, isAdjacent, matchPlant)
 import Types (GardenFlatMap, Region, Tile)
@@ -22,3 +22,9 @@ directlyEligible tile0 tile1 = isAdjacent tile0 tile1 && matchPlant tile0 tile1
 
 partOfRegion :: GardenFlatMap -> Tile -> Tile -> Bool
 partOfRegion gardenMap tile0 tile1 = directlyEligible tile0 tile1 || any (partOfRegion gardenMap tile1) (getNeighbors gardenMap tile1)
+
+scoreRegion :: Region -> Int
+scoreRegion region = totalPerimeter * totalArea
+  where
+    totalPerimeter = sum $ map (\(_, _, perimeter) -> perimeter) region
+    totalArea = length region
