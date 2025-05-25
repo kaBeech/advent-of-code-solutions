@@ -4,6 +4,8 @@ import Blink (blink)
 import Parse (parseInput)
 
 solvePart1 :: String -> String
-solvePart1 input = concat $ iterate blink stones !! 25
+solvePart1 input = result
   where
+    result = show $ length stones'
+    stones' = iterate blink stones !! 25
     stones = parseInput input
