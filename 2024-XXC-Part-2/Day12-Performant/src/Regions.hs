@@ -19,6 +19,7 @@ defineRegions regions _unpainted@(tile : rest) =
     (region, unpainted') = paintRegion ([], [tile], rest)
 
 paintRegion :: (Region, [Tile], [Tile]) -> (Region, [Tile])
+paintRegion (region, currentBatch, []) = (region ++ currentBatch, [])
 paintRegion (region, currentBatch, unpainted)
   | null neighbors =
       (region ++ currentBatch, unpainted)
