@@ -1,16 +1,14 @@
 module Solve (solvePart1, solvePart2) where
 
 import Parse (parseInputFlat)
-import Perimeters (addPerimeters)
-import Regions (getRegions, scoreRegion)
+import Regions (getRegions)
 
 solvePart1 :: String -> String
 solvePart1 gardenMapRaw = show result
   where
     result = sum scores
     scores = map scoreRegion regions
-    regions = getRegions gardenMap'
-    gardenMap' = addPerimeters gardenMap
+    regions = getRegions gardenMap
     gardenMap = parseInputFlat gardenMapRaw
 
 solvePart2 :: String -> String
