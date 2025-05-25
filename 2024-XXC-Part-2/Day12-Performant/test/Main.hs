@@ -7,9 +7,9 @@ import System.Exit
 
 main :: IO ()
 main = do
-  input <- readFile "data/test_input.dat"
-  res1 <- test solvePart1 1 input "1"
-  res2 <- test solvePart2 2 input "2"
+  input1 <- readFile "data/test_input_1.dat"
+  res1 <- test solvePart1 1 input1 "1"
+  res2 <- test solvePart2 2 input1 "2"
   let allPassed = res1 && res2
   unless allPassed exitFailure
 
