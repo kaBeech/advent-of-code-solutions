@@ -4,8 +4,7 @@ import Blink (blinkV2)
 import Parse (parseInput)
 
 solvePart1 :: String -> String
-solvePart1 input = result
+solvePart1 input = show result
   where
-    result = show $ length stones'
-    stones' = blinkV2 25 stones
+    result = blinkV2 25 stones
     stones = parseInput input

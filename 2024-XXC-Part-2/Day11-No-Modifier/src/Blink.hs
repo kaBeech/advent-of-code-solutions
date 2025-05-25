@@ -16,21 +16,24 @@ applyBlink stone
 simplify :: String -> String
 simplify s = show (read s :: Integer)
 
-blinkV2 :: Int -> [String] -> [String]
-blinkV2 n = concatMap (applyBlinkV2 n)
+blinkV2 :: Int -> [String] -> Integer
+blinkV2 n stones = sum $ map (applyBlinkV2 n) stones
 
-applyBlinkV2 :: Int -> String -> [String]
-applyBlinkV2 n stone = applyBlinkV2' n [stone]
+applyBlinkV2 :: Int -> String -> Integer
+applyBlinkV2 n stoneRaw = blinkMemo (stoneRaw, n)
 
-applyBlinkV2' :: Int -> [String] -> [String]
-applyBlinkV2' 0 stone = stone
-applyBlinkV2' n ["0"] = applyBlinkV2' (n - 1) ["1"]
-applyBlinkV2' n [stone] =
-  if even $ length stone
-    then applyBlinkV2' (n - 1) [simplify left] ++ applyBlinkV2' (n - 1) [simplify right]
-    else applyBlinkV2' (n - 1) [show (2024 * read stone :: Integer)]
+applyBlinkV2' :: Memo (Stone -> Integer)
+applyBlinkV2' applyBlinkV2' (engraving, n)
+  | n == 0 = 1
+  | engraving == "0" = applyBlinkV2' ("1", n - 1)
+  | otherwise =
+      if even $ length engraving
+        then applyBlinkV2' (simplify left, n - 1) + applyBlinkV2' (simplify right, n - 1)
+        else applyBlinkV2' (show (2024 * read engraving :: Integer), n - 1)
   where
-    half = length stone `div` 2
-    left = take half stone
-    right = drop half stone
-applyBlinkV2' _ _ = error "Invalid input for applyBlinkV2'"
+    half = length engraving `div` 2
+    left = take half engraving
+    right = drop half engraving
+
+blinkMemo :: Stone -> Integer
+blinkMemo = memoFix applyBlinkV2'
