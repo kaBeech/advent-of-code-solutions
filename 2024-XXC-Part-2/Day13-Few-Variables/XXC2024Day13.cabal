@@ -64,7 +64,8 @@ library
     -- Modules exported by the library.
     exposed-modules:  Solve,
                       Types,
-                      Parse
+                      Parse,
+                      Spec,
 
     -- Modules included in this library but not exported.
     -- other-modules:
