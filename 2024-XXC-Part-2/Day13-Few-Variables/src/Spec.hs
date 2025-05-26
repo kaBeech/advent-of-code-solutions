@@ -1,16 +1,14 @@
 module Spec (getFewestTokens) where
 
-import Types (Spec (Spec))
+import Types (Spec)
 
-getFewestTokens :: Spec -> Int
-getFewestTokens (Spec (aX, aY) (bX, bY) (pX, pY))
-  | null possibleCombos = 0
-  | otherwise = minimum $ map (\(a, b) -> (3 * a) + b) possibleCombos
+getFewestTokens :: Spec -> Integer
+getFewestTokens (aX, aY, bX, bY, pX, pY)
+  | numA `mod` denom == 0 && numB `mod` denom == 0 = 3 * a + b
+  | otherwise = 0
   where
-    possibleCombos =
-      [ (a, b)
-        | a <- [1 .. 100],
-          b <- [1 .. 100],
-          a * aX + b * bX == pX,
-          a * aY + b * bY == pY
-      ]
+    numA = abs (pX * bY - pY * bX)
+    numB = abs (pX * aY - pY * aX)
+    denom = abs (aX * bY - aY * bX)
+    a = numA `div` denom
+    b = numB `div` denom
