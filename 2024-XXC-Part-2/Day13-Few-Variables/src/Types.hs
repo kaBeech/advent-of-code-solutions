@@ -1,9 +1,5 @@
 module Types where
 
+data Spec = Spec {a :: XYCoord, b :: XYCoord, prize :: XYCoord}
+
 type XYCoord = (Int, Int)
-
-type Tile = (Char, XYCoord)
-
-type CharMap = [[Tile]]
-
-type CharFlatMap = [Tile]
