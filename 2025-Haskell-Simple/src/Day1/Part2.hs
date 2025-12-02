@@ -37,7 +37,8 @@ followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
     dial' = turn dial direction clicks'
-    password' = incrementPassword (password + fullRotations) direction dial dial'
+    password' =
+      incrementPassword (password + fullRotations) direction dial dial'
     clicks' = read clicks `mod` 100
     fullRotations = read clicks `div` 100
 followInstruction _ instruction =

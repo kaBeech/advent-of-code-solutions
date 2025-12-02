@@ -36,8 +36,8 @@ followInstructions = foldl followInstruction
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
-    password' = incrementPassword password dial'
     dial' = turn dial direction $ read clicks
+    password' = incrementPassword password dial'
 followInstruction _ instruction =
   error $ "Instruction not long enough; got: " ++ instruction
 

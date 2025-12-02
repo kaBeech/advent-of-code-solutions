@@ -15,9 +15,12 @@ execDay n input = case n of
   7 -> ("Day 7 Part 1 not yet implemented", "Day 7 Part 2 not yet implemented")
   8 -> ("Day 8 Part 1 not yet implemented", "Day 8 Part 2 not yet implemented")
   9 -> ("Day 9 Part 1 not yet implemented", "Day 9 Part 2 not yet implemented")
-  10 -> ("Day 10 Part 1 not yet implemented", "Day 10 Part 2 not yet implemented")
-  11 -> ("Day 11 Part 1 not yet implemented", "Day 11 Part 2 not yet implemented")
-  12 -> ("Day 12 Part 1 not yet implemented", "Day 12 Part 2 not yet implemented")
+  10 ->
+    ("Day 10 Part 1 not yet implemented", "Day 10 Part 2 not yet implemented")
+  11 ->
+    ("Day 11 Part 1 not yet implemented", "Day 11 Part 2 not yet implemented")
+  12 ->
+    ("Day 12 Part 1 not yet implemented", "Day 12 Part 2 not yet implemented")
   _ -> error $ "Expected Day between 1 and 12; got: " ++ show n
 
 isValidDay :: Int -> Bool

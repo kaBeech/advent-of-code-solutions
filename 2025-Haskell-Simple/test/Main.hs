@@ -8,7 +8,7 @@ import Test (testAll, testDay)
 -- | Call without arguments (i.e. `cabal run`) to test all Days' solutions.
 --
 --   Call with the Day's number (e.g. `cabal run exes -- 1` for Day 1) to test
---   just that Day's solutions
+--   just that Day's solutions.
 main :: IO ()
 main = do
   args <- getArgs
@@ -19,5 +19,7 @@ main = do
         then testDay $ read $ at args 0
         else
           error $
-            "Argument unrecognized. Please enter the number of a Day (1 to 12), or call without arguments for all Days. Got: "
+            "Argument unrecognized. Please enter the number of a valid Day "
+              ++ "(potentially 1 to 12 - see also Exec.validDays), or call "
+              ++ "without arguments for all Days. Got: "
               ++ show (at args 0)
