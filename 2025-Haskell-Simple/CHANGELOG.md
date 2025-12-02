@@ -2,4 +2,5 @@
 
 ## 0.1.0.0 -- 2025-12-01
 
-* Boilerplate created
+* Created Boilerplate
+* Solved Day 1 Part 1
