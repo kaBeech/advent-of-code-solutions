@@ -1,8 +1,9 @@
 module Main (main) where
 
-import Exec (execDay, isValidDay, validDays)
+import Exec (isValidDay)
 import Safe
 import System.Environment (getArgs)
+import Test (testAll, testDay)
 
 main :: IO ()
 main = do

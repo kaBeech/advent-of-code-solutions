@@ -1,11 +1,12 @@
 module Exec (execDay, isValidDay, validDays) where
 
 import Data.Text (pack)
-import qualified Day1.Part1 as Day1
+import qualified Day1.Part1
+import qualified Day1.Part2
 
 execDay :: Int -> String -> (String, String)
 execDay n input = case n of
-  1 -> (Day1.solvePart1 $ pack input, "Day 1 Part 2 not yet implemented")
+  1 -> (Day1.Part1.solvePart1 $ pack input, Day1.Part2.solvePart2 $ pack input)
   2 -> ("Day 2 Part 1 not yet implemented", "Day 2 Part 2 not yet implemented")
   3 -> ("Day 3 Part 1 not yet implemented", "Day 3 Part 2 not yet implemented")
   4 -> ("Day 4 Part 1 not yet implemented", "Day 4 Part 2 not yet implemented")

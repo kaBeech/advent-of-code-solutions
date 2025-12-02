@@ -1,4 +1,4 @@
-module Day1.Dial (followInstructions, startingDial, turn) where
+module Day1.Part1.Dial (followInstructions, startingDial, turn) where
 
 -- | The dial is an infinitely repeating list of numbers from 0 to 99.
 --
