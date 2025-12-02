@@ -13,6 +13,9 @@ solvePart1 input = show password
 --
 --   At the beginning of the puzzle, the dial is set to 50; i.e. 50 is the
 --   first number in the list.
+--
+--   I.e., at the start of the puzzle, startingDial is equivalent to
+--   [50, 51, 52, 53, 54, ...]
 startingDial :: [Int]
 startingDial = drop 50 $ cycle [0 .. 99]
 
@@ -20,6 +23,8 @@ turn :: [Int] -> Char -> Int -> [Int]
 turn dial 'R' clicks = drop clicks dial
 turn dial 'L' clicks = drop clicksAdjusted dial
   where
+    -- Since we can't go backwards in our list, this calculation simulates it
+    -- by going forward by an inverted number of clicks.
     clicksAdjusted = 100 - (clicks `mod` 100)
 turn _ direction _ =
   error $
