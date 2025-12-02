@@ -50,16 +50,18 @@ turn _ direction _ =
     "Invalid direction. Expecting 'L' or 'R'; got: " ++ [direction]
 
 -- | ==== __Examples__
---   >>> followInstructions (7, startingDial) ["R55", "L5"]
---   (8,[0,1,2,3,4..])
+--   >>> followInstructions (initPassword, startingDial) ["R55", "L5"]
+--   (1,[0,1,2,3,4..])
 followInstructions :: (Int, [Int]) -> [String] -> (Int, [Int])
 followInstructions = foldl followInstruction
 
 -- | ==== __Examples__
---   >>> followInstruction (7, startingDial) "R55"
---   (7,[5,6,7,8,9..])
---   >>> followInstruction (7, [5,6,7,8,9..]) "L5"
---   (8,[0,1,2,3,4..])
+--   >>> followInstruction (initPassword, startingDial) "R55"
+--   (0,[5,6,7,8,9..])
+--   >>> followInstruction (initPassword, [5,6,7,8,9..]) "L5"
+--   (1,[0,1,2,3,4..])
+--   >>> followInstruction (1, [95,96,97,98,99..]) "R5"
+--   (2,[0,1,2,3,4..])
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
@@ -71,10 +73,12 @@ followInstruction _ instruction =
 -- | Every time the dial shows 0 after a turn, increment the password by 1.
 --
 -- ==== __Examples__
--- >>> incrementPassword 7 [5,6,7,8..]
--- 7
--- >>> incrementPassword 7 [0,1,2,3..]
--- 8
+-- >>> incrementPassword initPassword [5,6,7,8..]
+-- 0
+-- >>> incrementPassword initPassword [0,1,2,3..]
+-- 1
+-- >>> incrementPassword 1 [0,1,2,3..]
+-- 2
 incrementPassword :: Int -> [Int] -> Int
 incrementPassword password (0 : _otherNumbers) = password + 1
 incrementPassword password _dial = password
