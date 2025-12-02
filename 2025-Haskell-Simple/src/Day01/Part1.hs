@@ -25,6 +25,19 @@ initPassword = 0
 startingDial :: [Int]
 startingDial = drop 50 $ cycle [0 .. 99]
 
+-- | ==== __Examples__
+--   >>> turn startingDial 'R' 5
+--   [55,56,57,58,59..]
+--   >>> turn startingDial 'L' 5
+--   [45,46,47,48,49..]
+--   >>> turn [0,1,2,3,4..] 'L' 1
+--   [99,0,1,2,3..]
+--   >>> turn [99,0,1,2,3..] 'R' 1
+--   [0,1,2,3,4..]
+--   >>> turn startingDial 'L' 68
+--   [82,83,84,85,86..]
+--   >>> turn [95,96,97,98,99..] 'R' 60
+--   [55,56,57,58,59..]
 turn :: [Int] -> Char -> Int -> [Int]
 turn dial 'R' clicks = drop clicks dial
 turn dial 'L' clicks = drop clicksAdjusted dial
@@ -36,9 +49,17 @@ turn _ direction _ =
   error $
     "Invalid direction. Expecting 'L' or 'R'; got: " ++ [direction]
 
+-- | ==== __Examples__
+--   >>> followInstructions (7, startingDial) ["R55", "L5"]
+--   (8,[0,1,2,3,4..])
 followInstructions :: (Int, [Int]) -> [String] -> (Int, [Int])
 followInstructions = foldl followInstruction
 
+-- | ==== __Examples__
+--   >>> followInstruction (7, startingDial) "R55"
+--   (7,[5,6,7,8,9..])
+--   >>> followInstruction (7, [5,6,7,8,9..]) "L5"
+--   (8,[0,1,2,3,4..])
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
@@ -48,6 +69,12 @@ followInstruction _ instruction =
   error $ "Instruction not long enough; got: " ++ instruction
 
 -- | Every time the dial shows 0 after a turn, increment the password by 1.
+--
+-- ==== __Examples__
+-- >>> incrementPassword 7 [5,6,7,8..]
+-- 7
+-- >>> incrementPassword 7 [0,1,2,3..]
+-- 8
 incrementPassword :: Int -> [Int] -> Int
 incrementPassword password (0 : _otherNumbers) = password + 1
 incrementPassword password _dial = password
