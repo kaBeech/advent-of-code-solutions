@@ -56,10 +56,10 @@ followInstructions :: (Int, [Int]) -> [String] -> (Int, [Int])
 followInstructions = foldl followInstruction
 
 -- | ==== __Examples__
---   >>> followInstruction (7, startingDial) "R55"
---   (8,[5,6,7,8,9..])
---   >>> followInstruction (8, [5,6,7,8,9..]) "L5"
---   (9,[0,1,2,3,4..])
+--   >>> followInstruction (initPassword, startingDial) "R55"
+--   (1,[5,6,7,8,9..])
+--   >>> followInstruction (1, [5,6,7,8,9..]) "L5"
+--   (2,[0,1,2,3,4..])
 --   >>> followInstruction (9, [5,6,7,8,9..]) "L300"
 --   (12,[5,6,7,8,9..])
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
@@ -76,14 +76,14 @@ followInstruction _ instruction =
 -- | Every time the dial hits or passes 0, increment the password by 1.
 --
 -- ==== __Examples__
--- >>> incrementPassword 7 'R' startingDial [5,6,7,8..]
--- 8
--- >>> incrementPassword 8 'L' [5,6,7,8..] [0,1,2,3..]
--- 9
--- >>> incrementPassword 9 'R' [0,1,2,3..] [1,2,3,4..]
--- 9
--- >>> incrementPassword 9 'L' [1,2,3,4..] [99,0,1,2..]
--- 10
+-- >>> incrementPassword initPassword 'R' startingDial [5,6,7,8..]
+-- 1
+-- >>> incrementPassword 1 'L' [5,6,7,8..] [0,1,2,3..]
+-- 2
+-- >>> incrementPassword 2 'R' [0,1,2,3..] [1,2,3,4..]
+-- 2
+-- >>> incrementPassword 3 'L' [1,2,3,4..] [99,0,1,2..]
+-- 3
 incrementPassword :: Int -> Char -> [Int] -> [Int] -> Int
 incrementPassword password _ _ (0 : _otherNumbers) = password + 1 -- Landed on 0
 incrementPassword password _ (0 : _otherNumbers) _ = password -- Started on 0
