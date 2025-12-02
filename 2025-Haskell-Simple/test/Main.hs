@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Exec (isDayNumber, testAll, testDay)
+import Exec (execDay, isValidDay, validDays)
 import Safe
 import System.Environment (getArgs)
 
@@ -10,7 +10,7 @@ main = do
   if null args
     then testAll
     else
-      if isDayNumber $ read $ at args 0
+      if isValidDay $ read $ at args 0
         then testDay $ read $ at args 0
         else
           error $

@@ -1,7 +1,8 @@
 module Main where
 
-import Exec (isDayNumber, solveAll, solveDay)
+import Exec (isValidDay)
 import Safe
+import Solve (solveAll, solveDay)
 import System.Environment (getArgs)
 
 main :: IO ()
@@ -10,7 +11,7 @@ main = do
   if null args
     then solveAll
     else
-      if isDayNumber $ read $ at args 0
+      if isValidDay $ read $ at args 0
         then solveDay $ read $ at args 0
         else
           error $
