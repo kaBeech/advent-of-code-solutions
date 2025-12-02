@@ -11,7 +11,7 @@ solvePart1 input = show password
     instructions = map unpack $ lines input
 
 -- | We will find the password using this code; our initial value for the
---   password is 0
+--   password is 0.
 initPassword :: Int
 initPassword = 0
 

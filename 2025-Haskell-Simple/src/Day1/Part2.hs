@@ -11,7 +11,7 @@ solvePart2 input = show password
     instructions = map unpack $ lines input
 
 -- | We will find the password using this code; our initial value for the
---   password is 0
+--   password is 0.
 initPassword :: Int
 initPassword = 0
 
@@ -52,12 +52,12 @@ followInstruction _ instruction =
 
 -- | Every time the dial hits or passes 0, increment the password by 1.
 incrementPassword :: Int -> Char -> [Int] -> [Int] -> Int
-incrementPassword password _ _ (0 : _otherNumbers) = password + 1
-incrementPassword password _ (0 : _otherNumbers) _ = password
+incrementPassword password _ _ (0 : _otherNumbers) = password + 1 -- Landed on 0
+incrementPassword password _ (0 : _otherNumbers) _ = password -- Started on 0
 incrementPassword password 'R' (n : _) (n' : _)
-  | n' < n = password + 1
+  | n' < n = password + 1 -- Passed 0 going up
   | otherwise = password
 incrementPassword password 'L' (n : _) (n' : _)
-  | n' > n = password + 1
+  | n' > n = password + 1 -- Passed 0 going down
   | otherwise = password
 incrementPassword password _direction _dial _dial' = password
