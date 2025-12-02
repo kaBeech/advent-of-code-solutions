@@ -1,6 +1,6 @@
 module Main where
 
-import Exec (isValidDay, validDays)
+import Exec (isValidDay)
 import Safe
 import Solve (solveAll, solveDay)
 import System.Environment (getArgs)

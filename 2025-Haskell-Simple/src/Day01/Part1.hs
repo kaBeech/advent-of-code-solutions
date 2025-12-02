@@ -1,4 +1,4 @@
-module Day1.Part1 (solvePart1) where
+module Day01.Part1 (solvePart1) where
 
 import Data.Text (Text, lines, unpack)
 import Prelude hiding (lines)

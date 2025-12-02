@@ -1,17 +1,19 @@
 module Test where
 
-import Exec (execDay, validDays)
+import Exec (dayString, execDay, validDays)
 
 testAll :: IO ()
 testAll = mapM_ testDay validDays
 
 testDay :: Int -> IO ()
 testDay n = do
-  input <- readFile $ "data/Day" ++ show n ++ "/test_input.dat"
-  solutionPart1 <- readFile $ "data/Day" ++ show n ++ "/test_solution_1.txt"
-  solutionPart2 <- readFile $ "data/Day" ++ show n ++ "/test_solution_2.txt"
+  input <- readFile $ "data/Day" ++ dayString n ++ "/test_input.dat"
+  solutionPart1 <-
+    readFile $ "data/Day" ++ dayString n ++ "/test_solution_1.txt"
+  solutionPart2 <-
+    readFile $ "data/Day" ++ dayString n ++ "/test_solution_2.txt"
   let (resultPart1, resultPart2) = execDay n input
-  putStrLn $ "Testing Day " ++ show n ++ "!"
+  putStrLn $ "Testing Day " ++ dayString n ++ "!"
   putStrLn " Part 1..."
   putStrLn $
     testSolution

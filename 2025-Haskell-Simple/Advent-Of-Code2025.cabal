@@ -63,8 +63,8 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Day1.Part1,
-                      Day1.Part2,
+    exposed-modules:  Day01.Part1,
+                      Day01.Part2,
                       DayBoilerplate.Part1,
                       DayBoilerplate.Part2,
                       Exec,

@@ -1,12 +1,12 @@
-module Exec (execDay, isValidDay, validDays) where
+module Exec (dayString, execDay, isValidDay, validDays) where
 
 import Data.Text (pack)
-import qualified Day1.Part1
-import qualified Day1.Part2
+import qualified Day01.Part1
+import qualified Day01.Part2
 
 execDay :: Int -> String -> (String, String)
 execDay n input = case n of
-  1 -> (Day1.Part1.solvePart1 $ pack input, Day1.Part2.solvePart2 $ pack input)
+  1 -> (Day01.Part1.solvePart1 $ pack input, Day01.Part2.solvePart2 $ pack input)
   2 -> ("Day 2 Part 1 not yet implemented", "Day 2 Part 2 not yet implemented")
   3 -> ("Day 3 Part 1 not yet implemented", "Day 3 Part 2 not yet implemented")
   4 -> ("Day 4 Part 1 not yet implemented", "Day 4 Part 2 not yet implemented")
@@ -22,6 +22,17 @@ execDay n input = case n of
   12 ->
     ("Day 12 Part 1 not yet implemented", "Day 12 Part 2 not yet implemented")
   _ -> error $ "Expected Day between 1 and 12; got: " ++ show n
+
+dayString :: Int -> String
+dayString n
+  | not $ isValidDay n =
+      error $
+        "Invalid Day. Expected one of: "
+          ++ show validDays
+          ++ "; got: "
+          ++ show n
+  | n < 10 = '0' : show n
+  | otherwise = show n
 
 isValidDay :: Int -> Bool
 isValidDay n = n `elem` validDays
