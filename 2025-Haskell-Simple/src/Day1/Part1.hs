@@ -6,7 +6,8 @@ import Prelude hiding (lines)
 solvePart1 :: Text -> String
 solvePart1 input = show password
   where
-    (password, _finalDial) = followInstructions (0, startingDial) instructions
+    (password, _finalDial) =
+      followInstructions (initPassword, startingDial) instructions
     instructions = map unpack $ lines input
 
 -- | The dial is an infinitely repeating list of numbers from 0 to 99.
@@ -18,6 +19,11 @@ solvePart1 input = show password
 --   (endlessly repeating).
 startingDial :: [Int]
 startingDial = drop 50 $ cycle [0 .. 99]
+
+-- | We will find the password using this code; our initial value for the
+--   password is 0
+initPassword :: Int
+initPassword = 0
 
 turn :: [Int] -> Char -> Int -> [Int]
 turn dial 'R' clicks = drop clicks dial
