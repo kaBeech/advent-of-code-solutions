@@ -1,8 +1,18 @@
 module Main where
 
-import qualified MyLib (someFunc)
+import Exec (isDayNumber, solveAll, solveDay)
+import Safe
+import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-  putStrLn "Hello, Haskell!"
-  MyLib.someFunc
+  args <- getArgs
+  if null args
+    then solveAll
+    else
+      if isDayNumber $ read $ at args 0
+        then solveDay $ read $ at args 0
+        else
+          error $
+            "Argument unrecognized. Please enter the number of a Day (1 to 12), or call without arguments for all Days. Got: "
+              ++ show (at args 0)
