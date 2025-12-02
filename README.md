@@ -8,6 +8,14 @@ If you're interested, [I also built a mod to add a bonus layer of randomized cha
 
 Note that these years indicate the year the challenges were debuted on the Advent Of Code website, not necessarily the year I complete them. For example, I started the 2021 challenges in May 2023
 
+# 2025-Haskell-Simple
+
+This year I'm taking it easy; just doing the puzzles the regular way in
+Haskell (as opposed to doing [Xtreme Xmas Code](https://www.xtremexmascode.com/) as I did for the past 2 years).
+
+I will work on writing code in a readable way as I'm hoping to show off some of
+Haskell's niceties to my coworkers 😸
+
 ### 2024-XXC-Part-2
 
 This year I'm using my [Xtreme Xmas Code](https://www.xtremexmascode.com/) mod again!
