@@ -5,8 +5,12 @@ import Data.Text (Text, pack, splitOn, unpack)
 solvePart1 :: Text -> String
 solvePart1 input = show $ sum $ concatMap invalidIds $ ranges input
 
+-- | If this list comprehension technique is unfamiliar, check out the
+--   following webpage:
+--   https://learnyouahaskell.github.io/starting-out.html#im-a-list-comprehension
 invalidIds :: (Int, Int) -> [Int]
-invalidIds (lower, upper) = [productId | productId <- [lower .. upper], invalidId productId]
+invalidIds (lower, upper) =
+  [productId | productId <- [lower .. upper], invalidId productId]
 
 invalidId :: Int -> Bool
 invalidId productId = take halfLength text == drop halfLength text
