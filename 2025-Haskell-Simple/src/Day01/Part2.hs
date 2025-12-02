@@ -60,6 +60,8 @@ followInstructions = foldl followInstruction
 --   (8,[5,6,7,8,9..])
 --   >>> followInstruction (8, [5,6,7,8,9..]) "L5"
 --   (9,[0,1,2,3,4..])
+--   >>> followInstruction (9, [5,6,7,8,9..]) "L300"
+--   (12,[5,6,7,8,9..])
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
