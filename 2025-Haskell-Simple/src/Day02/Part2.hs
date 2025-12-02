@@ -7,7 +7,9 @@ import Prelude hiding (length)
 solvePart2 :: Text -> String
 solvePart2 input = show $ sum $ concatMap invalidIds $ ranges input
 
--- | If this list comprehension technique is unfamiliar, check out the
+-- | Find invalid Product Ids within the lower and upper bounds given.
+--
+--   If this list comprehension technique is unfamiliar, check out the
 --   following webpage:
 --   https://learnyouahaskell.github.io/starting-out.html#im-a-list-comprehension
 --
@@ -30,6 +32,8 @@ invalidId productId = not $ null identicalSplits
   where
     text = pack $ show productId
     halfLength = length text `div` 2
+    -- Find numbers that result in identical chunks when the text is split into
+    -- chunks of that size
     identicalSplits =
       [size | size <- [1 .. halfLength], chunksAllIdentical size text]
 
@@ -40,7 +44,7 @@ invalidId productId = not $ null identicalSplits
 --   False
 --   >>> chunksAllIdentical 1 (pack "111111")
 --   True
---   >>> chunksAllIdentical 2 (pack "123456")
+--   >>> chunksAllIdentical 2 (pack "123123")
 --   False
 chunksAllIdentical :: Int -> Text -> Bool
 chunksAllIdentical size text = all (== firstChunk) chunks

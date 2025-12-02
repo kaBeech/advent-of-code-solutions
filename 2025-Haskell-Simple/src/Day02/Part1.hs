@@ -5,7 +5,9 @@ import Data.Text (Text, pack, splitOn, unpack)
 solvePart1 :: Text -> String
 solvePart1 input = show $ sum $ concatMap invalidIds $ ranges input
 
--- | If this list comprehension technique is unfamiliar, check out the
+-- | Find invalid Product Ids within the lower and upper bounds given.
+--
+--   If this list comprehension technique is unfamiliar, check out the
 --   following webpage:
 --   https://learnyouahaskell.github.io/starting-out.html#im-a-list-comprehension
 --
