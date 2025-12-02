@@ -9,16 +9,11 @@ solvePart2 input = show $ sum $ concatMap invalidIds $ ranges input
 
 -- | Find invalid Product Ids within the lower and upper bounds given.
 --
---   If this list comprehension technique is unfamiliar, check out the
---   following webpage:
---   https://learnyouahaskell.github.io/starting-out.html#im-a-list-comprehension
---
 -- | ==== __Examples__
 --   >>> invalidIds (95,115)
 --   [99,111]
 invalidIds :: (Int, Int) -> [Int]
-invalidIds (lower, upper) =
-  [productId | productId <- [lower .. upper], invalidId productId]
+invalidIds (lower, upper) = filter invalidId [lower .. upper]
 
 -- | ==== __Examples__
 --   >>> invalidId 11
@@ -34,20 +29,19 @@ invalidId productId = not $ null identicalSplits
     halfLength = length text `div` 2
     -- Find numbers that result in identical chunks when the text is split into
     -- chunks of that size
-    identicalSplits =
-      [size | size <- [1 .. halfLength], chunksAllIdentical size text]
+    identicalSplits = filter (chunksAllIdentical text) [1 .. halfLength]
 
 -- | ==== __Examples__
---   >>> chunksAllIdentical 2 (pack "121212")
+--   >>> chunksAllIdentical (pack "121212") 2
 --   True
---   >>> chunksAllIdentical 1 (pack "121212")
+--   >>> chunksAllIdentical (pack "121212") 1
 --   False
---   >>> chunksAllIdentical 1 (pack "111111")
+--   >>> chunksAllIdentical (pack "111111") 1
 --   True
---   >>> chunksAllIdentical 2 (pack "123123")
+--   >>> chunksAllIdentical (pack "123123") 2
 --   False
-chunksAllIdentical :: Int -> Text -> Bool
-chunksAllIdentical size text = all (== firstChunk) chunks
+chunksAllIdentical :: Text -> Int -> Bool
+chunksAllIdentical text size = all (== firstChunk) chunks
   where
     firstChunk = at chunks 0
     chunks = chunksOf size text

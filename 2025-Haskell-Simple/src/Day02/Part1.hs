@@ -7,16 +7,11 @@ solvePart1 input = show $ sum $ concatMap invalidIds $ ranges input
 
 -- | Find invalid Product Ids within the lower and upper bounds given.
 --
---   If this list comprehension technique is unfamiliar, check out the
---   following webpage:
---   https://learnyouahaskell.github.io/starting-out.html#im-a-list-comprehension
---
 -- | ==== __Examples__
 --   >>> invalidIds (95,115)
 --   [99]
 invalidIds :: (Int, Int) -> [Int]
-invalidIds (lower, upper) =
-  [productId | productId <- [lower .. upper], invalidId productId]
+invalidIds (lower, upper) = filter invalidId [lower .. upper]
 
 -- | ==== __Examples__
 --   >>> invalidId 11
