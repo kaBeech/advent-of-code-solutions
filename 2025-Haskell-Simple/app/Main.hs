@@ -5,6 +5,10 @@ import Safe
 import Solve (solveAll, solveDay)
 import System.Environment (getArgs)
 
+-- | Call without arguments (i.e. `cabal run`) to show all Days' solutions.
+--
+--   Call with the Day's number (e.g. `cabal run exes -- 1` for Day 1) to show
+--   just that Day's solutions
 main :: IO ()
 main = do
   args <- getArgs

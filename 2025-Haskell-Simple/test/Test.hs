@@ -1,7 +1,11 @@
 module Test where
 
-import Exec (execDay, isValidDay, validDays)
+import Exec (execDay, validDays)
 
+-- | Call without arguments (i.e. `cabal run`) to test all Days' solutions.
+--
+--   Call with the Day's number (e.g. `cabal run exes -- 1` for Day 1) to test
+--   just that Day's solutions
 testAll :: IO ()
 testAll = mapM_ testDay validDays
 
