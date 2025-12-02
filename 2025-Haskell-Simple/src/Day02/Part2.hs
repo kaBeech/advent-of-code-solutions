@@ -15,8 +15,9 @@ invalidId :: Int -> Bool
 invalidId productId = not $ null identicalSplits
   where
     text = pack $ show productId
+    halfLength = length text `div` 2
     identicalSplits =
-      [size | size <- [1 .. length text `div` 2], chunksAllSame size text]
+      [size | size <- [1 .. halfLength], chunksAllSame size text]
 
 chunksAllSame :: Int -> Text -> Bool
 chunksAllSame size text = all (== firstChunk) chunks

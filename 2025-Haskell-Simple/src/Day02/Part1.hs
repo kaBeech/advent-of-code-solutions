@@ -6,13 +6,13 @@ solvePart1 :: Text -> String
 solvePart1 input = show $ sum $ concatMap invalidIds $ ranges input
 
 invalidIds :: (Int, Int) -> [Int]
-invalidIds (lower, upper) = [n | n <- [lower .. upper], invalidId n]
+invalidIds (lower, upper) = [productId | productId <- [lower .. upper], invalidId productId]
 
 invalidId :: Int -> Bool
-invalidId n = take halfLength n' == drop halfLength n'
+invalidId productId = take halfLength text == drop halfLength text
   where
-    n' = show n
-    halfLength = length n' `div` 2
+    text = show productId
+    halfLength = length text `div` 2
 
 ranges :: Text -> [(Int, Int)]
 ranges input = rangesIntPairs
