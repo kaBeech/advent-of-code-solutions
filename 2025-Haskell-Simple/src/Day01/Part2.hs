@@ -93,4 +93,12 @@ incrementPassword password 'R' (n : _) (n' : _)
 incrementPassword password 'L' (n : _) (n' : _)
   | n' > n = password + 1 -- Passed 0 going down
   | otherwise = password
-incrementPassword password _direction _dial _dial' = password
+incrementPassword _ direction dial dial' =
+  error $
+    "Invalid input - either a dial array is not long enough or the"
+      ++ "direction is unknown. Direction: "
+      ++ show direction
+      ++ "; Dial start: "
+      ++ show (take 5 dial)
+      ++ "; Dial end: "
+      ++ show (take 5 dial')
