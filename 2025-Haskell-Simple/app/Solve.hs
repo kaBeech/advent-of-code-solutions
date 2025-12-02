@@ -1,6 +1,6 @@
 module Solve where
 
-import Exec (execDay, isValidDay, validDays)
+import Exec (execDay, validDays)
 
 solveAll :: IO ()
 solveAll = mapM_ solveDay validDays
