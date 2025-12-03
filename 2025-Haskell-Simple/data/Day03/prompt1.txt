@@ -1,0 +1,1 @@
+There are many batteries in front of you. Find the maximum joltage possible from each bank; what is the total output joltage?
