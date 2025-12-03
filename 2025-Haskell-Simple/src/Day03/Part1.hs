@@ -21,8 +21,8 @@ largestJoltageOf bank = toInt $ append firstBattery secondBattery
 
 getFirstBatteryFrom :: [Text] -> Text
 getFirstBatteryFrom bank
-  | isLastBattery highestJoltageBattery bank = highestJoltageBattery
-  | otherwise = secondHighestJoltageBattery
+  | isLastBattery highestJoltageBattery bank = secondHighestJoltageBattery
+  | otherwise = highestJoltageBattery
   where
     highestJoltageBattery = maximum bank
     secondHighestJoltageBattery = maximum (init bank)
