@@ -1,64 +1,64 @@
 module Day02.Part2 (solvePart2) where
 
-import Data.Text (Text, chunksOf, length, pack, splitOn, unpack)
+import Data.Text (Text, chunksOf, pack, splitOn)
 import Safe
-import Prelude hiding (length)
+import Util.Text (halfLength, toText)
+import Util.Tuple (pairUp)
+import Util.Tuple.Text (toInts)
 
 solvePart2 :: Text -> String
-solvePart2 input = show $ sum $ concatMap invalidIds $ ranges input
+solvePart2 input = show $ sum $ concatMap invalidIdsIn $ rangesFrom input
 
--- | Find invalid Product Ids within the lower and upper bounds given.
---
 -- | ==== __Examples__
---   >>> invalidIds (95,115)
+--   >>> invalidIdsIn (95,115)
 --   [99,111]
-invalidIds :: (Int, Int) -> [Int]
-invalidIds (lower, upper) = filter invalidId [lower .. upper]
+invalidIdsIn :: (Int, Int) -> [Int]
+invalidIdsIn (lowerBound, upperBound) =
+  filter isInvalidId [lowerBound .. upperBound]
 
 -- | ==== __Examples__
---   >>> invalidId 11
+--   >>> isInvalidId 11
 --   True
---   >>> invalidId 1234
+--   >>> isInvalidId 1234
 --   False
---   >>> invalidId 111
+--   >>> isInvalidId 111
 --   True
-invalidId :: Int -> Bool
-invalidId productId = not $ null identicalSplits
-  where
-    text = pack $ show productId
-    halfLength = length text `div` 2
-    -- Find numbers that result in identical chunks when the text is split into
-    -- chunks of that size
-    identicalSplits = filter (chunksAllIdentical text) [1 .. halfLength]
+isInvalidId :: Int -> Bool
+isInvalidId productId = hasIdenticalSplits $ toText productId
+
+hasIdenticalSplits :: Text -> Bool
+hasIdenticalSplits productId = not $ null $ identicalSplitsIn productId
+
+-- Find numbers that result in identical chunks when the text is split into
+-- chunks of that size
+identicalSplitsIn :: Text -> [Int]
+identicalSplitsIn text =
+  filter (allChunksIdentical text) [1 .. halfLength text]
 
 -- | ==== __Examples__
---   >>> chunksAllIdentical (pack "121212") 2
+--   >>> allChunksIdentical (pack "121212") 2
 --   True
---   >>> chunksAllIdentical (pack "121212") 1
+--   >>> allChunksIdentical (pack "121212") 1
 --   False
---   >>> chunksAllIdentical (pack "111111") 1
+--   >>> allChunksIdentical (pack "111111") 1
 --   True
---   >>> chunksAllIdentical (pack "123123") 2
+--   >>> allChunksIdentical (pack "123123") 2
 --   False
-chunksAllIdentical :: Text -> Int -> Bool
-chunksAllIdentical text size = all (== firstChunk) chunks
+allChunksIdentical :: Text -> Int -> Bool
+allChunksIdentical text size = all' chunks (== firstChunk)
   where
-    firstChunk = at chunks 0
+    all' = flip all
     chunks = chunksOf size text
+    firstChunk = at chunks 0
 
 -- | ==== __Examples__
---   >>> ranges "11-22,95-115"
+--   >>> rangesFrom "11-22,95-115"
 --   [(11,22),(95,115)]
-ranges :: Text -> [(Int, Int)]
-ranges input = rangesIntPairs
-  where
-    rangesText = splitOn (pack ",") input
-    rangesTextPairs = map (pairUp . splitOn (pack "-")) rangesText
-    rangesIntPairs = map intPair rangesTextPairs
+rangesFrom :: Text -> [(Int, Int)]
+rangesFrom input = map toInts $ boundariesOf $ textRangesFrom input
 
-pairUp :: (Show a) => [a] -> (a, a)
-pairUp (x : y : _) = (x, y)
-pairUp xs = error $ "Expected a list of at least 2 items; got: " ++ show xs
+boundariesOf :: [Text] -> [(Text, Text)]
+boundariesOf = concatMap (pairUp . splitOn (pack "-"))
 
-intPair :: (Text, Text) -> (Int, Int)
-intPair (text1, text2) = (read (unpack text1), read (unpack text2))
+textRangesFrom :: Text -> [Text]
+textRangesFrom = splitOn (pack ",")

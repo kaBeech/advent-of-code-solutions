@@ -87,18 +87,18 @@ followInstruction _ instruction =
 incrementPassword :: Int -> Char -> [Int] -> [Int] -> Int
 incrementPassword password _ _ (0 : _otherNumbers) = password + 1 -- Landed on 0
 incrementPassword password _ (0 : _otherNumbers) _ = password -- Started on 0
-incrementPassword password 'R' (n : _) (n' : _)
-  | n' < n = password + 1 -- Passed 0 going up
+incrementPassword password 'R' (beforeNumber : _) (afterNumber : _)
+  | afterNumber < beforeNumber = password + 1 -- Passed 0 going up
   | otherwise = password
-incrementPassword password 'L' (n : _) (n' : _)
-  | n' > n = password + 1 -- Passed 0 going down
+incrementPassword password 'L' (beforeNumber : _) (afterNumber : _)
+  | afterNumber > beforeNumber = password + 1 -- Passed 0 going down
   | otherwise = password
-incrementPassword _ direction dial dial' =
+incrementPassword _ direction beforeDial afterDial =
   error $
     "Invalid input - either a dial array is not long enough or the"
       ++ "direction is unknown. Direction: "
       ++ show direction
       ++ "; Dial start: "
-      ++ show (take 5 dial)
+      ++ show (take 5 beforeDial)
       ++ "; Dial end: "
-      ++ show (take 5 dial')
+      ++ show (take 5 afterDial)

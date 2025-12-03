@@ -71,6 +71,9 @@ library
                       DayBoilerplate.Part2,
                       Exec,
                       Types,
+                      Util.Text,
+                      Util.Tuple,
+                      Util.Tuple.Text,
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -81,7 +84,7 @@ library
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.19.2.0,
                       safe,
-                      text,
+                      text ^>=2.1.2,
 
     -- Directories containing source files.
     hs-source-dirs:   src
