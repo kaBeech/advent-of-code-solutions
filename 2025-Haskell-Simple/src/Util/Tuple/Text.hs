@@ -4,4 +4,4 @@ import Data.Text (Text)
 import Util.Text (toInt)
 
 toInts :: (Text, Text) -> (Int, Int)
-toInts (text1, text2) = (toInt text1, toInt text2)
+toInts (first, second) = (toInt first, toInt second)
