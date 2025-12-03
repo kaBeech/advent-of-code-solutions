@@ -12,14 +12,20 @@ banksFrom :: Text -> [[Text]]
 banksFrom input = map (chunksOf 1) (lines input)
 
 largestJoltageOf :: [Text] -> Int
-largestJoltageOf bank = toInt $ append firstBattery' secondBattery
+largestJoltageOf bank = toInt $ append firstBattery secondBattery
   where
-    firstBattery = maximum bank
+    firstBattery = getFirstBatteryFrom bank
     firstBatteryIndex = elemIndexJust firstBattery bank
-    firstBattery' =
-      if firstBatteryIndex < length bank - 1
-        then firstBattery
-        else maximum (init bank)
-    firstBatteryIndex' = elemIndexJust firstBattery' bank
-    restOfBank = drop (firstBatteryIndex' + 1) bank
+    restOfBank = drop (firstBatteryIndex + 1) bank
     secondBattery = maximum restOfBank
+
+getFirstBatteryFrom :: [Text] -> Text
+getFirstBatteryFrom bank
+  | isLastBattery highestJoltageBattery bank = highestJoltageBattery
+  | otherwise = secondHighestJoltageBattery
+  where
+    highestJoltageBattery = maximum bank
+    secondHighestJoltageBattery = maximum (init bank)
+
+isLastBattery :: Text -> [Text] -> Bool
+isLastBattery battery bank = elemIndexJust battery bank == length bank - 1
