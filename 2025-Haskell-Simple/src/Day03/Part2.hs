@@ -2,7 +2,7 @@ module Day03.Part2 (solvePart2) where
 
 import Data.Text (Text, chunksOf, concat, lines)
 import Safe
-import Util.Text (toInt)
+import Util.Text (toInt, toText)
 import Prelude hiding (concat, lines)
 
 solvePart2 :: Text -> String
@@ -12,30 +12,30 @@ banksFrom :: Text -> [[Text]]
 banksFrom input = map (chunksOf 1) (lines input)
 
 largestJoltageOf :: [Text] -> Int
-largestJoltageOf bank = toInt $ concat $ reverse $ fillOutBatteries bank []
+largestJoltageOf bank = toInt $ concat $ fillOutBatteries [] bank
 
 fillOutBatteries :: [Text] -> [Text] -> [Text]
-fillOutBatteries bank batteries
+fillOutBatteries batteries bank
   | batteriesRemaining == 0 = batteries
-  | otherwise = fillOutBatteries remainingBank (nextBattery : batteries)
+  | otherwise = fillOutBatteries (batteries ++ [nextBattery]) restOfBank
   where
-    batteriesRemaining = 12 - length batteries
-    (nextBattery, remainingBank) = nextBatteryFrom bank batteriesRemaining 9
+    batteriesRemaining = totalBatteriesToActivate - length batteries
+    (nextBattery, restOfBank) =
+      getNextBattery bank batteriesRemaining maximumSingleBatteryJoltage
 
-nextBatteryFrom :: [Text] -> Int -> Int -> (Text, [Text])
-nextBatteryFrom bank batteriesRemaining maxJoltage
-  | isTooFarRightToFit highestJoltageBattery bank batteriesRemaining =
-      nextHighestJoltageBattery
-  | otherwise = (highestJoltageBattery, remainingBank)
+getNextBattery :: [Text] -> Int -> Int -> (Text, [Text])
+getNextBattery bank batteriesRemaining maxJoltage
+  | isTooFarRightToFit highestJoltageBattery =
+      getNextBattery bank batteriesRemaining (toInt highestJoltageBattery - 1)
+  | otherwise = (highestJoltageBattery, restOfBank)
   where
-    highestJoltageBattery = maximum (filter (\batt -> toInt batt <= maxJoltage) bank)
-    remainingBank = restOfBank highestJoltageBattery bank
-    nextHighestJoltageBattery =
-      nextBatteryFrom bank batteriesRemaining (toInt highestJoltageBattery - 1)
+    highestJoltageBattery = maximum $ filter (toText maxJoltage >=) bank
+    restOfBank = drop (elemIndexJust highestJoltageBattery bank + 1) bank
+    isTooFarRightToFit battery =
+      elemIndexJust battery bank > length bank - batteriesRemaining
 
-restOfBank :: Text -> [Text] -> [Text]
-restOfBank battery bank = drop (elemIndexJust battery bank + 1) bank
+maximumSingleBatteryJoltage :: Int
+maximumSingleBatteryJoltage = 9
 
-isTooFarRightToFit :: Text -> [Text] -> Int -> Bool
-isTooFarRightToFit battery bank batteriesRemaining =
-  elemIndexJust battery bank > length bank - batteriesRemaining
+totalBatteriesToActivate :: Int
+totalBatteriesToActivate = 12
