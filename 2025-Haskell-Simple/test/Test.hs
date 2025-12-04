@@ -15,11 +15,11 @@ testDay n = do
   let (resultPart1, resultPart2) = execDay n input
   putStrLn $ "Testing Day " ++ dayString n ++ "!"
   putStrLn " Part 1..."
-  -- putStrLn $
-  --   testSolution
-  --     resultPart1
-  --     ( init solutionPart1 -- init to remove trailing newline
-  --     )
+  putStrLn $
+    testSolution
+      resultPart1
+      ( init solutionPart1 -- init to remove trailing newline
+      )
   putStrLn "Part 2..."
   putStrLn $ testSolution resultPart2 (init solutionPart2)
 
