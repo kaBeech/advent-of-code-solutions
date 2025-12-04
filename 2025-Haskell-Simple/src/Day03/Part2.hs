@@ -19,23 +19,18 @@ fillOutBatteries batteries bank
   | batteriesRemaining == 0 = batteries
   | otherwise = fillOutBatteries (batteries ++ [nextBattery]) restOfBank
   where
-    batteriesRemaining = totalBatteriesToActivate - length batteries
+    batteriesRemaining = 12 - length batteries
     (nextBattery, restOfBank) =
-      getNextBattery bank batteriesRemaining maximumSingleBatteryJoltage
+      getNextBattery bank batteriesRemaining 9
 
 getNextBattery :: [Text] -> Int -> Int -> (Text, [Text])
-getNextBattery bank batteriesRemaining maxJoltage
+getNextBattery bank batteriesRemaining maxSingleBatteryJoltage
   | isTooFarRightToFit highestJoltageBattery =
       getNextBattery bank batteriesRemaining (toInt highestJoltageBattery - 1)
   | otherwise = (highestJoltageBattery, restOfBank)
   where
-    highestJoltageBattery = maximum $ filter (toText maxJoltage >=) bank
+    highestJoltageBattery =
+      maximum $ filter (toText maxSingleBatteryJoltage >=) bank
     restOfBank = drop (elemIndexJust highestJoltageBattery bank + 1) bank
     isTooFarRightToFit battery =
       elemIndexJust battery bank > length bank - batteriesRemaining
-
-maximumSingleBatteryJoltage :: Int
-maximumSingleBatteryJoltage = 9
-
-totalBatteriesToActivate :: Int
-totalBatteriesToActivate = 12

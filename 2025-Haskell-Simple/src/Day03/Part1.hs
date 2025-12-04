@@ -17,5 +17,5 @@ largestJoltageOf bank = toInt $ concat [firstBattery, secondBattery]
     -- Exclude the last battery as the first digit
     firstBattery = maximum (init bank)
     firstBatteryIndex = elemIndexJust firstBattery bank
-    restOfBank = drop (firstBatteryIndex + 1) bank
+    restOfBank = drop (1 + firstBatteryIndex) bank
     secondBattery = maximum restOfBank
