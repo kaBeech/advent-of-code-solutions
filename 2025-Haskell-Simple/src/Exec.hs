@@ -7,6 +7,8 @@ import qualified Day02.Part1
 import qualified Day02.Part2
 import qualified Day03.Part1
 import qualified Day03.Part2
+import qualified Day04.Part1
+import qualified Day04.Part2
 
 execDay :: Int -> String -> (String, String)
 execDay n input = case n of
@@ -15,7 +17,7 @@ execDay n input = case n of
   2 ->
     (Day02.Part1.solvePart1 $ pack input, Day02.Part2.solvePart2 $ pack input)
   3 -> (Day03.Part1.solvePart1 $ pack input, Day03.Part2.solvePart2 $ pack input)
-  4 -> ("Day 4 Part 1 not yet implemented", "Day 4 Part 2 not yet implemented")
+  4 -> (Day04.Part1.solvePart1 $ pack input, Day04.Part2.solvePart2 $ pack input)
   5 -> ("Day 5 Part 1 not yet implemented", "Day 5 Part 2 not yet implemented")
   6 -> ("Day 6 Part 1 not yet implemented", "Day 6 Part 2 not yet implemented")
   7 -> ("Day 7 Part 1 not yet implemented", "Day 7 Part 2 not yet implemented")
