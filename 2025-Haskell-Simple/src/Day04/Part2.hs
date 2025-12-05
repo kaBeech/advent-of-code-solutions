@@ -21,9 +21,9 @@ hasLessThan4Neighbors tile tileMap =
 removeRolls :: [Tile] -> [Tile] -> [Tile]
 removeRolls [] tileMap = tileMap
 removeRolls (roll : rollsToRemove) tileMap
-  | roll `elem` tileMap
-      && hasLessThan4Neighbors roll tileMap =
-      removeRolls (adjacentTiles ++ rollsToRemove) $ filter (/= roll) tileMap
+  | hasLessThan4Neighbors roll tileMap =
+      removeRolls (adjacentTiles ++ dedup rollsToRemove) $ filter (/= roll) tileMap
   | otherwise = removeRolls rollsToRemove tileMap
   where
     adjacentTiles = tilesAdjacentTo roll tileMap
+    dedup = filter (`notElem` adjacentTiles)
