@@ -10,7 +10,7 @@ type Coordinates = [Int]
 type XYCoordinates = (Int, Int)
 
 toXY :: Coordinates -> XYCoordinates
-toXY (x1 : y1 : _rest) = (x1, y1)
+toXY (x : y : _rest) = (x, y)
 toXY coordinates =
   error $
     "Expecting a list of at least two coordinates; got: " ++ show coordinates

@@ -1,4 +1,4 @@
-module Util.Tile (tilesAdjacentTo) where
+module Util.Tile (tilesAdjacent, tilesAdjacentTo) where
 
 import Types (Tile, tileXY)
 
