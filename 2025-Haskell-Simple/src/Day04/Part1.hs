@@ -6,20 +6,13 @@ import Util.Tile (tilesAdjacentTo)
 
 solvePart1 :: Text -> String
 solvePart1 input =
-  show $ length $ filter (hasAccessiblePaperRoll tileMap) tileMap
+  show $ length $ filter (hasLessThan4Neighbors paperRolls) paperRolls
   where
-    tileMap = toTileMap input
-
-hasAccessiblePaperRoll :: TileMap -> Tile -> Bool
-hasAccessiblePaperRoll tileMap tile =
-  hasPaperRoll tile && hasLessThan4Neighbors tileMap tile
-
-hasLessThan4Neighbors :: TileMap -> Tile -> Bool
-hasLessThan4Neighbors tileMap tile =
-  length (tilesAdjacentTo tile (withPaperRolls tileMap)) < 4
-
-withPaperRolls :: TileMap -> TileMap
-withPaperRolls = filter hasPaperRoll
+    paperRolls = filter hasPaperRoll $ toTileMap input
 
 hasPaperRoll :: Tile -> Bool
 hasPaperRoll tile = tileContent tile == pack "@"
+
+hasLessThan4Neighbors :: TileMap -> Tile -> Bool
+hasLessThan4Neighbors tileMap tile =
+  length (tilesAdjacentTo tile tileMap) < 4
