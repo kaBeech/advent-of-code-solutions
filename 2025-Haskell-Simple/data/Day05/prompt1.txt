@@ -1,0 +1,1 @@
+Process the database file from the new inventory management system. How many of the available ingredient IDs are fresh?
