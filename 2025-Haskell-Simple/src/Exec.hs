@@ -46,4 +46,4 @@ isValidDay :: Int -> Bool
 isValidDay n = n `elem` validDays
 
 validDays :: [Int]
-validDays = [1 .. 3]
+validDays = [1 .. 4]
