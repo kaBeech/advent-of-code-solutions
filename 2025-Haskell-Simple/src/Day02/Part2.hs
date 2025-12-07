@@ -2,19 +2,13 @@ module Day02.Part2 (solvePart2) where
 
 import Data.Text (Text, chunksOf, pack, splitOn)
 import Safe
+import Types (toRange)
 import Util.Text (halfLength, toText)
-import Util.Tuple (pairUp)
-import Util.Tuple.Text (toInts)
 
 solvePart2 :: Text -> String
-solvePart2 input = show $ sum $ concatMap invalidIdsIn $ rangesFrom input
-
--- | ==== __Examples__
---   >>> invalidIdsIn (95,115)
---   [99,111]
-invalidIdsIn :: (Int, Int) -> [Int]
-invalidIdsIn (lowerBound, upperBound) =
-  filter isInvalidId [lowerBound .. upperBound]
+solvePart2 input = show $ sum $ concatMap (filter isInvalidId) ranges
+  where
+    ranges = map toRange (splitOn (pack ",") input)
 
 -- | ==== __Examples__
 --   >>> isInvalidId 11
@@ -50,15 +44,3 @@ allChunksIdentical text size = all' chunks (== firstChunk)
     all' = flip all
     chunks = chunksOf size text
     firstChunk = at chunks 0
-
--- | ==== __Examples__
---   >>> rangesFrom "11-22,95-115"
---   [(11,22),(95,115)]
-rangesFrom :: Text -> [(Int, Int)]
-rangesFrom input = map toInts $ boundariesOf $ textRangesFrom input
-
-boundariesOf :: [Text] -> [(Text, Text)]
-boundariesOf = concatMap (pairUp . splitOn (pack "-"))
-
-textRangesFrom :: Text -> [Text]
-textRangesFrom = splitOn (pack ",")

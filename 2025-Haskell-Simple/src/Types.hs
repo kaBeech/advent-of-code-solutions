@@ -2,7 +2,9 @@
 
 module Types where
 
-import Data.Text (Text, chunksOf, lines, unpack)
+import Data.Text (Text, chunksOf, lines, pack, splitOn, unpack)
+import Util.Text (toInt)
+import Util.Tuple (pairUp)
 import Prelude hiding (lines)
 
 type Coordinates = [Int]
@@ -46,3 +48,20 @@ toColumns (x, rowText) =
     (curry toTile)
     ([[x, y] | y <- [0 .. length (unpack rowText) - 1]])
     (chunksOf 1 rowText)
+
+type Range = [Int]
+
+-- | ==== __Examples__
+--   >>> toRange "11-22,95-115"
+--   [(11,22),(95,115)]
+toRange :: Text -> [Int]
+toRange text = case (pairUp . splitOn (pack "-")) text of
+  [(lowerBound, upperBound)] -> [toInt lowerBound .. toInt upperBound]
+  _ -> error $ "Expected a single range in text; got: " ++ show text
+
+type Bounds = (Int, Int)
+
+toBounds :: Text -> (Int, Int)
+toBounds text = case (pairUp . splitOn (pack "-")) text of
+  [(lowerBound, upperBound)] -> (toInt lowerBound, toInt upperBound)
+  _ -> error $ "Expected a single range in text; got: " ++ show text
