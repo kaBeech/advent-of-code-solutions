@@ -2,6 +2,7 @@
 
 module Types where
 
+import Data.Graph (Bounds)
 import Data.Text (Text, chunksOf, lines, pack, splitOn, unpack)
 import Util.Text (toInt)
 import Util.Tuple (pairUp)
@@ -55,13 +56,11 @@ type Range = [Int]
 --   >>> toRange "11-22,95-115"
 --   [(11,22),(95,115)]
 toRange :: Text -> [Int]
-toRange text = case (pairUp . splitOn (pack "-")) text of
-  [(lowerBound, upperBound)] -> [toInt lowerBound .. toInt upperBound]
-  _ -> error $ "Expected a single range in text; got: " ++ show text
+toRange text = [lowerBound .. upperBound]
+  where
+    (lowerBound, upperBound) = toBounds text
 
-type Bounds = (Int, Int)
-
-toBounds :: Text -> (Int, Int)
+toBounds :: Text -> Bounds
 toBounds text = case (pairUp . splitOn (pack "-")) text of
   [(lowerBound, upperBound)] -> (toInt lowerBound, toInt upperBound)
   _ -> error $ "Expected a single range in text; got: " ++ show text
