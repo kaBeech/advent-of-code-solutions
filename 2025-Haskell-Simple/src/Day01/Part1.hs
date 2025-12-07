@@ -3,41 +3,20 @@ module Day01.Part1 (solvePart1) where
 import Data.Text (Text, lines, unpack)
 import Prelude hiding (lines)
 
+-- | I'm aware this can be done in a more simple and performant manner using
+--   arithmatic on Ints instead of the dial method used here. However, I was
+--   having fun using cycles since they closely represent a dial.
 solvePart1 :: Text -> String
 solvePart1 input = show password
   where
     (password, _finalDial) =
-      followInstructions (initPassword, startingDial) instructions
+      followInstructions (0, startingDial) instructions
     instructions = map unpack $ lines input
 
--- | We will find the password using this code; our initial value for the
---   password is 0.
-initPassword :: Int
-initPassword = 0
-
--- | The dial is an infinitely repeating list of numbers from 0 to 99.
---
---   At the beginning of the puzzle, the dial is set to 50; i.e. 50 is the
---   first number in the list.
---
---   In other words, startingDial is equivalent to [50, 51, 52, 53, 54, ... ]
---   (endlessly repeating).
+-- [50..99,0,1..]
 startingDial :: [Int]
 startingDial = drop 50 $ cycle [0 .. 99]
 
--- | ==== __Examples__
---   >>> turn startingDial 'R' 5
---   [55,56,57,58,59..]
---   >>> turn startingDial 'L' 5
---   [45,46,47,48,49..]
---   >>> turn [0,1,2,3,4..] 'L' 1
---   [99,0,1,2,3..]
---   >>> turn [99,0,1,2,3..] 'R' 1
---   [0,1,2,3,4..]
---   >>> turn startingDial 'L' 68
---   [82,83,84,85,86..]
---   >>> turn [95,96,97,98,99..] 'R' 60
---   [55,56,57,58,59..]
 turn :: [Int] -> Char -> Int -> [Int]
 turn dial 'R' clicks = drop clicks dial
 turn dial 'L' clicks = drop clicksAdjusted dial
@@ -50,7 +29,7 @@ turn _ direction _ =
     "Invalid direction. Expecting 'L' or 'R'; got: " ++ [direction]
 
 -- | ==== __Examples__
---   >>> followInstructions (initPassword, startingDial) ["R55", "L5"]
+--   >>> followInstructions (0 startingDial) ["R55", "L5"]
 --   (1,[0,1,2,3,4..])
 followInstructions :: (Int, [Int]) -> [String] -> (Int, [Int])
 followInstructions = foldl followInstruction
@@ -60,8 +39,6 @@ followInstructions = foldl followInstruction
 --   (0,[5,6,7,8,9..])
 --   >>> followInstruction (initPassword, [5,6,7,8,9..]) "L5"
 --   (1,[0,1,2,3,4..])
---   >>> followInstruction (1, [95,96,97,98,99..]) "R5"
---   (2,[0,1,2,3,4..])
 followInstruction :: (Int, [Int]) -> String -> (Int, [Int])
 followInstruction (password, dial) (direction : clicks) = (password', dial')
   where
@@ -73,12 +50,10 @@ followInstruction _ instruction =
 -- | Every time the dial shows 0 after a turn, increment the password by 1.
 --
 -- ==== __Examples__
--- >>> incrementPassword initPassword [5,6,7,8..]
+-- >>> incrementPassword 0 [5,6,7,8..]
 -- 0
--- >>> incrementPassword initPassword [0,1,2,3..]
+-- >>> incrementPassword 0 [0,1,2,3..]
 -- 1
--- >>> incrementPassword 1 [0,1,2,3..]
--- 2
 incrementPassword :: Int -> [Int] -> Int
-incrementPassword password (0 : _otherNumbers) = password + 1
+incrementPassword password (0 : _) = password + 1
 incrementPassword password _dial = password

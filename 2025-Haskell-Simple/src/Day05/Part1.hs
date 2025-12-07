@@ -3,9 +3,8 @@ module Day05.Part1 (solvePart1) where
 import Data.Graph (Bounds)
 import Data.Text (Text, lines, pack, splitOn)
 import Safe
-import Types (toBounds)
 import Util.Bounds (isInBounds)
-import Util.Text (toInt)
+import Util.Text (toInt, toBounds)
 import Prelude hiding (lines)
 
 solvePart1 :: Text -> String

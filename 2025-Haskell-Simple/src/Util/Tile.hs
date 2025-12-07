@@ -1,6 +1,48 @@
-module Util.Tile (tilesAdjacent, tilesAdjacentTo) where
+module Util.Tile
+  ( Tile (..),
+    TileMap,
+    tilesAdjacent,
+    tilesAdjacentTo,
+    toTile,
+    toTileMap,
+  )
+where
 
-import Types (Tile, tileXY)
+import Data.Text (Text, chunksOf, lines, unpack)
+import Util.Coordinates (Coordinates, XYCoordinates, toXY)
+import Prelude hiding (lines)
+
+data Tile = Tile
+  { tileContent :: Text,
+    tileCoordinates :: Coordinates
+  }
+  deriving (Eq)
+
+instance Ord Tile where
+  (<=) firstTile secondTile =
+    tileCoordinates firstTile <= tileCoordinates secondTile
+
+toTile :: (Coordinates, Text) -> Tile
+toTile (coordinates, text) =
+  Tile {tileContent = text, tileCoordinates = coordinates}
+
+tileXY :: Tile -> XYCoordinates
+tileXY tile = toXY $ tileCoordinates tile
+
+type TileMap = [Tile]
+
+toTileMap :: Text -> TileMap
+toTileMap text = concatMap toColumns numberedRows
+  where
+    rows = reverse $ lines text
+    numberedRows = zip [0 .. length rows - 1] rows
+
+toColumns :: (Int, Text) -> [Tile]
+toColumns (x, rowText) =
+  zipWith
+    (curry toTile)
+    ([[x, y] | y <- [0 .. length (unpack rowText) - 1]])
+    (chunksOf 1 rowText)
 
 tilesAdjacentTo :: Tile -> [Tile] -> [Tile]
 tilesAdjacentTo tile = filter (tilesAdjacent tile)

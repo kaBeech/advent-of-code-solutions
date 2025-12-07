@@ -2,8 +2,8 @@ module Day05.Part2 (solvePart2) where
 
 import Data.Text (Text, lines, pack, splitOn)
 import Safe
-import Types (toBounds)
 import Util.Bounds (collate, size)
+import Util.Text (toBounds)
 import Prelude hiding (lines)
 
 solvePart2 :: Text -> String

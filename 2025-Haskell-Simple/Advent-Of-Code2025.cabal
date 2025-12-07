@@ -73,15 +73,17 @@ library
                       Day04.Part2,
                       Day05.Part1,
                       Day05.Part2,
+                      Day06.Part1,
+                      Day06.Part2,
                       DayBoilerplate.Part1,
                       DayBoilerplate.Part2,
                       Exec,
-                      Types,
                       Util.Bounds,
+                      Util.Coordinates,
+                      Util.Range,
                       Util.Text,
                       Util.Tile,
                       Util.Tuple,
-                      Util.Tuple.Text,
 
     -- Modules included in this library but not exported.
     -- other-modules:

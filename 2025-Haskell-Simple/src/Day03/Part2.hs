@@ -6,18 +6,17 @@ import Util.Text (toInt, toText)
 import Prelude hiding (concat, lines)
 
 solvePart2 :: Text -> String
-solvePart2 input = show $ sum $ map largestJoltageOf $ banksFrom input
+solvePart2 input = show $ sum $ map largestJoltage banks
+  where
+    banks = map (chunksOf 1) (lines input)
 
-banksFrom :: Text -> [[Text]]
-banksFrom input = map (chunksOf 1) (lines input)
-
-largestJoltageOf :: [Text] -> Int
-largestJoltageOf bank = toInt $ concat $ fillOutBatteries [] bank
+largestJoltage :: [Text] -> Int
+largestJoltage bank = toInt $ concat $ fillOutBatteries [] bank
 
 fillOutBatteries :: [Text] -> [Text] -> [Text]
 fillOutBatteries batteries bank
-  | batteriesRemaining == 0 = batteries
-  | otherwise = fillOutBatteries (batteries ++ [nextBattery]) restOfBank
+  | batteriesRemaining == 0 = reverse batteries
+  | otherwise = fillOutBatteries (nextBattery : batteries) restOfBank
   where
     batteriesRemaining = 12 - length batteries
     (nextBattery, restOfBank) =

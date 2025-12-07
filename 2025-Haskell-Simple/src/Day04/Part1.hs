@@ -1,8 +1,7 @@
 module Day04.Part1 (solvePart1) where
 
 import Data.Text (Text, pack)
-import Types (Tile (..), TileMap, toTileMap)
-import Util.Tile (tilesAdjacentTo)
+import Util.Tile (Tile (..), TileMap, tilesAdjacentTo, toTileMap)
 
 solvePart1 :: Text -> String
 solvePart1 input =

@@ -2,8 +2,7 @@ module Day02.Part2 (solvePart2) where
 
 import Data.Text (Text, chunksOf, pack, splitOn)
 import Safe
-import Types (toRange)
-import Util.Text (halfLength, toText)
+import Util.Text (halfLength, toRange, toText)
 
 solvePart2 :: Text -> String
 solvePart2 input = show $ sum $ concatMap (filter isInvalidId) ranges
@@ -25,22 +24,22 @@ hasIdenticalSplits productId = not $ null $ identicalSplitsIn productId
 
 -- Find numbers that result in identical chunks when the text is split into
 -- chunks of that size
+--
+
+-- | ==== __Examples__
+--   >>> identicalSplitsIn (pack "123123")
+--   [3,6]
 identicalSplitsIn :: Text -> [Int]
 identicalSplitsIn text =
   filter (allChunksIdentical text) [1 .. halfLength text]
 
 -- | ==== __Examples__
---   >>> allChunksIdentical (pack "121212") 2
---   True
---   >>> allChunksIdentical (pack "121212") 1
---   False
---   >>> allChunksIdentical (pack "111111") 1
+--   >>> allChunksIdentical (pack "123123") 3
 --   True
 --   >>> allChunksIdentical (pack "123123") 2
 --   False
 allChunksIdentical :: Text -> Int -> Bool
-allChunksIdentical text size = all' chunks (== firstChunk)
+allChunksIdentical text size = all (== firstChunk) chunks
   where
-    all' = flip all
     chunks = chunksOf size text
     firstChunk = at chunks 0

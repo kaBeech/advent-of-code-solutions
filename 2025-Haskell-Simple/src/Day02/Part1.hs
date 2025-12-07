@@ -1,8 +1,7 @@
 module Day02.Part1 (solvePart1) where
 
 import Data.Text (Text, pack, splitOn)
-import Types (toRange)
-import Util.Text (firstHalf, secondHalf, toText)
+import Util.Text (firstHalf, secondHalf, toText, toRange)
 
 solvePart1 :: Text -> String
 solvePart1 input = show $ sum $ concatMap (filter isInvalidId) ranges
