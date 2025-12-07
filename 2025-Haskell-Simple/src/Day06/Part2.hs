@@ -6,7 +6,7 @@ import Data.Text (Text, unpack)
 
 solvePart2 :: Text -> String
 solvePart2 input =
-  show $ sum $ map solve $ equations
+  show $ sum $ map solve equations
   where
     equations =
       parseEquations [] $ filter (not . null) $ transpose $ lines $ unpack input
@@ -19,8 +19,10 @@ parseEquations equations (firstLine : remainingLines) =
     (firstEquation, rest) = break (all isSpace) remainingLines
 
 solve :: [String] -> Int
-solve [] = error $ "Empty equation given to solve!"
+solve [] = error "Empty equation given to solve!"
 solve (firstLine : rest) = case last firstLine of
-  '+' -> sum $ map read $ init firstLine : rest
-  '*' -> product $ map read $ init firstLine : rest
+  '+' -> sum numbers
+  '*' -> product numbers
   _ -> error $ "Unexpected operator for firstLine; got: " ++ firstLine
+  where
+    numbers = map read $ init firstLine : rest

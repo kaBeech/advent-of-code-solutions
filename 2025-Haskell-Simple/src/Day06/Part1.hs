@@ -10,6 +10,8 @@ solvePart1 input = show $ sum $ map solve equations
 
 solve :: [String] -> Int
 solve equation = case last equation of
-  "+" -> sum $ map read $ init equation
-  "*" -> product $ map read $ init equation
+  "+" -> sum numbers
+  "*" -> product numbers
   operator -> error $ "Unexpected operator for equation; got: " ++ operator
+  where
+    numbers = map read $ init equation
