@@ -1,0 +1,1 @@
+Analyze your manifold diagram. How many times will the beam be split?
