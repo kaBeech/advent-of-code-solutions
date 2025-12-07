@@ -5,14 +5,10 @@ import Data.Text (Text, unpack)
 import Safe
 
 solvePart1 :: Text -> String
-solvePart1 input = show $ countSplits 0 [tachyonColumn] remainingLines
+solvePart1 input = show $ countSplits 0 [tachyonEntryColumn] $ drop 1 manifold
   where
-    (tachyonColumn, remainingLines) = tachyonBeamEntry $ lines $ unpack input
-
-tachyonBeamEntry :: [String] -> (Int, [String])
-tachyonBeamEntry [] = error "Manifold empty!"
-tachyonBeamEntry (firstLine : remainingLines) =
-  (elemIndexJust 'S' firstLine, remainingLines)
+    manifold = lines $ unpack input
+    tachyonEntryColumn = elemIndexJust 'S' $ at manifold 0
 
 countSplits :: Int -> [Int] -> [String] -> Int
 countSplits totalSplits _ [] = totalSplits

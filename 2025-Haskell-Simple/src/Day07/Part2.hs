@@ -3,31 +3,27 @@ module Day07.Part2 (solvePart2) where
 import Data.List (elemIndices)
 import Data.Map (Map, elems, fromListWith, singleton, toList)
 import Data.Text (Text, unpack)
-import Safe (elemIndexJust)
+import Safe
 
 solvePart2 :: Text -> String
-solvePart2 input = show $ countPaths tachyonMap remainingLines
+solvePart2 input = show $ countTimelines tachyonMap $ drop 1 manifold
   where
-    (tachyonColumn, remainingLines) = tachyonBeamEntry $ lines $ unpack input
-    tachyonMap = singleton tachyonColumn 1
+    manifold = lines $ unpack input
+    tachyonEntryColumn = elemIndexJust 'S' $ at manifold 0
+    tachyonMap = singleton tachyonEntryColumn 1
 
-tachyonBeamEntry :: [String] -> (Int, [String])
-tachyonBeamEntry [] = error "Manifold empty!"
-tachyonBeamEntry (firstLine : remainingLines) =
-  (elemIndexJust 'S' firstLine, remainingLines)
-
-countPaths :: Map Int Int -> [String] -> Int
-countPaths tachyonMap [] = sum $ elems tachyonMap
-countPaths tachyonMap (thisLine : remainingLines) =
-  countPaths tachyonMap' remainingLines
+countTimelines :: Map Int Int -> [String] -> Int
+countTimelines tachyonMap [] = sum $ elems tachyonMap
+countTimelines tachyonMap (thisLine : remainingLines) =
+  countTimelines tachyonMap' remainingLines
   where
     splitterIndices = elemIndices '^' thisLine
     splittersHit = filter (flip elem splitterIndices . fst) $ toList tachyonMap
-    remainingTachyonPaths =
+    remainingTimelines =
       filter (flip notElem (map fst splittersHit) . fst) $ toList tachyonMap
-    tachyonColumnsAdded = concatMap splitTachyonPath splittersHit
+    timelinesAdded = concatMap splitTimeline splittersHit
     tachyonMap' =
-      fromListWith (+) $ remainingTachyonPaths ++ tachyonColumnsAdded
+      fromListWith (+) $ remainingTimelines ++ timelinesAdded
 
-splitTachyonPath :: (Int, Int) -> [(Int, Int)]
-splitTachyonPath (k, v) = [(pred k, v), (succ k, v)]
+splitTimeline :: (Int, Int) -> [(Int, Int)]
+splitTimeline (k, v) = [(pred k, v), (succ k, v)]
