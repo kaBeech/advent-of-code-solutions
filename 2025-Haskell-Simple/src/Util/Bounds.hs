@@ -15,10 +15,13 @@ collate :: [Bounds] -> [Bounds]
 collate bounds = collate' $ sort bounds
 
 collate' :: [Bounds] -> [Bounds]
-collate' allbounds@(bounds1@(_, upper1) : bounds2@(lower2, _) : rest)
-  | bounds1 > bounds2 = allbounds
+collate' (bounds1@(_, upper1) : bounds2@(lower2, _) : rest)
+  | bounds1 > bounds2 = collatedBounds
   | upper1 >= lower2 = collate (merge bounds1 bounds2 : rest)
   | otherwise = collate (bounds2 : rest) ++ [bounds1]
+  where
+    -- All collated bounds, in ascending order
+    collatedBounds = (bounds2 : rest) ++ [bounds1]
 collate' bounds = bounds
 
 merge :: Bounds -> Bounds -> Bounds
