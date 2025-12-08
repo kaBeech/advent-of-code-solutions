@@ -1,9 +1,11 @@
 module Solve where
 
 import Exec (dayString, execDay, validDays)
+import System.CPUTime (getCPUTime)
+import Text.Printf (printf)
 
 solveAll :: IO ()
-solveAll = mapM_ solveDay validDays
+solveAll = mapM_ (time . solveDay) validDays
 
 solveDay :: Int -> IO ()
 solveDay n = do
@@ -16,3 +18,12 @@ solveDay n = do
   putStrLn $ "Solution: " ++ resultPart1
   putStrLn $ "Part 2: " ++ prompt2
   putStrLn $ "Solution: " ++ resultPart2
+
+time :: IO t -> IO t
+time f = do
+  start <- getCPUTime
+  result <- f
+  end <- getCPUTime
+  let diff = fromIntegral (end - start) / (10 ^ (12 :: Integer))
+  printf "Computation time: %0.3f sec\n" (diff :: Double)
+  return result
