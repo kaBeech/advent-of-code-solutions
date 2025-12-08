@@ -20,18 +20,8 @@ isInvalidId :: Int -> Bool
 isInvalidId productId = hasIdenticalSplits $ toText productId
 
 hasIdenticalSplits :: Text -> Bool
-hasIdenticalSplits productId = not $ null $ identicalSplitsIn productId
-
--- Find numbers that result in identical chunks when the text is split into
--- chunks of that size
---
-
--- | ==== __Examples__
---   >>> identicalSplitsIn (pack "123123")
---   [3,6]
-identicalSplitsIn :: Text -> [Int]
-identicalSplitsIn text =
-  filter (allChunksIdentical text) [1 .. halfLength text]
+hasIdenticalSplits text =
+  any (allChunksIdentical text) [1 .. halfLength text]
 
 -- | ==== __Examples__
 --   >>> allChunksIdentical (pack "123123") 3
