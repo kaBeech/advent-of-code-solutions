@@ -98,6 +98,7 @@ library
                       containers,
                       safe,
                       text ^>=2.1.2,
+                      universe-base,
                       vector,
 
     -- Directories containing source files.

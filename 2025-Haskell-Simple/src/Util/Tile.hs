@@ -1,33 +1,27 @@
 module Util.Tile
-  ( Tile (..),
+  ( Tile,
     TileMap,
-    tilesAdjacent,
-    tilesAdjacentTo,
-    toTile,
+    coordinates,
+    content,
+    adjacent,
     toTileMap,
   )
 where
 
 import Data.Text (Text, chunksOf, lines, unpack)
-import Util.Coordinates (Coordinates, XYCoordinates, toXY)
+import Util.Coordinates (XYCoordinates)
 import Prelude hiding (lines)
 
-data Tile = Tile
-  { tileContent :: Text,
-    tileCoordinates :: Coordinates
-  }
-  deriving (Eq)
+type Tile =
+  ( XYCoordinates,
+    Text
+  )
 
-instance Ord Tile where
-  (<=) firstTile secondTile =
-    tileCoordinates firstTile <= tileCoordinates secondTile
+coordinates :: Tile -> XYCoordinates
+coordinates = fst
 
-toTile :: (Coordinates, Text) -> Tile
-toTile (coordinates, text) =
-  Tile {tileContent = text, tileCoordinates = coordinates}
-
-tileXY :: Tile -> XYCoordinates
-tileXY tile = toXY $ tileCoordinates tile
+content :: Tile -> Text
+content = snd
 
 type TileMap = [Tile]
 
@@ -39,41 +33,37 @@ toTileMap text = concatMap toColumns numberedRows
 
 toColumns :: (Int, Text) -> [Tile]
 toColumns (x, rowText) =
-  zipWith
-    (curry toTile)
-    ([[x, y] | y <- [0 .. length (unpack rowText) - 1]])
+  zip
+    ([(x, y) | y <- [0 .. length (unpack rowText) - 1]])
     (chunksOf 1 rowText)
 
-tilesAdjacentTo :: Tile -> [Tile] -> [Tile]
-tilesAdjacentTo tile = filter (tilesAdjacent tile)
+adjacent :: Tile -> Tile -> Bool
+adjacent firstTile secondTile =
+  orthogonallyAdjacent firstTile secondTile
+    || diagonallyAdjacent firstTile secondTile
 
-tilesAdjacent :: Tile -> Tile -> Bool
-tilesAdjacent firstTile secondTile =
-  tilesOrthogonallyAdjacent firstTile secondTile
-    || tilesDiagonallyAdjacent firstTile secondTile
-
-tilesHorizontallyAdjacent :: Tile -> Tile -> Bool
-tilesHorizontallyAdjacent firstTile secondTile =
+horizontallyAdjacent :: Tile -> Tile -> Bool
+horizontallyAdjacent firstTile secondTile =
   abs (x1 - x2) == 1 && y1 == y2
   where
-    (x1, y1) = tileXY firstTile
-    (x2, y2) = tileXY secondTile
+    (x1, y1) = coordinates firstTile
+    (x2, y2) = coordinates secondTile
 
-tilesVerticallyAdjacent :: Tile -> Tile -> Bool
-tilesVerticallyAdjacent firstTile secondTile =
+verticallyAdjacent :: Tile -> Tile -> Bool
+verticallyAdjacent firstTile secondTile =
   abs (y1 - y2) == 1 && x1 == x2
   where
-    (x1, y1) = tileXY firstTile
-    (x2, y2) = tileXY secondTile
+    (x1, y1) = coordinates firstTile
+    (x2, y2) = coordinates secondTile
 
-tilesOrthogonallyAdjacent :: Tile -> Tile -> Bool
-tilesOrthogonallyAdjacent firstTile secondTile =
-  tilesHorizontallyAdjacent firstTile secondTile
-    || tilesVerticallyAdjacent firstTile secondTile
+orthogonallyAdjacent :: Tile -> Tile -> Bool
+orthogonallyAdjacent firstTile secondTile =
+  horizontallyAdjacent firstTile secondTile
+    || verticallyAdjacent firstTile secondTile
 
-tilesDiagonallyAdjacent :: Tile -> Tile -> Bool
-tilesDiagonallyAdjacent firstTile secondTile =
+diagonallyAdjacent :: Tile -> Tile -> Bool
+diagonallyAdjacent firstTile secondTile =
   abs (x1 - x2) == 1 && abs (y1 - y2) == 1
   where
-    (x1, y1) = tileXY firstTile
-    (x2, y2) = tileXY secondTile
+    (x1, y1) = coordinates firstTile
+    (x2, y2) = coordinates secondTile

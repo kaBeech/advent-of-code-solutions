@@ -1,7 +1,7 @@
 module Day04.Part1 (solvePart1) where
 
 import Data.Text (Text, pack)
-import Util.Tile (Tile (..), TileMap, tilesAdjacentTo, toTileMap)
+import Util.Tile (Tile, TileMap, adjacent, content, toTileMap)
 
 solvePart1 :: Text -> String
 solvePart1 input =
@@ -10,8 +10,8 @@ solvePart1 input =
     paperRolls = filter hasPaperRoll $ toTileMap input
 
 hasPaperRoll :: Tile -> Bool
-hasPaperRoll tile = tileContent tile == pack "@"
+hasPaperRoll tile = content tile == pack "@"
 
 hasLessThan4Neighbors :: Tile -> TileMap -> Bool
 hasLessThan4Neighbors tile tileMap =
-  length (tilesAdjacentTo tile tileMap) < 4
+  length (filter (adjacent tile) tileMap) < 4
