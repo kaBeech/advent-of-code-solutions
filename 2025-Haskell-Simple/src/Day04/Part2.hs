@@ -3,7 +3,7 @@ module Day04.Part2 (solvePart2) where
 import Data.List (intersect, (\\))
 import Data.Text (Text)
 import Math.Geometry.Grid (neighbours)
-import Math.Geometry.GridMap (GridMap (keys))
+import Math.Geometry.GridMap (GridMap (keys, (!)))
 import qualified Math.Geometry.GridMap as GridMap
 import Util.Coordinates (XYCoordinates)
 import Util.Text (toTileMap)
@@ -13,23 +13,31 @@ solvePart2 :: Text -> String
 solvePart2 input =
   show $ length originalPaperRolls - length remainingPaperRolls
   where
-    originalPaperRolls = GridMap.filter (== '@') $ toTileMap input
+    tileMap = toTileMap input
+    originalPaperRolls = GridMap.filter (== '@') tileMap
     remainingPaperRolls =
-      removeRolls (keys originalPaperRolls) originalPaperRolls
-
-hasLessThan4Neighbors :: TileMap -> XYCoordinates -> Bool
-hasLessThan4Neighbors tileMap coords =
-  length neighborsActual < 4
-  where
-    neighborsOnFullGrid = neighbours tileMap coords
-    neighborsActual = neighborsOnFullGrid `intersect` keys tileMap
+      GridMap.filter (== '@') $ removeRolls (keys originalPaperRolls) tileMap
 
 removeRolls :: [XYCoordinates] -> TileMap -> TileMap
 removeRolls [] tileMap = tileMap
 removeRolls (coords : coordsToCheck) tileMap
-  | hasLessThan4Neighbors tileMap coords = removeRolls coordsToCheck' tileMap'
+  | isAccessible tileMap coords = removeRolls coordsToCheck' tileMap'
   | otherwise = removeRolls coordsToCheck tileMap
   where
-    adjacentTiles = neighbours tileMap coords `intersect` keys tileMap
+    adjacentTiles = filter (hasPaperRoll tileMap) (neighbours tileMap coords)
     coordsToCheck' = adjacentTiles ++ (coordsToCheck \\ adjacentTiles)
-    tileMap' = GridMap.delete coords tileMap
+    tileMap' = GridMap.adjust removeRoll coords tileMap
+
+removeRoll :: Char -> Char
+removeRoll '@' = '.'
+removeRoll c = error $ "Attempted to remove a non-Paper-Roll char: " ++ [c]
+
+isAccessible :: TileMap -> XYCoordinates -> Bool
+isAccessible tileMap coords =
+  length neighborsWithPaperRolls < 4
+  where
+    neighborsWithPaperRolls =
+      filter (hasPaperRoll tileMap) (neighbours tileMap coords)
+
+hasPaperRoll :: TileMap -> XYCoordinates -> Bool
+hasPaperRoll tileMap coords = (tileMap ! coords) == '@'
