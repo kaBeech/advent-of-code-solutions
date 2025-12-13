@@ -12,7 +12,7 @@ solvePart1 :: Text -> String
 solvePart1 input =
   show $ length $ filter (hasLessThan4Neighbors paperRolls) (keys paperRolls)
   where
-    paperRolls = GridMap.filter ('@' /=) (toTileMap input)
+    paperRolls = GridMap.filter ('@' ==) (toTileMap input)
 
 hasLessThan4Neighbors :: TileMap -> XYCoordinates -> Bool
 hasLessThan4Neighbors tileMap tile =
