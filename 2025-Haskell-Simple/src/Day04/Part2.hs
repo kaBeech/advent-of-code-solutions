@@ -1,6 +1,6 @@
 module Day04.Part2 (solvePart2) where
 
-import Data.List (intersect, (\\))
+import Data.List ((\\))
 import Data.Text (Text)
 import Math.Geometry.Grid (neighbours)
 import Math.Geometry.GridMap (GridMap (keys, (!)))
