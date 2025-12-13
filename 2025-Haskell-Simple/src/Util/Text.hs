@@ -8,6 +8,8 @@ module Util.Text
     toRange,
     toText,
     toTileMap,
+    toTileMapRectOmni,
+    toTileMapRectOrtho,
   )
 where
 
@@ -15,11 +17,12 @@ import Data.Graph (Bounds)
 import Data.List (transpose)
 import Data.Text (Text, drop, length, lines, pack, show, splitOn, take, unpack)
 import Math.Geometry.Grid.Octagonal (rectOctGrid)
+import Math.Geometry.Grid.Square (rectSquareGrid)
 import Math.Geometry.GridMap.Lazy (lazyGridMap)
-import Util.Tile (TileMap)
+import Util.Tile (TileMap, TileMapRectOmni, TileMapRectOrtho)
 import Util.Tuple (mapT, pairUp)
 import Prelude hiding (drop, length, lines, take)
-import qualified Prelude hiding (lines)
+import qualified Prelude
 
 toBounds :: Text -> Bounds
 toBounds text = case (pairUp . splitOn (pack "-")) text of
@@ -46,9 +49,19 @@ toText :: (Show a) => a -> Text
 toText = Data.Text.show
 
 toTileMap :: Text -> TileMap
-toTileMap text = lazyGridMap grid (concat rows)
+toTileMap = toTileMapRectOmni
+
+toTileMapRectOmni :: Text -> TileMapRectOmni
+toTileMapRectOmni text = lazyGridMap grid (concat rows)
   where
     grid = rectOctGrid (Prelude.length rows) (Prelude.length columns)
+    rows = map unpack $ lines text
+    columns = transpose rows
+
+toTileMapRectOrtho :: Text -> TileMapRectOrtho
+toTileMapRectOrtho text = lazyGridMap grid (concat rows)
+  where
+    grid = rectSquareGrid (Prelude.length rows) (Prelude.length columns)
     rows = map unpack $ lines text
     columns = transpose rows
 
