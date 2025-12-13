@@ -10,6 +10,9 @@ module Util.Text
     toTileMap,
     toTileMapRectOmni,
     toTileMapRectOrtho,
+    toCoordinates,
+    Util.Text.toXY,
+    Util.Text.toXYZ,
   )
 where
 
@@ -19,6 +22,7 @@ import Data.Text (Text, drop, length, lines, pack, show, splitOn, take, unpack)
 import Math.Geometry.Grid.Octagonal (rectOctGrid)
 import Math.Geometry.Grid.Square (rectSquareGrid)
 import Math.Geometry.GridMap.Lazy (lazyGridMap)
+import Util.Coordinates (Coordinates, XYCoordinates, XYZCoordinates, toXY, toXYZ)
 import Util.Tile (TileMap, TileMapRectOmni, TileMapRectOrtho)
 import Util.Tuple (mapT, pairUp)
 import Prelude hiding (drop, length, lines, take)
@@ -34,6 +38,15 @@ toInt text = read $ unpack text
 
 toInts :: (Text, Text) -> (Int, Int)
 toInts = mapT toInt
+
+toCoordinates :: Text -> Coordinates
+toCoordinates text = map toInt $ splitOn (pack ",") text
+
+toXY :: Text -> XYCoordinates
+toXY text = Util.Coordinates.toXY $ toCoordinates text
+
+toXYZ :: Text -> XYZCoordinates
+toXYZ text = Util.Coordinates.toXYZ $ toCoordinates text
 
 -- | ==== __Examples__
 --   >>> toRange "11-22,95-115"
