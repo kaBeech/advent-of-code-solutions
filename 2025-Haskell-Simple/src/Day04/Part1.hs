@@ -16,8 +16,8 @@ solvePart1 input =
     paperRolls = GridMap.filter ('@' ==) (toTileMap input)
 
 hasLessThan4Neighbors :: TileMap -> XYCoordinates -> Bool
-hasLessThan4Neighbors tileMap tile =
+hasLessThan4Neighbors tileMap coords =
   length neighborsActual < 4
   where
-    neighborsOnFullGrid = neighbours tileMap tile
+    neighborsOnFullGrid = neighbours tileMap coords
     neighborsActual = neighborsOnFullGrid `intersect` keys tileMap
