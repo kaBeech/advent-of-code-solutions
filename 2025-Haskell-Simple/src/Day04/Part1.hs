@@ -1,5 +1,6 @@
 module Day04.Part1 (solvePart1) where
 
+import Data.List (intersect)
 import Data.Text (Text)
 import Math.Geometry.Grid (neighbours)
 import Math.Geometry.GridMap (GridMap (keys))
@@ -16,4 +17,7 @@ solvePart1 input =
 
 hasLessThan4Neighbors :: TileMap -> XYCoordinates -> Bool
 hasLessThan4Neighbors tileMap tile =
-  length (neighbours tileMap tile) < 4
+  length neighborsActual < 4
+  where
+    neighborsOnFullGrid = neighbours tileMap tile
+    neighborsActual = neighborsOnFullGrid `intersect` keys tileMap
