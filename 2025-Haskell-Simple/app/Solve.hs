@@ -5,7 +5,11 @@ import System.CPUTime (getCPUTime)
 import Text.Printf (printf)
 
 solveAll :: IO ()
-solveAll = mapM_ (time . solveDay) validDays
+solveAll = do
+  totalTime <- mapM (time . solveDay) validDays
+  printf
+    "Total computation time for all days: %0.3f sec\n"
+    (sum totalTime :: Double)
 
 solveDay :: Int -> IO ()
 solveDay n = do
@@ -20,11 +24,11 @@ solveDay n = do
   putStrLn $ "Part 2: " ++ prompt2
   putStrLn $ "Solution: " ++ resultPart2 ++ "\n"
 
-time :: IO t -> IO t
+time :: IO t -> IO Double
 time f = do
   start <- getCPUTime
-  result <- f
+  _ <- f
   end <- getCPUTime
   let diff = fromIntegral (end - start) / (10 ^ (12 :: Integer))
   printf "Computation time: %0.3f sec\n\n" (diff :: Double)
-  return result
+  return diff
