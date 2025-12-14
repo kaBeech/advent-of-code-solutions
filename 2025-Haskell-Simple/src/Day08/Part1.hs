@@ -4,7 +4,6 @@ import Data.Function (on)
 import Data.List (sort, sortBy)
 import Data.Map (Map)
 import qualified Data.Map as Map
-import Data.Ord (Down (Down), comparing)
 import Data.Text (Text, lines)
 import Util.Coordinates (XYZCoordinates, distanceXYZ)
 import Util.Text (toXYZ)
@@ -26,49 +25,37 @@ solvePart1 input =
   where
     maxConnections = numberOfPairs junctionBoxes
     longestCircuits = sortBy (flip compare `on` length) $ Map.elems circuitMap
-    closestPairs' = sort $ closestPairs [] maxConnections junctionBoxes
+    closestPairs' = sort $ closestPairs [] junctionBoxes
     junctionBoxes = map toXYZ $ lines input
     (_, circuitMap) =
       iterate
-        (connectClosestJunctionBoxes junctionBoxes)
+        connectClosestJunctionBoxes
         (closestPairs', Map.empty)
         !! maxConnections
 
 numberOfPairs :: [JunctionBox] -> Int
 numberOfPairs junctionBoxes | length junctionBoxes > 20 = 1000 | otherwise = 10
 
-closestPairs :: Connections -> Int -> [JunctionBox] -> Connections
-closestPairs connections _ [] = connections
-closestPairs connections _ [_] = connections
-closestPairs connections maxConnections (jb1 : rest) =
-  closestPairs connections' maxConnections rest
+closestPairs :: Connections -> [JunctionBox] -> Connections
+closestPairs connections [] = connections
+closestPairs connections [_] = connections
+closestPairs connections (jb1 : rest) =
+  closestPairs connections' rest
   where
-    connections' = addPairs connections maxConnections jb1 rest
+    connections' = addPairs connections jb1 rest
 
-addPairs :: Connections -> Int -> JunctionBox -> [JunctionBox] -> Connections
-addPairs connections _ _ [] = connections
-addPairs connections maxConnections jb1 (jb2 : rest)
-  | length connections < maxConnections =
-      addPairs (newConnection : connections) maxConnections jb1 rest
-  | newDistance < furthestDistance =
-      addPairs (newConnection : connectionsTail) maxConnections jb1 rest
-  | otherwise = addPairs connections maxConnections jb1 rest
+addPairs :: Connections -> JunctionBox -> [JunctionBox] -> Connections
+addPairs connections _ [] = connections
+addPairs connections jb1 (jb2 : rest) =
+  addPairs (newConnection : connections) jb1 rest
   where
     newDistance = distanceXYZ jb1 jb2
     newConnection = (newDistance, jb1, jb2)
-    sortedConnections = sortBy (comparing Data.Ord.Down) connections
-    (furthestDistance, connectionsTail) = getFurthest sortedConnections
-
-getFurthest :: Connections -> (Float, Connections)
-getFurthest ((furthestDistance, _, _) : connectionsTail) =
-  (furthestDistance, connectionsTail)
-getFurthest [] = error "No connections!"
 
 connectClosestJunctionBoxes ::
-  [JunctionBox] -> (Connections, CircuitMap) -> (Connections, CircuitMap)
-connectClosestJunctionBoxes _ ([], _) = error "Out of connections!"
+  (Connections, CircuitMap) -> (Connections, CircuitMap)
+connectClosestJunctionBoxes ([], _) = error "Out of connections!"
 connectClosestJunctionBoxes
-  _
   (newConnection@(_, jb1, jb2) : connections, circuits) =
     (connections, circuits')
     where
