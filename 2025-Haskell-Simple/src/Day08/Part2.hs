@@ -1,7 +1,7 @@
 module Day08.Part2 (solvePart2) where
 
 import Data.List (sort)
-import Data.Map (Map)
+import Data.Map (Map, keys)
 import qualified Data.Map as Map
 import Data.Text (Text, lines)
 import Util.Coordinates (XYZCoordinates, distanceXYZ)
@@ -40,20 +40,19 @@ connectJunctionBoxes
   circuitSize
   junctionBoxes
   (connections, circuits, mostRecentConnection)
-    | circuitSize >= length (concat (Map.elems circuits)) =
+    | circuitSize <= length (concat (Map.elems circuits)) =
         (connections, circuits, mostRecentConnection)
     | otherwise =
         connectJunctionBoxes
           circuitSize
           junctionBoxes
-          ( connectClosestJunctionBoxes junctionBoxes (connections, circuits)
+          ( connectClosestJunctionBoxes (connections, circuits)
           )
 
 closestPairs :: Connections -> [JunctionBox] -> Connections
 closestPairs connections [] = connections
 closestPairs connections [_] = connections
-closestPairs connections (jb1 : rest) =
-  closestPairs connections' rest
+closestPairs connections (jb1 : rest) = closestPairs connections' rest
   where
     connections' = addPairs connections jb1 rest
 
@@ -66,17 +65,15 @@ addPairs connections jb1 (jb2 : rest) =
     newConnection = (newDistance, jb1, jb2)
 
 connectClosestJunctionBoxes ::
-  [JunctionBox] ->
   (Connections, CircuitMap) ->
   (Connections, CircuitMap, Connection)
-connectClosestJunctionBoxes _ ([], _) = error "Out of connections!"
+connectClosestJunctionBoxes ([], _) = error "Out of connections!"
 connectClosestJunctionBoxes
-  _
   (newConnection@(_, jb1, jb2) : connections, circuits) =
     (connections, circuits', newConnection)
     where
       circuits' =
-        mergeCircuits circuits (Map.keys jb1Key) (Map.keys jb2Key) newConnection
+        mergeCircuits circuits (keys jb1Key) (keys jb2Key) newConnection
       jb1Key = Map.filter (elem jb1) circuits
       jb2Key = Map.filter (elem jb2) circuits
 
