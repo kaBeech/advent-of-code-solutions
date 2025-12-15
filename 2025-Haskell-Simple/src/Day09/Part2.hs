@@ -1,11 +1,9 @@
-{-# LANGUAGE TupleSections #-}
-
 module Day09.Part2 (solvePart2) where
 
 import Data.List (sort, sortBy)
 import Data.Ord (Down (..), comparing)
 import Data.Text (Text, lines)
-import Util.Coordinates (XYCoordinates, fromXY)
+import Util.Coordinates (XYCoordinates)
 import Util.Text (toXY)
 import qualified Util.Tuple as Tuple
 import Prelude hiding (lines)
@@ -13,16 +11,16 @@ import Prelude hiding (lines)
 solvePart2 :: Text -> String
 solvePart2 input = show res
   where
-    -- res = take 1 $ sortBy (comparing Down) allRectangles
     res = biggestValidRectangle
-    biggestValidRectangle = head $ dropWhile (notAllTilesRedAndGreen borderTiles) $ sortBy (comparing Down) allRectangles
+    biggestValidRectangle = head $ dropWhile (notAllTilesRedAndGreen redTiles borderTiles) $ sortBy (comparing Down) allRectangles
     allRectangles = [(area a b, a, b) | a <- redTiles, b <- redTiles, a > b]
-    redTiles = map toXY $ lines input
-    borderTiles = drop 1 $ paintTiles [] (redTiles ++ [head redTiles])
+    redTiles' = map toXY $ lines input
+    redTiles = sort redTiles'
+    borderTiles = sort $ drop 1 $ paintTiles [] (redTiles' ++ [head redTiles'])
 
-notAllTilesRedAndGreen :: [XYCoordinates] -> (Int, XYCoordinates, XYCoordinates) -> Bool
-notAllTilesRedAndGreen borderTiles (_, _cornerTile1@(x1, y1), _cornerTile2@(x2, y2)) =
-  borderTilesInside
+notAllTilesRedAndGreen :: [XYCoordinates] -> [XYCoordinates] -> (Int, XYCoordinates, XYCoordinates) -> Bool
+notAllTilesRedAndGreen redTiles borderTiles (_, _cornerTile1@(x1, y1), _cornerTile2@(x2, y2)) =
+  redTilesInside || any borderTilesInsideParallelRedTiles parallelRedTiles || borderTilesInside
   where
     -- [minX, maxX] = sort [x1, x2]
     -- [minY, maxY] = sort [y1, y2]
@@ -30,8 +28,11 @@ notAllTilesRedAndGreen borderTiles (_, _cornerTile1@(x1, y1), _cornerTile2@(x2, 
     maxX = max x1 x2
     minY = min y1 y2
     maxY = max y1 y2
-    sortedBorderTiles = sort borderTiles
-    borderTilesInside = or (take 1 [True | (x', y') <- sortedBorderTiles, x' > minX, y' > minY, y' < maxY, x' < maxX])
+    parallelRedTiles = [((x', y'), (x'', y'')) | a@(x', y') <- redTilesOnBorder, b@(x'', y'') <- redTilesOnBorder, a /= b, (x' == x'') || (y' == y'')]
+    redTilesOnBorder = [(x', y') | (x', y') <- redTiles, ((x' == minX || x' == maxX) && y' > minY && y' < maxY) || ((y' == minY || y' == maxY) && x' > minX && x' < maxX)]
+    borderTilesInside = or (take 1 [True | (x', y') <- borderTiles, x' > minX, y' > minY, y' < maxY, x' < maxX])
+    redTilesInside = or (take 1 [True | (x', y') <- redTiles, x' > minX, y' > minY, y' < maxY, x' < maxX])
+    borderTilesInsideParallelRedTiles ((x', y'), (x'', y'')) = if x' == x'' then or (take 1 [True | (x''', y''') <- borderTiles, x''' == x', y''' > min y' y'', y''' < max y' y'']) else or (take 1 [True | (x''', y''') <- borderTiles, y''' == y', x''' > min x' x'', x''' < max x' x''])
 
 area :: XYCoordinates -> XYCoordinates -> Int
 area (x1, y1) (x2, y2) = sideLength x1 x2 * sideLength y1 y2
