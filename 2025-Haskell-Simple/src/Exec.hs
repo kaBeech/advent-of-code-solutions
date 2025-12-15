@@ -19,6 +19,8 @@ import qualified Day08.Part1
 import qualified Day08.Part2
 import qualified Day09.Part1
 import qualified Day09.Part2
+import qualified Day10.Part1
+import qualified Day10.Part2
 
 execDay :: Int -> String -> (String, String)
 execDay n input = case n of
@@ -41,7 +43,7 @@ execDay n input = case n of
   9 ->
     (Day09.Part1.solvePart1 $ pack input, Day09.Part2.solvePart2 $ pack input)
   10 ->
-    ("Day 10 Part 1 not yet implemented", "Day 10 Part 2 not yet implemented")
+    (Day10.Part1.solvePart1 $ pack input, Day10.Part2.solvePart2 $ pack input)
   11 ->
     ("Day 11 Part 1 not yet implemented", "Day 11 Part 2 not yet implemented")
   12 ->
@@ -63,4 +65,4 @@ isValidDay :: Int -> Bool
 isValidDay n = n `elem` validDays
 
 validDays :: [Int]
-validDays = [1 .. 9]
+validDays = [1 .. 10]
