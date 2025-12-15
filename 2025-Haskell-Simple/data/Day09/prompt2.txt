@@ -1,1 +1,1 @@
-Unknown
+Using two red tiles as opposite corners, what is the largest area of any rectangle you can make using only red and green tiles?
